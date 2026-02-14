@@ -1,0 +1,13 @@
+INDEX VERSION 1.134+C:\ProyectoEclipse\ProyectoPokemon\.metadata\.plugins\org.eclipse.jdt.core
+1543185583.index
+3213293253.index
+3337930201.index
+1865797976.index
+3069480330.index
+3251249088.index
+3637759917.index
+3726217816.index
+2641260373.index
+1011003380.index
+2778701315.index
+2827197593.index
