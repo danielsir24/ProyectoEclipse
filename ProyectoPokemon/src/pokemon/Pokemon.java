@@ -33,17 +33,11 @@ public class Pokemon {
 		NORMAL, FUEGO, AGUA, PLANTA, ELECTRICO, HIELO, LUCHA, VENENO, TIERRA, VOLADOR, PSIQUICO, BICHO, ROCA, FANTASMA,
 		DRAGON
 	}
-	
+
 	public enum Estado {
-	    NORMAL,
-	    PARALIZADO,
-	    QUEMADO,
-	    ENVENENADO,
-	    DORMIDO,
-	    CONGELADO,
-	    CONFUSO
+		NORMAL, PARALIZADO, QUEMADO, ENVENENADO, DORMIDO, CONGELADO, CONFUSO
 	}
-	//Constructor
+	// Constructor
 
 	public Pokemon(String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial,
 			int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia, int fertilidad, Sexo sexo,
@@ -69,7 +63,8 @@ public class Pokemon {
 		this.estado = estado;
 		this.objeto = objeto;
 	}
-	//Constructor copia
+
+	// Constructor copia
 	public Pokemon(Pokemon p) {
 		super();
 		this.nombre = p.nombre;
@@ -92,8 +87,7 @@ public class Pokemon {
 		this.objeto = p.objeto;
 	}
 
-	
-	//Constructor por defecto
+	// Constructor por defecto
 	public Pokemon() {
 		super();
 		this.nombre = "";
@@ -110,122 +104,177 @@ public class Pokemon {
 		this.fertilidad = 5;
 		this.sexo = sexo.MACHO;
 		this.movimientos = new ArrayList<>();
-		this.movimientosDisponibles =  new ArrayList<>();
+		this.movimientosDisponibles = new ArrayList<>();
 		this.tipos = new ArrayList<>();
 		this.estado = Estado.NORMAL;
 		this.objeto = null;
 	}
-	
-	
-	//Getter y setter
+
+	// Getter y setter
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getMote() {
 		return mote;
 	}
+
 	public void setMote(String mote) {
 		this.mote = mote;
 	}
+
 	public int getVitalidad() {
 		return vitalidad;
 	}
+
 	public void setVitalidad(int vitalidad) {
 		this.vitalidad = vitalidad;
 	}
+
 	public int getAtaque() {
 		return ataque;
 	}
+
 	public void setAtaque(int ataque) {
 		this.ataque = ataque;
 	}
+
 	public int getDefensa() {
 		return defensa;
 	}
+
 	public void setDefensa(int defensa) {
 		this.defensa = defensa;
 	}
+
 	public int getAtaqueEspecial() {
 		return ataqueEspecial;
 	}
+
 	public void setAtaqueEspecial(int ataqueEspecial) {
 		this.ataqueEspecial = ataqueEspecial;
 	}
+
 	public int getDefensaEspecial() {
 		return defensaEspecial;
 	}
+
 	public void setDefensaEspecial(int defensaEspecial) {
 		this.defensaEspecial = defensaEspecial;
 	}
+
 	public int getVelocidad() {
 		return velocidad;
 	}
+
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
 	}
+
 	public int getEstamina() {
 		return estamina;
 	}
+
 	public void setEstamina(int estamina) {
 		this.estamina = estamina;
 	}
+
 	public int getNivel() {
 		return nivel;
 	}
+
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
+
 	public int getExperiencia() {
 		return experiencia;
 	}
+
 	public void setExperiencia(int experiencia) {
 		this.experiencia = experiencia;
 	}
+
 	public int getFertilidad() {
 		return fertilidad;
 	}
+
 	public void setFertilidad(int fertilidad) {
 		this.fertilidad = fertilidad;
 	}
+
 	public Sexo getSexo() {
 		return sexo;
 	}
+
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
+
 	public List<Movimiento> getMovimientos() {
 		return movimientos;
 	}
+
 	public void setMovimientos(List<Movimiento> movimientos) {
 		this.movimientos = movimientos;
 	}
+
 	public List<Movimiento> getMovimientosDisponibles() {
 		return movimientosDisponibles;
 	}
+
 	public void setMovimientosDisponibles(List<Movimiento> movimientosDisponibles) {
 		this.movimientosDisponibles = movimientosDisponibles;
 	}
+
 	public List<Tipo> getTipos() {
 		return tipos;
 	}
+
 	public void setTipos(List<Tipo> tipos) {
 		this.tipos = tipos;
 	}
+
 	public Estado getEstado() {
 		return estado;
 	}
+
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+
 	public Objeto getObjeto() {
 		return objeto;
 	}
+
 	public void setObjeto(Objeto objeto) {
 		this.objeto = objeto;
 	}
-	
-	//Metodos (NO ESTAN HECHOS TODAVIA)
+
+	// Método para subir de nivel
+	private void subirNivel() {
+		experiencia -= 10 * nivel;
+		nivel++;
+
+		System.out.println("El pokemon ha subido de nivel -------Nivel------" +nivel);
+		System.out.println("Subida de nivel:");
+		this.vitalidad += random.nextInt(5) + 1;
+		this.ataque += random.nextInt(5) + 1;
+		this.defensa += random.nextInt(5) + 1;
+		this.ataqueEspecial += random.nextInt(5) + 1;
+		this.defensaEspecial += random.nextInt(5) + 1;
+		this.velocidad += random.nextInt(5) + 1;
+		
+		System.out.println("Las nuevas estidisticas son: ");
+		System.out.println("Vitalidad: " +vitalidad);
+		System.out.println("Ataque: " +ataque);
+		System.out.println("Defensa: " +defensa);
+		System.out.println("Ataque Especial: " +ataqueEspecial);
+		System.out.println("Defensa Especial: " +defensaEspecial);
+		System.out.println("Velocidad: " +velocidad);
+	}
 }
