@@ -1,15 +1,13 @@
 package pokemon;
 
 public class Entrenador {
-    private int id_Entrenador;
-    private String nom_Entrenador;
-    private String password;
-    private String img_Entrenador;
-    private int pokedollars;
-    private String tipo_Entrenador;
-    
-    
-    //Todos los parametros
+	private int id_Entrenador;
+	private String nom_Entrenador;
+	private String password;
+	private String img_Entrenador;
+	private int pokedollars;
+	private String tipo_Entrenador;
+
 	public Entrenador(int id_Entrenador, String nom_Entrenador, String password, String img_Entrenador, int pokedollars,
 			String tipo_Entrenador) {
 		super();
@@ -20,13 +18,34 @@ public class Entrenador {
 		this.pokedollars = pokedollars;
 		this.tipo_Entrenador = tipo_Entrenador;
 	}
-    
-	//contructor vacío
+
 	public Entrenador() {
 		super();
 	}
 
-	//Getters and Setters
+	public void ganarPokedollars(int cantidad) {
+		if (cantidad > 0) {
+			this.pokedollars += cantidad;
+		}
+	}
+
+	public boolean gastarPokedollars(int precio) {
+		if (precio > 0 && this.pokedollars >= precio) {
+			this.pokedollars -= precio;
+			return true;
+		}
+		return false;
+	}
+
+	public boolean comprobarPassword(String intento) {
+		return this.password != null && this.password.equals(intento);
+	}
+
+	public void mostrarPerfil() {
+		System.out.println("ID: " + this.id_Entrenador + " | Nombre: " + this.nom_Entrenador + " | Clase: "
+				+ this.tipo_Entrenador + " | Dinero: " + this.pokedollars + " ₽");
+	}
+
 	public int getId_Entrenador() {
 		return id_Entrenador;
 	}
@@ -74,6 +93,4 @@ public class Entrenador {
 	public void setTipo_Entrenador(String tipo_Entrenador) {
 		this.tipo_Entrenador = tipo_Entrenador;
 	}
-     
-    
 }
