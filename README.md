@@ -3,5 +3,5 @@
 👥 Equipo de Desarrollo 👥
 * Juan Carlos Benítez Ortega (@jcbenitezz) 
 * Daniel Sirbu mihuta (@danielsir24)
-* Adrián (@usuario3) 
+* Adrián (@adrianrodrigueznav) 
 * Alejandro (@usuario4) 
