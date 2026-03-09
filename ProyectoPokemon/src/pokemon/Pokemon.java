@@ -134,41 +134,166 @@ public class Pokemon {
 		System.out.println("¡" + nombre + " subió al nivel " + nivel + "!");
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getMote() {
+		return mote;
+	}
+
+	public void setMote(String mote) {
+		this.mote = mote;
+	}
+
+	public int getVitalidad() {
+		return vitalidad;
+	}
+
+	public void setVitalidad(int vitalidad) {
+		this.vitalidad = vitalidad;
+	}
+
+	public int getVitalidadMaxima() {
+		return vitalidadMaxima;
+	}
+
+	public void setVitalidadMaxima(int vitalidadMaxima) {
+		this.vitalidadMaxima = vitalidadMaxima;
+	}
+
+	public int getAtaque() {
+		return ataque;
+	}
+
+	public void setAtaque(int ataque) {
+		this.ataque = ataque;
+	}
+
+	public int getDefensa() {
+		return defensa;
+	}
+
+	public void setDefensa(int defensa) {
+		this.defensa = defensa;
+	}
+
+	public int getAtaqueEspecial() {
+		return ataqueEspecial;
+	}
+
+	public void setAtaqueEspecial(int ataqueEspecial) {
+		this.ataqueEspecial = ataqueEspecial;
+	}
+
+	public int getDefensaEspecial() {
+		return defensaEspecial;
+	}
+
+	public void setDefensaEspecial(int defensaEspecial) {
+		this.defensaEspecial = defensaEspecial;
+	}
+
+	public int getVelocidad() {
+		return velocidad;
+	}
+
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
+	}
+
+	public int getEstamina() {
+		return estamina;
+	}
+
+	public void setEstamina(int estamina) {
+		this.estamina = estamina;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
+	public int getExperiencia() {
+		return experiencia;
+	}
+
+	public void setExperiencia(int experiencia) {
+		this.experiencia = experiencia;
+	}
+
+	public int getFertilidad() {
+		return fertilidad;
+	}
+
+	public void setFertilidad(int fertilidad) {
+		this.fertilidad = fertilidad;
+	}
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+
+	public List<Movimiento> getMovimientos() {
+		return movimientos;
+	}
+
+	public void setMovimientos(List<Movimiento> movimientos) {
+		this.movimientos = movimientos;
+	}
+
+	public List<Movimiento> getMovimientosDisponibles() {
+		return movimientosDisponibles;
+	}
+
+	public void setMovimientosDisponibles(List<Movimiento> movimientosDisponibles) {
+		this.movimientosDisponibles = movimientosDisponibles;
+	}
+
+	public List<Tipo> getTipos() {
+		return tipos;
+	}
+
+	public void setTipos(List<Tipo> tipos) {
+		this.tipos = tipos;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public Objeto getObjeto() {
+		return objeto;
+	}
+
+	public void setObjeto(Objeto objeto) {
+		this.objeto = objeto;
+	}
+
+	public Random getRandom() {
+		return random;
+	}
+
+	public void setRandom(Random random) {
+		this.random = random;
+	}
+
 	// Getters y Setters completos
-	public String getNombre() { return nombre; }
-	public void setNombre(String nombre) { this.nombre = nombre; }
-	public String getMote() { return mote; }
-	public void setMote(String mote) { this.mote = mote; }
-	public int getVitalidad() { return vitalidad; }
-	public void setVitalidad(int vitalidad) { this.vitalidad = vitalidad; }
-	public int getAtaque() { return ataque; }
-	public void setAtaque(int ataque) { this.ataque = ataque; }
-	public int getDefensa() { return defensa; }
-	public void setDefensa(int defensa) { this.defensa = defensa; }
-	public int getAtaqueEspecial() { return ataqueEspecial; }
-	public void setAtaqueEspecial(int ataqueEspecial) { this.ataqueEspecial = ataqueEspecial; }
-	public int getDefensaEspecial() { return defensaEspecial; }
-	public void setDefensaEspecial(int defensaEspecial) { this.defensaEspecial = defensaEspecial; }
-	public int getVelocidad() { return velocidad; }
-	public void setVelocidad(int velocidad) { this.velocidad = velocidad; }
-	public int getEstamina() { return estamina; }
-	public void setEstamina(int estamina) { this.estamina = estamina; }
-	public int getNivel() { return nivel; }
-	public void setNivel(int nivel) { this.nivel = nivel; }
-	public int getExperiencia() { return experiencia; }
-	public void setExperiencia(int experiencia) { this.experiencia = experiencia; }
-	public int getFertilidad() { return fertilidad; }
-	public void setFertilidad(int fertilidad) { this.fertilidad = fertilidad; }
-	public Sexo getSexo() { return sexo; }
-	public void setSexo(Sexo sexo) { this.sexo = sexo; }
-	public List<Movimiento> getMovimientos() { return movimientos; }
-	public void setMovimientos(List<Movimiento> movimientos) { this.movimientos = movimientos; }
-	public List<Movimiento> getMovimientosDisponibles() { return movimientosDisponibles; }
-	public void setMovimientosDisponibles(List<Movimiento> movimientosDisponibles) { this.movimientosDisponibles = movimientosDisponibles; }
-	public List<Tipo> getTipos() { return tipos; }
-	public void setTipos(List<Tipo> tipos) { this.tipos = tipos; }
-	public Estado getEstado() { return estado; }
-	public void setEstado(Estado estado) { this.estado = estado; }
-	public Objeto getObjeto() { return objeto; }
-	public void setObjeto(Objeto objeto) { this.objeto = objeto; }
+	
 }
