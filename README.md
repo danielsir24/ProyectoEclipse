@@ -4,4 +4,4 @@
 * Juan Carlos Benítez Ortega (@jcbenitezz) 
 * Daniel Sirbu mihuta (@danielsir24)
 * Adrián (@adrianrodrigueznav) 
-* Alejandro (@usuario4) 
+* Alejandro (@auvemm) 
