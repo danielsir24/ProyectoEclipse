@@ -18,7 +18,7 @@ public class Pokemon {
 	private int experiencia;
 	private int fertilidad;
 	private Sexo sexo;
-	private List<Movimiento> movimientos; // Máx 4
+	private List<Movimiento> movimientos;
 	private List<Movimiento> movimientosDisponibles;
 	private List<Tipo> tipos;
 	private Estado estado;
