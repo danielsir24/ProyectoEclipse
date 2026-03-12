@@ -1,26 +1,39 @@
 package pokemon;
 
 public class Mochila {
-    private int id_Entrenador;
-    private int id_Objeto;
-    private int cantidad;
-    
-    
-    //constructor con todos los parámetros
+	private int id_Entrenador;
+	private int id_Objeto;
+	private int cantidad;
+
 	public Mochila(int id_Entrenador, int id_Objeto, int cantidad) {
 		super();
 		this.id_Entrenador = id_Entrenador;
 		this.id_Objeto = id_Objeto;
 		this.cantidad = cantidad;
 	}
-    
-    // constructor vacío
+
 	public Mochila() {
 		super();
-		
 	}
 
-	//Getters and Setters
+	public void anadirObjeto(int cantidadExtra) {
+		if (cantidadExtra > 0) {
+			this.cantidad += cantidadExtra;
+		}
+	}
+
+	public boolean usarObjeto(int cantidadUsada) {
+		if (cantidadUsada > 0 && this.cantidad >= cantidadUsada) {
+			this.cantidad -= cantidadUsada;
+			return true;
+		}
+		return false;
+	}
+
+	public boolean haySuficiente(int cantidadRequerida) {
+		return this.cantidad >= cantidadRequerida;
+	}
+
 	public int getId_Entrenador() {
 		return id_Entrenador;
 	}
@@ -44,7 +57,4 @@ public class Mochila {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-    
-    
-    
 }

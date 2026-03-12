@@ -1,17 +1,14 @@
 package pokemon;
 
 public class Pokedex {
-	
-	
+
 	private int num_Pokedex;
 	private String tipo1;
 	private String tipo2;
 	private String img_Back;
 	private String sonido;
 	private String img_Frontal;
-	
-	
-	//constructor todos los parámetros
+
 	public Pokedex(int num_Pokedex, String tipo1, String tipo2, String img_Back, String sonido, String img_Frontal) {
 		super();
 		this.num_Pokedex = num_Pokedex;
@@ -21,11 +18,25 @@ public class Pokedex {
 		this.sonido = sonido;
 		this.img_Frontal = img_Frontal;
 	}
-	
-	//constructor vacío
+
 	public Pokedex() {
 		super();
-		
+	}
+
+	public boolean tieneSegundoTipo() {
+		return tipo2 != null && !tipo2.isEmpty() && !tipo2.equalsIgnoreCase("ninguno");
+	}
+
+	public String getRutaImagen(boolean frontal) {
+		return frontal ? img_Frontal : img_Back;
+	}
+
+	public void mostrarInfoBasica() {
+		String tipos = tipo1;
+		if (tieneSegundoTipo()) {
+			tipos += " / " + tipo2;
+		}
+		System.out.println("Nº Pokedex: " + num_Pokedex + " | Tipos: " + tipos);
 	}
 
 	public int getNum_Pokedex() {
@@ -75,7 +86,4 @@ public class Pokedex {
 	public void setImg_Frontal(String img_Frontal) {
 		this.img_Frontal = img_Frontal;
 	}
-	
-	
-	
 }
