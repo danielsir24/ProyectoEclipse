@@ -5,22 +5,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
-        // Cargar el archivo FXML
+    public void start(Stage primaryStage) throws Exception {
+
+        // Cargar escena de Login
         Parent root = FXMLLoader.load(getClass().getResource("/EscenaLogin.fxml"));
 
-        Scene scene = new Scene(root);
-        stage.setTitle("Login");
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setTitle("Login Pokémon");
+        primaryStage.setResizable(false); 
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setMaximized(false);
+        primaryStage.show();
+
+
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }

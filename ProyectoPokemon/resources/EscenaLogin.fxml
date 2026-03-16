@@ -10,31 +10,64 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="761.0" prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pokemon.MainController">
+
    <children>
-      <ImageView fitHeight="765.0" fitWidth="1280.0" layoutY="-4.0" pickOnBounds="true" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
-         <viewport>
-            <Rectangle2D />
-         </viewport>
+
+      <ImageView fitHeight="765.0" fitWidth="1280.0" layoutY="-4.0" pickOnBounds="true">
          <image>
-            <Image url="@images/ImagenLogin.jpeg" />
+            <Image url="@images/ImagenLogin.jpeg"/>
          </image>
       </ImageView>
-      <Button layoutX="520.0" layoutY="458.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="254.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: gray; -fx-border-color: 15; -fx-border-width: 4;" text="Iniciar Sesión">
+
+      <Button layoutX="520.0" layoutY="458.0"
+              prefHeight="34.0" prefWidth="254.0"
+              text="Iniciar Sesión"
+              onAction="#handleLogin"
+              style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: gray; -fx-border-color: 15; -fx-border-width: 4;">
+
          <font>
-            <Font name="Pokemon Solid Normal" size="20.0" />
-         </font></Button>
-      <TextField layoutX="520.0" layoutY="284.0" prefHeight="41.0" prefWidth="254.0" promptText="Usuario" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right, #44bba0, #216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-size: 14; -fx-padding: 10; -fx-font-family: &quot;Segoe UI&quot;, sans-serif;" />
-      <PasswordField layoutX="520.0" layoutY="379.0" prefHeight="41.0" prefWidth="254.0" promptText="Usuario" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right, #44bba0, #216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-family: &quot;Segoe UI&quot;, sans-serif; -fx-font-size: 14; -fx-padding: 10;" />
+            <Font name="Pokemon Solid Normal" size="20.0"/>
+         </font>
+
+      </Button>
+
+      <TextField fx:id="usernameField"
+                 layoutX="520.0"
+                 layoutY="284.0"
+                 prefHeight="41.0"
+                 prefWidth="254.0"
+                 promptText="Usuario"
+                 style="-fx-background-color: rgba(255,255,255,0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right,#44bba0,#216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-size: 14; -fx-padding: 10;" />
+
+      <PasswordField fx:id="passwordField"
+                     layoutX="520.0"
+                     layoutY="379.0"
+                     prefHeight="41.0"
+                     prefWidth="254.0"
+                     promptText="Contraseña"
+                     style="-fx-background-color: rgba(255,255,255,0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right,#44bba0,#216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-size: 14; -fx-padding: 10;" />
+
       <Label layoutX="526.0" layoutY="245.0" text="Usuario" textFill="WHITE">
          <font>
-            <Font name="Pokemon Solid Normal" size="20.0" />
+            <Font name="Pokemon Solid Normal" size="20.0"/>
          </font>
       </Label>
+
       <Label layoutX="526.0" layoutY="342.0" text="Contraseña" textFill="WHITE">
          <font>
-            <Font name="Pokemon Solid Normal" size="20.0" />
+            <Font name="Pokemon Solid Normal" size="20.0"/>
          </font>
       </Label>
+
+      <Label fx:id="errorLabel"
+             layoutX="520"
+             layoutY="510"
+             textFill="red"/>
+
    </children>
+
 </AnchorPane>
