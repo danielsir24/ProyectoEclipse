@@ -2,26 +2,39 @@
 
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="765.0" fitWidth="1280.0" layoutY="-4.0" pickOnBounds="true" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
          <viewport>
             <Rectangle2D />
          </viewport>
          <image>
-            <Image url="@images/Image.jpg" />
+            <Image url="@images/ImagenLogin.jpeg" />
          </image>
       </ImageView>
-      <Button layoutX="181.0" layoutY="212.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(to right, #ffe699 0%, #ffccaa 50%, #ffb3bf 100%); -fx-background-radius: 25; -fx-border-color: #ff99aa; -fx-border-radius: 25; -fx-border-width: 2.5; -fx-text-fill: black; -fx-font-size: 10;" text="Iniciar Sesión" />
-      <Button layoutX="300.0" layoutY="212.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(to right, #ffe699 0%, #ffccaa 50%, #ffb3bf 100%); -fx-background-radius: 25; -fx-border-color: #ff99aa; -fx-border-radius: 25; -fx-border-width: 2.5; -fx-text-fill: black; -fx-font-size: 10;" text="Registrarse" />
-      <TextField layoutX="224.0" layoutY="124.0" promptText="Usuario" />
-      <PasswordField layoutX="224.0" layoutY="170.0" promptText="Contraseña" />
+      <Button layoutX="520.0" layoutY="458.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="254.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: gray; -fx-border-color: 15; -fx-border-width: 4;" text="Iniciar Sesión">
+         <font>
+            <Font name="Pokemon Solid Normal" size="20.0" />
+         </font></Button>
+      <TextField layoutX="520.0" layoutY="284.0" prefHeight="41.0" prefWidth="254.0" promptText="Usuario" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right, #44bba0, #216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-size: 14; -fx-padding: 10; -fx-font-family: &quot;Segoe UI&quot;, sans-serif;" />
+      <PasswordField layoutX="520.0" layoutY="379.0" prefHeight="41.0" prefWidth="254.0" promptText="Usuario" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right, #44bba0, #216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-family: &quot;Segoe UI&quot;, sans-serif; -fx-font-size: 14; -fx-padding: 10;" />
+      <Label layoutX="526.0" layoutY="245.0" text="Usuario" textFill="WHITE">
+         <font>
+            <Font name="Pokemon Solid Normal" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="526.0" layoutY="342.0" text="Contraseña" textFill="WHITE">
+         <font>
+            <Font name="Pokemon Solid Normal" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
