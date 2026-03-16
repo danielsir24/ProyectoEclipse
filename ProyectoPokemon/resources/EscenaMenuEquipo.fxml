@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="629.0" style="-fx-background-image: url(&quot;https://img.freepik.com/vector-gratis/fondo-diseno-textura-acuarela-verde-suave_1055-21581.jpg?semt=ais_hybrid&amp;w=740&amp;q=80&quot;); -fx-background-size: cover;: https://img.freepik.com/vector-gratis/fondo-diseno-textura-acuarela-verde-suave_1055-21581.jpg?semt=ais_hybrid&amp;w=740&amp;q=80;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <image>
+            <Image url="@images/ImagenFondoVistaEquipo.png" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <GridPane hgap="15.0" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="374.0" prefWidth="618.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-background-color: transparent;: 1;" stylesheets="@EstilosMenuEquipo.css" vgap="15.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <AnchorPane layoutX="317.0" layoutY="5.0" prefHeight="142.0" prefWidth="263.0">
+               <children>
+                  <Rectangle fx:id="rectFondo1" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.37925925850868225" green="0.800000011920929" blue="0.4914567768573761" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow offsetX="2.0" offsetY="5.0">
+                           <color>
+                              <Color opacity="0.3009117841720581" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Rectangle>
+                  <Button fx:id="bttn1" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
+                  <ImageView fx:id="imgPokemon1" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
+                  <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
+                     <children>
+                        <HBox fx:id="lblNivel_1" prefHeight="22.0" prefWidth="190.0">
+                           <children>
+                              <Label fx:id="lblNombre1" text="Nombre" />
+                              <ImageView fx:id="imgGenero1" fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblNivel1" text="Nv.XX" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
+                        </HBox>
+                        <Label fx:id="lblPV1" prefHeight="32.0" prefWidth="126.0" text="PV">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="hpBar1" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                        <Label fx:id="lblEXP1" prefHeight="32.0" prefWidth="126.0" text="EXP">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="expBar1" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" prefHeight="142.0" prefWidth="263.0" GridPane.columnIndex="1">
+               <children>
+                  <Rectangle fx:id="rectFondo11" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.37925925850868225" green="0.800000011920929" blue="0.4914567768573761" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow offsetX="2.0" offsetY="5.0">
+                           <color>
+                              <Color opacity="0.3009117841720581" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Rectangle>
+                  <Button fx:id="bttn2" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
+                  <ImageView fx:id="imgPokemon2" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
+                  <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
+                     <children>
+                        <HBox fx:id="lblNivel_11" prefHeight="22.0" prefWidth="190.0">
+                           <children>
+                              <Label fx:id="lblNombre2" text="Nombre" />
+                              <ImageView fx:id="imgGenero2" fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblNivel2" text="Nv.XX" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
+                        </HBox>
+                        <Label fx:id="lblPV2" prefHeight="32.0" prefWidth="126.0" text="PV">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="hpBar2" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                        <Label fx:id="lblEXP2" prefHeight="32.0" prefWidth="126.0" text="EXP">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="expBar2" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="317.0" prefHeight="142.0" prefWidth="263.0" GridPane.rowIndex="1">
+               <children>
+                  <Rectangle fx:id="rectFondo111" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.37925925850868225" green="0.800000011920929" blue="0.4914567768573761" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow offsetX="2.0" offsetY="5.0">
+                           <color>
+                              <Color opacity="0.3009117841720581" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Rectangle>
+                  <Button fx:id="bttn3" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
+                  <ImageView fx:id="imgPokemon3" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
+                  <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
+                     <children>
+                        <HBox prefHeight="22.0" prefWidth="190.0">
+                           <children>
+                              <Label fx:id="lblNombre3" text="Nombre" />
+                              <ImageView fx:id="imgGenero3" fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblNivel3" text="Nv.XX" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
+                        </HBox>
+                        <Label fx:id="lblPV3" prefHeight="32.0" prefWidth="126.0" text="PV">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="hpBar3" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                        <Label fx:id="lblEXP3" prefHeight="32.0" prefWidth="126.0" text="EXP">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="expBar3" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="139.0" prefHeight="142.0" prefWidth="263.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Rectangle fx:id="rectFondo1111" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.37925925850868225" green="0.800000011920929" blue="0.4914567768573761" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow offsetX="2.0" offsetY="5.0">
+                           <color>
+                              <Color opacity="0.3009117841720581" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Rectangle>
+                  <Button fx:id="bttn4" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
+                  <ImageView fx:id="imgPokemon4" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
+                  <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
+                     <children>
+                        <HBox fx:id="lblNivel_1111" prefHeight="22.0" prefWidth="190.0">
+                           <children>
+                              <Label fx:id="lblNombre4" text="Nombre" />
+                              <ImageView fx:id="imgGenero4" fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblNivel4" text="Nv.XX" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
+                        </HBox>
+                        <Label fx:id="lblPV4" prefHeight="32.0" prefWidth="126.0" text="PV">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="hpBar4" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                        <Label fx:id="lblEXP4" prefHeight="32.0" prefWidth="126.0" text="EXP">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="expBar4" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="317.0" layoutY="139.0" prefHeight="142.0" prefWidth="263.0" GridPane.rowIndex="2">
+               <children>
+                  <Rectangle fx:id="rectFondo11111" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.37925925850868225" green="0.800000011920929" blue="0.4914567768573761" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow offsetX="2.0" offsetY="5.0">
+                           <color>
+                              <Color opacity="0.3009117841720581" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Rectangle>
+                  <Button fx:id="bttn5" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
+                  <ImageView fx:id="imgPokemon5" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
+                  <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
+                     <children>
+                        <HBox fx:id="lblNivel_11111" prefHeight="22.0" prefWidth="190.0">
+                           <children>
+                              <Label fx:id="lblNombre5" text="Nombre" />
+                              <ImageView fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblNivel5" text="Nv.XX" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
+                        </HBox>
+                        <Label fx:id="lblPV5" prefHeight="32.0" prefWidth="126.0" text="PV">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="hpBar5" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                        <Label fx:id="lblEXP5" prefHeight="32.0" prefWidth="126.0" text="EXP">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="expBar5" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="278.0" prefHeight="142.0" prefWidth="263.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Rectangle fx:id="rectFondo111111" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.37925925850868225" green="0.800000011920929" blue="0.4914567768573761" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <effect>
+                        <DropShadow offsetX="2.0" offsetY="5.0">
+                           <color>
+                              <Color opacity="0.3009117841720581" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Rectangle>
+                  <Button fx:id="bttn6" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
+                  <ImageView fx:id="imgPokemon6" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
+                  <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
+                     <children>
+                        <HBox fx:id="lblNivel_111111" prefHeight="22.0" prefWidth="190.0">
+                           <children>
+                              <Label fx:id="lblNombre6" text="Nombre" />
+                              <ImageView fx:id="imgGenero6" fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblNivel111111" text="Nv.XX" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
+                        </HBox>
+                        <Label fx:id="lblPV6" prefHeight="32.0" prefWidth="126.0" text="PV">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="hpBar6" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                        <Label fx:id="lblEXP6" prefHeight="32.0" prefWidth="126.0" text="EXP">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ProgressBar fx:id="expBar6" maxHeight="-Infinity" prefHeight="6.0" prefWidth="190.0" progress="0.0">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ProgressBar>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

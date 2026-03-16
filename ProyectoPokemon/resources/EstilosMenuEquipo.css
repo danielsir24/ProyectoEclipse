@@ -1,0 +1,26 @@
+/* Estilo para todas las barras */
+.progress-bar {
+    -fx-min-height: 14px;
+    -fx-pref-height: 14px;
+    -fx-background-color: #333333; /* El borde oscuro tipo GameBoy */
+    -fx-padding: 2px;
+}
+
+/* El fondo de la barra (lo que no está lleno) */
+.progress-bar .track {
+    -fx-background-color: #444444; 
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+/* El relleno de la barra (el color) */
+.progress-bar .bar {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+/* Colores específicos que activaremos después */
+.hp-verde .bar { -fx-background-color: #70f8a8; }
+.hp-amarillo .bar { -fx-background-color: #f8e038; }
+.hp-rojo .bar { -fx-background-color: #f85838; }
+.exp-azul .bar { -fx-background-color: #42a1ff; }
