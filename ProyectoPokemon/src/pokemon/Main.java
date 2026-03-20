@@ -13,7 +13,6 @@ public class Main extends Application {
 
         // Cargar escena de Login
         Parent root = FXMLLoader.load(getClass().getResource("/EscenaLogin.fxml"));
-
         primaryStage.setTitle("Login Pokémon");
         primaryStage.setResizable(false); 
         primaryStage.setScene(new Scene(root));

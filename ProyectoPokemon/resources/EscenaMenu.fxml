@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.MainController">
    <children>
       <ImageView fitHeight="765.0" fitWidth="1280.0" pickOnBounds="true">
          <image>
@@ -129,7 +128,7 @@
                            </graphic>
                         </Button>
 
-                        <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.rowIndex="1">
+                        <Button fx:id="botonEquipo" mnemonicParsing="false" onAction="#handleEquipo" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.rowIndex="1">
                            <graphic>
                               <StackPane prefHeight="150.0" prefWidth="180.0">
                                  <children>

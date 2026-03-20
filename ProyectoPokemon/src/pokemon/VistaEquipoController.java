@@ -20,7 +20,6 @@ public class VistaEquipoController {
 	private Label lblPV1;
 	@FXML
 	private Label lblEXP1;
-
 	@FXML
 	private ProgressBar hpBar1;
 	@FXML
@@ -131,7 +130,7 @@ public class VistaEquipoController {
 	@FXML
 	private Rectangle rectFondo6;
 
-	// Metodo para cargar la fuente
+	//Metodo para cargar la fuente
 	@FXML
 	public void initialize() {
 		cargarFuentePersonalizada();
@@ -180,7 +179,7 @@ public class VistaEquipoController {
 	}
 
 	@FXML
-	private void seleccionarPokemon1() {
-		System.out.println("Has hecho clic en el Pokémon 1");
+	private void entrarPc() {
+		System.out.println("Has etrado en el PC");
 	}
 }

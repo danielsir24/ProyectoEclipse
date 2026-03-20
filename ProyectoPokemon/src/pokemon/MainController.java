@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.scene.text.Font;
 
 public class MainController {
 
@@ -22,6 +23,13 @@ public class MainController {
 
     @FXML
     private Label errorLabel;
+    
+    @FXML
+    private Label labelUser;
+    
+    @FXML
+    private Label labelPassword;
+    
 
     @FXML
     private void handleLogin(ActionEvent event) {
@@ -35,6 +43,12 @@ public class MainController {
         } else {
             errorLabel.setText("Usuario o contraseña incorrectos");
         }
+    }
+    
+    @FXML
+    private void handleEquipo(ActionEvent event) {
+    	 cambiarEscena(event, "/EscenaMenuEquipo.fxml", "Menú Equipo");
+    	
     }
 
     private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
@@ -57,4 +71,28 @@ public class MainController {
             }
         }
     }
+    @FXML
+	public void initialize() {
+		cargarFuentePersonalizada();
+	}
+
+	private void cargarFuentePersonalizada() {
+		try {
+			Font pokemonFont = Font.loadFont(getClass().getResourceAsStream("/fonts/pokemon.ttf"), 18);
+
+			if (pokemonFont != null) {
+				usernameField.setFont(pokemonFont);
+				passwordField.setFont(pokemonFont);
+				errorLabel.setFont(pokemonFont);
+				labelUser.setFont(pokemonFont);
+				labelPassword.setFont(pokemonFont);
+				
+
+			} else {
+				System.out.println("No se pudo cargar la fuente: comprueba la ruta.");
+			}
+		} catch (Exception e) {
+			System.out.println("Error al cargar la fuente: " + e.getMessage());
+		}
+	}
 }

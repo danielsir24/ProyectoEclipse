@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.effect.DropShadow?>
@@ -20,7 +19,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="629.0" style="-fx-background-image: url(&quot;https://img.freepik.com/vector-gratis/fondo-diseno-textura-acuarela-verde-suave_1055-21581.jpg?semt=ais_hybrid&amp;w=740&amp;q=80&quot;); -fx-background-size: cover;: https://img.freepik.com/vector-gratis/fondo-diseno-textura-acuarela-verde-suave_1055-21581.jpg?semt=ais_hybrid&amp;w=740&amp;q=80;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-image: url('/resources/images/ImagenFondoVistaEquipo.png'); -fx-background-size: cover;: https://img.freepik.com/vector-gratis/fondo-diseno-textura-acuarela-verde-suave_1055-21581.jpg?semt=ais_hybrid&amp;w=740&amp;q=80;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.VistaEquipoController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <cursor>
@@ -33,7 +32,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <GridPane hgap="15.0" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="374.0" prefWidth="618.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-background-color: transparent;: 1;" stylesheets="@EstilosMenuEquipo.css" vgap="15.0">
+      <GridPane hgap="15.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1232.0" style="-fx-border-color: black; -fx-border-width: 5; -fx-background-color: transparent;: 1;" stylesheets="@EstilosMenuEquipo.css" vgap="15.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,7 +45,7 @@
          <children>
             <AnchorPane layoutX="317.0" layoutY="5.0" prefHeight="142.0" prefWidth="263.0">
                <children>
-                  <Rectangle fx:id="rectFondo1" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                  <Rectangle fx:id="rectFondo1" arcHeight="25.0" arcWidth="25.0" height="117.0" layoutX="4.0" layoutY="11.2" opacity="0.5" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="287.0" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="11.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -71,7 +70,6 @@
                         </DropShadow>
                      </effect>
                   </Rectangle>
-                  <Button fx:id="bttn1" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
                   <ImageView fx:id="imgPokemon1" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
                   <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
                      <children>
@@ -121,7 +119,7 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" prefHeight="142.0" prefWidth="263.0" GridPane.columnIndex="1">
                <children>
-                  <Rectangle fx:id="rectFondo11" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                  <Rectangle fx:id="rectFondo11" arcHeight="25.0" arcWidth="25.0" height="117.0" layoutX="4.0" layoutY="11.2" opacity="0.5" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -146,7 +144,6 @@
                         </DropShadow>
                      </effect>
                   </Rectangle>
-                  <Button fx:id="bttn2" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
                   <ImageView fx:id="imgPokemon2" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
                   <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
                      <children>
@@ -194,9 +191,9 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="317.0" prefHeight="142.0" prefWidth="263.0" GridPane.rowIndex="1">
+            <AnchorPane layoutX="95.0" layoutY="23.0" prefHeight="142.0" prefWidth="263.0" GridPane.rowIndex="1">
                <children>
-                  <Rectangle fx:id="rectFondo111" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                  <Rectangle fx:id="rectFondo111" arcHeight="25.0" arcWidth="25.0" height="117.0" layoutX="4.0" layoutY="11.2" opacity="0.5" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -221,8 +218,7 @@
                         </DropShadow>
                      </effect>
                   </Rectangle>
-                  <Button fx:id="bttn3" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
-                  <ImageView fx:id="imgPokemon3" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
+                  <ImageView fx:id="imgPokemon3" fitHeight="80.0" fitWidth="80.0" layoutX="95.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
                   <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
                      <children>
                         <HBox prefHeight="22.0" prefWidth="190.0">
@@ -271,7 +267,7 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="139.0" prefHeight="142.0" prefWidth="263.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Rectangle fx:id="rectFondo1111" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                  <Rectangle fx:id="rectFondo1111" arcHeight="25.0" arcWidth="25.0" height="117.0" layoutX="4.0" layoutY="11.2" nodeOrientation="LEFT_TO_RIGHT" opacity="0.5" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -296,7 +292,6 @@
                         </DropShadow>
                      </effect>
                   </Rectangle>
-                  <Button fx:id="bttn4" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
                   <ImageView fx:id="imgPokemon4" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
                   <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
                      <children>
@@ -346,7 +341,7 @@
             </AnchorPane>
             <AnchorPane layoutX="317.0" layoutY="139.0" prefHeight="142.0" prefWidth="263.0" GridPane.rowIndex="2">
                <children>
-                  <Rectangle fx:id="rectFondo11111" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                  <Rectangle fx:id="rectFondo11111" arcHeight="25.0" arcWidth="25.0" height="117.0" layoutX="4.0" layoutY="11.2" opacity="0.5" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -371,7 +366,6 @@
                         </DropShadow>
                      </effect>
                   </Rectangle>
-                  <Button fx:id="bttn5" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
                   <ImageView fx:id="imgPokemon5" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
                   <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
                      <children>
@@ -421,7 +415,7 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="278.0" prefHeight="142.0" prefWidth="263.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Rectangle fx:id="rectFondo111111" arcHeight="25.0" arcWidth="25.0" height="131.0" layoutX="4.0" layoutY="11.2" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                  <Rectangle fx:id="rectFondo111111" arcHeight="25.0" arcWidth="25.0" height="117.0" layoutX="4.0" layoutY="11.2" opacity="0.5" stroke="#444444" strokeType="INSIDE" strokeWidth="3.0" width="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -446,7 +440,6 @@
                         </DropShadow>
                      </effect>
                   </Rectangle>
-                  <Button fx:id="bttn6" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePokemonClick" opacity="0.0" prefHeight="117.0" prefWidth="294.0" />
                   <ImageView fx:id="imgPokemon6" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="31.400000000000006" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="213.2" AnchorPane.topAnchor="31.0" />
                   <VBox layoutX="95.0" layoutY="23.0" prefHeight="93.0" prefWidth="190.0">
                      <children>
