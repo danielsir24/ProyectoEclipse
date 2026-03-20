@@ -1,18 +1,28 @@
 package pokemon; // Cambia esto por el nombre de tu paquete
 
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class VistaEquipoController {
 	
 	
 	@FXML
 	private Label lblEntrarPC;
+	@FXML
+	private Label errorLabel;
 	// Elementos de cada cuadro de cada pokemon (1-6)
 	// 1
 	@FXML
@@ -183,7 +193,31 @@ public class VistaEquipoController {
 	}
 
 	@FXML
-	private void entrarPc() {
-		System.out.println("Has etrado en el PC");
+	private void entrarPc(ActionEvent event) {
+		 cambiarEscena(event, "/EscenaPC.fxml", "PC de Pokemon");
+		
+		System.out.println("Has entrado en el PC");
 	}
+
+
+private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
+    try {
+
+        Parent root = FXMLLoader.load(getClass().getResource(fxml));
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle(titulo);
+        stage.setMaximized(false);
+        stage.show();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+        if (errorLabel != null) {
+            errorLabel.setText("Error al cargar la escena");
+        }
+    }
+}
 }
