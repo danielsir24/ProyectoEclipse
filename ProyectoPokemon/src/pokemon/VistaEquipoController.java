@@ -9,7 +9,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 public class VistaEquipoController {
-
+	
+	
+	@FXML
+	private Label lblEntrarPC;
 	// Elementos de cada cuadro de cada pokemon (1-6)
 	// 1
 	@FXML
@@ -169,6 +172,7 @@ public class VistaEquipoController {
 				lblNivel6.setFont(pokemonFont);
 				lblPV6.setFont(pokemonFont);
 				lblEXP6.setFont(pokemonFont);
+				lblEntrarPC.setFont(pokemonFont);
 
 			} else {
 				System.out.println("No se pudo cargar la fuente: comprueba la ruta.");
