@@ -170,10 +170,6 @@ public class VistaEquipoController {
 				lblNivel2.setFont(pokemonFont);
 				lblPV2.setFont(pokemonFont);
 				lblEXP2.setFont(pokemonFont);
-				lblNombre2.setFont(pokemonFont);
-				lblNivel2.setFont(pokemonFont);
-				lblPV2.setFont(pokemonFont);
-				lblEXP2.setFont(pokemonFont);
 				lblNombre3.setFont(pokemonFont);
 				lblNivel3.setFont(pokemonFont);
 				lblPV3.setFont(pokemonFont);
