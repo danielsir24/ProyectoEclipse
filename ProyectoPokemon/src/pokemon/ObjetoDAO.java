@@ -21,6 +21,9 @@ public class ObjetoDAO {
 				if (rs.next()) {
 
 					ob = new Objeto();
+					ob.setNombre(rs.getString("nom_Objeto"));
+					ob.setIdObjeto(rs.getInt("id_Objeto"));
+					
 					
 
 				}

@@ -64,6 +64,7 @@ public class PokemonDAO {
 					PokedexDAO pokedexDAO = new PokedexDAO();
 					Pokedex especieCargada = pokedexDAO.buscarPorIdPokedex(idFichaPokedex);
 					//
+					
 					p.setIdPokemon(rs.getInt("idPokemon"));
 					p.setNombre(rs.getString("nombre"));
 					p.setMote(rs.getString("mote"));

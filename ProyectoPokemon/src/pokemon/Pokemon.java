@@ -261,9 +261,7 @@ public class Pokemon {
 	public void setFertilidad(int fertilidad) {
 		this.fertilidad = fertilidad;
 	}
-	public enum Sexo {
-		MACHO, HEMBRA
-	}
+
 	public Sexo getSexo() {
 		return sexo;
 	}
