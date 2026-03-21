@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CapturaController">
+<AnchorPane prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CapturaController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -31,23 +31,12 @@
 
             <VBox alignment="TOP_CENTER" layoutX="658.0" layoutY="302.0" prefHeight="200.0" prefWidth="399.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="lblNombre" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="225.0" text="Nombre">
-                           <padding>
-                              <Insets right="10.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="lblNivel" alignment="CENTER" prefHeight="96.0" prefWidth="228.0" text="Nivel. XX">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
       
                         <!-- Sprite del Pokemon aleatorio (sin imagen inicial, la pone el controlador) -->
-                  <ImageView fx:id="pokemonImg" fitHeight="149.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pokemonImg" fitHeight="149.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Downloads/1.gif" />
+                     </image></ImageView>
                </children></VBox>
 
             <!-- Panel inferior -->
@@ -86,6 +75,20 @@
                   <Image url="@images/ImagenMano.png" />
                </image>
             </ImageView>
+            <HBox layoutX="505.0" layoutY="23.0" prefHeight="56.0" prefWidth="263.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);; -fx-background-radius: 10; -fx-padding: 10;">
+               <children>
+                  <Label fx:id="lblNombre" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="225.0" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, black, 2, 1, 0, 0);" text="Nombre">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="lblNivel" alignment="CENTER" prefHeight="96.0" prefWidth="228.0" style="-fx-text-fill: white; -fx-font-size: 16; -fx-effect: dropshadow(gaussian, black, 2, 1, 0, 0);" text="Nivel. XX">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
 
          </children>
       </AnchorPane>

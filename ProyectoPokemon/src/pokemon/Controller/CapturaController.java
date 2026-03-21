@@ -60,13 +60,12 @@ public class CapturaController {
 			int nivelAleatorio = (int) (Math.random() * (10 - 2 + 1) + 2);
 			lblNivel.setText("Niv." + nivelAleatorio);
 
-			String rutaImagenFrontal = especie.getImg_Frontal();
+			String nombre = especie.getNombreEspecie().toLowerCase();
+			String rutaImagenFrontal = "/spritesPokemonsGifsFront/" + nombre + ".gif";
 
 			if (rutaImagenFrontal != null) {
 				try {
-					File file = new File(rutaImagenFrontal);
-					Image img = new Image(file.toURI().toString());
-
+					Image img = new Image(getClass().getResourceAsStream(rutaImagenFrontal));
 					pokemonImg.setImage(img);
 
 				} catch (Exception e) {
