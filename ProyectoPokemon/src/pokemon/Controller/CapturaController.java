@@ -43,7 +43,7 @@ public class CapturaController {
 	
 	@FXML
     public void initialize() {
-        System.out.println("DEBUG: La ventana se ha cargado. Generando bicho...");
+        System.out.println("DEBUG: La ventana se ha cargado. Generando Pokemon");
         generarPokemonAleatorioCaptura();}
 
 	public void generarPokemonAleatorioCaptura() {
@@ -57,7 +57,8 @@ public class CapturaController {
 
 			int nivelAleatorio = (int) (Math.random() * (10 - 2 + 1) + 2);
 			lblNivel.setText("Niv." + nivelAleatorio);
-
+			
+			
 			String rutaImagenFrontal = especie.getImg_Frontal();
 
 			if (rutaImagenFrontal != null) {
@@ -81,6 +82,14 @@ public class CapturaController {
 			System.out.println("No se pudo generar el pokemon (especie null)");
 		}
 	}
+	
+	@FXML
+	private void handleHuir(ActionEvent event) {
+		cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
+
+		System.out.println("Has vuelto al menú principal");
+	}
+	
 	
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {

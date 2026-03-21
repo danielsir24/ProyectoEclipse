@@ -42,6 +42,10 @@ public class PokedexDAO {
 	}
 	
 	public int generarIdPokedexAleatorio() {
+		
+		if (this.conexion == null) {
+	        System.out.println("Error: No hay conexión a la DB");
+	        return 1;}else {
 	    int id = -1;
 	    String sql = "SELECT num_Pokedex FROM pokedex ORDER BY RAND() LIMIT 1";
 	    
@@ -55,6 +59,7 @@ public class PokedexDAO {
 	        System.out.println("Error al generar ID aleatorio: " + ex.getMessage());
 	    }
 	    return id;
+	        }
 	}
 	}
 
