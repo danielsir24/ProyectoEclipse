@@ -21,6 +21,16 @@ SET time_zone = "+00:00";
 -- Base de datos: `proyecto_pokemon`
 --
 
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS `pokemon_movimiento`;
+DROP TABLE IF EXISTS `mochila`;
+DROP TABLE IF EXISTS `pokemon`;
+DROP TABLE IF EXISTS `entrenador`;
+DROP TABLE IF EXISTS `movimiento`;
+DROP TABLE IF EXISTS `objeto`;
+DROP TABLE IF EXISTS `pokedex`;
+SET FOREIGN_KEY_CHECKS=1;
+
 -- --------------------------------------------------------
 
 --
@@ -135,7 +145,7 @@ CREATE TABLE `objeto` (
   `bonus_Defensa_Especial` decimal(4,2) DEFAULT 1.00,
   `penalizacion_Defensa_Especial` decimal(4,2) DEFAULT 1.00,
   `bonus_Velocidad` decimal(4,2) DEFAULT 1.00,
-  `penalizacion_Velocidad` decimal(4,2) DEFAULT 1.00,
+  `penalizacion_Velocidad` decimal(4,2) DEFAULT 1.00
   
 
   
@@ -145,17 +155,17 @@ CREATE TABLE `objeto` (
 -- Volcado de datos para la tabla `objeto`
 --
 
-INSERT INTO `objeto` `bonus_Ataque`, `bonus_Defensa`, `penalizacion_Ataque`, `penalizacion_Defensa`, `bonus_Ataque_Especial`, `penalizacion_Ataque_Especial`, `bonus_Defensa_Especial`, `penalizacion_Defensa_Especial`, `bonus_Velocidad`, `penalizacion_Velocidad`) VALUES
-(1, 'Pesa', 1.20, 1.20, 0.80, 1.00, 1.00, 1.00),
-(2, 'Pluma', 1.00, 0.80, 1.30, 1.00, 0.80, 1.00),
-(3, 'Chaleco', 0.85, 1.20, 0.85, 1.00, 1.20, 1.00),
-(4, 'Bastón', 1.00, 1.00, 0.85, 1.00, 1.00, 1.20),
-(5, 'Pilas', 1.00, 1.00, 1.00, 1.00, 0.70, 1.50),
-(6, 'Pesa', 1.20, 1.20, 0.80, 1.00, 1.00, 1.00),
-(7, 'Pluma', 1.00, 0.80, 1.30, 1.00, 0.80, 1.00),
-(8, 'Chaleco', 0.85, 1.20, 0.85, 1.00, 1.20, 1.00),
-(9, 'Bastón', 1.00, 1.00, 0.85, 1.00, 1.00, 1.20),
-(10, 'Pilas', 1.00, 1.00, 1.00, 1.00, 0.70, 1.50);
+INSERT INTO `objeto` (`id_Objeto`, `nom_Objeto`, `bonus_Ataque`, `bonus_Defensa`, `penalizacion_Ataque`, `penalizacion_Defensa`, `bonus_Ataque_Especial`, `penalizacion_Ataque_Especial`, `bonus_Defensa_Especial`, `penalizacion_Defensa_Especial`, `bonus_Velocidad`, `penalizacion_Velocidad`) VALUES
+(1, 'Pesa', 1.20, 1.20, 0.80, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00),
+(2, 'Pluma', 1.00, 0.80, 1.30, 1.00, 0.80, 1.00, 1.00, 1.00, 1.00, 1.00),
+(3, 'Chaleco', 0.85, 1.20, 0.85, 1.00, 1.20, 1.00, 1.00, 1.00, 1.00, 1.00),
+(4, 'Bastón', 1.00, 1.00, 0.85, 1.00, 1.00, 1.20, 1.00, 1.00, 1.00, 1.00),
+(5, 'Pilas', 1.00, 1.00, 1.00, 1.00, 0.70, 1.50, 1.00, 1.00, 1.00, 1.00),
+(6, 'Pesa', 1.20, 1.20, 0.80, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00),
+(7, 'Pluma', 1.00, 0.80, 1.30, 1.00, 0.80, 1.00, 1.00, 1.00, 1.00, 1.00),
+(8, 'Chaleco', 0.85, 1.20, 0.85, 1.00, 1.20, 1.00, 1.00, 1.00, 1.00, 1.00),
+(9, 'Bastón', 1.00, 1.00, 0.85, 1.00, 1.00, 1.20, 1.00, 1.00, 1.00, 1.00),
+(10, 'Pilas', 1.00, 1.00, 1.00, 1.00, 0.70, 1.50, 1.00, 1.00, 1.00, 1.00);
 
 -- --------------------------------------------------------
 
@@ -335,7 +345,7 @@ INSERT INTO `pokedex` (`num_Pokedex`, `nombre`, `tipo1`, `tipo2`, `img_Back`, `s
 --
 
 CREATE TABLE `pokemon` (
-  `idPokemon` int(11) NOT NULL,
+  `id_Pokemon` int(11) NOT NULL,
   `num_Pokedex` int(11) NOT NULL,
   `id_Entrenador` int(11) DEFAULT NULL,
   `id_Objeto` int(11) DEFAULT NULL,
@@ -360,7 +370,7 @@ CREATE TABLE `pokemon` (
 --
 
 CREATE TABLE `pokemon_movimiento` (
-  `idPokemon` int(11) NOT NULL,
+  `id_Pokemon` int(11) NOT NULL,
   `id_Movimiento` int(11) NOT NULL,
   `activo` tinyint(1) DEFAULT 1,
   `puntos_Poder` int(11) DEFAULT NULL
