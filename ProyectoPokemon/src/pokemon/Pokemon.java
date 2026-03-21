@@ -262,6 +262,7 @@ public class Pokemon {
 		this.fertilidad = fertilidad;
 	}
 
+
 	public Sexo getSexo() {
 		return sexo;
 	}
