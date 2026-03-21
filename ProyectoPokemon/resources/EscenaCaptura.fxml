@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.MainController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+
+            <!-- Fondo -->
+            <ImageView fitHeight="761.0" fitWidth="1280.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@images/ImagenFondoCaptura.png" />
+               </image>
+            </ImageView>
+
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+
+            <!-- Sprite del Pokemon aleatorio (sin imagen inicial, la pone el controlador) -->
+            <ImageView fx:id="pokemonImage" fitHeight="149.0" fitWidth="159.0" layoutX="734.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/ImagenFondoCaptura.png" />
+               </image></ImageView>
+
+            <!-- Label con nombre y nivel -->
+            <Label fx:id="InfoPokemon" alignment="TOP_LEFT" layoutX="478.0" prefHeight="208.0" prefWidth="308.0" style="-fx-background-color: white;                           -fx-font-size: 16px;                           -fx-font-weight: bold;                           -fx-padding: 10;" text="AQUI QUIERO PONER LOS DATOS DEL POKEMON" />
+
+            <!-- Panel inferior -->
+            <AnchorPane layoutY="543.0" prefHeight="149.0" prefWidth="1280.0">
+               <children>
+                  <Label fx:id="logLabel" alignment="CENTER" contentDisplay="TOP" layoutX="-1.0" layoutY="45.0" prefHeight="173.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(                                     to right,                                     rgba(0,0,0,0.0) 0%,                                     rgba(0,0,0,0.8) 30%,                                     rgba(0,0,0,0.8) 70%,                                     rgba(0,0,0,0.0) 100%                                 );" text="Lanza una Pokéball" textFill="WHITE">
+                     <font><Font size="20.0" /></font>
+                     <cursor><Cursor fx:constant="DEFAULT" /></cursor>
+                     <effect>
+                        <Lighting>
+                           <bumpInput><InnerShadow /></bumpInput>
+                           <light><Light.Distant /></light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+
+                  <GridPane alignment="CENTER" layoutX="788.0" layoutY="59.0" prefHeight="149.0" prefWidth="492.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="10.0" prefWidth="246.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="373.0" minWidth="10.0" prefWidth="246.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Button fx:id="btnCapturar" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: white; -fx-font-weight: bold;                                        -fx-font-size: 16px; -fx-background-radius: 25;                                        -fx-border-radius: 25; -fx-padding: 10 20;                                        -fx-border-color: #ffffff; -fx-border-width: 2;                                        -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),5,0.3,0,2);                                        -fx-background-color: rgba(76,175,80,0.8);" text="Capturar" />
+                        <Button fx:id="btnHuir" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: white; -fx-font-weight: bold;                                        -fx-font-size: 16px; -fx-background-radius: 25;                                        -fx-border-radius: 25; -fx-padding: 10 20;                                        -fx-border-color: #ffffff; -fx-border-width: 2;                                        -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),5,0.3,0,2);                                        -fx-background-color: rgb(0,128,255,0.8);" text="Huir" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+
+            <!-- Mano con Pokeball -->
+            <ImageView fitHeight="575.0" fitWidth="602.0" layoutX="149.0" layoutY="174.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-120.0">
+               <image>
+                  <Image url="@images/ImagenMano.png" />
+               </image>
+            </ImageView>
+
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
