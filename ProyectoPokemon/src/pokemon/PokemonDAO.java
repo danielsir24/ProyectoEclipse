@@ -49,7 +49,7 @@ public class PokemonDAO {
 
 	}
 
-	public Pokemon buscarPorId(int idBusqueda) {
+	public Pokemon buscarPorIdPokemon(int idBusqueda) {
 		Pokemon p = null;
 		String sql = "SELECT * FROM pokemon WHERE idPokemon = ?";
 
@@ -60,6 +60,10 @@ public class PokemonDAO {
 
 				if (rs.next()) {
 					p = new Pokemon();
+					int idFichaPokedex = rs.getInt("num_Pokedex");
+					PokedexDAO pokedexDAO = new PokedexDAO();
+					Pokedex especieCargada = pokedexDAO.buscarPorIdPokedex(idFichaPokedex);
+					//
 					p.setIdPokemon(rs.getInt("idPokemon"));
 					p.setNombre(rs.getString("nombre"));
 					p.setMote(rs.getString("mote"));
@@ -76,8 +80,8 @@ public class PokemonDAO {
 					p.setFertilidad(rs.getInt("fertilidad"));
 					p.setSexo(Sexo.valueOf(rs.getString("sexo")));
 					p.setEstado(Estado.valueOf(rs.getString("estado")));
-					int idObjeto = rs.getInt("objeto");
-				}
+					p.setInfoPokedex(especieCargada);
+								}
 
 			
 			}
