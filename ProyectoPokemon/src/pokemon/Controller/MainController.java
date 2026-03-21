@@ -51,7 +51,7 @@ public class MainController {
 	}
 	
 	@FXML
-	private void handleCaptura(ActionEvent event) {
+	private void handleEntrarCaptura(ActionEvent event) {
 		cambiarEscena(event, "/EscenaCaptura.fxml", "Escena Captura");
 	}
 

@@ -140,7 +140,7 @@
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnCaptura" mnemonicParsing="false" onAction="#handleCaptura" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Button fx:id="btnCaptura" mnemonicParsing="false" onAction="#handleEntrarCaptura" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <graphic>
                               <StackPane prefHeight="150.0" prefWidth="180.0">
                                  <children>

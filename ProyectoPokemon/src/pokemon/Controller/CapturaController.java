@@ -90,6 +90,9 @@ public class CapturaController {
 		System.out.println("Has vuelto al menú principal");
 	}
 	
+	@FXML
+	private void handleCaptura() {}
+	
 	
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {
