@@ -49,6 +49,11 @@ public class MainController {
 		cambiarEscena(event, "/EscenaMenuEquipo.fxml", "Menú Equipo");
 
 	}
+	
+	@FXML
+	private void handleCaptura(ActionEvent event) {
+		cambiarEscena(event, "/EscenaCaptura.fxml", "Escena Captura");
+	}
 
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {

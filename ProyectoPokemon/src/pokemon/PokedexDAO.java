@@ -40,5 +40,22 @@ public class PokedexDAO {
 		}
 		return px;
 	}
+	
+	public int generarIdPokedexAleatorio() {
+	    int id = -1;
+	    String sql = "SELECT num_Pokedex FROM pokedex ORDER BY RAND() LIMIT 1";
+	    
+	    try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+	        try (ResultSet rs = statement.executeQuery()) {
+	            if (rs.next()) {
+	                id = rs.getInt("num_Pokedex");
+	            }
+	        }
+	    } catch (SQLException ex) {
+	        System.out.println("Error al generar ID aleatorio: " + ex.getMessage());
+	    }
+	    return id;
+	}
+	}
 
-}
+
