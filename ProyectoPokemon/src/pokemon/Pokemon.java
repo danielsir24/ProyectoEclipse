@@ -7,6 +7,7 @@ public class Pokemon {
 
 	private String nombre;
 	private String mote;
+	private int idPokemon;
 	private int vitalidad;
 	private int vitalidadMaxima; // Añadido para controlar el límite de curación
 	private int ataque;
@@ -31,13 +32,14 @@ public class Pokemon {
 	}
 
 	// Constructor con todos los parámetros
-	public Pokemon(String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial,
-			int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia, int fertilidad, Sexo sexo,
-			List<Movimiento> movimientos, List<Movimiento> movimientosDisponibles, List<Tipo> tipos, Estado estado,
-			Objeto objeto) {
+	public Pokemon(String nombre, String mote, int idPokemon, int vitalidad, int ataque, int defensa,
+			int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia,
+			int fertilidad, Sexo sexo, List<Movimiento> movimientos, List<Movimiento> movimientosDisponibles,
+			List<Tipo> tipos, Estado estado, Objeto objeto) {
 		super();
 		this.nombre = nombre;
 		this.mote = mote;
+		this.idPokemon = idPokemon;
 		this.vitalidad = vitalidad;
 		this.vitalidadMaxima = vitalidad;
 		this.ataque = ataque;
@@ -62,6 +64,7 @@ public class Pokemon {
 		super();
 		this.nombre = p.nombre;
 		this.mote = p.mote;
+		this.idPokemon = p.idPokemon;
 		this.vitalidad = p.vitalidad;
 		this.vitalidadMaxima = p.vitalidadMaxima;
 		this.ataque = p.ataque;
@@ -86,6 +89,7 @@ public class Pokemon {
 		super();
 		this.nombre = "";
 		this.mote = "";
+		this.idPokemon = 0;
 		this.vitalidad = random.nextInt(10) + 20;
 		this.vitalidadMaxima = this.vitalidad;
 		this.ataque = random.nextInt(10) + 1;
@@ -108,7 +112,8 @@ public class Pokemon {
 	// Métodos de lógica
 	public void recibirDano(int dano) {
 		this.vitalidad -= dano;
-		if (this.vitalidad < 0) this.vitalidad = 0;
+		if (this.vitalidad < 0)
+			this.vitalidad = 0;
 	}
 
 	public boolean estaDebilitado() {
@@ -149,6 +154,14 @@ public class Pokemon {
 
 	public void setMote(String mote) {
 		this.mote = mote;
+	}
+
+	public int getIdPokemon() {
+		return idPokemon;
+	}
+
+	public void setIdPokemon(int idPokemon) {
+		this.idPokemon = idPokemon;
 	}
 
 	public int getVitalidad() {
@@ -296,6 +309,5 @@ public class Pokemon {
 	}
 
 	// Getters y Setters completos
-	
-}
 
+}
