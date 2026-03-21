@@ -137,8 +137,7 @@ CREATE TABLE `objeto` (
   `bonus_Velocidad` decimal(4,2) DEFAULT 1.00,
   `penalizacion_Velocidad` decimal(4,2) DEFAULT 1.00,
   
-  /* `bonus_Ataque`, `bonus_Defensa`, `penalizacion_Ataque`, `penalizacion_Defensa`, `bonus_Ataque_Especial`,
-    `penalizacion_Ataque_Especial`, `bonus_Defensa_Especial`, `penalizacion_Defensa_Especial`, `bonus_Velocidad`, `penalizacion_Velocidad`     */
+
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
