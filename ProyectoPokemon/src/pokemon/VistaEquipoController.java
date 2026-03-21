@@ -84,7 +84,8 @@ public class VistaEquipoController {
 	@FXML
 	private Rectangle rectFondo3;
 
-	// 4 @FXML
+	// 4 
+	@FXML
 	private Label lblNombre4;
 	@FXML
 	private Label lblNivel4;
@@ -158,10 +159,6 @@ public class VistaEquipoController {
 				lblNivel1.setFont(pokemonFont);
 				lblPV1.setFont(pokemonFont);
 				lblEXP1.setFont(pokemonFont);
-				lblNombre2.setFont(pokemonFont);
-				lblNivel2.setFont(pokemonFont);
-				lblPV2.setFont(pokemonFont);
-				lblEXP2.setFont(pokemonFont);
 				lblNombre2.setFont(pokemonFont);
 				lblNivel2.setFont(pokemonFont);
 				lblPV2.setFont(pokemonFont);
