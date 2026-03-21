@@ -18,16 +18,32 @@ public class Objeto {
 		return nombre;
 	}
 	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public int getIdObjeto() {
 		return idObjeto;
+	}
+	
+	public void setIdObjeto(int idObjeto) {
+		this.idObjeto = idObjeto;
 	}
 
 	public int getBonusAtaque() {
 		return bonusAtaque;
 	}
+	
+	public void setBonusAtaque(int bonusAtaque) {
+		this.bonusAtaque = bonusAtaque;
+	}
 
 	public int getPenalizacionDefensa() {
 		return penalizacionDefensa;
+	}
+	
+	public void setPenalizacionDefensa(int penalizacionDefensa) {
+		this.penalizacionDefensa = penalizacionDefensa;
 	}
 
 	public String obtenerInfo() {
