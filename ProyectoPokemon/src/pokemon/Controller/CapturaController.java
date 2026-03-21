@@ -6,24 +6,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
-import javafx.scene.text.Font;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
 import pokemon.Pokedex;
 import java.io.File;
 import javafx.scene.image.Image;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class CapturaController {
 
 	@FXML
 	private Label errorLabel;
-	
+
 	@FXML
 	private Button btnCapturar;
 
@@ -40,11 +39,14 @@ public class CapturaController {
 	private Label lblNivel;
 
 	private PokedexDAO pokedexDAO = new PokedexDAO();
-	
+
+	private Pokedex pokemonActual;
+
 	@FXML
-    public void initialize() {
-        System.out.println("DEBUG: La ventana se ha cargado. Generando Pokemon");
-        generarPokemonAleatorioCaptura();}
+	public void initialize() {
+		System.out.println("DEBUG: La ventana se ha cargado. Generando Pokemon");
+		generarPokemonAleatorioCaptura();
+	}
 
 	public void generarPokemonAleatorioCaptura() {
 		int idPokedex = pokedexDAO.generarIdPokedexAleatorio();
@@ -57,8 +59,7 @@ public class CapturaController {
 
 			int nivelAleatorio = (int) (Math.random() * (10 - 2 + 1) + 2);
 			lblNivel.setText("Niv." + nivelAleatorio);
-			
-			
+
 			String rutaImagenFrontal = especie.getImg_Frontal();
 
 			if (rutaImagenFrontal != null) {
@@ -82,18 +83,35 @@ public class CapturaController {
 			System.out.println("No se pudo generar el pokemon (especie null)");
 		}
 	}
-	
+
 	@FXML
 	private void handleHuir(ActionEvent event) {
 		cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
 
 		System.out.println("Has vuelto al menú principal");
 	}
-	
+
 	@FXML
-	private void handleCaptura() {}
-	
-	
+	private void handleCaptura(ActionEvent event) {
+		int probabilidad = 50;
+		int suerte = (int) (Math.random() * 100) + 1;
+
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeaderText(null);
+
+		if (suerte <= probabilidad) {
+			alert.setTitle("¡ÉXITO!");
+			alert.setContentText("¡Pokémon capturado!");
+		} else {
+			alert.setTitle("¡OH NO!");
+			alert.setContentText("El Pokémon huyó...");
+		}
+		alert.showAndWait();
+
+		cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
+
+	}
+
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {
 
@@ -113,6 +131,14 @@ public class CapturaController {
 				errorLabel.setText("Error al cargar la escena");
 			}
 		}
+	}
+
+	private void mostrarAlerta(String titulo, String mensaje) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle(titulo);
+		alert.setHeaderText(null);
+		alert.setContentText(mensaje);
+		alert.showAndWait();
 	}
 
 }
