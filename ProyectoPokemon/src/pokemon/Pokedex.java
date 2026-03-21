@@ -3,6 +3,7 @@ package pokemon;
 public class Pokedex {
 
 	private int num_Pokedex;
+	private String nombreEspecie;
 	private String tipo1;
 	private String tipo2;
 	private String img_Back;
@@ -45,6 +46,14 @@ public class Pokedex {
 
 	public void setNum_Pokedex(int num_Pokedex) {
 		this.num_Pokedex = num_Pokedex;
+	}
+	
+	public String getNombreEspecie() {
+		return nombreEspecie;
+	}
+
+	public void setNombreEspecia(String nombreEspecie) {
+		this.nombreEspecie = nombreEspecie;
 	}
 
 	public String getTipo1() {

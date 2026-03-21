@@ -330,7 +330,7 @@ INSERT INTO `pokedex` (`num_Pokedex`, `nombre`, `tipo1`, `tipo2`, `img_Back`, `s
 --
 
 CREATE TABLE `pokemon` (
-  `id_Pokemon` int(11) NOT NULL,
+  `idPokemon` int(11) NOT NULL,
   `num_Pokedex` int(11) NOT NULL,
   `id_Entrenador` int(11) DEFAULT NULL,
   `id_Objeto` int(11) DEFAULT NULL,
@@ -355,7 +355,7 @@ CREATE TABLE `pokemon` (
 --
 
 CREATE TABLE `pokemon_movimiento` (
-  `id_Pokemon` int(11) NOT NULL,
+  `idPokemon` int(11) NOT NULL,
   `id_Movimiento` int(11) NOT NULL,
   `activo` tinyint(1) DEFAULT 1,
   `puntos_Poder` int(11) DEFAULT NULL

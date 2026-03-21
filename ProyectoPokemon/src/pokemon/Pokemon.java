@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Pokemon {
 
+	private Pokedex infoPokedex;
 	private String nombre;
 	private String mote;
 	private int idPokemon;
@@ -27,16 +28,13 @@ public class Pokemon {
 	private Objeto objeto;
 	private Random random = new Random();
 
-	public enum Sexo {
-		MACHO, HEMBRA
-	}
-
 	// Constructor con todos los parámetros
-	public Pokemon(String nombre, String mote, int idPokemon, int vitalidad, int ataque, int defensa,
+	public Pokemon(Pokedex infoPokedex, String nombre, String mote, int idPokemon, int vitalidad, int ataque, int defensa,
 			int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia,
 			int fertilidad, Sexo sexo, List<Movimiento> movimientos, List<Movimiento> movimientosDisponibles,
 			List<Tipo> tipos, Estado estado, Objeto objeto) {
 		super();
+		this.infoPokedex = infoPokedex;
 		this.nombre = nombre;
 		this.mote = mote;
 		this.idPokemon = idPokemon;
@@ -62,6 +60,7 @@ public class Pokemon {
 	// Constructor copia
 	public Pokemon(Pokemon p) {
 		super();
+		this.infoPokedex = p.infoPokedex;
 		this.nombre = p.nombre;
 		this.mote = p.mote;
 		this.idPokemon = p.idPokemon;
@@ -87,6 +86,7 @@ public class Pokemon {
 	// Constructor por defecto
 	public Pokemon() {
 		super();
+		this.infoPokedex = null;
 		this.nombre = "";
 		this.mote = "";
 		this.idPokemon = 0;
@@ -155,6 +155,16 @@ public class Pokemon {
 	public void setMote(String mote) {
 		this.mote = mote;
 	}
+
+	public void setInfoPokedex(Pokedex info) {
+		this.infoPokedex = info;
+	}
+
+	public Pokedex getInfoPokedex() {
+		return infoPokedex;
+	}
+
+
 
 	public int getIdPokemon() {
 		return idPokemon;
@@ -251,6 +261,7 @@ public class Pokemon {
 	public void setFertilidad(int fertilidad) {
 		this.fertilidad = fertilidad;
 	}
+
 
 	public Sexo getSexo() {
 		return sexo;
