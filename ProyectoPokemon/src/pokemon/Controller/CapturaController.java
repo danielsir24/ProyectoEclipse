@@ -40,6 +40,11 @@ public class CapturaController {
 	private Label lblNivel;
 
 	private PokedexDAO pokedexDAO = new PokedexDAO();
+	
+	@FXML
+    public void initialize() {
+        System.out.println("DEBUG: La ventana se ha cargado. Generando bicho...");
+        generarPokemonAleatorioCaptura();}
 
 	public void generarPokemonAleatorioCaptura() {
 		int idPokedex = pokedexDAO.generarIdPokedexAleatorio();

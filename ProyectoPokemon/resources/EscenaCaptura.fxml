@@ -38,7 +38,7 @@
                               <Insets right="10.0" />
                            </padding>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="96.0" prefWidth="228.0" text="Nivel. XX">
+                        <Label fx:id="lblNivel" alignment="CENTER" prefHeight="96.0" prefWidth="228.0" text="Nivel. XX">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -49,9 +49,6 @@
                         <!-- Sprite del Pokemon aleatorio (sin imagen inicial, la pone el controlador) -->
                   <ImageView fx:id="pokemonImg" fitHeight="149.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true" />
                </children></VBox>
-
-            <!-- Label con nombre y nivel -->
-            <Label fx:id="InfoPokemon" alignment="TOP_LEFT" layoutX="478.0" prefHeight="208.0" prefWidth="408.0" style="-fx-background-color: white;                           -fx-font-size: 16px;                           -fx-font-weight: bold;                           -fx-padding: 10;" text="AQUI QUIERO PONER LOS DATOS DEL POKEMON" />
 
             <!-- Panel inferior -->
             <AnchorPane layoutY="543.0" prefHeight="149.0" prefWidth="1280.0">
