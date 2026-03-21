@@ -15,7 +15,7 @@ public class PokemonDAO {
 		this.conexion = ConexionBD.getConnection(); 
     }
 	
-	public boolean guardar(Pokemon pokemon) {
+	public boolean guardarPokemon(Pokemon pokemon) {
         String sql = "INSERT INTO pokemon (nombre, mote, idPokemon, vitalidad, vitalidadMaxima, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, estamina, nivel, experiencia, fertilidad, sexo, estado, objeto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = conexion.prepareStatement(sql)) {
         	statement.setString(1, pokemon.getNombre());
