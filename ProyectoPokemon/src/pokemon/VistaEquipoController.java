@@ -1,4 +1,4 @@
-package pokemon; // Cambia esto por el nombre de tu paquete
+package pokemon;
 
 import java.io.IOException;
 
@@ -11,18 +11,25 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 public class VistaEquipoController {
-	
-	
+
 	@FXML
 	private Label lblEntrarPC;
 	@FXML
 	private Label errorLabel;
+	@FXML
+	private Button btnEntrarPC;
+	@FXML
+	private Button btnVolverMenu;
+	@FXML
+	private Label lblVolverMenu;
+	
+	
 	// Elementos de cada cuadro de cada pokemon (1-6)
 	// 1
 	@FXML
@@ -144,7 +151,7 @@ public class VistaEquipoController {
 	@FXML
 	private Rectangle rectFondo6;
 
-	//Metodo para cargar la fuente
+	// Metodo para cargar la fuente
 	@FXML
 	public void initialize() {
 		cargarFuentePersonalizada();
@@ -180,6 +187,7 @@ public class VistaEquipoController {
 				lblPV6.setFont(pokemonFont);
 				lblEXP6.setFont(pokemonFont);
 				lblEntrarPC.setFont(pokemonFont);
+				lblVolverMenu.setFont(pokemonFont);
 
 			} else {
 				System.out.println("No se pudo cargar la fuente: comprueba la ruta.");
@@ -191,30 +199,37 @@ public class VistaEquipoController {
 
 	@FXML
 	private void entrarPc(ActionEvent event) {
-		 cambiarEscena(event, "/EscenaPC.fxml", "PC de Pokemon");
-		
+		cambiarEscena(event, "/EscenaPC.fxml", "PC de Pokemon");
+
 		System.out.println("Has entrado en el PC");
 	}
 
+	@FXML
+	private void volverMenu(ActionEvent event) {
+		cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
 
-private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
-    try {
+		System.out.println("Has vuelto al menú principal");
+	}
+	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
+		try {
 
-        Parent root = FXMLLoader.load(getClass().getResource(fxml));
+			Parent root = FXMLLoader.load(getClass().getResource(fxml));
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle(titulo);
-        stage.setMaximized(false);
-        stage.show();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setTitle(titulo);
+			stage.setMaximized(false);
+			stage.show();
 
-    } catch (IOException e) {
-        e.printStackTrace();
-        if (errorLabel != null) {
-            errorLabel.setText("Error al cargar la escena");
-        }
-    }
-}
+		} catch (IOException e) {
+			e.printStackTrace();
+			if (errorLabel != null) {
+				errorLabel.setText("Error al cargar la escena");
+			}
+		}
+	}
+	
+	
 }

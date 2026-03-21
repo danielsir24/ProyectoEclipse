@@ -15,63 +15,63 @@ import javafx.scene.text.Font;
 
 public class MainController {
 
-    @FXML
-    private TextField usernameField;
+	@FXML
+	private TextField usernameField;
 
-    @FXML
-    private PasswordField passwordField;
+	@FXML
+	private PasswordField passwordField;
 
-    @FXML
-    private Label errorLabel;
-    
-    @FXML
-    private Label labelUser;
-    
-    @FXML
-    private Label labelPassword;
-    
+	@FXML
+	private Label errorLabel;
 
-    @FXML
-    private void handleLogin(ActionEvent event) {
+	@FXML
+	private Label labelUser;
 
-        String user = usernameField.getText();
-        String pass = passwordField.getText();
+	@FXML
+	private Label labelPassword;
 
-        // Validación simple
-        if (user.equals("admin") && pass.equals("1234")) {
-            cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
-        } else {
-            errorLabel.setText("Usuario o contraseña incorrectos");
-        }
-    }
-    
-    @FXML
-    private void handleEquipo(ActionEvent event) {
-    	 cambiarEscena(event, "/EscenaMenuEquipo.fxml", "Menú Equipo");
-    	
-    }
+	@FXML
+	private void handleLogin(ActionEvent event) {
 
-    private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
-        try {
+		String user = usernameField.getText();
+		String pass = passwordField.getText();
 
-            Parent root = FXMLLoader.load(getClass().getResource(fxml));
+		// Validación simple
+		if (user.equals("admin") && pass.equals("1234")) {
+			cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
+		} else {
+			errorLabel.setText("Usuario o contraseña incorrectos");
+		}
+	}
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	@FXML
+	private void handleEquipo(ActionEvent event) {
+		cambiarEscena(event, "/EscenaMenuEquipo.fxml", "Menú Equipo");
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle(titulo);
-            stage.setMaximized(false);
-            stage.show();
+	}
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            if (errorLabel != null) {
-                errorLabel.setText("Error al cargar la escena");
-            }
-        }
-    }
-    @FXML
+	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
+		try {
+
+			Parent root = FXMLLoader.load(getClass().getResource(fxml));
+
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setTitle(titulo);
+			stage.setMaximized(false);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			if (errorLabel != null) {
+				errorLabel.setText("Error al cargar la escena");
+			}
+		}
+	}
+
+	@FXML
 	public void initialize() {
 		cargarFuentePersonalizada();
 	}
@@ -86,7 +86,6 @@ public class MainController {
 				errorLabel.setFont(pokemonFont);
 				labelUser.setFont(pokemonFont);
 				labelPassword.setFont(pokemonFont);
-				
 
 			} else {
 				System.out.println("No se pudo cargar la fuente: comprueba la ruta.");
