@@ -2,6 +2,8 @@ package pokemon;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class ObjetoDAO {
 	private Connection conexion;
@@ -10,7 +12,7 @@ public class ObjetoDAO {
 		this.conexion = ConexionBD.getConnection();
 	}
 
-	public Pokedex buscarPorIdObjeto(int idObjeto) {
+	public Objeto buscarPorIdObjeto(int idObjeto) {
 		Objeto ob = null;
 		String sql = "SELECT * FROM objeto WHERE id_objeto = ?";
 
@@ -23,12 +25,16 @@ public class ObjetoDAO {
 					ob = new Objeto();
 					ob.setNombre(rs.getString("nom_Objeto"));
 					ob.setIdObjeto(rs.getInt("id_Objeto"));
-					
-					
+					ob.setBonusAtaque(rs.getInt("bonus_Ataque"));
+					ob.setPenalizacionDefensa(rs.getInt("penalizacion_Defensa"));
 
 				}
 
 			}
-		}
+		} catch (SQLException ex) {
+			System.out.println("Error al buscar el Objeto: " + ex.getMessage());
+			ex.printStackTrace();
 	}
+		return ob;
+}
 }

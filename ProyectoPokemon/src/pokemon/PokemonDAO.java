@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PokemonDAO {
 
@@ -63,8 +61,11 @@ public class PokemonDAO {
 					int idFichaPokedex = rs.getInt("num_Pokedex");
 					PokedexDAO pokedexDAO = new PokedexDAO();
 					Pokedex especieCargada = pokedexDAO.buscarPorIdPokedex(idFichaPokedex);
+					int idObjeto = rs.getInt("id_Objeto");
+					ObjetoDAO objetoDAO = new ObjetoDAO();
+					Objeto objetoCargado = objetoDAO.buscarPorIdObjeto(idObjeto);
 					//
-					
+
 					p.setIdPokemon(rs.getInt("idPokemon"));
 					p.setNombre(rs.getString("nombre"));
 					p.setMote(rs.getString("mote"));
@@ -82,9 +83,10 @@ public class PokemonDAO {
 					p.setSexo(Sexo.valueOf(rs.getString("sexo")));
 					p.setEstado(Estado.valueOf(rs.getString("estado")));
 					p.setInfoPokedex(especieCargada);
-								}
+					p.setObjeto(objetoCargado);
 
-			
+				}
+
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();

@@ -14,7 +14,7 @@ public class PokedexDAO {
 	}
 
 	public Pokedex buscarPorIdPokedex(int numPokedex) {
-		Pokedex p = null;
+		Pokedex px = null;
 		String sql = "SELECT * FROM pokedex WHERE num_Pokedex = ?";
 
 		try (PreparedStatement statement = conexion.prepareStatement(sql)) {
@@ -22,14 +22,14 @@ public class PokedexDAO {
 
 			try (ResultSet rs = statement.executeQuery()) {
 				if (rs.next()) {
-					p = new Pokedex();
-					p.setNum_Pokedex(rs.getInt("num_Pokedex"));
-					p.setNombreEspecia(rs.getString("nombre"));
-					p.setTipo1(rs.getString("tipo1"));
-					p.setTipo2(rs.getString("tipo2"));
-					p.setImg_Back(rs.getString("img_Back"));
-					p.setSonido(rs.getString("sonido"));
-					p.setImg_Frontal(rs.getString("img_Frontal"));
+					px = new Pokedex();
+					px.setNum_Pokedex(rs.getInt("num_Pokedex"));
+					px.setNombreEspecia(rs.getString("nombre"));
+					px.setTipo1(rs.getString("tipo1"));
+					px.setTipo2(rs.getString("tipo2"));
+					px.setImg_Back(rs.getString("img_Back"));
+					px.setSonido(rs.getString("sonido"));
+					px.setImg_Frontal(rs.getString("img_Frontal"));
 
 				}
 			}
@@ -38,7 +38,7 @@ public class PokedexDAO {
 			ex.printStackTrace();
 
 		}
-		return p;
+		return px;
 	}
 
 }
