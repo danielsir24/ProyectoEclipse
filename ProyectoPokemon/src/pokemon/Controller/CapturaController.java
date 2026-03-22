@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
+
+import javafx.scene.media.AudioClip;
+
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
@@ -39,12 +42,15 @@ public class CapturaController {
 	private Label lblNivel;
 
 	private PokedexDAO pokedexDAO = new PokedexDAO();
-
+	private AudioClip sonidoCaptura;
 	private Pokedex pokemonActual;
 
 	@FXML
 	public void initialize() {
 		System.out.println("DEBUG: La ventana se ha cargado. Generando Pokemon");
+		sonidoCaptura = new AudioClip(getClass().getResource("/sounds/capture.wav").toExternalForm());
+		sonidoCaptura.setVolume(0.2);
+
 		generarPokemonAleatorioCaptura();
 	}
 
@@ -99,6 +105,9 @@ public class CapturaController {
 		alert.setHeaderText(null);
 
 		if (suerte <= probabilidad) {
+			//SONIDO CAPTURA
+			sonidoCaptura.play();
+
 			alert.setTitle("¡ÉXITO!");
 			alert.setContentText("¡Pokémon capturado!");
 		} else {
@@ -106,7 +115,9 @@ public class CapturaController {
 			alert.setContentText("El Pokémon huyó...");
 		}
 		alert.showAndWait();
-
+		if (sonidoCaptura != null) {
+			sonidoCaptura.stop();
+		}
 		cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
 
 	}
