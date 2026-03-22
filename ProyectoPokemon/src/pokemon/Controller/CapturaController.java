@@ -16,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
 import pokemon.Pokedex;
-import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -80,6 +79,7 @@ public class CapturaController {
 
 				}
 			} else {
+				
 				pokemonImg.setImage(null);
 
 			}
@@ -105,7 +105,7 @@ public class CapturaController {
 		alert.setHeaderText(null);
 
 		if (suerte <= probabilidad) {
-			//SONIDO CAPTURA
+			// SONIDO CAPTURA
 			sonidoCaptura.play();
 
 			alert.setTitle("¡ÉXITO!");

@@ -13,7 +13,7 @@ public class Musica {
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             mediaPlayer.play();
-            mediaPlayer.setVolume(0.1);
+            mediaPlayer.setVolume(0.05);
         }
     }
 
