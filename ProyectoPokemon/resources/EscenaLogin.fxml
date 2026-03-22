@@ -19,7 +19,7 @@
          </image>
       </ImageView>
 
-      <Button layoutX="520.0" layoutY="458.0" onAction="#handleLogin" prefHeight="34.0" prefWidth="254.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: gray; -fx-border-color: 15; -fx-border-width: 4;" text="Iniciar Sesión">
+      <Button layoutX="520.0" layoutY="458.0" onAction="#handleLogin" prefHeight="34.0" prefWidth="254.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: gray; -fx-border-width: 4;" text="Iniciar Sesión">
 
          <font>
             <Font name="Pokemon Solid Normal" size="20.0" />
@@ -44,6 +44,8 @@
       </Label>
 
       <Label fx:id="errorLabel" layoutX="520" layoutY="510" textFill="red" />
+      
+      <Button fx:id="BotonSonido" text="Sonido" layoutX="1220" layoutY="10" onAction="#handleMute" />
 
    </children>
 

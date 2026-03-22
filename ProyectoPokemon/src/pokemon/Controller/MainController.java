@@ -10,8 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import pokemon.Musica;
+
 import java.io.IOException;
 import javafx.scene.text.Font;
+import javafx.scene.control.Button;
 
 public class MainController {
 
@@ -98,5 +101,16 @@ public class MainController {
 		} catch (Exception e) {
 			System.out.println("Error al cargar la fuente: " + e.getMessage());
 		}
+		
+		
+	}
+	
+	@FXML
+	private Button BotonSonido;
+
+	@FXML
+	private void handleMute(ActionEvent event) {
+	    Musica.toggleMute();
+	    BotonSonido.setText(Musica.isMuted() ? "🔇" : "🔊");
 	}
 }

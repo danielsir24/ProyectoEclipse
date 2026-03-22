@@ -19,7 +19,9 @@ public class Main extends Application {
         primaryStage.setMaximized(false);
         primaryStage.show();
 
-
+        //Musica del juego
+        Musica.iniciar("/sounds/MusicaPokemon.wav");
+        
     }
 
     public static void main(String[] args) {
