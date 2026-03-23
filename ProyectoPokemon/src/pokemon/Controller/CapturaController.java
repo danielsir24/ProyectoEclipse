@@ -79,7 +79,7 @@ public class CapturaController {
 
 				}
 			} else {
-				
+
 				pokemonImg.setImage(null);
 
 			}
