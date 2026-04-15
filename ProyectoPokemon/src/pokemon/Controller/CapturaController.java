@@ -47,9 +47,19 @@ public class CapturaController {
 
 	@FXML
 	private TextArea txtLog;
+	
+	@FXML
+	private TextField txtMote;
+	
+	@FXML
+	private Button btnMote;
+	
+	@FXML
+	private Label lblMote;
 
 	private PokedexDAO pokedexDAO = new PokedexDAO();
 	private AudioClip sonidoCaptura;
+	private Pokemon pokemonActual;
 
 	@FXML
 	public void initialize() {
@@ -128,6 +138,17 @@ public class CapturaController {
 			txtLog.appendText("...\n");
 			txtLog.appendText("¡1... 2... 3...!\n");
 			txtLog.appendText("¡HECHO! El " + nombre + " de " + nivel + " ha sido capturado.\n");
+			
+			//Desactivar el boton de captura para que no suceda un accidente y se reiniciela captura
+			btnCapturar.setDisable(true);
+			
+			txtMote.setVisible(true);
+			lblMote.setVisible(true);
+			btnMote.setVisible(true);
+			
+			
+			
+			
 		} else {
 
 			txtLog.appendText("...\n");
@@ -157,6 +178,24 @@ public class CapturaController {
 				errorLabel.setText("Error al cargar la escena");
 			}
 		}
+	}
+	
+	private void handleGuardarMote() {
+		String mote = txtMote.getText().trim();
+		
+		if (mote.isEmpty()) {
+			mote = txtMote.getText().trim();
+			txtLog.appendText("No has añadido ningún mote, el pokémon se unirá atu equipo como: " + mote);
+			
+			
+			
+		}
+		
+		txtLog.appendText("¡El pokemon se ha unido a tu equipo como: "+mote+"!");
+		
+		
+		
+		
 	}
 
 }
