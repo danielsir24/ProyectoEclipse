@@ -15,10 +15,15 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
+import pokemon.Pokemon;
 import pokemon.Pokedex;
 import javafx.scene.image.Image;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class CapturaController {
 
@@ -40,9 +45,11 @@ public class CapturaController {
 	@FXML
 	private Label lblNivel;
 
+	@FXML
+	private TextArea txtLog;
+
 	private PokedexDAO pokedexDAO = new PokedexDAO();
 	private AudioClip sonidoCaptura;
-	private Pokedex pokemonActual;
 
 	@FXML
 	public void initialize() {
@@ -78,10 +85,6 @@ public class CapturaController {
 					e.printStackTrace();
 
 				}
-			} else {
-
-				pokemonImg.setImage(null);
-
 			}
 
 		} else {
@@ -98,27 +101,40 @@ public class CapturaController {
 
 	@FXML
 	private void handleCaptura(ActionEvent event) {
+		Timeline timeline = new Timeline(
+		        new KeyFrame(Duration.seconds(0), e -> txtLog.appendText("¡Lanzas la Pokéball con fuerza!\n")),
+		        new KeyFrame(Duration.seconds(1), e -> txtLog.appendText("3...\n")),
+		        new KeyFrame(Duration.seconds(2), e -> txtLog.appendText("2...\n")),
+		        new KeyFrame(Duration.seconds(3), e -> txtLog.appendText("1...\n")),
+		        new KeyFrame(Duration.seconds(4), e -> resultadoCaptura())
+		    );	
+		timeline.play();
+		
+	
+	}
+
+	@FXML
+	private void resultadoCaptura() {
+		String nombre = lblNombre.getText();
+		String nivel = lblNivel.getText();
+		;
 		int probabilidad = 50;
 		int suerte = (int) (Math.random() * 100) + 1;
-
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText(null);
 
 		if (suerte <= probabilidad) {
 			// SONIDO CAPTURA
 			sonidoCaptura.play();
 
-			alert.setTitle("¡ÉXITO!");
-			alert.setContentText("¡Pokémon capturado!");
+			txtLog.appendText("...\n");
+			txtLog.appendText("¡1... 2... 3...!\n");
+			txtLog.appendText("¡HECHO! El " + nombre + " de " + nivel + " ha sido capturado.\n");
 		} else {
-			alert.setTitle("¡OH NO!");
-			alert.setContentText("El Pokémon huyó...");
+
+			txtLog.appendText("...\n");
+			txtLog.appendText("¡Oh no! El Pokémon se ha escapado de la bola.\n");
+			txtLog.appendText("¡Ha huido!\n");
+			
 		}
-		alert.showAndWait();
-		if (sonidoCaptura != null) {
-			sonidoCaptura.stop();
-		}
-		cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
 
 	}
 
@@ -141,14 +157,6 @@ public class CapturaController {
 				errorLabel.setText("Error al cargar la escena");
 			}
 		}
-	}
-
-	private void mostrarAlerta(String titulo, String mensaje) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle(titulo);
-		alert.setHeaderText(null);
-		alert.setContentText(mensaje);
-		alert.showAndWait();
 	}
 
 }
