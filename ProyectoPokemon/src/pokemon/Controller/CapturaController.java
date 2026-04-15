@@ -38,6 +38,9 @@ public class CapturaController {
 
 	@FXML
 	private ImageView pokemonImg;
+	
+	@FXML
+	private ImageView imgPokeball;
 
 	@FXML
 	private Label lblNombre;
@@ -47,13 +50,13 @@ public class CapturaController {
 
 	@FXML
 	private TextArea txtLog;
-	
+
 	@FXML
 	private TextField txtMote;
-	
+
 	@FXML
 	private Button btnMote;
-	
+
 	@FXML
 	private Label lblMote;
 
@@ -112,19 +115,30 @@ public class CapturaController {
 	@FXML
 	private void handleCaptura(ActionEvent event) {
 		Timeline timeline = new Timeline(
-		        new KeyFrame(Duration.seconds(0), e -> txtLog.appendText("¡Lanzas la Pokéball con fuerza!\n")),
-		        new KeyFrame(Duration.seconds(1), e -> txtLog.appendText("3...\n")),
-		        new KeyFrame(Duration.seconds(2), e -> txtLog.appendText("2...\n")),
-		        new KeyFrame(Duration.seconds(3), e -> txtLog.appendText("1...\n")),
-		        new KeyFrame(Duration.seconds(4), e -> resultadoCaptura())
-		    );	
+				new KeyFrame(Duration.seconds(0), e -> txtLog.appendText("¡Lanzas la Pokéball con fuerza!\n")),
+				new KeyFrame(Duration.seconds(1), e -> txtLog.appendText("3...\n")),
+				new KeyFrame(Duration.seconds(2), e -> txtLog.appendText("2...\n")),
+				new KeyFrame(Duration.seconds(3), e -> txtLog.appendText("1...\n")),
+				new KeyFrame(Duration.seconds(4), e -> resultadoCaptura(event)));
 		timeline.play();
-		
+
+	}
 	
+	private void falloCaptura(ActionEvent event) {
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.seconds(0), e -> txtLog.appendText("Ya que elpokemon ha huido, volverás al menú principal en...\n")),
+				new KeyFrame(Duration.seconds(1), e -> txtLog.appendText("3...\n")),
+				new KeyFrame(Duration.seconds(2), e -> txtLog.appendText("2...\n")),
+				new KeyFrame(Duration.seconds(3), e -> txtLog.appendText("1...\n")),
+				new KeyFrame(Duration.seconds(4), e -> cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal")));
+		timeline.play();
+
 	}
 
 	@FXML
-	private void resultadoCaptura() {
+	private void resultadoCaptura(ActionEvent event) {
+		pokemonImg.setVisible(false);
+		imgPokeball.setVisible(true);
 		String nombre = lblNombre.getText();
 		String nivel = lblNivel.getText();
 		;
@@ -133,32 +147,38 @@ public class CapturaController {
 
 		if (suerte <= probabilidad) {
 			// SONIDO CAPTURA
+			
 			sonidoCaptura.play();
-
 			txtLog.appendText("...\n");
 			txtLog.appendText("¡1... 2... 3...!\n");
 			txtLog.appendText("¡HECHO! El " + nombre + " de " + nivel + " ha sido capturado.\n");
 			
-			//Desactivar el boton de captura para que no suceda un accidente y se reiniciela captura
-			btnCapturar.setDisable(true);
 			
+
+			// Desactivar el boton de captura para que no suceda un accidente y se
+			// reiniciela captura y elde huir para no salir sin ponerle un mote al pokemon
+			btnCapturar.setDisable(true);
+			btnHuir.setDisable(true);
+
 			txtMote.setVisible(true);
 			lblMote.setVisible(true);
 			btnMote.setVisible(true);
-			
-			
-			
-			
+
 		} else {
 
 			txtLog.appendText("...\n");
 			txtLog.appendText("¡Oh no! El Pokémon se ha escapado de la bola.\n");
 			txtLog.appendText("¡Ha huido!\n");
+			btnCapturar.setDisable(true);
+			btnHuir.setDisable(true);
 			
+			falloCaptura(event);
+
 		}
 
 	}
 
+	
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {
 
@@ -179,23 +199,20 @@ public class CapturaController {
 			}
 		}
 	}
-	
-	private void handleGuardarMote() {
+
+	@FXML
+	private void handleGuardarMote(ActionEvent event) {
 		String mote = txtMote.getText().trim();
-		
+
 		if (mote.isEmpty()) {
 			mote = txtMote.getText().trim();
 			txtLog.appendText("No has añadido ningún mote, el pokémon se unirá atu equipo como: " + mote);
-			
-			
-			
+
 		}
+
+		txtLog.appendText("¡El pokemon se ha unido a tu equipo como: " + mote + "!");
 		
-		txtLog.appendText("¡El pokemon se ha unido a tu equipo como: "+mote+"!");
-		
-		
-		
-		
+
 	}
 
 }

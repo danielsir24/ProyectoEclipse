@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.TextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CapturaController">
+<AnchorPane prefHeight="761.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CapturaController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -28,6 +28,11 @@
             <ImageView fitHeight="761.0" fitWidth="1280.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@images/ImagenFondoCaptura.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgPokeball" fitHeight="35.0" fitWidth="33.0" layoutX="863.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@images/okeball-pokeball-pixel-11562866044dx9k8ptaky.png" />
                </image>
             </ImageView>
 
@@ -96,13 +101,13 @@
                   <Cursor fx:constant="NONE" />
                </cursor>
             </TextArea>
-            <TextField fx:id="txtMote" layoutX="534.0" layoutY="254.0" prefHeight="26.0" prefWidth="248.0" style="-fx-control-inner-background: #000000; -fx-text-fill: #ffffff;" visible="false" />
             <Button fx:id="btnMote" alignment="CENTER" layoutX="799.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleGuardarMote" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: white; -fx-font-weight: bold;                                        -fx-font-size: 16px; -fx-background-radius: 25;                                        -fx-border-radius: 25; -fx-padding: 10 20;                                        -fx-border-color: #ffffff; -fx-border-width: 2;                                        -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),5,0.3,0,2);                                        -fx-background-color: rgba(76,175,80,0.8);" text="Guardar mote" visible="false" />
             <Label fx:id="lblMote" alignment="CENTER" layoutX="563.0" layoutY="203.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="189.0" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, black, 2, 1, 0, 0);" text="¡Añade un mote!" visible="false">
                <padding>
                   <Insets right="10.0" />
                </padding>
             </Label>
+            <TextField fx:id="txtMote" layoutX="547.0" layoutY="254.0" prefHeight="26.0" prefWidth="222.0" style="-fx-control-inner-background: #000000; -fx-text-fill: #ffffff;" visible="false" />
 
          </children>
       </AnchorPane>
