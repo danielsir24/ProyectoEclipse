@@ -18,7 +18,7 @@
             <Image url="@images/ImagenLogin.jpeg" />
          </image></ImageView>
 
-      <Button layoutX="520.0" layoutY="458.0" onAction="#handleLogin" prefHeight="0.0" prefWidth="254.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: gray; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-insets: 0;" text="Iniciar Sesión">
+      <Button layoutX="520.0" layoutY="406.0" onAction="#handleLogin" prefHeight="0.0" prefWidth="254.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: gray; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-insets: 0;" text="Iniciar Sesión">
 
          <font>
             <Font name="Pokemon Solid Normal" size="20.0" />
@@ -26,25 +26,30 @@
 
       </Button>
 
-      <TextField fx:id="usernameField" layoutX="520.0" layoutY="284.0" prefHeight="41.0" prefWidth="254.0" promptText="Usuario" style="-fx-background-color: rgba(255,255,255,0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right,#44bba0,#216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-size: 14; -fx-padding: 10;" />
+      <TextField fx:id="usernameField" layoutX="520.0" layoutY="241.0" prefHeight="41.0" prefWidth="254.0" promptText="Usuario" style="-fx-background-color: rgba(255,255,255,0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right,#44bba0,#216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-size: 14; -fx-padding: 10;" />
 
-      <PasswordField fx:id="passwordField" layoutX="520.0" layoutY="379.0" prefHeight="41.0" prefWidth="254.0" promptText="Contraseña" style="-fx-background-color: rgba(255,255,255,0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right,#44bba0,#216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-size: 14; -fx-padding: 10;" />
+      <PasswordField fx:id="passwordField" layoutX="520.0" layoutY="336.0" prefHeight="41.0" prefWidth="254.0" promptText="Contraseña" style="-fx-background-color: rgba(255,255,255,0.7); -fx-background-radius: 15; -fx-border-color: linear-gradient(to right,#44bba0,#216dbb); -fx-border-radius: 15; -fx-border-width: 2; -fx-font-size: 14; -fx-padding: 10;" />
 
-      <Label fx:id="labelUser" layoutX="526.0" layoutY="245.0" text="Usuario" textFill="WHITE">
+      <Label fx:id="labelUser" layoutX="526.0" layoutY="202.0" text="Usuario" textFill="WHITE">
          <font>
             <Font name="Pokemon Solid Normal" size="20.0" />
          </font>
       </Label>
 
-      <Label fx:id="labelPassword" layoutX="526.0" layoutY="342.0" text="Contraseña" textFill="WHITE">
+      <Label fx:id="labelPassword" layoutX="526.0" layoutY="297.0" text="Contraseña" textFill="WHITE">
          <font>
             <Font name="Pokemon Solid Normal" size="20.0" />
          </font>
       </Label>
 
-      <Label fx:id="errorLabel" layoutX="520" layoutY="510" textFill="red" />
+      <Label fx:id="errorLabel" layoutX="520.0" layoutY="537.0" textFill="red" />
       
       <Button fx:id="BotonSonido" layoutX="32.0" layoutY="710.0" onAction="#handleMute" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: #2a75bb; -fx-border-width: 1; -fx-border-radius: 20; -fx-text-fill: black; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0.3, 2, 2); -fx-font-weight: bold; -fx-background-insets: 0;" text="Sonido" />
+      <Button fx:id="botonRegistro" layoutX="520.0" layoutY="474.0" onAction="#handleRegistro" prefHeight="0.0" prefWidth="254.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: gray; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-insets: 0;" text="Registro">
+         <font>
+            <Font name="Pokemon Solid Normal" size="20.0" />
+         </font>
+      </Button>
 
    </children>
 

@@ -16,6 +16,9 @@ import java.io.IOException;
 import javafx.scene.text.Font;
 import javafx.scene.control.Button;
 
+import pokemon.Entrenador;
+import pokemon.EntrenadorDAO;
+
 public class MainController {
 
 	@FXML
@@ -33,19 +36,6 @@ public class MainController {
 	@FXML
 	private Label labelPassword;
 
-	@FXML
-	private void handleLogin(ActionEvent event) {
-
-		String user = usernameField.getText();
-		String pass = passwordField.getText();
-
-		// Validación simple
-		if (user.equals("admin") && pass.equals("1234")) {
-			cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
-		} else {
-			errorLabel.setText("Usuario o contraseña incorrectos");
-		}
-	}
 
 	@FXML
 	private void handleEquipo(ActionEvent event) {
@@ -112,5 +102,57 @@ public class MainController {
 	private void handleMute(ActionEvent event) {
 	    Musica.toggleMute();
 	    BotonSonido.setText(Musica.isMuted() ? "🔇" : "🔊");
+	}
+	
+	
+	//Este es el registro del entrenador al darle al boton Registro
+	private final EntrenadorDAO entrenadorDAO = new EntrenadorDAO();
+
+	@FXML
+	private void handleLogin(ActionEvent event) {
+	    String user = usernameField.getText().trim();
+	    String pass = passwordField.getText().trim();
+
+	    if (user.isEmpty() || pass.isEmpty()) {
+	        errorLabel.setText("Rellena usuario y contraseña.");
+	        return;
+	    }
+
+	    Entrenador entrenador = entrenadorDAO.login(user, pass);
+	    if (entrenador != null) {
+	        cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
+	    } else {
+	        errorLabel.setText("Usuario o contraseña incorrectos.");
+	    }
+	}
+
+	@FXML
+	private void handleRegistro(ActionEvent event) {
+	    String user = usernameField.getText().trim();
+	    String pass = passwordField.getText().trim();
+
+	    if (user.isEmpty() || pass.isEmpty()) {
+	        errorLabel.setText("Rellena usuario y contraseña.");
+	        return;
+	    }
+
+	    if (entrenadorDAO.existeNombre(user)) {
+	        errorLabel.setText("Ese nombre de entrenador ya existe.");
+	        return;
+	    }
+
+	    Entrenador nuevo = new Entrenador();
+	    nuevo.setNom_Entrenador(user);
+	    nuevo.setPassword(pass);
+	    nuevo.setPokedollars(500);
+	    nuevo.setTipo_Entrenador("Novato");
+	    nuevo.setImg_Entrenador(null);
+
+	    if (entrenadorDAO.registrar(nuevo)) {
+	        errorLabel.setStyle("-fx-text-fill: green;");
+	        errorLabel.setText("¡Entrenador registrado con éxito!");
+	    } else {
+	        errorLabel.setText("Error al registrar. Inténtalo de nuevo.");
+	    }
 	}
 }
