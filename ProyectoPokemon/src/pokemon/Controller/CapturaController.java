@@ -15,10 +15,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
-import pokemon.Pokemon;
 import pokemon.Pokedex;
 import javafx.scene.image.Image;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.animation.KeyFrame;
@@ -31,14 +29,23 @@ public class CapturaController {
 	private Label errorLabel;
 
 	@FXML
+	private Label lblBuscar;
+
+	@FXML
 	private Button btnCapturar;
+
+	@FXML
+	private Button btnBuscarSi;
+
+	@FXML
+	private Button btnBuscarNo;
 
 	@FXML
 	private Button btnHuir;
 
 	@FXML
 	private ImageView pokemonImg;
-	
+
 	@FXML
 	private ImageView imgPokeball;
 
@@ -62,8 +69,9 @@ public class CapturaController {
 
 	private PokedexDAO pokedexDAO = new PokedexDAO();
 	private AudioClip sonidoCaptura;
-	private Pokemon pokemonActual;
 
+	
+	
 	@FXML
 	public void initialize() {
 		System.out.println("DEBUG: La ventana se ha cargado. Generando Pokemon");
@@ -74,6 +82,18 @@ public class CapturaController {
 	}
 
 	public void generarPokemonAleatorioCaptura() {
+		pokemonImg.setVisible(true);
+		txtMote.setDisable(false);
+		imgPokeball.setVisible(false);
+		btnCapturar.setDisable(false);
+		btnHuir.setDisable(false);
+		btnBuscarSi.setVisible(false);
+		btnBuscarNo.setVisible(false);
+		lblBuscar.setVisible(false);
+		txtMote.setVisible(false);
+		lblMote.setVisible(false);
+		btnMote.setVisible(false);
+
 		int idPokedex = pokedexDAO.generarIdPokedexAleatorio();
 
 		Pokedex especie = pokedexDAO.buscarPorIdPokedex(idPokedex);
@@ -85,8 +105,8 @@ public class CapturaController {
 			int nivelAleatorio = (int) (Math.random() * (10 - 2 + 1) + 2);
 			lblNivel.setText("Niv." + nivelAleatorio);
 
-			String nombre = especie.getNombreEspecie().toLowerCase();
-			String rutaImagenFrontal = "/spritesPokemonsGifsFront/" + nombre + ".gif";
+			int numPokedex = especie.getNum_Pokedex();
+			String rutaImagenFrontal = "/spritesPokemonsGifsFront/" + numPokedex + ".gif";
 
 			if (rutaImagenFrontal != null) {
 				try {
@@ -123,22 +143,62 @@ public class CapturaController {
 		timeline.play();
 
 	}
-	
-	private void falloCaptura(ActionEvent event) {
+
+
+	private void menuRepetirCaptura() {
+		btnBuscarSi.setVisible(true);
+		btnBuscarNo.setVisible(true);
+		lblBuscar.setVisible(true);
+	}
+
+	private void moteAsignado(ActionEvent event) {
+		txtLog.appendText("El Pokémon ha sido añadido a tu equipo.");
+		menuRepetirCaptura();
+		txtMote.setVisible(false);
+		lblMote.setVisible(false);
+		btnMote.setVisible(false);
+
+	}
+
+	private void noRepetirCaptura(ActionEvent event) {
 		Timeline timeline = new Timeline(
-				new KeyFrame(Duration.seconds(0), e -> txtLog.appendText("Ya que elpokemon ha huido, volverás al menú principal en...\n")),
-				new KeyFrame(Duration.seconds(1), e -> txtLog.appendText("3...\n")),
-				new KeyFrame(Duration.seconds(2), e -> txtLog.appendText("2...\n")),
-				new KeyFrame(Duration.seconds(3), e -> txtLog.appendText("1...\n")),
-				new KeyFrame(Duration.seconds(4), e -> cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal")));
+				new KeyFrame(Duration.millis(0),
+						e -> txtLog
+								.appendText("Has elegido no buscar otro Pokémon. Volviendo al menú principal en...\n")),
+				new KeyFrame(Duration.millis(500), e -> txtLog.appendText("3...\n")),
+				new KeyFrame(Duration.millis(1000), e -> txtLog.appendText("2...\n")),
+				new KeyFrame(Duration.millis(1500), e -> txtLog.appendText("1...\n")),
+				new KeyFrame(Duration.millis(2000), e -> cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal")));
 		timeline.play();
 
 	}
 
 	@FXML
+	private void moteAsignadoNoRepetir(ActionEvent event) {
+		noRepetirCaptura(event);
+
+	}
+
+	private void repetirCaptura() {
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.millis(0),
+						e -> txtLog.appendText("Has elegido buscar otro Pokémon. Buscando en...\n")),
+				new KeyFrame(Duration.millis(500), e -> txtLog.appendText("3...\n")),
+				new KeyFrame(Duration.millis(1000), e -> txtLog.appendText("2...\n")),
+				new KeyFrame(Duration.millis(1500), e -> txtLog.appendText("1...\n")),
+				new KeyFrame(Duration.millis(2000), e -> generarPokemonAleatorioCaptura()));
+		timeline.play();
+	}
+
+	@FXML
+	private void handleBuscarOtroPokemon() {
+		repetirCaptura();
+	}
+
+	@FXML
 	private void resultadoCaptura(ActionEvent event) {
 		pokemonImg.setVisible(false);
-		imgPokeball.setVisible(true);
+
 		String nombre = lblNombre.getText();
 		String nivel = lblNivel.getText();
 		;
@@ -147,13 +207,11 @@ public class CapturaController {
 
 		if (suerte <= probabilidad) {
 			// SONIDO CAPTURA
-			
+			imgPokeball.setVisible(true);
 			sonidoCaptura.play();
 			txtLog.appendText("...\n");
 			txtLog.appendText("¡1... 2... 3...!\n");
 			txtLog.appendText("¡HECHO! El " + nombre + " de " + nivel + " ha sido capturado.\n");
-			
-			
 
 			// Desactivar el boton de captura para que no suceda un accidente y se
 			// reiniciela captura y elde huir para no salir sin ponerle un mote al pokemon
@@ -163,6 +221,9 @@ public class CapturaController {
 			txtMote.setVisible(true);
 			lblMote.setVisible(true);
 			btnMote.setVisible(true);
+			
+			txtMote.setDisable(false);
+			lblMote.setDisable(false);
 
 		} else {
 
@@ -172,13 +233,13 @@ public class CapturaController {
 			btnCapturar.setDisable(true);
 			btnHuir.setDisable(true);
 			
-			falloCaptura(event);
+			menuRepetirCaptura();
+
 
 		}
 
 	}
 
-	
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {
 
@@ -210,8 +271,10 @@ public class CapturaController {
 
 		}
 
-		txtLog.appendText("¡El pokemon se ha unido a tu equipo como: " + mote + "!");
-		
+		txtLog.appendText("¡El pokemon se ha unido a tu equipo como: " + mote + "!\n");
+		txtLog.appendText("");
+
+		moteAsignado(event);
 
 	}
 

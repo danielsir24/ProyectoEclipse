@@ -24,7 +24,7 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
 
-            <!-- Fondo -->
+                        <!-- Fondo -->
             <ImageView fitHeight="761.0" fitWidth="1280.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@images/ImagenFondoCaptura.png" />
@@ -98,16 +98,35 @@
             </HBox>
             <TextArea fx:id="txtLog" editable="false" layoutX="14.0" layoutY="10.0" mouseTransparent="true" prefHeight="292.0" prefWidth="221.0" style="-fx-control-inner-background: #000000;; -fx-text-fill: #ffffff;;" wrapText="true">
                <cursor>
-                  <Cursor fx:constant="NONE" />
+                  <Cursor fx:constant="TEXT" />
                </cursor>
             </TextArea>
-            <Button fx:id="btnMote" alignment="CENTER" layoutX="799.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleGuardarMote" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: white; -fx-font-weight: bold;                                        -fx-font-size: 16px; -fx-background-radius: 25;                                        -fx-border-radius: 25; -fx-padding: 10 20;                                        -fx-border-color: #ffffff; -fx-border-width: 2;                                        -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),5,0.3,0,2);                                        -fx-background-color: rgba(76,175,80,0.8);" text="Guardar mote" visible="false" />
-            <Label fx:id="lblMote" alignment="CENTER" layoutX="563.0" layoutY="203.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="189.0" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, black, 2, 1, 0, 0);" text="¡Añade un mote!" visible="false">
+            <Button fx:id="btnMote" alignment="CENTER" layoutX="779.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleGuardarMote" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: white; -fx-font-weight: bold;                                        -fx-font-size: 16px; -fx-background-radius: 25;                                        -fx-border-radius: 25; -fx-padding: 10 20;                                        -fx-border-color: #ffffff; -fx-border-width: 2;                                        -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),5,0.3,0,2);                                        -fx-background-color: rgba(76,175,80,0.8);" text="Guardar mote" visible="false" />
+            <Label fx:id="lblMote" alignment="CENTER" layoutX="563.0" layoutY="97.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, black, 2, 1, 0, 0);" text="¡Añade un mote!" visible="false">
                <padding>
                   <Insets right="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="txtMote" layoutX="547.0" layoutY="254.0" prefHeight="26.0" prefWidth="222.0" style="-fx-control-inner-background: #000000; -fx-text-fill: #ffffff;" visible="false" />
+            <TextField fx:id="txtMote" layoutX="547.0" layoutY="131.0" prefHeight="13.0" prefWidth="222.0" style="-fx-control-inner-background: #000000; -fx-text-fill: #ffffff;" visible="false" />
+            <VBox alignment="CENTER" layoutX="414.0" layoutY="207.0" prefHeight="200.0" prefWidth="486.0">
+               <children>
+                  <Label fx:id="lblBuscar" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="530.0" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, black, 2, 1, 0, 0);" text="¿Quieres buscar otro Pokémon?" visible="false">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnBuscarSi" alignment="CENTER" mnemonicParsing="false" onAction="#handleBuscarOtroPokemon" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: white; -fx-font-weight: bold;                                        -fx-font-size: 16px; -fx-background-radius: 25;                                        -fx-border-radius: 25; -fx-padding: 10 20;                                        -fx-border-color: #ffffff; -fx-border-width: 2;                                        -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),5,0.3,0,2);                                        -fx-background-color: rgba(76,175,80,0.8);" text="Si" visible="false" />
+                        <Button fx:id="btnBuscarNo" alignment="CENTER" mnemonicParsing="false" onAction="#moteAsignadoNoRepetir" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-background-radius: 25; -fx-border-radius: 25; -fx-padding: 10 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),5,0.3,0,2); -fx-background-color: rgb(255,0,0,0.8);" text="No (Salir al menú)" visible="false">
+                           <HBox.margin>
+                              <Insets left="86.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
 
          </children>
       </AnchorPane>
