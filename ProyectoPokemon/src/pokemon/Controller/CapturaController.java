@@ -15,7 +15,9 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
+import pokemon.Main;
 import pokemon.Pokedex;
+import pokemon.Pokemon;
 import javafx.scene.image.Image;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -69,22 +71,22 @@ public class CapturaController {
 
 	private PokedexDAO pokedexDAO = new PokedexDAO();
 	private AudioClip sonidoCaptura;
+	private Pokemon pokemonActual;
 
-	
-	
 	@FXML
 	public void initialize() {
 		System.out.println("DEBUG: La ventana se ha cargado. Generando Pokemon");
-		//Importamos el sonido de la captura
+		// Importamos el sonido de la captura
 		sonidoCaptura = new AudioClip(getClass().getResource("/sounds/capture.wav").toExternalForm());
 		sonidoCaptura.setVolume(0.2);
 
 		generarPokemonAleatorioCaptura();
 	}
 
-	//Meotodo para generar un pokemon aleatorio de los 151 que hay en la base de datos
+	// Meotodo para generar un pokemon aleatorio de los 151 que hay en la base de
+	// datos
 	public void generarPokemonAleatorioCaptura() {
-		//Hacemos que se quede todo como al principio en caso de repetir la captura
+		// Hacemos que se quede todo como al principio en caso de repetir la captura
 		pokemonImg.setVisible(true);
 		txtMote.setDisable(false);
 		imgPokeball.setVisible(false);
@@ -97,24 +99,36 @@ public class CapturaController {
 		lblMote.setVisible(false);
 		btnMote.setVisible(false);
 
-		//Llamamos al metodo de PokedexDAO para que se genereel pokemon
+		// Llamamos al metodo de PokedexDAO para que se genereel pokemon
 		int idPokedex = pokedexDAO.generarIdPokedexAleatorio();
 
 		Pokedex especie = pokedexDAO.buscarPorIdPokedex(idPokedex);
 
 		if (especie != null) {
 
-			//Hacemos que coja el nombre del pokemon 
+			// Hacemos que coja el nombre del pokemon
 			lblNombre.setText(especie.getNombreEspecie());
 
-			//Le ponemos un nivel aleatorio enre 2 y 10
+			// Le ponemos un nivel aleatorio enre 2 y 10
 			int nivelAleatorio = (int) (Math.random() * (10 - 2 + 1) + 2);
 			lblNivel.setText("Niv." + nivelAleatorio);
+			
+			this.pokemonActual = new Pokemon();
+			
+			this.pokemonActual.setInfoPokedex(especie);
+	        this.pokemonActual.setNombre(especie.getNombreEspecie());
+	        this.pokemonActual.setNivel(nivelAleatorio);
+	        this.pokemonActual.setMote(especie.getNombreEspecie());
+	        
+	        lblNombre.setText(pokemonActual.getNombre());
+	        lblNivel.setText("Niv." + pokemonActual.getNivel());
+			
 
-			//Usamos el getter para coger el nnumero de la pokedex
+			// Usamos el getter para coger el nnumero de la pokedex
 			int numPokedex = especie.getNum_Pokedex();
-			//Con el numero de la pokedex que hemos recogido llamamos a aa base de datos y generamos su gif
-			//Tenemos que poner los sonidos
+			// Con el numero de la pokedex que hemos recogido llamamos a aa base de datos y
+			// generamos su gif
+			// Tenemos que poner los sonidos
 			String rutaImagenFrontal = "/spritesPokemonsGifsFront/" + numPokedex + ".gif";
 
 			if (rutaImagenFrontal != null) {
@@ -134,7 +148,7 @@ public class CapturaController {
 		}
 	}
 
-	//Metodo para sair al menú principal
+	// Metodo para sair al menú principal
 	@FXML
 	private void handleHuir(ActionEvent event) {
 		cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
@@ -142,10 +156,11 @@ public class CapturaController {
 		System.out.println("Has vuelto al menú principal");
 	}
 
-	//Meotodo que se empelará cuando le demos al botón de capturar
+	// Meotodo que se empelará cuando le demos al botón de capturar
 	@FXML
 	private void handleCaptura(ActionEvent event) {
-		//Con esta timeline hacemos que de tiempo a leer los textos del log y luego se ejecuta el resultado de la captura
+		// Con esta timeline hacemos que de tiempo a leer los textos del log y luego se
+		// ejecuta el resultado de la captura
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.seconds(0), e -> txtLog.appendText("¡Lanzas la Pokéball con fuerza!\n")),
 				new KeyFrame(Duration.seconds(1), e -> txtLog.appendText("3...\n")),
@@ -156,15 +171,16 @@ public class CapturaController {
 
 	}
 
-
-	//Con este menú damos la opción de buscar otro pokemon o no hacerlo y salir al menú principal
+	// Con este menú damos la opción de buscar otro pokemon o no hacerlo y salir al
+	// menú principal
 	private void menuRepetirCaptura() {
 		btnBuscarSi.setVisible(true);
 		btnBuscarNo.setVisible(true);
 		lblBuscar.setVisible(true);
 	}
 
-	//Metodo para que nos de la información de cuando hemos asignado el metodo. Cuando asignamos el mote llamamos al metodo del menú de repetir captura 
+	// Metodo para que nos de la información de cuando hemos asignado el metodo.
+	// Cuando asignamos el mote llamamos al metodo del menú de repetir captura
 	private void moteAsignado(ActionEvent event) {
 		txtLog.appendText("El Pokémon ha sido añadido a tu equipo.");
 		menuRepetirCaptura();
@@ -174,9 +190,10 @@ public class CapturaController {
 
 	}
 
-	//Meotodo si decidimos no buscar otro pokemon, lo llamaremos en tros metodos
+	// Meotodo si decidimos no buscar otro pokemon, lo llamaremos en tros metodos
 	private void noRepetirCaptura(ActionEvent event) {
-		//Con esta timeline hacemos que los textos en el log no salgan todo de segudo y de tiempo a leerlos
+		// Con esta timeline hacemos que los textos en el log no salgan todo de segudo y
+		// de tiempo a leerlos
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.millis(0),
 						e -> txtLog
@@ -189,14 +206,15 @@ public class CapturaController {
 
 	}
 
-	///Metodo para que una vez asignado el mote, la captura no se repita
+	/// Metodo para que una vez asignado el mote, la captura no se repita
 	@FXML
 	private void moteAsignadoNoRepetir(ActionEvent event) {
 		noRepetirCaptura(event);
 
 	}
 
-	//Metodo repetir captura que llamaremos en el menú de repetir tanto si locapturamoscomosi no
+	// Metodo repetir captura que llamaremos en el menú de repetir tanto si
+	// locapturamoscomosi no
 	private void repetirCaptura() {
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.millis(0),
@@ -213,7 +231,8 @@ public class CapturaController {
 		repetirCaptura();
 	}
 
-	//Metodo del resultado de la captura, luego con esto lollamamos al resto de metodos 
+	// Metodo del resultado de la captura, luego con esto lollamamos al resto de
+	// metodos
 	@FXML
 	private void resultadoCaptura(ActionEvent event) {
 		pokemonImg.setVisible(false);
@@ -224,11 +243,12 @@ public class CapturaController {
 		int probabilidad = 50;
 		int suerte = (int) (Math.random() * 100) + 1;
 
-		//Hacemos que si lasuerte es mayor que la probabilidad, el pokemon sea capturado
+		// Hacemos que si lasuerte es mayor que la probabilidad, el pokemon sea
+		// capturado
 		if (suerte <= probabilidad) {
 			// SONIDO CAPTURA
 			imgPokeball.setVisible(true);
-			//Reproducimos el sonido de la captura exitosa
+			// Reproducimos el sonido de la captura exitosa
 			sonidoCaptura.play();
 			txtLog.appendText("...\n");
 			txtLog.appendText("¡1... 2... 3...!\n");
@@ -242,11 +262,12 @@ public class CapturaController {
 			txtMote.setVisible(true);
 			lblMote.setVisible(true);
 			btnMote.setVisible(true);
-			
+
 			txtMote.setDisable(false);
 			lblMote.setDisable(false);
 
-			//Si la suerte no es mayor o igual, la caputra fallara y nos dará la opción de buscar otro pokemon
+			// Si la suerte no es mayor o igual, la caputra fallara y nos dará la opción de
+			// buscar otro pokemon
 		} else {
 
 			txtLog.appendText("...\n");
@@ -254,15 +275,14 @@ public class CapturaController {
 			txtLog.appendText("¡Ha huido!\n");
 			btnCapturar.setDisable(true);
 			btnHuir.setDisable(true);
-			
-			menuRepetirCaptura();
 
+			menuRepetirCaptura();
 
 		}
 
 	}
 
-	//Metodo para cambair las escenas
+	// Metodo para cambair las escenas
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {
 
@@ -284,19 +304,20 @@ public class CapturaController {
 		}
 	}
 
-	//Metodo para guardar el mote del pokemon
+	// Metodo para guardar el mote del pokemon
 	@FXML
 	private void handleGuardarMote(ActionEvent event) {
 		String mote = txtMote.getText().trim();
 
 		if (mote.isEmpty()) {
 			mote = txtMote.getText().trim();
-			txtLog.appendText("No has añadido ningún mote, el pokémon se unirá a tu equipo como: " + mote);
-
+			txtLog.appendText("No has añadido ningún mote, el pokémon se unirá a tu equipo como: " + pokemonActual.getNombre());
 		}
 
+		pokemonActual.setMote(mote);
+		Main.miEquipo.add(pokemonActual);
+
 		txtLog.appendText("¡El pokemon se ha unido a tu equipo como: " + mote + "!\n");
-		txtLog.appendText("");
 
 		moteAsignado(event);
 

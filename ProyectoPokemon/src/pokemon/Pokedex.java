@@ -29,7 +29,11 @@ public class Pokedex {
 	}
 
 	public String getRutaImagen(boolean frontal) {
-		return frontal ? img_Frontal : img_Back;
+	    if (frontal = true) {
+	        return "/spritesPokemons.Front/" + this.num_Pokedex + ".gif";
+	    } else {
+	        return "/spritesPokemons.Back/" + this.num_Pokedex + ".gif";
+	    }
 	}
 
 	public void mostrarInfoBasica() {

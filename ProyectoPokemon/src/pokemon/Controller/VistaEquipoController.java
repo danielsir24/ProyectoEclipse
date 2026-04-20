@@ -11,150 +11,142 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
+
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import pokemon.Main;
 import javafx.scene.control.Button;
+
+import pokemon.Pokedex;
+import pokemon.Pokemon;
+
 
 public class VistaEquipoController {
 
+	private Pokemon p;
+	private Pokedex po;
+
+	// Elementos generales
 	@FXML
-	private Label lblEntrarPC;
+	private Button btnEntrarPC, btnVolverMenu;
 	@FXML
-	private Label errorLabel;
+	private Label lblEntrarPC, lblVolverMenu, errorLabel;
+
+	// Elementos de cada Slot
+	// Slot 1
 	@FXML
-	private Button btnEntrarPC;
+	private Label lblNombre1, lblNivel1, lblPV1, lblEXP1;
 	@FXML
-	private Button btnVolverMenu;
+	private ProgressBar hpBar1, expBar1;
 	@FXML
-	private Label lblVolverMenu;
+	private ImageView imgPokemon1, imgGenero1;
+
+
+	// Slot 2
+	@FXML
+	private Label lblNombre2, lblNivel2, lblPV2, lblEXP2;
+	@FXML
+	private ProgressBar hpBar2, expBar2;
+	@FXML
+	private ImageView imgPokemon2, imgGenero2;
 	
+	// Slot 3
+	@FXML
+	private Label lblNombre3, lblNivel3, lblPV3, lblEXP3;
+	@FXML
+	private ProgressBar hpBar3, expBar3;
+	@FXML
+	private ImageView imgPokemon3, imgGenero3;
 	
-	// Elementos de cada cuadro de cada pokemon (1-6)
-	// 1
-	@FXML
-	private Label lblNombre1;
-	@FXML
-	private Label lblNivel1;
-	@FXML
-	private Label lblPV1;
-	@FXML
-	private Label lblEXP1;
-	@FXML
-	private ProgressBar hpBar1;
-	@FXML
-	private ProgressBar expBar1;
-	@FXML
-	private ImageView imgPokemon1;
-	@FXML
-	private ImageView imgGenero1;
-	@FXML
-	private Rectangle rectFondo1;
 
-	// 2
+	// Slot 4
 	@FXML
-	private Label lblNombre2;
+	private Label lblNombre4, lblNivel4, lblPV4, lblEXP4;
 	@FXML
-	private Label lblNivel2;
+	private ProgressBar hpBar4, expBar4;
 	@FXML
-	private Label lblPV2;
-	@FXML
-	private Label lblEXP2;
-	@FXML
-	private ProgressBar hpBar2;
-	@FXML
-	private ProgressBar expBar2;
-	@FXML
-	private ImageView imgPokemon2;
-	@FXML
-	private ImageView imgGenero2;
-	@FXML
-	private Rectangle rectFondo2;
+	private ImageView imgPokemon4, imgGenero4;
+	
 
-	// 3
+	// Slot 5
 	@FXML
-	private Label lblNombre3;
+	private Label lblNombre5, lblNivel5, lblPV5, lblEXP5;
 	@FXML
-	private Label lblNivel3;
+	private ProgressBar hpBar5, expBar5;
 	@FXML
-	private Label lblPV3;
+	private ImageView imgPokemon5, imgGenero5;
+	
+	// Slot 6
 	@FXML
-	private Label lblEXP3;
+	private Label lblNombre6, lblNivel6, lblPV6, lblEXP6;
 	@FXML
-	private ProgressBar hpBar3;
+	private ProgressBar hpBar6, expBar6;
 	@FXML
-	private ProgressBar expBar3;
-	@FXML
-	private ImageView imgPokemon3;
-	@FXML
-	private ImageView imgGenero3;
-	@FXML
-	private Rectangle rectFondo3;
+	private ImageView imgPokemon6, imgGenero6;
+	
 
-	// 4 
-	@FXML
-	private Label lblNombre4;
-	@FXML
-	private Label lblNivel4;
-	@FXML
-	private Label lblPV4;
-	@FXML
-	private Label lblEXP4;
-	@FXML
-	private ProgressBar hpBar4;
-	@FXML
-	private ProgressBar expBar4;
-	@FXML
-	private ImageView imgPokemon4;
-	@FXML
-	private ImageView imgGenero4;
-	@FXML
-	private Rectangle rectFondo4;
+	// Arrays para la optimizacion
+	private Label[] nombres, niveles, pvs, exps;
+	private ProgressBar[] barrasHP, barrasEXP;
+	private ImageView[] fotos, generos;
 
-	// 5
-	@FXML
-	private Label lblNombre5;
-	@FXML
-	private Label lblNivel5;
-	@FXML
-	private Label lblPV5;
-	@FXML
-	private Label lblEXP5;
-	@FXML
-	private ProgressBar hpBar5;
-	@FXML
-	private ProgressBar expBar5;
-	@FXML
-	private ImageView imgPokemon5;
-	@FXML
-	private ImageView imgGenero5;
-	@FXML
-	private Rectangle rectFondo5;
-
-	// 6
-	@FXML
-	private Label lblNombre6;
-	@FXML
-	private Label lblNivel6;
-	@FXML
-	private Label lblPV6;
-	@FXML
-	private Label lblEXP6;
-	@FXML
-	private ProgressBar hpBar6;
-	@FXML
-	private ProgressBar expBar6;
-	@FXML
-	private ImageView imgPokemon6;
-	@FXML
-	private ImageView imgGenero6;
-	@FXML
-	private Rectangle rectFondo6;
 
 	// Metodo para cargar la fuente
 	@FXML
 	public void initialize() {
+
+		// Incializamos los arrays en orden
+		nombres = new Label[] { lblNombre1, lblNombre2, lblNombre3, lblNombre4, lblNombre5, lblNombre6 };
+		niveles = new Label[] { lblNivel1, lblNivel2, lblNivel3, lblNivel4, lblNivel5, lblNivel6 };
+		pvs = new Label[] { lblPV1, lblPV2, lblPV3, lblPV4, lblPV5, lblPV6 };
+		exps = new Label[] { lblEXP1, lblEXP2, lblEXP3, lblEXP4, lblEXP5, lblEXP6 };
+
+		barrasHP = new ProgressBar[] { hpBar1, hpBar2, hpBar3, hpBar4, hpBar5, hpBar6 };
+		barrasEXP = new ProgressBar[] { expBar1, expBar2, expBar3, expBar4, expBar5, expBar6 };
+
+		fotos = new ImageView[] { imgPokemon1, imgPokemon2, imgPokemon3, imgPokemon4, imgPokemon5, imgPokemon6 };
+		generos = new ImageView[] { imgGenero1, imgGenero2, imgGenero3, imgGenero4, imgGenero5, imgGenero6 };
+
+
+		actualizarEquipo();
 		cargarFuentePersonalizada();
+
+	}
+
+	private void actualizarEquipo() {
+
+		for (int i = 0; i < 6; i++) {
+			// Rellenamos los elementos con los getters y setters
+			if (i < Main.miEquipo.size()) {
+				Pokemon p = Main.miEquipo.get(i);
+				if(p!= null) {
+				//Datos basicos
+				nombres[i].setText(p.getMote());
+				niveles[i].setText("Nv. " + p.getNivel());
+				pvs[i].setText(p.getVitalidad() + "/" + p.getVitalidadMaxima());
+				exps[i].setText(p.getExperiencia() + "pts");
+				
+				//Barras
+				//Hay que solucionar lo de la barra de exeriencia
+				barrasHP[i].setProgress(p.getVitalidad() / (double) p.getVitalidadMaxima());
+
+				fotos[i].setImage(new Image(getClass().getResourceAsStream((p.getInfoPokedex().getRutaImagen(true)))));}
+				
+				
+
+			} else {
+				// Si el slot esta vacio, hacemos que se quede como apagado
+				nombres[i].setText("---");
+				niveles[i].setText("");
+				pvs[i].setText("");
+				exps[i].setText("");
+				barrasHP[i].setProgress(0);
+				barrasEXP[i].setProgress(0);
+				
+			}
+		}
+
 	}
 
 	private void cargarFuentePersonalizada() {
@@ -210,6 +202,7 @@ public class VistaEquipoController {
 
 		System.out.println("Has vuelto al menú principal");
 	}
+
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {
 
@@ -230,6 +223,5 @@ public class VistaEquipoController {
 			}
 		}
 	}
-	
-	
+
 }
