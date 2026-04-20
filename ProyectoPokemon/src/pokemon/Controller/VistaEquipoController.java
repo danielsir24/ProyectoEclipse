@@ -117,7 +117,7 @@ public class VistaEquipoController {
 		System.out.println("DEBUG: Actualizando equipo. Tamaño actual: " + Main.miEquipo.size());
 
 		for (int i = 0; i < 6; i++) {
-			//Verificamos si existe un pokemon en esta posición de la lista
+			// Verificamos si existe un pokemon en esta posición de la lista
 			if (i < Main.miEquipo.size()) {
 				Pokemon pActual = Main.miEquipo.get(i);
 
@@ -130,7 +130,7 @@ public class VistaEquipoController {
 
 					// Barras
 					barrasHP[i].setProgress((double) pActual.getVitalidad() / pActual.getVitalidadMaxima());
-					barrasEXP[i].setProgress(100); //Aun hay que solucionar lo de la barra de experiencia
+					barrasEXP[i].setProgress(100); // Aun hay que solucionar lo de la barra de experiencia
 
 					// Imagen
 					if (pActual.getInfoPokedex() != null) {
@@ -138,9 +138,10 @@ public class VistaEquipoController {
 						InputStream is = getClass().getResourceAsStream(ruta);
 						if (is != null) {
 							fotos[i].setImage(new Image(is));
-							System.out.println("DEBUG: ¡Imagen cargada con éxito!"); //Comentarios debug
+							System.out.println("DEBUG: ¡Imagen cargada con éxito!"); // Comentarios debug
 						} else {
-							System.err.println("DEBUG: No se encuentra el archivo en la ruta: " + ruta); //Comentarios debug
+							System.err.println("DEBUG: No se encuentra el archivo en la ruta: " + ruta); // Comentarios
+																											// debug
 						}
 					}
 					// Aseguramos visibilidad
@@ -148,7 +149,7 @@ public class VistaEquipoController {
 					fotos[i].setVisible(true);
 				}
 			} else {
-				// Haceos que los slots vacios salgan con estos parametros predeterminados
+				// Hacemos que los slots vacios salgan con estos parametros predeterminados
 				System.out.println("DEBUG: Slot " + i + " está vacío.");
 				nombres[i].setText("---");
 				niveles[i].setText("");
