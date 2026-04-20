@@ -39,7 +39,7 @@ public class MainController {
 
 	@FXML
 	private void handleEquipo(ActionEvent event) {
-		cambiarEscena(event, "/EscenaMenuEquipo.fxml", "Menú Equipo");
+		cambiarEscena(event, "/EscenaEquipo.fxml", "Menú Equipo");
 
 	}
 	
