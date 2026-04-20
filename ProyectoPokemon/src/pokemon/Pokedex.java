@@ -30,9 +30,9 @@ public class Pokedex {
 
 	public String getRutaImagen(boolean frontal) {
 	    if (frontal = true) {
-	        return "/spritesPokemons.Front/" + this.num_Pokedex + ".gif";
+	        return "/spritesPokemons/Front/" + this.num_Pokedex + ".png";
 	    } else {
-	        return "/spritesPokemons.Back/" + this.num_Pokedex + ".gif";
+	        return "/spritesPokemons/Back/" + this.num_Pokedex + ".png";
 	    }
 	}
 

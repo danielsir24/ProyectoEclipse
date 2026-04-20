@@ -310,7 +310,7 @@ public class CapturaController {
 		String mote = txtMote.getText().trim();
 
 		if (mote.isEmpty()) {
-			mote = txtMote.getText().trim();
+			mote =  pokemonActual.getNombre();
 			txtLog.appendText("No has añadido ningún mote, el pokémon se unirá a tu equipo como: " + pokemonActual.getNombre());
 		}
 

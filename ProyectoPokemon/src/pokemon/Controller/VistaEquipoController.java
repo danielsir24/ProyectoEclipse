@@ -19,12 +19,17 @@ import pokemon.Main;
 import javafx.scene.control.Button;
 
 import pokemon.Pokedex;
+import pokemon.PokedexDAO;
+
 import pokemon.Pokemon;
 
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class VistaEquipoController {
 
-	private Pokemon p;
+	// private Pokemon p;
 	private Pokedex po;
 
 	// Elementos generales
@@ -42,7 +47,6 @@ public class VistaEquipoController {
 	@FXML
 	private ImageView imgPokemon1, imgGenero1;
 
-
 	// Slot 2
 	@FXML
 	private Label lblNombre2, lblNivel2, lblPV2, lblEXP2;
@@ -50,7 +54,7 @@ public class VistaEquipoController {
 	private ProgressBar hpBar2, expBar2;
 	@FXML
 	private ImageView imgPokemon2, imgGenero2;
-	
+
 	// Slot 3
 	@FXML
 	private Label lblNombre3, lblNivel3, lblPV3, lblEXP3;
@@ -58,7 +62,6 @@ public class VistaEquipoController {
 	private ProgressBar hpBar3, expBar3;
 	@FXML
 	private ImageView imgPokemon3, imgGenero3;
-	
 
 	// Slot 4
 	@FXML
@@ -67,7 +70,6 @@ public class VistaEquipoController {
 	private ProgressBar hpBar4, expBar4;
 	@FXML
 	private ImageView imgPokemon4, imgGenero4;
-	
 
 	// Slot 5
 	@FXML
@@ -76,7 +78,7 @@ public class VistaEquipoController {
 	private ProgressBar hpBar5, expBar5;
 	@FXML
 	private ImageView imgPokemon5, imgGenero5;
-	
+
 	// Slot 6
 	@FXML
 	private Label lblNombre6, lblNivel6, lblPV6, lblEXP6;
@@ -84,13 +86,11 @@ public class VistaEquipoController {
 	private ProgressBar hpBar6, expBar6;
 	@FXML
 	private ImageView imgPokemon6, imgGenero6;
-	
 
 	// Arrays para la optimizacion
 	private Label[] nombres, niveles, pvs, exps;
 	private ProgressBar[] barrasHP, barrasEXP;
 	private ImageView[] fotos, generos;
-
 
 	// Metodo para cargar la fuente
 	@FXML
@@ -108,45 +108,57 @@ public class VistaEquipoController {
 		fotos = new ImageView[] { imgPokemon1, imgPokemon2, imgPokemon3, imgPokemon4, imgPokemon5, imgPokemon6 };
 		generos = new ImageView[] { imgGenero1, imgGenero2, imgGenero3, imgGenero4, imgGenero5, imgGenero6 };
 
-
 		actualizarEquipo();
 		cargarFuentePersonalizada();
 
 	}
 
 	private void actualizarEquipo() {
+		System.out.println("DEBUG: Actualizando equipo. Tamaño actual: " + Main.miEquipo.size());
 
 		for (int i = 0; i < 6; i++) {
-			// Rellenamos los elementos con los getters y setters
+			//Verificamos si existe un pokemon en esta posición de la lista
 			if (i < Main.miEquipo.size()) {
-				Pokemon p = Main.miEquipo.get(i);
-				if(p!= null) {
-				//Datos basicos
-				nombres[i].setText(p.getMote());
-				niveles[i].setText("Nv. " + p.getNivel());
-				pvs[i].setText(p.getVitalidad() + "/" + p.getVitalidadMaxima());
-				exps[i].setText(p.getExperiencia() + "pts");
-				
-				//Barras
-				//Hay que solucionar lo de la barra de exeriencia
-				barrasHP[i].setProgress(p.getVitalidad() / (double) p.getVitalidadMaxima());
+				Pokemon pActual = Main.miEquipo.get(i);
 
-				fotos[i].setImage(new Image(getClass().getResourceAsStream((p.getInfoPokedex().getRutaImagen(true)))));}
-				
-				
+				if (pActual != null) {
+					// Rellenamos datos
+					nombres[i].setText(pActual.getMote());
+					niveles[i].setText("Nv. " + pActual.getNivel());
+					pvs[i].setText(pActual.getVitalidad() + "/" + pActual.getVitalidadMaxima());
+					exps[i].setText(pActual.getExperiencia() + " pts");
 
+					// Barras
+					barrasHP[i].setProgress((double) pActual.getVitalidad() / pActual.getVitalidadMaxima());
+					barrasEXP[i].setProgress(100); //Aun hay que solucionar lo de la barra de experiencia
+
+					// Imagen
+					if (pActual.getInfoPokedex() != null) {
+						String ruta = pActual.getInfoPokedex().getRutaImagen(true);
+						InputStream is = getClass().getResourceAsStream(ruta);
+						if (is != null) {
+							fotos[i].setImage(new Image(is));
+							System.out.println("DEBUG: ¡Imagen cargada con éxito!"); //Comentarios debug
+						} else {
+							System.err.println("DEBUG: No se encuentra el archivo en la ruta: " + ruta); //Comentarios debug
+						}
+					}
+					// Aseguramos visibilidad
+					nombres[i].setVisible(true);
+					fotos[i].setVisible(true);
+				}
 			} else {
-				// Si el slot esta vacio, hacemos que se quede como apagado
+				// Haceos que los slots vacios salgan con estos parametros predeterminados
+				System.out.println("DEBUG: Slot " + i + " está vacío.");
 				nombres[i].setText("---");
 				niveles[i].setText("");
 				pvs[i].setText("");
 				exps[i].setText("");
 				barrasHP[i].setProgress(0);
 				barrasEXP[i].setProgress(0);
-				
+				fotos[i].setImage(null); // O una imagen de una Pokéball vacía
 			}
 		}
-
 	}
 
 	private void cargarFuentePersonalizada() {
