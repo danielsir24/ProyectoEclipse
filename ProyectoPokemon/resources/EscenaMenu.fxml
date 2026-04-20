@@ -41,18 +41,19 @@
                       <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;">
                            <graphic>
                               <StackPane prefHeight="150.0" prefWidth="180.0">
                                  <children>
-                                    <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true"><image><Image url="@images/ImagenPokedex.png" /></image>
-                                       <cursor>
-                                          <Cursor fx:constant="DEFAULT" />
-                                       </cursor></ImageView>
-                                    <Label style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);" text="POKÉDEX" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER"><font><Font name="Pokemon Solid Normal" size="18.0" /></font><StackPane.margin><Insets bottom="10.0" /></StackPane.margin></Label>
+                                    <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true">
+                                       <image>
+                                          <Image url="@images/ImagenCasinoBuena.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);" text="CASINO" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER"><font><Font name="Pokemon Solid Normal" size="18.0" /></font><StackPane.margin><Insets bottom="10.0" /></StackPane.margin></Label>
                                  </children>
                               </StackPane>
                            </graphic>
@@ -108,20 +109,6 @@
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true"><image><Image url="@images/ImagenLiga.png" /></image></ImageView>
                                     <Label style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);" text="LIGA" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER"><font><Font name="Pokemon Solid Normal" size="18.0" /></font><StackPane.margin><Insets bottom="10.0" /></StackPane.margin></Label>
-                                 </children>
-                              </StackPane>
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.rowIndex="3">
-                           <graphic>
-                              <StackPane prefHeight="150.0" prefWidth="180.0">
-                                 <children>
-                                    <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true">
-                                       <image>
-                                          <Image url="@images/ImagenCasino(2).png" />
-                                       </image>
-                                    </ImageView>
-                                 
                                  </children>
                               </StackPane>
                            </graphic>
