@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #7ec8ff 0%, #2a6f97 50%, #000000 100%);;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.VistaEquipoController">
+
+
+    <HBox alignment="CENTER_LEFT" spacing="12.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="18.0">
+
+        <Label style="-fx-text-fill: rgba(255,255,255,0.45);                    -fx-font-size: 12px;                    -fx-font-weight: bold;                    -fx-letter-spacing: 2px;" text="MI EQUIPO" />
+
+        <HBox HBox.hgrow="ALWAYS" />
+
+        <!-- Boton volver -->
+        <Button fx:id="btnVolverMenu" mnemonicParsing="false" onAction="#volverMenu" style="-fx-background-color: rgba(255,255,255,0.08);                    -fx-background-radius: 50%;                    -fx-border-color: rgba(255,255,255,0.15);                    -fx-border-radius: 50%;                    -fx-text-fill: rgba(255,255,255,0.7);                    -fx-font-size: 14px;                    -fx-min-width: 36px;                    -fx-min-height: 36px;                    -fx-cursor: hand;" text="✕" />
+    </HBox>
+
+    <GridPane hgap="12.0" vgap="12.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="70.0">
+
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints prefHeight="140.0" vgrow="ALWAYS" />
+            <RowConstraints prefHeight="140.0" vgrow="ALWAYS" />
+            <RowConstraints prefHeight="140.0" vgrow="ALWAYS" />
+        </rowConstraints>
+
+        <children>
+
+            <AnchorPane fx:id="cardSlot1" style="-fx-background-color: rgba(255,255,255,0.06);                        -fx-background-radius: 16px;                        -fx-border-color: rgba(255,255,255,0.12);                        -fx-border-radius: 16px;                        -fx-border-width: 0.5px;                        -fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+
+                <!-- Imagen del Pokémon -->
+                <ImageView fx:id="imgPokemon1" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0" />
+
+                <VBox spacing="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
+
+                    <!-- Fila nombre y genero ynivel -->
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+
+                        <Circle fx:id="statusDot1" fill="#4cd96a" radius="4.0" />
+
+                        <Label fx:id="lblNombre1" style="-fx-text-fill: rgba(255,255,255,0.92);                                    -fx-font-size: 14px;                                    -fx-font-weight: bold;" text="Nombre" />
+
+                        <Label fx:id="lblGenero1" style="-fx-text-fill: #6ab0f5;                                    -fx-font-size: 12px;" text="♂" />
+
+
+                        <HBox HBox.hgrow="ALWAYS" />
+
+                        <Label fx:id="lblNivel1" style="-fx-text-fill: rgba(255,255,255,0.45);                                    -fx-font-size: 11px;                                    -fx-background-color: rgba(255,255,255,0.08);                                    -fx-background-radius: 6px;                                    -fx-padding: 1 6 1 6;" text="Nv.0" />
+                    </HBox>
+
+
+                    <HBox fx:id="hboxTipos1" spacing="4.0" />
+
+                    <!-- Barra PS -->
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35);                                    -fx-font-size: 9px;                                    -fx-min-width: 18px;" text="PS" />
+                        <ProgressBar fx:id="hpBar1" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblPV1" style="-fx-text-fill: rgba(255,255,255,0.4);                                    -fx-font-size: 9px;                                    -fx-min-width: 42px;" text="0/0" />
+                    </HBox>
+
+                    <!-- Barra EXP -->
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35);                                    -fx-font-size: 9px;                                    -fx-min-width: 18px;" text="EXP" />
+                        <ProgressBar fx:id="expBar1" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblEXP1" style="-fx-text-fill: rgba(255,255,255,0.4);                                    -fx-font-size: 9px;                                    -fx-min-width: 26px;" text="0%" />
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+
+            <AnchorPane fx:id="cardSlot2" style="-fx-background-color: rgba(255,255,255,0.06);                        -fx-background-radius: 16px;                        -fx-border-color: rgba(255,255,255,0.12);                        -fx-border-radius: 16px;                        -fx-border-width: 0.5px;                        -fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+
+                <ImageView fx:id="imgPokemon2" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0" />
+
+                <VBox spacing="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Circle fx:id="statusDot2" fill="#4cd96a" radius="4.0" />
+                        <Label fx:id="lblNombre2" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
+                        <Label fx:id="lblGenero2" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblNivel2" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                    </HBox>
+
+                    <HBox fx:id="hboxTipos2" spacing="4.0" />
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <ProgressBar fx:id="hpBar2" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblPV2" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <ProgressBar fx:id="expBar2" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblEXP2" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+
+            <AnchorPane fx:id="cardSlot3" style="-fx-background-color: rgba(255,255,255,0.06);                        -fx-background-radius: 16px;                        -fx-border-color: rgba(255,255,255,0.12);                        -fx-border-radius: 16px;                        -fx-border-width: 0.5px;                        -fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="1">
+
+                <ImageView fx:id="imgPokemon3" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0" />
+
+                <VBox spacing="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Circle fx:id="statusDot3" fill="#4cd96a" radius="4.0" />
+                        <Label fx:id="lblNombre3" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
+                        <Label fx:id="lblGenero3" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblNivel3" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                    </HBox>
+
+                    <HBox fx:id="hboxTipos3" spacing="4.0" />
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <ProgressBar fx:id="hpBar3" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblPV3" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <ProgressBar fx:id="expBar3" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblEXP3" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+
+            <AnchorPane fx:id="cardSlot4" style="-fx-background-color: rgba(255,255,255,0.06);                        -fx-background-radius: 16px;                        -fx-border-color: rgba(255,255,255,0.12);                        -fx-border-radius: 16px;                        -fx-border-width: 0.5px;                        -fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+
+                <ImageView fx:id="imgPokemon4" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0" />
+
+                <VBox spacing="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Circle fx:id="statusDot4" fill="#4cd96a" radius="4.0" />
+                        <Label fx:id="lblNombre4" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
+                        <Label fx:id="lblGenero4" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblNivel4" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                    </HBox>
+
+                    <HBox fx:id="hboxTipos4" spacing="4.0" />
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <ProgressBar fx:id="hpBar4" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblPV4" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <ProgressBar fx:id="expBar4" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblEXP4" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+            <AnchorPane fx:id="cardSlot5" style="-fx-background-color: rgba(255,255,255,0.06);                        -fx-background-radius: 16px;                        -fx-border-color: rgba(255,255,255,0.12);                        -fx-border-radius: 16px;                        -fx-border-width: 0.5px;                        -fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="2">
+
+                <ImageView fx:id="imgPokemon5" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0" />
+
+                <VBox spacing="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Circle fx:id="statusDot5" fill="#4cd96a" radius="4.0" />
+                        <Label fx:id="lblNombre5" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
+                        <Label fx:id="lblGenero5" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblNivel5" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                    </HBox>
+
+                    <HBox fx:id="hboxTipos5" spacing="4.0" />
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <ProgressBar fx:id="hpBar5" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblPV5" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <ProgressBar fx:id="expBar5" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblEXP5" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+
+            <AnchorPane fx:id="cardSlot6" style="-fx-background-color: rgba(255,255,255,0.06);                        -fx-background-radius: 16px;                        -fx-border-color: rgba(255,255,255,0.12);                        -fx-border-radius: 16px;                        -fx-border-width: 0.5px;                        -fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+
+                <ImageView fx:id="imgPokemon6" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0" />
+
+                <VBox spacing="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Circle fx:id="statusDot6" fill="#4cd96a" radius="4.0" />
+                        <Label fx:id="lblNombre6" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
+                        <Label fx:id="lblGenero6" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblNivel6" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                    </HBox>
+
+                    <HBox fx:id="hboxTipos6" spacing="4.0" />
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <ProgressBar fx:id="hpBar6" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblPV6" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <ProgressBar fx:id="expBar6" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblEXP6" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+        </children>
+    </GridPane>
+
+
+    <HBox alignment="CENTER_LEFT" spacing="8.0" style="-fx-background-color: rgba(0,0,0,0.25);                -fx-background-radius: 12px;                -fx-border-color: rgba(255,255,255,0.07);                -fx-border-radius: 12px;                -fx-border-width: 0.5px;                -fx-padding: 10 14 10 14;" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+
+        <!-- Puntos de estado del equipo -->
+        <HBox fx:id="hboxSummaryDots" alignment="CENTER_LEFT" spacing="6.0" />
+
+
+        <HBox HBox.hgrow="ALWAYS" />
+
+        <!-- Boton Entrar al PC -->
+        <Button fx:id="btnEntrarPC" mnemonicParsing="false" onAction="#entrarPc" style="-fx-background-color: rgba(29,158,117,0.2);                    -fx-background-radius: 10px;                    -fx-border-color: rgba(29,158,117,0.4);                    -fx-border-radius: 10px;                    -fx-border-width: 0.5px;                    -fx-text-fill: #5dd8a8;                    -fx-font-size: 12px;                    -fx-padding: 8 14 8 14;                    -fx-cursor: hand;" text="Entrar al PC" />
+    </HBox>
+
+</AnchorPane>
