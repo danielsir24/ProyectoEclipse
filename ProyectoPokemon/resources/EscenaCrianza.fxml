@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="761" prefWidth="1280" styleClass="root-pane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+
+
+    <top>
+        <VBox pickOnBounds="true" prefHeight="74.0" prefWidth="1280.0">
+            <Label alignment="CENTER" prefHeight="23.0" prefWidth="1280.0" style="-fx-background-color: lightblue;" text="✦  GUARDERÍA POKÉMON  ✦" />
+            <Label alignment="CENTER" prefHeight="57.0" prefWidth="1280.0" style="-fx-background-color: lightblue; -fx-border-color: black; -fx-border-radius: 10 10 0 0; -fx-border-width: 2;" text="Selecciona un Pokémon MACHO y una HEMBRA para criar" textAlignment="CENTER" />
+        </VBox>
+    </top>
+
+
+    <center>
+        <HBox alignment="CENTER" spacing="0" style="-fx-background-color: lightyellow;">
+
+
+            <VBox alignment="TOP_CENTER" spacing="12" styleClass="parent-panel male-panel">
+                <padding><Insets bottom="20" left="20" right="20" top="24" /></padding>
+
+                <HBox alignment="CENTER" spacing="8">
+                    <Label styleClass="gender-icon male-icon" text="♂" />
+                    <Label styleClass="gender-label male-label" text="MACHO" />
+                </HBox>
+
+                <StackPane prefHeight="140" prefWidth="140" styleClass="sprite-container">
+                    <ImageView fx:id="imageMacho" fitHeight="120" fitWidth="120" preserveRatio="true" styleClass="pokemon-sprite" />
+                </StackPane>
+
+                <VBox alignment="CENTER" spacing="4">
+                    <Label fx:id="nombreMacho" styleClass="pokemon-name" />
+                    <HBox alignment="CENTER" spacing="6" />
+                </VBox>
+
+                <GridPane hgap="8" managed="false" styleClass="stats-grid" vgap="4" visible="false">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="50" />
+                        <ColumnConstraints minWidth="60" />
+                    </columnConstraints>
+                    <Label styleClass="stat-label" text="HP" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label styleClass="stat-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Label styleClass="stat-label" text="ATK" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label styleClass="stat-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label styleClass="stat-label" text="DEF" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label styleClass="stat-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+            <Button disable="true" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: #888888; -fx-border-radius: 25; -fx-border-width: 1; -fx-padding: 10 30 10 30; -fx-text-fill: #333333; -fx-font-family: &quot;Pokemon Solid Normal&quot;;" text="Seleccionar Pokemon Macho" />
+            </VBox>
+
+
+            <VBox alignment="CENTER" prefWidth="200" spacing="16" styleClass="center-panel">
+
+
+                <VBox alignment="CENTER" spacing="10">
+                    <Button disable="true" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: #888888; -fx-border-radius: 25; -fx-border-width: 1; -fx-padding: 10 30 10 30; -fx-text-fill: #333333; -fx-font-family: &quot;Pokemon Solid Normal&quot;;" text="¡Criar!" />
+                    <Label text="Selecciona ambos Pokémon para criar" textAlignment="CENTER" wrapText="true" />
+                </VBox>
+
+
+                <VBox alignment="CENTER" managed="false" spacing="14" visible="false">
+                    <StackPane alignment="CENTER" prefHeight="130" prefWidth="130" styleClass="egg-container">
+                        <ImageView fitHeight="110" fitWidth="110" preserveRatio="true" styleClass="egg-image" />
+                        <Region maxHeight="130" maxWidth="130" styleClass="egg-glow" />
+                    </StackPane>
+                    <Label styleClass="egg-label" text="¡Se ha obtenido un Huevo!" />
+                    <Button styleClass="btn-abrir-huevo" text="🥚  Abrir Huevo" />
+                </VBox>
+
+
+                <VBox alignment="CENTER" managed="false" spacing="10" visible="false">
+                    <Label styleClass="baby-title" text="¡Nació un Pokémon!" />
+                    <StackPane prefHeight="130" prefWidth="130" styleClass="sprite-container">
+                        <ImageView fitHeight="110" fitWidth="110" preserveRatio="true" styleClass="pokemon-sprite baby-sprite" />
+                    </StackPane>
+                    <Label styleClass="baby-name" text="???" />
+                    <HBox alignment="CENTER" spacing="6" />
+                    <Button styleClass="btn-guardar" text="➕ Añadir al equipo" />
+                    <Button styleClass="btn-reiniciar" text="↩ Nueva crianza" />
+                </VBox>
+
+            </VBox>
+
+            <VBox alignment="TOP_CENTER" spacing="12" styleClass="parent-panel female-panel">
+                <padding><Insets bottom="20" left="20" right="20" top="24" /></padding>
+
+                <HBox alignment="CENTER" spacing="8">
+                    <Label styleClass="gender-icon female-icon" text="♀" />
+                    <Label styleClass="gender-label female-label" text="HEMBRA" />
+                </HBox>
+
+                <StackPane prefHeight="140" prefWidth="140" styleClass="sprite-container">
+                    <ImageView fx:id="imageHembra" fitHeight="120" fitWidth="120" preserveRatio="true" styleClass="pokemon-sprite" />
+                </StackPane>
+
+                <VBox alignment="CENTER" spacing="4">
+                    <Label fx:id="nombreHembra" styleClass="pokemon-name" />
+                    <HBox alignment="CENTER" spacing="6" />
+                </VBox>
+
+                <GridPane hgap="8" managed="false" styleClass="stats-grid" vgap="4" visible="false">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="50" />
+                        <ColumnConstraints minWidth="60" />
+                    </columnConstraints>
+                    <Label styleClass="stat-label" text="HP" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label styleClass="stat-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Label styleClass="stat-label" text="ATK" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label styleClass="stat-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label styleClass="stat-label" text="DEF" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label styleClass="stat-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+            <Button disable="true" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: #888888; -fx-border-radius: 25; -fx-border-width: 1; -fx-padding: 10 30 10 30; -fx-text-fill: #333333; -fx-font-family: &quot;Pokemon Solid Normal&quot;;" text="Seleccionar Pokemon Hembra">
+               <font>
+                  <Font name="Pokemon Solid Normal" size="12.0" />
+               </font>
+            </Button>
+            </VBox>
+
+        </HBox>
+    </center>
+
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="10" style="-fx-background-color: lightblue;">
+            <padding><Insets bottom="8" left="20" right="20" top="8" /></padding>
+            <Label styleClass="footer-status" text="Selecciona un Pokémon MACHO y una HEMBRA para comenzar la crianza." wrapText="true" />
+        </HBox>
+    </bottom>
+
+</BorderPane>
