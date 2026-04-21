@@ -18,19 +18,14 @@ import javafx.scene.image.Image;
 import pokemon.Main;
 import javafx.scene.control.Button;
 
-import pokemon.Pokedex;
-import pokemon.PokedexDAO;
 
 import pokemon.Pokemon;
 
 import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+
 
 public class VistaEquipoController {
 
-	// private Pokemon p;
-	private Pokedex po;
 
 	// Elementos generales
 	@FXML
@@ -90,7 +85,7 @@ public class VistaEquipoController {
 	// Arrays para la optimizacion
 	private Label[] nombres, niveles, pvs, exps;
 	private ProgressBar[] barrasHP, barrasEXP;
-	private ImageView[] fotos, generos;
+	private ImageView[] fotos, generos; //Hay que meter tambien las imagenes de los generos, que se me haolvidado, ya lo haré
 
 	// Metodo para cargar la fuente
 	@FXML
@@ -129,7 +124,7 @@ public class VistaEquipoController {
 					exps[i].setText(pActual.getExperiencia() + " pts");
 
 					// Barras
-					barrasHP[i].setProgress((double) pActual.getVitalidad() / pActual.getVitalidadMaxima());
+					barrasHP[i].setProgress((double) pActual.getVitalidad() / pActual.getVitalidadMaxima()); //Tapoco se ve el progreso de la barra
 					barrasEXP[i].setProgress(100); // Aun hay que solucionar lo de la barra de experiencia
 
 					// Imagen
@@ -140,13 +135,14 @@ public class VistaEquipoController {
 							fotos[i].setImage(new Image(is));
 							System.out.println("DEBUG: ¡Imagen cargada con éxito!"); // Comentarios debug
 						} else {
-							System.err.println("DEBUG: No se encuentra el archivo en la ruta: " + ruta); // Comentarios
-																											// debug
+							System.err.println("DEBUG: No se encuentra el archivo en la ruta: " + ruta); // Comentarios debug
+							//No toqueis esto de la imagen que me ha costado que flipas																				
 						}
 					}
 					// Aseguramos visibilidad
 					nombres[i].setVisible(true);
 					fotos[i].setVisible(true);
+					//Esto lo pongo porque antes no salía
 				}
 			} else {
 				// Hacemos que los slots vacios salgan con estos parametros predeterminados
@@ -157,11 +153,12 @@ public class VistaEquipoController {
 				exps[i].setText("");
 				barrasHP[i].setProgress(0);
 				barrasEXP[i].setProgress(0);
-				fotos[i].setImage(null); // O una imagen de una Pokéball vacía
+				fotos[i].setImage(null); 
 			}
 		}
 	}
 
+	//La fuente esta que al final no se ni si la vamos a utilizar
 	private void cargarFuentePersonalizada() {
 		try {
 			Font pokemonFont = Font.loadFont(getClass().getResourceAsStream("/fonts/pokemon.ttf"), 18);
@@ -202,6 +199,8 @@ public class VistaEquipoController {
 		}
 	}
 
+	
+	//Metodos de cambiode escena 
 	@FXML
 	private void entrarPc(ActionEvent event) {
 		cambiarEscena(event, "/EscenaPC.fxml", "PC de Pokemon");

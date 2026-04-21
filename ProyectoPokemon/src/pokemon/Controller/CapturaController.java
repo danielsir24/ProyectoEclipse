@@ -27,6 +27,7 @@ import javafx.util.Duration;
 
 public class CapturaController {
 
+	//Elementos de FXML
 	@FXML
 	private Label errorLabel;
 
@@ -69,6 +70,7 @@ public class CapturaController {
 	@FXML
 	private Label lblMote;
 
+	//Variables usadas en los metodos
 	private PokedexDAO pokedexDAO = new PokedexDAO();
 	private AudioClip sonidoCaptura;
 	private Pokemon pokemonActual;
@@ -129,6 +131,7 @@ public class CapturaController {
 			// Con el numero de la pokedex que hemos recogido llamamos a aa base de datos y
 			// generamos su gif
 			// Tenemos que poner los sonidos
+			//Ponedlos vosotros que a mi me da la risa
 			String rutaImagenFrontal = "/spritesPokemonsGifsFront/" + numPokedex + ".gif";
 
 			if (rutaImagenFrontal != null) {
@@ -190,7 +193,7 @@ public class CapturaController {
 
 	}
 
-	// Meotodo si decidimos no buscar otro pokemon, lo llamaremos en tros metodos
+	// Metodo si decidimos no buscar otro pokemon, lo llamaremos en otros metodos
 	private void noRepetirCaptura(ActionEvent event) {
 		// Con esta timeline hacemos que los textos en el log no salgan todo de segudo y
 		// de tiempo a leerlos
