@@ -11,13 +11,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #7ec8ff 0%, #2a6f97 50%, #000000 100%);;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.VistaEquipoController">
+<AnchorPane prefHeight="700.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #7ec8ff 0%, #2a6f97 50%, #000000 100%);;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.VistaEquipoController">
 
 
     <HBox alignment="CENTER_LEFT" spacing="12.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="18.0">
 
-        <Label style="-fx-text-fill: rgba(255,255,255,0.45);                    -fx-font-size: 12px;                    -fx-font-weight: bold;                    -fx-letter-spacing: 2px;" text="MI EQUIPO" />
+        <Label alignment="TOP_LEFT" prefHeight="17.0" prefWidth="1260.0" style="-fx-font-weight: bld; -fx-letter-spacing: 2px;" text="MI EQUIPO" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Pokemon Solid Normal" size="18.0" />
+         </font></Label>
 
         <HBox HBox.hgrow="ALWAYS" />
 
@@ -42,7 +46,7 @@
             <AnchorPane fx:id="cardSlot1" style="-fx-background-color: rgba(255,255,255,0.06);                        -fx-background-radius: 16px;                        -fx-border-color: rgba(255,255,255,0.12);                        -fx-border-radius: 16px;                        -fx-border-width: 0.5px;                        -fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="0">
 
                 <!-- Imagen del Pokémon -->
-                <ImageView fx:id="imgPokemon1" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0" />
+                <ImageView fx:id="imgPokemon1" fitHeight="78.0" fitWidth="90.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="14.0" />
 
                 <VBox spacing="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
 
@@ -51,14 +55,17 @@
 
                         <Circle fx:id="statusDot1" fill="#4cd96a" radius="4.0" />
 
-                        <Label fx:id="lblNombre1" style="-fx-text-fill: rgba(255,255,255,0.92);                                    -fx-font-size: 14px;                                    -fx-font-weight: bold;" text="Nombre" />
+                        <Label fx:id="lblNombre1" text="Nombre" textFill="WHITE">
+                     <font>
+                        <Font name="Pokemon Solid Normal" size="15.0" />
+                     </font></Label>
 
-                        <Label fx:id="lblGenero1" style="-fx-text-fill: #6ab0f5;                                    -fx-font-size: 12px;" text="♂" />
+                        <Label fx:id="lblGenero1" text="♂" />
 
 
                         <HBox HBox.hgrow="ALWAYS" />
 
-                        <Label fx:id="lblNivel1" style="-fx-text-fill: rgba(255,255,255,0.45);                                    -fx-font-size: 11px;                                    -fx-background-color: rgba(255,255,255,0.08);                                    -fx-background-radius: 6px;                                    -fx-padding: 1 6 1 6;" text="Nv.0" />
+                        <Label fx:id="lblNivel1" style="-fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" textFill="WHITE" />
                     </HBox>
 
 
@@ -66,16 +73,28 @@
 
                     <!-- Barra PS -->
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35);                                    -fx-font-size: 9px;                                    -fx-min-width: 18px;" text="PS" />
+                        <Label text="PS" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="hpBar1" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblPV1" style="-fx-text-fill: rgba(255,255,255,0.4);                                    -fx-font-size: 9px;                                    -fx-min-width: 42px;" text="0/0" />
+                        <Label fx:id="lblPV1" text="0/0" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                     <!-- Barra EXP -->
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35);                                    -fx-font-size: 9px;                                    -fx-min-width: 18px;" text="EXP" />
+                        <Label text="EXP" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="expBar1" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblEXP1" style="-fx-text-fill: rgba(255,255,255,0.4);                                    -fx-font-size: 9px;                                    -fx-min-width: 26px;" text="0%" />
+                        <Label fx:id="lblEXP1" text="0%" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                 </VBox>
@@ -90,24 +109,40 @@
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
                         <Circle fx:id="statusDot2" fill="#4cd96a" radius="4.0" />
-                        <Label fx:id="lblNombre2" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
-                        <Label fx:id="lblGenero2" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                  <Label fx:id="lblNombre2" text="Nombre" textFill="WHITE">
+                     <font>
+                        <Font name="Pokemon Solid Normal" size="15.0" />
+                     </font>
+                  </Label>
+                        <Label fx:id="lblGenero2" text="♂" />
                         <HBox HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblNivel2" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                        <Label fx:id="lblNivel2" style="-fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" textFill="WHITE" />
                     </HBox>
 
                     <HBox fx:id="hboxTipos2" spacing="4.0" />
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <Label text="PS" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="hpBar2" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblPV2" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                        <Label fx:id="lblPV2" text="0/0" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <Label text="EXP" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="expBar2" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblEXP2" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                        <Label fx:id="lblEXP2" text="0%" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                 </VBox>
@@ -122,24 +157,40 @@
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
                         <Circle fx:id="statusDot3" fill="#4cd96a" radius="4.0" />
-                        <Label fx:id="lblNombre3" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
-                        <Label fx:id="lblGenero3" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                  <Label fx:id="lblNombre3" text="Nombre" textFill="WHITE">
+                     <font>
+                        <Font name="Pokemon Solid Normal" size="15.0" />
+                     </font>
+                  </Label>
+                        <Label fx:id="lblGenero3" text="♂" />
                         <HBox HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblNivel3" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                        <Label fx:id="lblNivel3" style="-fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" textFill="WHITE" />
                     </HBox>
 
                     <HBox fx:id="hboxTipos3" spacing="4.0" />
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <Label text="PS" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="hpBar3" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblPV3" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                        <Label fx:id="lblPV3" text="0/0" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <Label text="EXP" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="expBar3" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblEXP3" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                        <Label fx:id="lblEXP3" text="0%" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                 </VBox>
@@ -154,24 +205,40 @@
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
                         <Circle fx:id="statusDot4" fill="#4cd96a" radius="4.0" />
-                        <Label fx:id="lblNombre4" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
-                        <Label fx:id="lblGenero4" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                  <Label fx:id="lblNombre4" text="Nombre" textFill="WHITE">
+                     <font>
+                        <Font name="Pokemon Solid Normal" size="15.0" />
+                     </font>
+                  </Label>
+                        <Label fx:id="lblGenero4" text="♂" />
                         <HBox HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblNivel4" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                        <Label fx:id="lblNivel4" style="-fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" textFill="WHITE" />
                     </HBox>
 
                     <HBox fx:id="hboxTipos4" spacing="4.0" />
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <Label text="PS" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="hpBar4" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblPV4" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                        <Label fx:id="lblPV4" text="0/0" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <Label text="EXP" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="expBar4" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblEXP4" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                        <Label fx:id="lblEXP4" text="0%" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                 </VBox>
@@ -185,24 +252,40 @@
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
                         <Circle fx:id="statusDot5" fill="#4cd96a" radius="4.0" />
-                        <Label fx:id="lblNombre5" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
-                        <Label fx:id="lblGenero5" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                  <Label fx:id="lblNombre5" text="Nombre" textFill="WHITE">
+                     <font>
+                        <Font name="Pokemon Solid Normal" size="15.0" />
+                     </font>
+                  </Label>
+                        <Label fx:id="lblGenero5" text="♂" />
                         <HBox HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblNivel5" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                        <Label fx:id="lblNivel5" style="-fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" textFill="WHITE" />
                     </HBox>
 
                     <HBox fx:id="hboxTipos5" spacing="4.0" />
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <Label text="PS" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="hpBar5" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblPV5" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                        <Label fx:id="lblPV5" text="0/0" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <Label text="EXP" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="expBar5" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblEXP5" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                        <Label fx:id="lblEXP5" text="0%" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                 </VBox>
@@ -217,24 +300,40 @@
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
                         <Circle fx:id="statusDot6" fill="#4cd96a" radius="4.0" />
-                        <Label fx:id="lblNombre6" style="-fx-text-fill: rgba(255,255,255,0.92); -fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre" />
-                        <Label fx:id="lblGenero6" style="-fx-text-fill: #6ab0f5; -fx-font-size: 12px;" text="♂" />
+                  <Label fx:id="lblNombre6" text="Nombre" textFill="WHITE">
+                     <font>
+                        <Font name="Pokemon Solid Normal" size="15.0" />
+                     </font>
+                  </Label>
+                        <Label fx:id="lblGenero6" text="♂" />
                         <HBox HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblNivel6" style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" />
+                        <Label fx:id="lblNivel6" style="-fx-font-size: 11px; -fx-background-color: rgba(255,255,255,0.08); -fx-background-radius: 6px; -fx-padding: 1 6 1 6;" text="Nv.0" textFill="WHITE" />
                     </HBox>
 
                     <HBox fx:id="hboxTipos6" spacing="4.0" />
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="PS" />
+                        <Label text="PS" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="hpBar6" maxWidth="1.7976931348623157E308" prefHeight="5.0" progress="0.0" style="-fx-accent: #4cd96a;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblPV6" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 42px;" text="0/0" />
+                        <Label fx:id="lblPV6" text="0/0" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                     <HBox alignment="CENTER_LEFT" spacing="6.0">
-                        <Label style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 9px; -fx-min-width: 18px;" text="EXP" />
+                        <Label text="EXP" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                         <ProgressBar fx:id="expBar6" maxWidth="1.7976931348623157E308" prefHeight="4.0" progress="0.0" style="-fx-accent: #5b9cf6;" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="lblEXP6" style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 9px; -fx-min-width: 26px;" text="0%" />
+                        <Label fx:id="lblEXP6" text="0%" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
                     </HBox>
 
                 </VBox>
