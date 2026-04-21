@@ -148,7 +148,25 @@
                   </Tab>
                   <Tab text="Adivinar  Numero">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="428.0" fitWidth="682.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/AdivinaNumero.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="48.0" layoutY="22.0" text="¿Cuánto apuestas?" textFill="WHITE" />
+                              <TextField layoutX="21.0" layoutY="52.0" />
+                              <TextField layoutX="447.0" layoutY="52.0" />
+                              <Label layoutX="469.0" layoutY="22.0" text="¿Qué número saldrá?" textFill="WHITE" />
+                              <Button layoutX="275.0" layoutY="52.0" mnemonicParsing="false" text="Probar suerte" />
+                              <Label layoutX="154.0" layoutY="239.0" prefHeight="91.0" prefWidth="300.0" text="                                     ..." textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                     </content>
                   </Tab>
                </tabs>
