@@ -117,7 +117,7 @@ public class PokemonDAO {
 		return p;
 	}
 
-	public ArrayList<Pokemon> obtenerPokemonPC(int idEntrenador) {
+	public ArrayList<Pokemon> obtenerPokemonPC(int idEntrenador, int posicionCaja) {
 		ArrayList<Pokemon> listaPC = new ArrayList<>();
 
 		String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 0";
