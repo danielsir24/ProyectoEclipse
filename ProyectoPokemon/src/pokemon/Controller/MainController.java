@@ -169,4 +169,22 @@ public class MainController {
 	        errorLabel.setText("Error al registrar. Inténtalo de nuevo.");
 	    }
 	}
+	@FXML
+    void abrirCasino() {
+        try {
+            // Carga el diseño del casino
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/EscenaCasino.fxml"));
+            javafx.scene.Parent root = loader.load();
+            
+            // Crea y muestra la nueva ventana
+            javafx.stage.Stage stage = new javafx.stage.Stage();
+            stage.setTitle("Casino Ciudad Azulona");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.show();
+            
+        } catch (Exception e) {
+            System.out.println("No se pudo abrir el casino:");
+            e.printStackTrace();
+        }
+    }
 }
