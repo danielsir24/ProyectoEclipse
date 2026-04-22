@@ -44,7 +44,7 @@ public class CasinoController {
         comboColorRuleta.getItems().addAll("Rojo", "Negro");
     }
 
-    // --- MINIJUEGO 1: CARA O CRUZ ---
+    // Cara o Cruz
     @FXML
     void jugarCaraCruz(ActionEvent event) {
         try {
@@ -61,16 +61,16 @@ public class CasinoController {
 
             if (eleccion.equals(resultadoMoneda)) {
                 int premio = apuesta * 2;
-                lblResultadoCaraCruz.setText("✨ ¡Salió " + resultadoMoneda + "! Has ganado " + premio + " Pokedólares.");
+                lblResultadoCaraCruz.setText("¡Salió " + resultadoMoneda + "! Has ganado " + premio + " Pokedólares.");
             } else {
-                lblResultadoCaraCruz.setText("❌ Salió " + resultadoMoneda + ". Has perdido.");
+                lblResultadoCaraCruz.setText("Salió " + resultadoMoneda + ". Has perdido.");
             }
         } catch (NumberFormatException e) {
-            lblResultadoCaraCruz.setText("⚠️ Escribe una apuesta válida.");
+            lblResultadoCaraCruz.setText(" Escribe una apuesta válida.");
         }
     }
 
-    // --- MINIJUEGO 2: LA RULETA ---
+    // Ruleta
     @FXML
     void jugarRuleta(ActionEvent event) {
         try {
@@ -86,7 +86,6 @@ public class CasinoController {
 
             StringBuilder mensaje = new StringBuilder("Salió " + numeroRuleta + " " + colorRuleta + ". ");
 
-            // Comprueba si acertó el número (Premio x10)
             if (!numTexto.isEmpty()) {
                 int numeroElegido = Integer.parseInt(numTexto);
                 if (numeroElegido == numeroRuleta) {
@@ -95,13 +94,12 @@ public class CasinoController {
                 }
             }
 
-            // Comprueba si acertó el color (Premio x2)
             if (colorElegido != null && colorElegido.equals(colorRuleta)) {
                 premioTotal += apuesta * 2;
                 mensaje.append("¡Acertaste color! ");
             }
 
-            // Resultado final
+    
             if (premioTotal > 0) {
                 lblResultadoRuleta.setText("✨ " + mensaje.toString() + "Ganas " + premioTotal + " Pokedólares.");
             } else {
@@ -112,18 +110,17 @@ public class CasinoController {
         }
     }
 
-    // --- MINIJUEGO 3: ADIVINAR NÚMERO ---
     @FXML
     void jugarAdivinarNumero(ActionEvent event) {
         try {
             int apuesta = Integer.parseInt(txtApuestaAdivinar.getText());
             int numeroElegido = Integer.parseInt(txtNumeroAdivinar.getText());
 
-            // La máquina elige un número del 1 al 10 (para que no sea imposible ganar)
+           
             int numeroSecreto = (int) (Math.random() * 10) + 1; 
 
             if (numeroElegido == numeroSecreto) {
-                int premio = apuesta * 10; // Premio x10
+                int premio = apuesta * 10; 
                 lblResultadoAdivinar.setText(" ¡Acertaste! Era el " + numeroSecreto + ". Ganas " + premio + " Pokedólares.");
             } else {
                 lblResultadoAdivinar.setText(" Salió el " + numeroSecreto + ". Has perdido.");
