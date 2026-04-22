@@ -108,11 +108,11 @@
                                  </image>
                               </ImageView>
                               <Label layoutX="41.0" layoutY="14.0" text="Cantidad a apostar" textFill="WHITE" />
-                              <TextField layoutX="13.0" layoutY="38.0" />
-                              <ComboBox layoutX="478.0" layoutY="38.0" prefWidth="150.0" />
+                              <TextField fx:id="txtApuestaCaraCruz" layoutX="13.0" layoutY="38.0" />
+                              <ComboBox fx:id="comboCaraCruz" layoutX="478.0" layoutY="38.0" prefWidth="150.0" />
                               <Label layoutX="540.0" layoutY="14.0" text="Elige" textFill="WHITE" />
-                              <Button layoutX="274.0" layoutY="167.0" mnemonicParsing="false" text="Lanzar Moneda" />
-                              <Label layoutX="207.0" layoutY="193.0" prefHeight="148.0" prefWidth="236.0" text="                          ..." textFill="WHITE">
+                              <Button layoutX="274.0" layoutY="167.0" mnemonicParsing="false" onAction="#jugarCaraCruz" text="Lanzar Moneda" />
+                              <Label fx:id="lblResultadoCaraCruz" layoutX="207.0" layoutY="193.0" prefHeight="148.0" prefWidth="236.0" text="                          ..." textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -131,13 +131,13 @@
                                  </image>
                               </ImageView>
                               <Label layoutX="80.0" layoutY="25.0" text="Cantidad a apostar" />
-                              <TextField layoutX="52.0" layoutY="42.0" />
+                              <TextField fx:id="txtApuestaRuleta" layoutX="52.0" layoutY="42.0" />
                               <Label layoutX="269.0" layoutY="25.0" text="Numero (1-37)" />
-                              <TextField layoutX="229.0" layoutY="43.0" />
+                              <TextField fx:id="txtNumeroRuleta" layoutX="229.0" layoutY="43.0" />
                               <Label layoutX="468.0" layoutY="25.0" text="Color" />
-                              <ComboBox layoutX="408.0" layoutY="43.0" prefWidth="150.0" />
-                              <Button layoutX="272.0" layoutY="82.0" mnemonicParsing="false" text="Tirar a la ruleta" />
-                              <Label layoutX="256.0" layoutY="271.0" prefHeight="34.0" prefWidth="128.0" text="             ..." textFill="WHITE">
+                              <ComboBox fx:id="comboColorRuleta" layoutX="408.0" layoutY="43.0" prefWidth="150.0" />
+                              <Button layoutX="272.0" layoutY="82.0" mnemonicParsing="false" onAction="#jugarRuleta" text="Tirar a la ruleta" />
+                              <Label fx:id="lblResultadoRuleta" layoutX="256.0" layoutY="271.0" prefHeight="34.0" prefWidth="128.0" text="             ..." textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -156,11 +156,11 @@
                                  </image>
                               </ImageView>
                               <Label layoutX="48.0" layoutY="22.0" text="¿Cuánto apuestas?" textFill="WHITE" />
-                              <TextField layoutX="21.0" layoutY="52.0" />
-                              <TextField layoutX="447.0" layoutY="52.0" />
+                              <TextField fx:id="txtApuestaAdivinar" layoutX="21.0" layoutY="52.0" />
+                              <TextField fx:id="txtNumeroAdivinar" layoutX="447.0" layoutY="52.0" />
                               <Label layoutX="469.0" layoutY="22.0" text="¿Qué número saldrá?" textFill="WHITE" />
-                              <Button layoutX="275.0" layoutY="52.0" mnemonicParsing="false" text="Probar suerte" />
-                              <Label layoutX="154.0" layoutY="239.0" prefHeight="91.0" prefWidth="300.0" text="                                     ..." textFill="WHITE">
+                              <Button layoutX="275.0" layoutY="52.0" mnemonicParsing="false" onAction="#jugarAdivinarNumero" text="Probar suerte" />
+                              <Label fx:id="lblResultadoAdivinar" layoutX="154.0" layoutY="239.0" prefHeight="91.0" prefWidth="300.0" text="                                     ..." textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
