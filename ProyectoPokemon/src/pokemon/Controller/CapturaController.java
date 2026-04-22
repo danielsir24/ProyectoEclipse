@@ -122,16 +122,14 @@ public class CapturaController {
 			this.pokemonActual.setNombre(especie.getNombreEspecie());
 			this.pokemonActual.setNivel(nivelAleatorio);
 			this.pokemonActual.setMote(especie.getNombreEspecie());
+			this.pokemonActual.setSexo(Math.random() < 0.5 ? pokemon.Sexo.MACHO : pokemon.Sexo.HEMBRA);
 
 			lblNombre.setText(pokemonActual.getNombre());
 			lblNivel.setText("Niv." + pokemonActual.getNivel());
 
-			// Usamos el getter para coger el nnumero de la pokedex
+
 			int numPokedex = especie.getNum_Pokedex();
-			// Con el numero de la pokedex que hemos recogido llamamos a aa base de datos y
-			// generamos su gif
-			// Tenemos que poner los sonidos
-			// Ponedlos vosotros que a mi me da la risa
+
 			String rutaImagenFrontal = "/spritesPokemonsGifsFront/" + numPokedex + ".gif";
 
 			if (rutaImagenFrontal != null) {
@@ -159,11 +157,10 @@ public class CapturaController {
 		System.out.println("Has vuelto al menú principal");
 	}
 
-	// Meotodo que se empelará cuando le demos al botón de capturar
+
 	@FXML
 	private void handleCaptura(ActionEvent event) {
-		// Con esta timeline hacemos que de tiempo a leer los textos del log y luego se
-		// ejecuta el resultado de la captura
+
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.seconds(0), e -> txtLog.appendText("¡Lanzas la Pokéball con fuerza!\n")),
 				new KeyFrame(Duration.seconds(1), e -> txtLog.appendText("3...\n")),
@@ -174,8 +171,7 @@ public class CapturaController {
 
 	}
 
-	// Con este menú damos la opción de buscar otro pokemon o no hacerlo y salir al
-	// menú principal
+
 	private void menuRepetirCaptura() {
 		btnBuscarSi.setVisible(true);
 		btnBuscarNo.setVisible(true);
@@ -183,7 +179,7 @@ public class CapturaController {
 	}
 
 	// Metodo para que nos de la información de cuando hemos asignado el metodo.
-	// Cuando asignamos el mote llamamos al metodo del menú de repetir captura
+
 	private void moteAsignado(ActionEvent event) {
 		txtLog.appendText("El Pokémon ha sido añadido a tu equipo.");
 		menuRepetirCaptura();
@@ -193,7 +189,7 @@ public class CapturaController {
 
 	}
 
-	// Metodo si decidimos no buscar otro pokemon, lo llamaremos en otros metodos
+	// Metodo si decidimos no buscar otro pokemon
 	private void noRepetirCaptura(ActionEvent event) {
 		// Con esta timeline hacemos que los textos en el log no salgan todo de segudo y
 		// de tiempo a leerlos
@@ -216,8 +212,7 @@ public class CapturaController {
 
 	}
 
-	// Metodo repetir captura que llamaremos en el menú de repetir tanto si
-	// locapturamoscomosi no
+	// Metodo repetir captura 
 	private void repetirCaptura() {
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.millis(0),
@@ -234,8 +229,7 @@ public class CapturaController {
 		repetirCaptura();
 	}
 
-	// Metodo del resultado de la captura, luego con esto lollamamos al resto de
-	// metodos
+	// Metodo del resultado de la captura
 	@FXML
 	private void resultadoCaptura(ActionEvent event) {
 		pokemonImg.setVisible(false);
@@ -257,8 +251,8 @@ public class CapturaController {
 			txtLog.appendText("¡1... 2... 3...!\n");
 			txtLog.appendText("¡HECHO! El " + nombre + " de " + nivel + " ha sido capturado.\n");
 
-			// Desactivar el boton de captura para que no suceda un accidente y se
-			// reiniciela captura y elde huir para no salir sin ponerle un mote al pokemon
+			// Desactivar el boton de captura
+
 			btnCapturar.setDisable(true);
 			btnHuir.setDisable(true);
 
@@ -269,7 +263,7 @@ public class CapturaController {
 			txtMote.setDisable(false);
 			lblMote.setDisable(false);
 
-			// Si la suerte no es mayor o igual, la caputra fallara y nos dará la opción de
+			// Si la suerte no es mayor o igual, la caputra fallara y nos dara la opcion de
 			// buscar otro pokemon
 		} else {
 

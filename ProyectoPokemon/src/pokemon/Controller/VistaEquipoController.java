@@ -33,57 +33,56 @@ public class VistaEquipoController {
 	// Elementos de cada Slot
 	// Slot 1
 	@FXML
-	private Label lblNombre1, lblNivel1, lblPV1, lblEXP1;
+	private Label lblNombre1, lblNivel1, lblPV1, lblEXP1, lblGenero1;
 	@FXML
 	private ProgressBar hpBar1, expBar1;
 	@FXML
-	private ImageView imgPokemon1, imgGenero1;
+	private ImageView imgPokemon1;
 
 	// Slot 2
 	@FXML
-	private Label lblNombre2, lblNivel2, lblPV2, lblEXP2;
+	private Label lblNombre2, lblNivel2, lblPV2, lblEXP2, lblGenero2;
 	@FXML
 	private ProgressBar hpBar2, expBar2;
 	@FXML
-	private ImageView imgPokemon2, imgGenero2;
+	private ImageView imgPokemon2;
 
 	// Slot 3
 	@FXML
-	private Label lblNombre3, lblNivel3, lblPV3, lblEXP3;
+	private Label lblNombre3, lblNivel3, lblPV3, lblEXP3, lblGenero3;
 	@FXML
 	private ProgressBar hpBar3, expBar3;
 	@FXML
-	private ImageView imgPokemon3, imgGenero3;
+	private ImageView imgPokemon3;
 
 	// Slot 4
 	@FXML
-	private Label lblNombre4, lblNivel4, lblPV4, lblEXP4;
+	private Label lblNombre4, lblNivel4, lblPV4, lblEXP4, lblGenero4;
 	@FXML
 	private ProgressBar hpBar4, expBar4;
 	@FXML
-	private ImageView imgPokemon4, imgGenero4;
+	private ImageView imgPokemon4;
 
 	// Slot 5
 	@FXML
-	private Label lblNombre5, lblNivel5, lblPV5, lblEXP5;
+	private Label lblNombre5, lblNivel5, lblPV5, lblEXP5, lblGenero5;
 	@FXML
 	private ProgressBar hpBar5, expBar5;
 	@FXML
-	private ImageView imgPokemon5, imgGenero5;
+	private ImageView imgPokemon5;
 
 	// Slot 6
 	@FXML
-	private Label lblNombre6, lblNivel6, lblPV6, lblEXP6;
+	private Label lblNombre6, lblNivel6, lblPV6, lblEXP6, lblGenero6;
 	@FXML
 	private ProgressBar hpBar6, expBar6;
 	@FXML
-	private ImageView imgPokemon6, imgGenero6;
+	private ImageView imgPokemon6;
 
 	// Arrays para la optimizacion
-	private Label[] nombres, niveles, pvs, exps;
+	private Label[] nombres, niveles, pvs, exps, generos;
 	private ProgressBar[] barrasHP, barrasEXP;
-	private ImageView[] fotos, generos; // Hay que meter tambien las imagenes de los generos, que se me haolvidado, ya
-										// lo haré
+	private ImageView[] fotos;
 
 	// Metodo para cargar la fuente
 	@FXML
@@ -94,13 +93,12 @@ public class VistaEquipoController {
 		niveles = new Label[] { lblNivel1, lblNivel2, lblNivel3, lblNivel4, lblNivel5, lblNivel6 };
 		pvs = new Label[] { lblPV1, lblPV2, lblPV3, lblPV4, lblPV5, lblPV6 };
 		exps = new Label[] { lblEXP1, lblEXP2, lblEXP3, lblEXP4, lblEXP5, lblEXP6 };
+		generos = new Label[] { lblGenero1, lblGenero2, lblGenero3, lblGenero4, lblGenero5, lblGenero6 };
 
 		barrasHP = new ProgressBar[] { hpBar1, hpBar2, hpBar3, hpBar4, hpBar5, hpBar6 };
 		barrasEXP = new ProgressBar[] { expBar1, expBar2, expBar3, expBar4, expBar5, expBar6 };
 
 		fotos = new ImageView[] { imgPokemon1, imgPokemon2, imgPokemon3, imgPokemon4, imgPokemon5, imgPokemon6 };
-		generos = new ImageView[] { imgGenero1, imgGenero2, imgGenero3, imgGenero4, imgGenero5, imgGenero6 };
-		// Hay que meterle tb las imagenes de los generos
 
 		actualizarEquipo();
 		cargarFuentePersonalizada();
@@ -121,6 +119,17 @@ public class VistaEquipoController {
 					niveles[i].setText("Nv. " + pActual.getNivel());
 					pvs[i].setText(pActual.getVitalidad() + "/" + pActual.getVitalidadMaxima());
 					exps[i].setText(pActual.getExperiencia() + " pts");
+
+					// Símbolo de género ♂ o ♀ con su color
+					if (pActual.getSexo() != null) {
+						if (pActual.getSexo() == pokemon.Sexo.HEMBRA) {
+							generos[i].setText("♀");
+							generos[i].setStyle("-fx-text-fill: #ff6eb4;"); // rosa para hembra
+						} else {
+							generos[i].setText("♂");
+							generos[i].setStyle("-fx-text-fill: #6eb4ff;"); // azul para macho
+						}
+					}
 
 					// Barras
 					barrasHP[i].setProgress((double) pActual.getVitalidad() / pActual.getVitalidadMaxima());
@@ -152,6 +161,7 @@ public class VistaEquipoController {
 				niveles[i].setText("");
 				pvs[i].setText("");
 				exps[i].setText("");
+				generos[i].setText("");
 				barrasHP[i].setProgress(0);
 				barrasEXP[i].setProgress(0);
 				fotos[i].setImage(null);

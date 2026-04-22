@@ -1,0 +1,153 @@
+package pokemon;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class MovimientoDAO {
+
+    private Connection conexion;
+
+    public MovimientoDAO() {
+        this.conexion = ConexionBD.getConnection();
+    }
+
+    // Busca un movimiento por su id
+    public Movimiento buscarPorIdMovimiento(int idMovimiento) {
+        Movimiento mov = null;
+        String sql = "SELECT * FROM movimiento WHERE id_Movimiento = ?";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setInt(1, idMovimiento);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    mov = new Movimiento(
+                        rs.getString("nom_Movimiento"),
+                        rs.getInt("potencia"),
+                        rs.getInt("estamina"),
+                        rs.getInt("id_Movimiento")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar movimiento con id " + idMovimiento);
+            e.printStackTrace();
+        }
+        return mov;
+    }
+
+    // Devuelve la lista de movimientos de un pokemon
+    public ArrayList<Movimiento> obtenerMovimientosDePokemon(int idPokemon) {
+        ArrayList<Movimiento> movimientos = new ArrayList<>();
+        String sql = "SELECT m.* FROM movimiento m "
+                   + "JOIN pokemon_movimiento pm ON m.id_Movimiento = pm.id_Movimiento "
+                   + "WHERE pm.id_Pokemon = ? AND pm.activo = 1";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setInt(1, idPokemon);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    Movimiento mov = new Movimiento(
+                        rs.getString("nom_Movimiento"),
+                        rs.getInt("potencia"),
+                        rs.getInt("puntos_Poder"),
+                        rs.getInt("id_Movimiento")
+                    );
+                    movimientos.add(mov);
+                }
+            }
+            System.out.println("Movimientos del pokemon " + idPokemon + ": " + movimientos.size() + " encontrados.");
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener movimientos del pokemon " + idPokemon);
+            e.printStackTrace();
+        }
+        return movimientos;
+    }
+
+    // Asigna un movimiento a un pokemon
+    public boolean asignarMovimiento(int idPokemon, int idMovimiento) {
+        String sql = "INSERT INTO pokemon_movimiento (id_Pokemon, id_Movimiento, activo, puntos_Poder) "
+                   + "SELECT ?, ?, 1, m.puntos_Poder FROM movimiento m WHERE m.id_Movimiento = ?";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setInt(1, idPokemon);
+            statement.setInt(2, idMovimiento);
+            statement.setInt(3, idMovimiento);
+
+            int filas = statement.executeUpdate();
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al asignar movimiento " + idMovimiento + " al pokemon " + idPokemon);
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Desactiva un movimiento de un pokemon
+    public boolean desactivarMovimiento(int idPokemon, int idMovimiento) {
+        String sql = "UPDATE pokemon_movimiento SET activo = 0 "
+                   + "WHERE id_Pokemon = ? AND id_Movimiento = ?";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setInt(1, idPokemon);
+            statement.setInt(2, idMovimiento);
+
+            int filas = statement.executeUpdate();
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al desactivar movimiento");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean gastarEstamina(int idPokemon, int idMovimiento) {
+        String sql = "UPDATE pokemon_movimiento SET puntos_Poder = puntos_Poder - 1 "
+                   + "WHERE id_Pokemon = ? AND id_Movimiento = ? AND puntos_Poder > 0";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setInt(1, idPokemon);
+            statement.setInt(2, idMovimiento);
+
+            int filas = statement.executeUpdate();
+            if (filas == 0) {
+                System.out.println("El movimiento no tiene estamina.");
+            }
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean restaurarEstamina(int idPokemon) {
+        String sql = "UPDATE pokemon_movimiento pm "
+                   + "JOIN movimiento m ON pm.id_Movimiento = m.id_Movimiento "
+                   + "SET pm.puntos_Poder = m.puntos_Poder "
+                   + "WHERE pm.id_Pokemon = ?";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setInt(1, idPokemon);
+
+            int filas = statement.executeUpdate();
+            System.out.println("Estamina recargada para el pokemon " + idPokemon);
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al restaurar la estamina del pokemon " + idPokemon);
+            e.printStackTrace();
+            return false;
+        }
+    }
+}
