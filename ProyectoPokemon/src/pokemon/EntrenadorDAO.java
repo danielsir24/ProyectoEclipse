@@ -67,4 +67,22 @@ public class EntrenadorDAO {
         }
         return null;
     }
+    public boolean actualizarPokedollars(Entrenador entrenador) {
+        String sql = "UPDATE entrenador SET pokedollars = ? WHERE id_Entrenador = ?";
+        Connection con = ConexionBD.getConnection();
+        if (con == null) return false;
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            // Obtenemos los pokedollars actualizados del objeto entrenador
+            ps.setInt(1, entrenador.getPokedollars());
+            // Usamos el ID para saber a qué entrenador actualizarle el dinero
+            ps.setInt(2, entrenador.getId_Entrenador());
+            
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0; // Retorna true si se actualizó correctamente
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
