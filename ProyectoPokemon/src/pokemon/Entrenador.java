@@ -21,6 +21,7 @@ public class Entrenador {
 
 	public Entrenador() {
 		super();
+		this.pokedollars = 1000;
 	}
 
 	public void ganarPokedollars(int cantidad) {
