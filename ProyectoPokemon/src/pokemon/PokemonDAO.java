@@ -20,8 +20,8 @@ public class PokemonDAO {
 		String sql = "INSERT INTO pokemon "
 				+ "(num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, "
 				+ "ataque, defensa, ataq_Especial, def_Especial, velocidad, "
-				+ "fertilidad, nivel, estado, ubicacion, sexo) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "fertilidad, nivel, estado, ubicacion, sexo, vitalidadMaxima) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 			statement.setInt(1, pokemon.getInfoPokedex().getNum_Pokedex());
@@ -43,6 +43,7 @@ public class PokemonDAO {
 			statement.setString(13, pokemon.getEstado() != null ? pokemon.getEstado().name() : "NORMAL");
 			statement.setInt(14, ubicacion);
 			statement.setString(15, pokemon.getSexo() != null ? pokemon.getSexo().name() : "MACHO");
+			statement.setInt(16, pokemon.getVitalidadMaxima());
 
 			int filas = statement.executeUpdate();
 			return filas > 0;
