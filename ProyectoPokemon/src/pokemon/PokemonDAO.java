@@ -24,42 +24,49 @@ public class PokemonDAO {
 
 	public boolean guardarPokemon(Pokemon pokemon, int idEntrenador, int ubicacion) {
 		// Insert que se ejecutará en la base de datos una vez capturemos al pokemon
-		String sql = "INSERT INTO pokemon (nombre, mote, id_Pokemon, vitalidad, vitalidadMaxima, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, estamina, nivel, experiencia, fertilidad, sexo, estado, id_Objeto, ubicacion, id_Entrenador) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO pokemon (nombre, mote, vitalidad, vitalidadMaxima, ataque, defensa, ataq_Especial, def_Especial, velocidad, nivel, experiencia, fertilidad, sexo, estado, id_Objeto, ubicacion, id_Entrenador, num_Pokedex) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		// Preparamos la conexion
 		try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 			statement.setString(1, pokemon.getNombre());
 			statement.setString(2, pokemon.getMote());
-			statement.setInt(3, pokemon.getIdPokemon());
-			statement.setInt(4, pokemon.getVitalidad());
-			statement.setInt(5, pokemon.getVitalidadMaxima());
-			statement.setInt(6, pokemon.getAtaque());
-			statement.setInt(7, pokemon.getDefensa());
-			statement.setInt(8, pokemon.getAtaqueEspecial());
-			statement.setInt(9, pokemon.getDefensaEspecial());
-			statement.setInt(10, pokemon.getVelocidad());
-			statement.setInt(11, pokemon.getEstamina());
-			statement.setInt(12, pokemon.getNivel());
-			statement.setInt(13, pokemon.getExperiencia());
-			statement.setInt(14, pokemon.getFertilidad());
-			statement.setString(15, pokemon.getSexo().name());
-			statement.setString(16, pokemon.getEstado().name());
-			// esto es pa saber si tiene objeto o n y si lo siente lo almacena, pero vaya
+			statement.setInt(3, pokemon.getVitalidad());
+			statement.setInt(4, pokemon.getVitalidadMaxima());
+			statement.setInt(5, pokemon.getAtaque());
+			statement.setInt(6, pokemon.getDefensa());
+			statement.setInt(7, pokemon.getAtaqueEspecial());
+			statement.setInt(8, pokemon.getDefensaEspecial());
+			statement.setInt(9, pokemon.getVelocidad());
+			statement.setInt(10, pokemon.getNivel());
+			statement.setInt(11, pokemon.getExperiencia());
+			statement.setInt(12, pokemon.getFertilidad());
+			statement.setString(13, pokemon.getSexo().name());
+			statement.setString(14, pokemon.getEstado().name());
+			// esto es pa saber si tiene objeto on y si lo siente lo almacena, pero vaya
 			// que los pokemon de normal se van a generar sin objetos 
 			if (pokemon.getObjeto() != null) {
-				statement.setInt(17, pokemon.getObjeto().getIdObjeto());
+				statement.setInt(15, pokemon.getObjeto().getIdObjeto());
 			} else {
-				statement.setNull(1, java.sql.Types.INTEGER);
+				statement.setNull(15, java.sql.Types.INTEGER);
 			}
-			statement.setInt(18, pokemon.getUbicacion());
-			statement.setInt(19, pokemon.getIdEntrenador());
+			statement.setInt(16, ubicacion);
+			statement.setInt(17, idEntrenador);
+			statement.setInt(18, pokemon.getInfoPokedex().getNum_Pokedex());
+
+			
 
 			int filas = statement.executeUpdate();
 			return filas > 0;
+			
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+			System.out.println("ERROR EN EL INSERT");
+		    System.out.println("Estado SQL: " + e.getSQLState());
+		    System.out.println("Código de error: " + e.getErrorCode());
+		    System.out.println("Mensaje: " + e.getMessage());
+		    e.printStackTrace(); 
+		    return false;
 		}
-
+		
 	}
 
 	public Pokemon buscarPorIdPokemon(int idBusqueda) {
@@ -116,7 +123,7 @@ public class PokemonDAO {
 	public ArrayList<Pokemon> obtenerPokemonPC(int idEntrenador) {
 		ArrayList<Pokemon> listaPC = new ArrayList<>();
 
-		String sql = "SELECR * FROM pokemon WHERE id_eNTRENADOR = ? AND ubicacion = 0";
+		String sql = "SELECT * FROM pokemon WHERE id_eNTRENADOR = ? AND ubicacion = 0";
 
 		// Preparamos la cnexion para recoger los datos
 		try (Connection conexion = ConexionBD.getConnection();
@@ -175,11 +182,12 @@ public class PokemonDAO {
 		try (Connection conexion = ConexionBD.getConnection();
 				PreparedStatement statement = conexion.prepareStatement(sql)) {
 			statement.setInt(1, idPokemon);
-
+			
 			// Esto es para comprobar que haya funcionado, si es true, es que el pokemon se
 			// ha movido
 			int filasAfectadas = statement.executeUpdate();
 			return filasAfectadas > 0;
+			
 
 		} catch (SQLException e) { // Y aqui la expecion
 			System.err.println("Error al mover al equipo: " + e.getMessage());
@@ -197,6 +205,7 @@ public class PokemonDAO {
 		try (Connection conexion = ConexionBD.getConnection();
 				PreparedStatement statement = conexion.prepareStatement(sql)) {
 			statement.setInt(1, idPokemon);
+			
 
 			int filasAfectadas = statement.executeUpdate();
 			return filasAfectadas > 0;
@@ -228,8 +237,15 @@ public class PokemonDAO {
 	            p.setNivel(rs.getInt("nivel"));
 	            p.setIdEntrenador(rs.getInt("id_Entrenador"));
 	            
+	            int numPokedex = rs.getInt("num_Pokedex");
+	            PokedexDAO pokedexDAO = new PokedexDAO();
+	            p.setInfoPokedex(pokedexDAO.buscarPorIdPokedex(numPokedex));
+	            p.setNombre(p.getInfoPokedex().getNombreEspecie());
+	            System.out.println("DAO: He encontrado a " + p.getMote() + " en la base de datos.");
+	            
 	            equipoRecuperado.add(p);
 	        }
+	        System.out.println("Total recuperados: " + equipoRecuperado.size());
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }

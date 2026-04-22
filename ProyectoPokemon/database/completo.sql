@@ -348,7 +348,9 @@ CREATE TABLE `pokemon` (
   `id_Entrenador` int(11) DEFAULT NULL,
   `id_Objeto` int(11) DEFAULT NULL,
   `mote` varchar(50) DEFAULT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
   `vitalidad` int(11) NOT NULL,
+  `vitalidadMaxima` int(11) NOT NULL,
   `ataque` int(11) NOT NULL,
   `defensa` int(11) NOT NULL,
   `ataq_Especial` int(11) NOT NULL,
@@ -356,9 +358,10 @@ CREATE TABLE `pokemon` (
   `def_Especial` int(11) NOT NULL,
   `fertilidad` int(11) DEFAULT 5,
   `nivel` int(11) DEFAULT 1,
+  `experiencia` int(11) DEFAULT 0,
   `estado` varchar(20) DEFAULT NULL,
   `ubicacion` int(11) DEFAULT NULL,
-  `sexo` char(1) DEFAULT NULL
+  `sexo` char(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

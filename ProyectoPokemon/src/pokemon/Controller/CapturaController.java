@@ -243,7 +243,7 @@ public class CapturaController {
 		String nombre = lblNombre.getText();
 		String nivel = lblNivel.getText();
 		;
-		int probabilidad = 50;
+		int probabilidad = 70;
 		int suerte = (int) (Math.random() * 100) + 1;
 
 		// Hacemos que si lasuerte es mayor que la probabilidad, el pokemon sea
@@ -340,7 +340,7 @@ public class CapturaController {
 		}
 		
 		//Almacenamos en la base de datos
-		pDAO.guardarPokemon(pokemonActual, 1, destinoUbicacion);
+		pDAO.guardarPokemon(pokemonActual, Main.entrenadorLogueado.getId_Entrenador(), destinoUbicacion);
 		//Hacemos que salga el menú de repetir captura
 		
 		moteAsignado(event);
