@@ -101,7 +101,7 @@ public class VistaEquipoController {
 		barrasEXP = new ProgressBar[] { expBar1, expBar2, expBar3, expBar4, expBar5, expBar6 };
 
 		fotos = new ImageView[] { imgPokemon1, imgPokemon2, imgPokemon3, imgPokemon4, imgPokemon5, imgPokemon6 };
-		generos = new ImageView[] { imgGenero1, imgGenero2, imgGenero3, imgGenero4, imgGenero5, imgGenero6 };
+		generos = new ImageView[] { imgGenero1, imgGenero2, imgGenero3, imgGenero4, imgGenero5, imgGenero6 }; //Hay que meterle tb las imagenes de los generos 
 
 		actualizarEquipo();
 		cargarFuentePersonalizada();
@@ -203,7 +203,7 @@ public class VistaEquipoController {
 	//Metodos de cambiode escena 
 	@FXML
 	private void entrarPc(ActionEvent event) {
-		cambiarEscena(event, "/EscenaPC.fxml", "PC de Pokemon");
+		cambiarEscena(event, "/EscenaCaja.fxml", "PC de Pokemon");
 
 		System.out.println("Has entrado en el PC");
 	}
