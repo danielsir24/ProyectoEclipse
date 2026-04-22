@@ -33,7 +33,7 @@ CREATE TABLE `entrenador` (
   `nom_Entrenador` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `img_Entrenador` varchar(255) DEFAULT NULL,
-  `pokedollars` int(11) DEFAULT 0,
+  `pokedollars` int(11) DEFAULT 1000,
   `tipo_Entrenador` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
