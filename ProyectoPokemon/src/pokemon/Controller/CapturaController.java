@@ -181,7 +181,7 @@ public class CapturaController {
 	// Metodo para que nos de la información de cuando hemos asignado el metodo.
 
 	private void moteAsignado(ActionEvent event) {
-		txtLog.appendText("El Pokémon ha sido añadido a tu equipo.");
+		txtLog.appendText("¿El Pokémon ha sido añadido a tu aventura! \n ");
 		menuRepetirCaptura();
 		txtMote.setVisible(false);
 		lblMote.setVisible(false);
@@ -314,9 +314,10 @@ public class CapturaController {
 
 		if (mote.isEmpty()) {
 			mote = pokemonActual.getNombre();
-			txtLog.appendText(
-					"No has añadido ningún mote, el pokémon se unirá a tu equipo como: " + pokemonActual.getNombre());
+			txtLog.appendText("No has añadido ningún mote, el pokémon se unirá a tu equipo como: " + pokemonActual.getNombre()+"\n");
+			txtLog.appendText("\n");
 		}
+		
 
 		pokemonActual.setMote(mote);
 		if (Main.miEquipo.size() < 6) {
