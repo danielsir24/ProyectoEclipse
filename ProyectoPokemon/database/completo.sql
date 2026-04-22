@@ -32,7 +32,6 @@ DROP TABLE IF EXISTS `pokedex`;
 SET FOREIGN_KEY_CHECKS=1;
 
 -- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `entrenador`
 --
@@ -344,7 +343,7 @@ INSERT INTO `pokedex` (`num_Pokedex`, `nombre`, `tipo1`, `tipo2`, `img_Back`, `s
 --
 
 CREATE TABLE `pokemon` (
-  `id_Pokemon` int(11) NOT NULL,
+  `id_Pokemon` int(11) AUTO_INCREMENT NOT NULL ,
   `num_Pokedex` int(11) NOT NULL,
   `id_Entrenador` int(11) DEFAULT NULL,
   `id_Objeto` int(11) DEFAULT NULL,

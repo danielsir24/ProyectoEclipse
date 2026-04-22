@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 
 import pokemon.Entrenador;
 import pokemon.EntrenadorDAO;
+import pokemon.Main;
 
 public class MainController {
 
@@ -157,6 +158,7 @@ public class MainController {
 	    if (entrenadorDAO.registrar(nuevo)) {
 	        errorLabel.setStyle("-fx-text-fill: green;");
 	        errorLabel.setText("¡Entrenador registrado con éxito!");
+	        Main.entrenadorLogueado = entrenadorDAO.login(user, pass);
 	    } else {
 	        errorLabel.setText("Error al registrar. Inténtalo de nuevo.");
 	    }

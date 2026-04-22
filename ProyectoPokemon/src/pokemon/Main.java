@@ -11,8 +11,9 @@ import java.util.ArrayList;
 public class Main extends Application {
 	
 	public static ArrayList<Pokemon> miEquipo = new ArrayList<>();
-	
+	public static ArrayList<Pokemon> pcPokemon = new ArrayList<>();
 
+	public static Entrenador entrenadorLogueado;
     @Override
     public void start(Stage primaryStage) throws Exception {
 

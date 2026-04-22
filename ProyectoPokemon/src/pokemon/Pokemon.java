@@ -2,6 +2,7 @@
 package pokemon;
 
 import java.util.*;
+import pokemon.Entrenador;
 
 public class Pokemon {
 
@@ -26,13 +27,16 @@ public class Pokemon {
 	private List<Tipo> tipos;
 	private Estado estado;
 	private Objeto objeto;
+	private int ubicacion;
+	private int idEntrenador;
 	private Random random = new Random();
+
 
 	// Constructor con todos los parámetros
 	public Pokemon(Pokedex infoPokedex, String nombre, String mote, int idPokemon, int vitalidad, int ataque, int defensa,
 			int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia,
 			int fertilidad, Sexo sexo, List<Movimiento> movimientos, List<Movimiento> movimientosDisponibles,
-			List<Tipo> tipos, Estado estado, Objeto objeto) {
+			List<Tipo> tipos, Estado estado, Objeto objeto, int ubicacion, int idEntrenador) {
 		super();
 		this.infoPokedex = infoPokedex;
 		this.nombre = nombre;
@@ -55,6 +59,8 @@ public class Pokemon {
 		this.tipos = tipos;
 		this.estado = estado;
 		this.objeto = objeto;
+		this.ubicacion = ubicacion;
+		this.idEntrenador = idEntrenador;
 	}
 
 	// Constructor copia
@@ -81,6 +87,8 @@ public class Pokemon {
 		this.tipos = new ArrayList<>(p.tipos);
 		this.estado = p.estado;
 		this.objeto = p.objeto;
+		this.ubicacion = p.ubicacion;
+		this.idEntrenador = p.idEntrenador;
 	}
 
 	// Constructor por defecto
@@ -107,6 +115,8 @@ public class Pokemon {
 		this.tipos = new ArrayList<>();
 		this.estado = Estado.NORMAL;
 		this.objeto = null;
+		this.ubicacion = 0;
+		this.idEntrenador = 0;
 	}
 
 	// Métodos de lógica
@@ -163,8 +173,6 @@ public class Pokemon {
 	public Pokedex getInfoPokedex() {
 		return infoPokedex;
 	}
-
-
 
 	public int getIdPokemon() {
 		return idPokemon;
@@ -310,7 +318,25 @@ public class Pokemon {
 	public void setObjeto(Objeto objeto) {
 		this.objeto = objeto;
 	}
+	
+	public int getUbicacion() {
+		return ubicacion;
+	}
 
+	public void setUbicacion(int ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	
+	public int getIdEntrenador() {
+		//Cogemos el id del entrenador logueado en ese momento
+		return Main.entrenadorLogueado.getId_Entrenador();
+	}
+	
+	
+	public void setIdEntrenador(int ubicacion) {
+		this.idEntrenador = ubicacion;
+	}
+	
 	public Random getRandom() {
 		return random;
 	}

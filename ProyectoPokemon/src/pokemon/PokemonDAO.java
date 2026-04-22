@@ -5,6 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+import pokemon.ConexionBD;
+import java.sql.Connection;
+
+import pokemon.Pokemon;
+import java.util.ArrayList;
+import java.util.List;
+import pokemon.Tipo;
+
+
+
 public class PokemonDAO {
 
 	private Connection conexion;
@@ -13,8 +24,8 @@ public class PokemonDAO {
 		this.conexion = ConexionBD.getConnection();
 	}
 
-	public boolean guardarPokemon(Pokemon pokemon) {
-		String sql = "INSERT INTO pokemon (nombre, mote, idPokemon, vitalidad, vitalidadMaxima, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, estamina, nivel, experiencia, fertilidad, sexo, estado, objeto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public boolean guardarPokemon(Pokemon pokemon, int idEntrenador, int ubicacion) {
+		String sql = "INSERT INTO pokemon (nombre, mote, id_Pokemon, vitalidad, vitalidadMaxima, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, estamina, nivel, experiencia, fertilidad, sexo, estado, id_Objeto, ubicacion, id_Entrenador) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 			statement.setString(1, pokemon.getNombre());
 			statement.setString(2, pokemon.getMote());
@@ -37,6 +48,8 @@ public class PokemonDAO {
 			} else {
 				statement.setNull(1, java.sql.Types.INTEGER);
 			}
+			statement.setString(18, pokemon.getEstado().name());
+			statement.setInt(19, pokemon.getIdEntrenador());
 
 			int filas = statement.executeUpdate();
 			return filas > 0;
@@ -93,4 +106,80 @@ public class PokemonDAO {
 		}
 		return p;
 	}
-}
+	
+	public ArrayList<Pokemon> obtenerPokemonPC(int idEntrenador){
+		ArrayList<Pokemon> listaPC = new ArrayList<>();
+		
+		String sql = "SELECR * FROM pokemon WHERE id_eNTRENADOR = ? AND ubicacion = 0";
+		
+		//Preparamos la cnexion para recoger los datos
+		try (Connection conexion = ConexionBD.getConnection();
+			PreparedStatement statement = conexion.prepareStatement(sql)){
+			
+			statement.setInt(1, idEntrenador);
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				
+				Pokemon p = new Pokemon();
+				
+				String mote = rs.getString("mote");
+				int nivel = rs.getInt("nivel");
+				int idPokemon = rs.getInt("idPokemon");
+				int ubicacion = rs.getInt("ubicacion");
+				
+				int numPokedex = rs.getInt("num_Pokedex");
+				PokedexDAO pxDAO = new PokedexDAO();
+				Pokedex info = pxDAO.buscarPorIdPokedex(numPokedex);
+				p.setInfoPokedex(info);
+				p.setNombre(mote);
+				
+				List<Tipo> listaTipos = new ArrayList<>();
+				
+				if (info.getTipo1() != null) {
+					listaTipos.add(Tipo.valueOf(info.getTipo1().toUpperCase()));
+				}
+				if (info.getTipo2() != null) {
+					listaTipos.add(Tipo.valueOf(info.getTipo1().toUpperCase()));
+				}
+				p.setTipos(listaTipos);
+				//Aquivann a ir los movimientos pero rimero hay que hacer MovimientoDAO
+				
+				//Aqui van a ir los objetosperofalta hacer objeto DAO
+				
+				listaPC.add(p);
+			}
+			
+			
+			
+		}catch(SQLException e) {
+			System.err.println("Error al recuperar el PC del entrenador " + idEntrenador);
+	        e.printStackTrace();	
+		}
+		
+		return listaPC;
+	}
+	
+	public boolean moverAlEquipo(int idPokemon) {
+		String sql = "UPDATE pokemon SET ubicacion = 1 WHERE id_Pokemon = ?";
+		
+		try (Connection conexion = ConexionBD.getConnection();
+				PreparedStatement statement = conexion.prepareStatement(sql)){
+			statement.setInt(1, idPokemon);
+			
+			int filasAfectadas = statement.executeUpdate();
+			return filasAfectadas > 0;
+			
+		} catch(SQLException e) {
+			System.err.println("Error al mover al equipo: " + e.getMessage());
+	        return false;
+			
+		}
+		
+	}
+				
+				
+				
+		
+	}
+

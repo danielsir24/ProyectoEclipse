@@ -15,6 +15,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
+import pokemon.PokemonDAO;
 import pokemon.Main;
 import pokemon.Pokedex;
 import pokemon.Pokemon;
@@ -27,7 +28,7 @@ import javafx.util.Duration;
 
 public class CapturaController {
 
-	//Elementos de FXML
+	// Elementos de FXML
 	@FXML
 	private Label errorLabel;
 
@@ -70,7 +71,7 @@ public class CapturaController {
 	@FXML
 	private Label lblMote;
 
-	//Variables usadas en los metodos
+	// Variables usadas en los metodos
 	private PokedexDAO pokedexDAO = new PokedexDAO();
 	private AudioClip sonidoCaptura;
 	private Pokemon pokemonActual;
@@ -114,24 +115,23 @@ public class CapturaController {
 			// Le ponemos un nivel aleatorio enre 2 y 10
 			int nivelAleatorio = (int) (Math.random() * (10 - 2 + 1) + 2);
 			lblNivel.setText("Niv." + nivelAleatorio);
-			
+
 			this.pokemonActual = new Pokemon();
-			
+
 			this.pokemonActual.setInfoPokedex(especie);
-	        this.pokemonActual.setNombre(especie.getNombreEspecie());
-	        this.pokemonActual.setNivel(nivelAleatorio);
-	        this.pokemonActual.setMote(especie.getNombreEspecie());
-	        
-	        lblNombre.setText(pokemonActual.getNombre());
-	        lblNivel.setText("Niv." + pokemonActual.getNivel());
-			
+			this.pokemonActual.setNombre(especie.getNombreEspecie());
+			this.pokemonActual.setNivel(nivelAleatorio);
+			this.pokemonActual.setMote(especie.getNombreEspecie());
+
+			lblNombre.setText(pokemonActual.getNombre());
+			lblNivel.setText("Niv." + pokemonActual.getNivel());
 
 			// Usamos el getter para coger el nnumero de la pokedex
 			int numPokedex = especie.getNum_Pokedex();
 			// Con el numero de la pokedex que hemos recogido llamamos a aa base de datos y
 			// generamos su gif
 			// Tenemos que poner los sonidos
-			//Ponedlos vosotros que a mi me da la risa
+			// Ponedlos vosotros que a mi me da la risa
 			String rutaImagenFrontal = "/spritesPokemonsGifsFront/" + numPokedex + ".gif";
 
 			if (rutaImagenFrontal != null) {
@@ -310,18 +310,38 @@ public class CapturaController {
 	// Metodo para guardar el mote del pokemon
 	@FXML
 	private void handleGuardarMote(ActionEvent event) {
+		
+		//Instanciar la clase DAO pa quese hagan los inserts de los pokemon y se guarden
+		PokemonDAO pDAO = new PokemonDAO();
+		
+		int destinoUbicacion;
 		String mote = txtMote.getText().trim();
 
 		if (mote.isEmpty()) {
-			mote =  pokemonActual.getNombre();
-			txtLog.appendText("No has añadido ningún mote, el pokémon se unirá a tu equipo como: " + pokemonActual.getNombre());
+			mote = pokemonActual.getNombre();
+			txtLog.appendText(
+					"No has añadido ningún mote, el pokémon se unirá a tu equipo como: " + pokemonActual.getNombre());
 		}
 
 		pokemonActual.setMote(mote);
-		Main.miEquipo.add(pokemonActual);
+		if (Main.miEquipo.size() < 6) {
 
-		txtLog.appendText("¡El pokemon se ha unido a tu equipo como: " + mote + "!\n");
-
+			//Esto es para saber si el pokemon está en el q¡equipo o en el PC
+			//Sitiene un 1 está en el equipo
+			destinoUbicacion = 1;
+			Main.miEquipo.add(pokemonActual);
+			txtLog.appendText("¡El pokemon se ha unido a tu equipo como: " + mote + "!\n");
+		} else {
+			//Si tiene un se envía al PC pq no hay espacio
+			destinoUbicacion = 0;
+			Main.pcPokemon.add(pokemonActual);
+			txtLog.appendText("Espacio insuficiente en el equipo. ¡El pokemon ha sido enviaado a la caja del PC como: "
+					+ mote + "!\n");
+		}
+		
+		//Almacenamos en la base de datos
+		pDAO.guardarPokemon(pokemonActual, 1, destinoUbicacion);
+		//Hacemos que salga el menú de repetir captura
 		moteAsignado(event);
 
 	}
