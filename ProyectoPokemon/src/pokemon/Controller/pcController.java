@@ -17,7 +17,6 @@ public class pcController {
 			System.out.println("El equipo está lleno. Suelta a alguien primero.");
 			return;
 		}
-
 		// Llamamos al DAO para actualizar la DB
 		PokemonDAO pDAO = new PokemonDAO();
 		if (pDAO.moverAlEquipo(seleccionado.getIdPokemon())) {
