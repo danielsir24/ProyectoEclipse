@@ -1,14 +1,88 @@
 package pokemon.Controller;
 
+//Aqui hay pila cosas que no hacen falta, pero ya as quitaré mas tarde q es q las he copiado y pegado de ootro controlador xd
 import javafx.scene.control.Alert;
 import pokemon.Main;
 import pokemon.Pokemon;
 import pokemon.PokedexDAO;
 import pokemon.PokemonDAO;
 
-public class pcController {
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import java.io.IOException;
 
-	// Metodo para mover el Pokemon del PC al equipo
+import javafx.scene.media.AudioClip;
+
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import pokemon.PokedexDAO;
+import pokemon.PokemonDAO;
+import pokemon.Main;
+import pokemon.Pokedex;
+import pokemon.Pokemon;
+import javafx.scene.image.Image;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.control.TextField;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
+public class pcController {
+	
+	//Panel grande
+	@FXML private Label nombrePokemon;
+    @FXML private Label generoPokemon;
+    @FXML private ImageView imgPokemon;
+    @FXML private Label nomNivel;
+    @FXML private Label nomTipo1;
+    @FXML private Label nomTipo2;
+    @FXML private Label nomHabilidad;
+    @FXML private Label nomObjeto;
+    @FXML private Label nomMov1;
+    @FXML private Label nomMov2;
+    @FXML private Label nomMov3;
+    @FXML private Label nomMov4;
+    
+    //Botones de cambiar de caja (no se ni si los vamos a usar)
+    @FXML private Button btnCajaAnterior;
+    @FXML private Button btnCajaSiguiente;
+    @FXML private Label NombreCaja;
+    
+   //Los 25 mf slots
+   //Si alguna ez quereis torturar a alguien, ponedlo a instanciar todo esto a mano (Podría haver copiado y pegado pero no se me ha ocurrido)
+    @FXML private GridPane Caja5x5;
+    @FXML private ImageView slot_0_0; @FXML private ImageView slot_0_1; @FXML private ImageView slot_0_2; @FXML private ImageView slot_0_3; @FXML private ImageView slot_0_4;
+    @FXML private ImageView slot_1_0; @FXML private ImageView slot_1_1; @FXML private ImageView slot_1_2; @FXML private ImageView slot_1_3; @FXML private ImageView slot_1_4;
+    @FXML private ImageView slot_2_0; @FXML private ImageView slot_2_1; @FXML private ImageView slot_2_2; @FXML private ImageView slot_2_3; @FXML private ImageView slot_2_4;
+    @FXML private ImageView slot_3_0; @FXML private ImageView slot_3_1; @FXML private ImageView slot_3_2; @FXML private ImageView slot_3_3; @FXML private ImageView slot_3_4;
+    @FXML private ImageView slot_4_0; @FXML private ImageView slot_4_1; @FXML private ImageView slot_4_2; @FXML private ImageView slot_4_3; @FXML private ImageView slot_4_4;
+	
+    //Botones
+    @FXML private Button btnEquipo;
+    @FXML private Button btnSalir;
+
+    private ImageView[][] matrizSlots;
+    
+    @FXML
+    public void initialize() {
+        // Inicializamos un array matriz para tener localizadas filas y columnas pq si no esto es imposible
+        matrizSlots = new ImageView[][] {
+            { slot_0_0, slot_0_1, slot_0_2, slot_0_3, slot_0_4 },
+            { slot_1_0, slot_1_1, slot_1_2, slot_1_3, slot_1_4 },
+            { slot_2_0, slot_2_1, slot_2_2, slot_2_3, slot_2_4 },
+            { slot_3_0, slot_3_1, slot_3_2, slot_3_3, slot_3_4 },
+            { slot_4_0, slot_4_1, slot_4_2, slot_4_3, slot_4_4 }
+        };
+    }
+
+    	// Metodo para mover el Pokemon del PC al equipo
 
 	public void handleMoverAlEquipo(Pokemon seleccionado) {
 
@@ -33,7 +107,7 @@ public class pcController {
 		}
 	}
 
-	public void handleMoverAlPC(Pokemon seleccionado) {
+	/* public void handleMoverAlPC(Pokemon seleccionado) {
 		// Llamamos al DAO para actualizar la DB
 		PokemonDAO pDAO = new PokemonDAO();
 		if (pDAO.moverAlEquipo(seleccionado.getIdPokemon())) {
@@ -48,6 +122,7 @@ public class pcController {
 		} else {
 			System.out.println("Error: No se pudo mover el Pokémon.");
 		}
-	}
+	}*/
+	//Esto es que lo he hecho aqui pero debería usarlo luego pa la del equipo xd
 
 }
