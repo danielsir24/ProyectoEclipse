@@ -143,15 +143,43 @@ public class PokemonDAO {
 					listaTipos.add(Tipo.valueOf(info.getTipo1().toUpperCase()));
 				}
 				p.setTipos(listaTipos);
+				//Aquivann a ir los movimientos pero rimero hay que hacer MovimientoDAO
 				
+				//Aqui van a ir los objetosperofalta hacer objeto DAO
+				
+				listaPC.add(p);
 			}
 			
+			
+			
 		}catch(SQLException e) {
+			System.err.println("Error al recuperar el PC del entrenador " + idEntrenador);
+	        e.printStackTrace();	
+		}
+		
+		return listaPC;
+	}
+	
+	public boolean moverAlEquipo(int idPokemon) {
+		String sql = "UPDATE pokemon SET ubicacion = 1 WHERE id_Pokemon = ?";
+		
+		try (Connection conexion = ConexionBD.getConnection();
+				PreparedStatement statement = conexion.prepareStatement(sql)){
+			statement.setInt(1, idPokemon);
+			
+			int filasAfectadas = statement.executeUpdate();
+			return filasAfectadas > 0;
+			
+		} catch(SQLException e) {
+			System.err.println("Error al mover al equipo: " + e.getMessage());
+	        return false;
 			
 		}
+		
+	}
 				
 				
 				
 		
 	}
-}
+
