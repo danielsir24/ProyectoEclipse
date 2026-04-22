@@ -22,7 +22,6 @@ import pokemon.Main;
 import pokemon.PokemonDAO;
 import pokemon.PokedexDAO;
 
-
 public class MainController {
 
 	@FXML
@@ -40,18 +39,17 @@ public class MainController {
 	@FXML
 	private Label labelPassword;
 
-
 	@FXML
 	private void handleEquipo(ActionEvent event) {
 		cambiarEscena(event, "/EscenaEquipo.fxml", "Menú Equipo");
 
 	}
-	
+
 	@FXML
 	private void handleEntrarCaptura(ActionEvent event) {
 		cambiarEscena(event, "/EscenaCaptura.fxml", "Escena Captura");
 	}
-	
+
 	@FXML
 	private void handleEntrarCrianza(ActionEvent event) {
 		cambiarEscena(event, "/EscenaCrianza.fxml", "Menú Crianza");
@@ -101,90 +99,89 @@ public class MainController {
 		} catch (Exception e) {
 			System.out.println("Error al cargar la fuente: " + e.getMessage());
 		}
-		
-		
+
 	}
-	
+
 	@FXML
 	private Button BotonSonido;
 
 	@FXML
 	private void handleMute(ActionEvent event) {
-	    Musica.toggleMute();
-	    BotonSonido.setText(Musica.isMuted() ? "🔇" : "🔊");
+		Musica.toggleMute();
+		BotonSonido.setText(Musica.isMuted() ? "🔇" : "🔊");
 	}
-	
-	
-	//Este es el registro del entrenador al darle al boton Registro
+
+	// Este es el registro del entrenador al darle al boton Registro
 	private final EntrenadorDAO entrenadorDAO = new EntrenadorDAO();
 
 	@FXML
 	private void handleLogin(ActionEvent event) {
-	    String user = usernameField.getText().trim();
-	    String pass = passwordField.getText().trim();
+		String user = usernameField.getText().trim();
+		String pass = passwordField.getText().trim();
 
-	    if (user.isEmpty() || pass.isEmpty()) {
-	        errorLabel.setText("Rellena usuario y contraseña.");
-	        return;
-	    }
+		if (user.isEmpty() || pass.isEmpty()) {
+			errorLabel.setText("Rellena usuario y contraseña.");
+			return;
+		}
 
-	    Entrenador entrenador = entrenadorDAO.login(user, pass);
-	    if (entrenador != null) {
-	        cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
-	        Main.entrenadorLogueado = entrenador;
-	        PokemonDAO pDAO = new PokemonDAO();
-	        Main.miEquipo = pDAO.obtenerEquipo(entrenador.getId_Entrenador());
-	    } else {
-	        errorLabel.setText("Usuario o contraseña incorrectos.");
-	    }
+		Entrenador entrenador = entrenadorDAO.login(user, pass);
+		if (entrenador != null) {
+			cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
+			Main.entrenadorLogueado = entrenador;
+			PokemonDAO pDAO = new PokemonDAO();
+			Main.miEquipo = pDAO.obtenerEquipo(entrenador.getId_Entrenador());
+		} else {
+			errorLabel.setText("Usuario o contraseña incorrectos.");
+		}
 	}
 
 	@FXML
 	private void handleRegistro(ActionEvent event) {
-	    String user = usernameField.getText().trim();
-	    String pass = passwordField.getText().trim();
+		String user = usernameField.getText().trim();
+		String pass = passwordField.getText().trim();
 
-	    if (user.isEmpty() || pass.isEmpty()) {
-	        errorLabel.setText("Rellena usuario y contraseña.");
-	        return;
-	    }
+		if (user.isEmpty() || pass.isEmpty()) {
+			errorLabel.setText("Rellena usuario y contraseña.");
+			return;
+		}
 
-	    if (entrenadorDAO.existeNombre(user)) {
-	        errorLabel.setText("Ese nombre de entrenador ya existe.");
-	        return;
-	    }
+		if (entrenadorDAO.existeNombre(user)) {
+			errorLabel.setText("Ese nombre de entrenador ya existe.");
+			return;
+		}
 
-	    Entrenador nuevo = new Entrenador();
-	    nuevo.setNom_Entrenador(user);
-	    nuevo.setPassword(pass);
-	    nuevo.setPokedollars(500);
-	    nuevo.setTipo_Entrenador("Novato");
-	    nuevo.setImg_Entrenador(null);
+		Entrenador nuevo = new Entrenador();
+		nuevo.setNom_Entrenador(user);
+		nuevo.setPassword(pass);
+		nuevo.setPokedollars(500);
+		nuevo.setTipo_Entrenador("Novato");
+		nuevo.setImg_Entrenador(null);
 
-	    if (entrenadorDAO.registrar(nuevo)) {
-	        errorLabel.setStyle("-fx-text-fill: green;");
-	        errorLabel.setText("¡Entrenador registrado con éxito!");
-	        Main.entrenadorLogueado = entrenadorDAO.login(user, pass);
-	    } else {
-	        errorLabel.setText("Error al registrar. Inténtalo de nuevo.");
-	    }
+		if (entrenadorDAO.registrar(nuevo)) {
+			errorLabel.setStyle("-fx-text-fill: green;");
+			errorLabel.setText("¡Entrenador registrado con éxito!");
+			Main.entrenadorLogueado = entrenadorDAO.login(user, pass);
+		} else {
+			errorLabel.setText("Error al registrar. Inténtalo de nuevo.");
+		}
 	}
+
 	@FXML
-    void abrirCasino() {
-        try {
-            // Carga el diseño del casino
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/EscenaCasino.fxml"));
-            javafx.scene.Parent root = loader.load();
-            
-            // Crea y muestra la nueva ventana
-            javafx.stage.Stage stage = new javafx.stage.Stage();
-            stage.setTitle("Casino Ciudad Azulona");
-            stage.setScene(new javafx.scene.Scene(root));
-            stage.show();
-            
-        } catch (Exception e) {
-            System.out.println("No se pudo abrir el casino:");
-            e.printStackTrace();
-        }
-    }
+	void abrirCasino() {
+		try {
+			// Carga el diseño del casino
+			javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/EscenaCasino.fxml"));
+			javafx.scene.Parent root = loader.load();
+
+			// Crea y muestra la nueva ventana
+			javafx.stage.Stage stage = new javafx.stage.Stage();
+			stage.setTitle("Casino Ciudad Azulona");
+			stage.setScene(new javafx.scene.Scene(root));
+			stage.show();
+
+		} catch (Exception e) {
+			System.out.println("No se pudo abrir el casino:");
+			e.printStackTrace();
+		}
+	}
 }

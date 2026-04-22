@@ -42,7 +42,7 @@ public class PokemonDAO {
 			statement.setString(13, pokemon.getSexo().name());
 			statement.setString(14, pokemon.getEstado().name());
 			// esto es pa saber si tiene objeto on y si lo siente lo almacena, pero vaya
-			// que los pokemon de normal se van a generar sin objetos 
+			// que los pokemon de normal se van a generar sin objetos
 			if (pokemon.getObjeto() != null) {
 				statement.setInt(15, pokemon.getObjeto().getIdObjeto());
 			} else {
@@ -52,21 +52,18 @@ public class PokemonDAO {
 			statement.setInt(17, idEntrenador);
 			statement.setInt(18, pokemon.getInfoPokedex().getNum_Pokedex());
 
-			
-
 			int filas = statement.executeUpdate();
 			return filas > 0;
-			
-			
+
 		} catch (SQLException e) {
 			System.out.println("ERROR EN EL INSERT");
-		    System.out.println("Estado SQL: " + e.getSQLState());
-		    System.out.println("Código de error: " + e.getErrorCode());
-		    System.out.println("Mensaje: " + e.getMessage());
-		    e.printStackTrace(); 
-		    return false;
+			System.out.println("Estado SQL: " + e.getSQLState());
+			System.out.println("Código de error: " + e.getErrorCode());
+			System.out.println("Mensaje: " + e.getMessage());
+			e.printStackTrace();
+			return false;
 		}
-		
+
 	}
 
 	public Pokemon buscarPorIdPokemon(int idBusqueda) {
@@ -123,7 +120,7 @@ public class PokemonDAO {
 	public ArrayList<Pokemon> obtenerPokemonPC(int idEntrenador) {
 		ArrayList<Pokemon> listaPC = new ArrayList<>();
 
-		String sql = "SELECT * FROM pokemon WHERE id_eNTRENADOR = ? AND ubicacion = 0";
+		String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 0";
 
 		// Preparamos la cnexion para recoger los datos
 		try (Connection conexion = ConexionBD.getConnection();
@@ -136,7 +133,11 @@ public class PokemonDAO {
 
 				Pokemon p = new Pokemon();
 
-				// Hacemos los sets de la conexion para que se modifiquen en la base de datos
+				// Hacemos los sets de la conexion para que se seleccionen de la base de datos
+
+				// En principio no se usan nivel, idPokemon ni ubicacion pero los voy a dejar
+				// por si en el futuro tengo que modificar algo, y de cara a la version final
+				// los quito si hace falta
 				String mote = rs.getString("mote");
 				int nivel = rs.getInt("nivel");
 				int idPokemon = rs.getInt("idPokemon");
@@ -159,8 +160,11 @@ public class PokemonDAO {
 				p.setTipos(listaTipos);
 
 				// Aquivann a ir los movimientos pero rimero hay que hacer MovimientoDAO
+				// rollo algo como p.setNombre(mote); pero cambiado para que sea de movimiento
+				// en plan getListaMovimientos
 
-				// Aqui van a ir los objetosperofalta hacer objeto DAO
+				// Aqui van a ir los objetosperofalta hacer objetoDAO
+				// Lomismo que movimientos pero sería getObjeto
 
 				listaPC.add(p);
 			}
@@ -182,12 +186,11 @@ public class PokemonDAO {
 		try (Connection conexion = ConexionBD.getConnection();
 				PreparedStatement statement = conexion.prepareStatement(sql)) {
 			statement.setInt(1, idPokemon);
-			
+
 			// Esto es para comprobar que haya funcionado, si es true, es que el pokemon se
 			// ha movido
 			int filasAfectadas = statement.executeUpdate();
 			return filasAfectadas > 0;
-			
 
 		} catch (SQLException e) { // Y aqui la expecion
 			System.err.println("Error al mover al equipo: " + e.getMessage());
@@ -205,7 +208,6 @@ public class PokemonDAO {
 		try (Connection conexion = ConexionBD.getConnection();
 				PreparedStatement statement = conexion.prepareStatement(sql)) {
 			statement.setInt(1, idPokemon);
-			
 
 			int filasAfectadas = statement.executeUpdate();
 			return filasAfectadas > 0;
@@ -215,41 +217,51 @@ public class PokemonDAO {
 			return false;
 
 		}
-		
-		
 
 	}
-	
+
+	// Este metodo lo usaremos al inicializar el combate para que se genere el
+	// equipo al meterte
 	public ArrayList<Pokemon> obtenerEquipo(int idEntrenador) {
-	    ArrayList<Pokemon> equipoRecuperado = new ArrayList<>();
-	    String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 1";
+		ArrayList<Pokemon> equipoRecuperado = new ArrayList<>();
+		// Select a ejecutar
+		String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 1";
 
-	    try (Connection conexion = ConexionBD.getConnection();
-	         PreparedStatement pstmt = conexion.prepareStatement(sql)) {
-	        
-	        pstmt.setInt(1, idEntrenador);
-	        ResultSet rs = pstmt.executeQuery();
+		// Conexon conlabase de datos
+		try (Connection conexion = ConexionBD.getConnection();
+				PreparedStatement pstmt = conexion.prepareStatement(sql)) {
 
-	        while (rs.next()) {
-	            Pokemon p = new Pokemon();
-	            p.setIdPokemon(rs.getInt("id_Pokemon"));
-	            p.setMote(rs.getString("mote"));
-	            p.setNivel(rs.getInt("nivel"));
-	            p.setIdEntrenador(rs.getInt("id_Entrenador"));
-	            
-	            int numPokedex = rs.getInt("num_Pokedex");
-	            PokedexDAO pokedexDAO = new PokedexDAO();
-	            p.setInfoPokedex(pokedexDAO.buscarPorIdPokedex(numPokedex));
-	            p.setNombre(p.getInfoPokedex().getNombreEspecie());
-	            System.out.println("DAO: He encontrado a " + p.getMote() + " en la base de datos.");
-	            
-	            equipoRecuperado.add(p);
-	        }
-	        System.out.println("Total recuperados: " + equipoRecuperado.size());
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return equipoRecuperado;
+			pstmt.setInt(1, idEntrenador);
+			ResultSet rs = pstmt.executeQuery();
+
+			// Este bucle recorrerá el equipo 1 a 1 para ir sacando a todos los pokemon
+			while (rs.next()) {
+				Pokemon p = new Pokemon();
+				// Los sets, son "temporales" es para que el sistema compruebe si ese es el
+				// pokemon
+				p.setIdPokemon(rs.getInt("id_Pokemon"));
+				p.setMote(rs.getString("mote"));
+				p.setNivel(rs.getInt("nivel"));
+				p.setIdEntrenador(rs.getInt("id_Entrenador"));
+
+				//
+				int numPokedex = rs.getInt("num_Pokedex");
+				PokedexDAO pokedexDAO = new PokedexDAO();
+				p.setInfoPokedex(pokedexDAO.buscarPorIdPokedex(numPokedex));
+				p.setNombre(p.getInfoPokedex().getNombreEspecie());
+				System.out.println("DAO: He encontrado a " + p.getMote() + " en la base de datos.");
+				// Ns pq he hecho que sea el DAO en que habla en vez de un mensae normal pero no
+				// lo cambieis q esta guapo xd
+
+				equipoRecuperado.add(p);
+			}
+			// Hacemos que devuelva el total de recuperados por la consola, para comprobar
+			// que todo está bien
+			System.out.println("Total recuperados: " + equipoRecuperado.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return equipoRecuperado;
 	}
 
 }

@@ -310,10 +310,11 @@ public class CapturaController {
 	// Metodo para guardar el mote del pokemon
 	@FXML
 	private void handleGuardarMote(ActionEvent event) {
-		
-		//Instanciar la clase DAO pa quese hagan los inserts de los pokemon y se guarden
+
+		// Instanciar la clase DAO pa quese hagan los inserts de los pokemon y se
+		// guarden
 		PokemonDAO pDAO = new PokemonDAO();
-		
+
 		int destinoUbicacion;
 		String mote = txtMote.getText().trim();
 
@@ -326,23 +327,23 @@ public class CapturaController {
 		pokemonActual.setMote(mote);
 		if (Main.miEquipo.size() < 6) {
 
-			//Esto es para saber si el pokemon está en el q¡equipo o en el PC
-			//Sitiene un 1 está en el equipo
+			// Esto es para saber si el pokemon está en el q¡equipo o en el PC
+			// Sitiene un 1 está en el equipo
 			destinoUbicacion = 1;
 			Main.miEquipo.add(pokemonActual);
 			txtLog.appendText("¡El pokemon se ha unido a tu equipo como: " + mote + "!\n");
 		} else {
-			//Si tiene un se envía al PC pq no hay espacio
+			// Si tiene un se envía al PC pq no hay espacio
 			destinoUbicacion = 0;
 			Main.pcPokemon.add(pokemonActual);
 			txtLog.appendText("Espacio insuficiente en el equipo. ¡El pokemon ha sido enviaado a la caja del PC como: "
 					+ mote + "!\n");
 		}
-		
-		//Almacenamos en la base de datos
+
+		// Almacenamos en la base de datos
 		pDAO.guardarPokemon(pokemonActual, Main.entrenadorLogueado.getId_Entrenador(), destinoUbicacion);
-		//Hacemos que salga el menú de repetir captura
-		
+		// Hacemos que salga el menú de repetir captura
+
 		moteAsignado(event);
 
 	}

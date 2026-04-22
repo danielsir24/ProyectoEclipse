@@ -9,28 +9,29 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class Main extends Application {
-	
+
 	public static ArrayList<Pokemon> miEquipo = new ArrayList<>();
 	public static ArrayList<Pokemon> pcPokemon = new ArrayList<>();
 
 	public static Entrenador entrenadorLogueado;
-    @Override
-    public void start(Stage primaryStage) throws Exception {
 
-        // Cargar escena de Login
-        Parent root = FXMLLoader.load(getClass().getResource("/EscenaLogin.fxml"));
-        primaryStage.setTitle("Login Pokémon");
-        primaryStage.setResizable(false); 
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setMaximized(false);
-        primaryStage.show();
+	@Override
+	public void start(Stage primaryStage) throws Exception {
 
-        //Musica del juego
-        Musica.iniciar("/sounds/MusicaPokemon.wav");
-        
-    }
+		// Cargar escena de Login
+		Parent root = FXMLLoader.load(getClass().getResource("/EscenaLogin.fxml"));
+		primaryStage.setTitle("Login Pokémon");
+		primaryStage.setResizable(false);
+		primaryStage.setScene(new Scene(root));
+		primaryStage.setMaximized(false);
+		primaryStage.show();
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+		// Musica del juego
+		Musica.iniciar("/sounds/MusicaPokemon.wav");
+
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 }

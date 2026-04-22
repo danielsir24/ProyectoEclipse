@@ -29,11 +29,11 @@ public class Pokedex {
 	}
 
 	public String getRutaImagen(boolean frontal) {
-	    if (frontal = true) {
-	        return "/spritesPokemons/Front/" + this.num_Pokedex + ".png";
-	    } else {
-	        return "/spritesPokemons/Back/" + this.num_Pokedex + ".png";
-	    }
+		if (frontal = true) {
+			return "/spritesPokemons/Front/" + this.num_Pokedex + ".png";
+		} else {
+			return "/spritesPokemons/Back/" + this.num_Pokedex + ".png";
+		}
 	}
 
 	public void mostrarInfoBasica() {
@@ -51,7 +51,7 @@ public class Pokedex {
 	public void setNum_Pokedex(int num_Pokedex) {
 		this.num_Pokedex = num_Pokedex;
 	}
-	
+
 	public String getNombreEspecie() {
 		return nombreEspecie;
 	}

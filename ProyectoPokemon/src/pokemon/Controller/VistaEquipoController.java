@@ -18,14 +18,11 @@ import javafx.scene.image.Image;
 import pokemon.Main;
 import javafx.scene.control.Button;
 
-
 import pokemon.Pokemon;
 
 import java.io.InputStream;
 
-
 public class VistaEquipoController {
-
 
 	// Elementos generales
 	@FXML
@@ -85,7 +82,8 @@ public class VistaEquipoController {
 	// Arrays para la optimizacion
 	private Label[] nombres, niveles, pvs, exps;
 	private ProgressBar[] barrasHP, barrasEXP;
-	private ImageView[] fotos, generos; //Hay que meter tambien las imagenes de los generos, que se me haolvidado, ya lo haré
+	private ImageView[] fotos, generos; // Hay que meter tambien las imagenes de los generos, que se me haolvidado, ya
+										// lo haré
 
 	// Metodo para cargar la fuente
 	@FXML
@@ -101,7 +99,8 @@ public class VistaEquipoController {
 		barrasEXP = new ProgressBar[] { expBar1, expBar2, expBar3, expBar4, expBar5, expBar6 };
 
 		fotos = new ImageView[] { imgPokemon1, imgPokemon2, imgPokemon3, imgPokemon4, imgPokemon5, imgPokemon6 };
-		generos = new ImageView[] { imgGenero1, imgGenero2, imgGenero3, imgGenero4, imgGenero5, imgGenero6 }; //Hay que meterle tb las imagenes de los generos 
+		generos = new ImageView[] { imgGenero1, imgGenero2, imgGenero3, imgGenero4, imgGenero5, imgGenero6 };
+		// Hay que meterle tb las imagenes de los generos
 
 		actualizarEquipo();
 		cargarFuentePersonalizada();
@@ -124,7 +123,8 @@ public class VistaEquipoController {
 					exps[i].setText(pActual.getExperiencia() + " pts");
 
 					// Barras
-					barrasHP[i].setProgress((double) pActual.getVitalidad() / pActual.getVitalidadMaxima()); //Tapoco se ve el progreso de la barra
+					barrasHP[i].setProgress((double) pActual.getVitalidad() / pActual.getVitalidadMaxima());
+					// El progreso de la barra no funciona chat, ayuda
 					barrasEXP[i].setProgress(100); // Aun hay que solucionar lo de la barra de experiencia
 
 					// Imagen
@@ -135,14 +135,15 @@ public class VistaEquipoController {
 							fotos[i].setImage(new Image(is));
 							System.out.println("DEBUG: ¡Imagen cargada con éxito!"); // Comentarios debug
 						} else {
-							System.err.println("DEBUG: No se encuentra el archivo en la ruta: " + ruta); // Comentarios debug
-							//No toqueis esto de la imagen que me ha costado que flipas																				
+							System.err.println("DEBUG: No se encuentra el archivo en la ruta: " + ruta); // Comentarios
+																											// debug
+							// No toqueis esto de la imagen que me ha costado que flipas
 						}
 					}
 					// Aseguramos visibilidad
 					nombres[i].setVisible(true);
 					fotos[i].setVisible(true);
-					//Esto lo pongo porque antes no salía
+					// Esto lo pongo porque antes no salía
 				}
 			} else {
 				// Hacemos que los slots vacios salgan con estos parametros predeterminados
@@ -153,12 +154,12 @@ public class VistaEquipoController {
 				exps[i].setText("");
 				barrasHP[i].setProgress(0);
 				barrasEXP[i].setProgress(0);
-				fotos[i].setImage(null); 
+				fotos[i].setImage(null);
 			}
 		}
 	}
 
-	//La fuente esta que al final no se ni si la vamos a utilizar
+	// La fuente esta que al final no se ni si la vamos a utilizar
 	private void cargarFuentePersonalizada() {
 		try {
 			Font pokemonFont = Font.loadFont(getClass().getResourceAsStream("/fonts/pokemon.ttf"), 18);
@@ -199,8 +200,7 @@ public class VistaEquipoController {
 		}
 	}
 
-	
-	//Metodos de cambiode escena 
+	// Metodos de cambiode escena
 	@FXML
 	private void entrarPc(ActionEvent event) {
 		cambiarEscena(event, "/EscenaCaja.fxml", "PC de Pokemon");
