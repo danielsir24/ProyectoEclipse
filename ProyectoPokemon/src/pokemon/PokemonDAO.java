@@ -206,7 +206,34 @@ public class PokemonDAO {
 			return false;
 
 		}
+		
+		
 
+	}
+	
+	public ArrayList<Pokemon> obtenerEquipo(int idEntrenador) {
+	    ArrayList<Pokemon> equipoRecuperado = new ArrayList<>();
+	    String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 1";
+
+	    try (Connection conexion = ConexionBD.getConnection();
+	         PreparedStatement pstmt = conexion.prepareStatement(sql)) {
+	        
+	        pstmt.setInt(1, idEntrenador);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            Pokemon p = new Pokemon();
+	            p.setIdPokemon(rs.getInt("id_Pokemon"));
+	            p.setMote(rs.getString("mote"));
+	            p.setNivel(rs.getInt("nivel"));
+	            p.setIdEntrenador(rs.getInt("id_Entrenador"));
+	            
+	            equipoRecuperado.add(p);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return equipoRecuperado;
 	}
 
 }

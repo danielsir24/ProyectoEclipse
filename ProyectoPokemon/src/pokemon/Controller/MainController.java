@@ -19,6 +19,9 @@ import javafx.scene.control.Button;
 import pokemon.Entrenador;
 import pokemon.EntrenadorDAO;
 import pokemon.Main;
+import pokemon.PokemonDAO;
+import pokemon.PokedexDAO;
+
 
 public class MainController {
 
@@ -128,6 +131,9 @@ public class MainController {
 	    Entrenador entrenador = entrenadorDAO.login(user, pass);
 	    if (entrenador != null) {
 	        cambiarEscena(event, "/EscenaMenu.fxml", "Menú Principal");
+	        Main.entrenadorLogueado = entrenador;
+	        PokemonDAO pDAO = new PokemonDAO();
+	        Main.miEquipo = pDAO.obtenerEquipo(entrenador.getId_Entrenador());
 	    } else {
 	        errorLabel.setText("Usuario o contraseña incorrectos.");
 	    }

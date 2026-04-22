@@ -342,6 +342,7 @@ public class CapturaController {
 		//Almacenamos en la base de datos
 		pDAO.guardarPokemon(pokemonActual, 1, destinoUbicacion);
 		//Hacemos que salga el menú de repetir captura
+		
 		moteAsignado(event);
 
 	}
