@@ -83,12 +83,12 @@ public class CapturaController {
 		sonidoCaptura = new AudioClip(getClass().getResource("/sounds/capture.wav").toExternalForm());
 		sonidoCaptura.setVolume(0.2);
 
-		generarPokemonAleatorioCaptura();
+		generarPokemonAleatorio();
 	}
 
 	// Meotodo para generar un pokemon aleatorio de los 151 que hay en la base de
 	// datos
-	public void generarPokemonAleatorioCaptura() {
+	public void generarPokemonAleatorio() {
 		// Hacemos que se quede todo como al principio en caso de repetir la captura
 		pokemonImg.setVisible(true);
 		txtMote.setDisable(false);
@@ -225,7 +225,7 @@ public class CapturaController {
 				new KeyFrame(Duration.millis(500), e -> txtLog.appendText("3...\n")),
 				new KeyFrame(Duration.millis(1000), e -> txtLog.appendText("2...\n")),
 				new KeyFrame(Duration.millis(1500), e -> txtLog.appendText("1...\n")),
-				new KeyFrame(Duration.millis(2000), e -> generarPokemonAleatorioCaptura()));
+				new KeyFrame(Duration.millis(2000), e -> generarPokemonAleatorio()));
 		timeline.play();
 	}
 
