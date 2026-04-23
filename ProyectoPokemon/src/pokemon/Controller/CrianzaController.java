@@ -61,6 +61,7 @@ public class CrianzaController {
 			}
 		} catch (Exception e) {
 			System.out.println("ERROR:");
+			System.out.println("Mensaje: " + e.getMessage());
 			e.printStackTrace();
 
 		}

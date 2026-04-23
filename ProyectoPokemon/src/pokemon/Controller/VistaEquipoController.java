@@ -214,6 +214,7 @@ public class VistaEquipoController {
 		//Gracias comentarios debug, no se que haría sin vosotros
 		} catch (Exception e) {
 			System.out.println("ERROR:");
+			System.out.println("Mensaje: " + e.getMessage());
 			e.printStackTrace();
 			
 			
