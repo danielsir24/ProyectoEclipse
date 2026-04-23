@@ -171,23 +171,28 @@ public class MainController {
 			errorLabel.setText("Error al registrar. Inténtalo de nuevo.");
 		}
 	}
-
 	@FXML
-	void abrirCasino() {
-		try {
-			// Carga el diseño del casino
-			javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/EscenaCasino.fxml"));
-			javafx.scene.Parent root = loader.load();
-
-			// Crea y muestra la nueva ventana
-			javafx.stage.Stage stage = new javafx.stage.Stage();
-			stage.setTitle("Casino Ciudad Azulona");
-			stage.setScene(new javafx.scene.Scene(root));
-			stage.show();
-
-		} catch (Exception e) {
-			System.out.println("No se pudo abrir el casino:");
-			e.printStackTrace();
-		}
+    void abrirCasino(javafx.event.Event event) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/EscenaCasino.fxml"));
+            javafx.scene.Parent root = loader.load();
+            
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            
+            stage.setTitle("Casino Kanto");
+            stage.setScene(new javafx.scene.Scene(root));
+            
+            // --- ESTAS DOS LÍNEAS SON LA MAGIA ---
+            stage.sizeToScene(); // Hace que la ventana se adapte al tamaño exacto de tu diseño
+            stage.centerOnScreen(); // Vuelve a centrar la ventana en tu monitor
+            // ------------------------------------
+            
+            stage.show();
+            
+        } catch (Exception e) {
+            System.out.println("No se pudo abrir el casino:");
+            e.printStackTrace();
+        }
+    
 	}
 }
