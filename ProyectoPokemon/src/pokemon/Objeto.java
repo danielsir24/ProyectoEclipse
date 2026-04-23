@@ -4,20 +4,20 @@ public class Objeto {
 
 	private String nombre;
 	private int idObjeto;
-	private int bonusAtaque;
-	private int bonusDefensa;
-	private int penalizacionAtaque;
-	private int penalizacionDefensa;
-	private int bonusAtaqueEspecial;
-	private int bonusDefensaEspecial;
-	private int penalizacionAtaqueEspecial;
-	private int penalizacionDefensaEspecial;
-	private int bonusVelocidad;
-	private int penalizacionVelocidad;
+	private double bonusAtaque;
+	private double bonusDefensa;
+	private double penalizacionAtaque;
+	private double penalizacionDefensa;
+	private double bonusAtaqueEspecial;
+	private double bonusDefensaEspecial;
+	private double penalizacionAtaqueEspecial;
+	private double penalizacionDefensaEspecial;
+	private double bonusVelocidad;
+	private double penalizacionVelocidad;
 
-	public Objeto(String nombre, int idObjeto, int bonusAtaque, int bonusDefensa, int penalizacionAtaque,
-			int penalizacionDefensa, int bonusAtaqueEspecial, int bonusDefensaEspecial, int bonusVelocidad,
-			int penalizacionAtaqueEspecial, int penalizacionDefensaEspecial, int penalizacionVelocidad) {
+	public Objeto(String nombre, int idObjeto, double bonusAtaque, double bonusDefensa, double penalizacionAtaque,
+			double penalizacionDefensa, double bonusAtaqueEspecial, double bonusDefensaEspecial, double bonusVelocidad,
+			double penalizacionAtaqueEspecial, double penalizacionDefensaEspecial, double penalizacionVelocidad) {
 		this.nombre = nombre;
 		this.idObjeto = idObjeto;
 		this.bonusAtaque = bonusAtaque;
@@ -35,10 +35,10 @@ public class Objeto {
 	public Objeto() {
 		nombre = "";
 		this.idObjeto = 0;
-		this.bonusAtaque = 0;
-		this.bonusDefensa = 0;
-		this.penalizacionAtaque = 0;
-		this.penalizacionDefensa = 0;
+		this.bonusAtaque = 1.0;
+		this.bonusDefensa = 1.0;
+		this.penalizacionAtaque = 1.0;
+		this.penalizacionDefensa = 1.0;
 	}
 
 	public String getNombre() {
@@ -57,83 +57,83 @@ public class Objeto {
 		this.idObjeto = idObjeto;
 	}
 
-	public int getBonusAtaque() {
+	public double getBonusAtaque() {
 		return bonusAtaque;
 	}
 
-	public void setBonusAtaque(int bonusAtaque) {
-		this.bonusAtaque = bonusAtaque;
+	public void setBonusAtaque(double d) {
+		this.bonusAtaque = d;
 	}
 
-	public int getBonusDefensa() {
+	public double getBonusDefensa() {
 		return bonusDefensa;
 	}
 
-	public void setBonusDefensa(int bonusDefensa) {
+	public void setBonusDefensa(double bonusDefensa) {
 		this.bonusDefensa = bonusDefensa;
 	}
 
-	public int getPenalizacionAtaque() {
+	public double getPenalizacionAtaque() {
 		return penalizacionAtaque;
 	}
 
-	public void setPenalizacionAtaque(int penalizacionAtaque) {
+	public void setPenalizacionAtaque(double penalizacionAtaque) {
 		this.penalizacionAtaque = penalizacionAtaque;
 	}
 
-	public int getPenalizacionDefensa() {
+	public double getPenalizacionDefensa() {
 		return penalizacionDefensa;
 	}
 
-	public void setPenalizacionDefensa(int penalizacionDefensa) {
+	public void setPenalizacionDefensa(double penalizacionDefensa) {
 		this.penalizacionDefensa = penalizacionDefensa;
 	}
 
-	public int getBonusAtaqueEspecial() {
+	public double getBonusAtaqueEspecial() {
 		return bonusAtaqueEspecial;
 	}
 
-	public void setBonusAtaqueEspecial(int bonusAtaqueEspecial) {
+	public void setBonusAtaqueEspecial(double bonusAtaqueEspecial) {
 		this.bonusAtaqueEspecial = bonusAtaqueEspecial;
 	}
 
-	public int getBonusDefensaEspecial() {
+	public double getBonusDefensaEspecial() {
 		return bonusDefensaEspecial;
 	}
 
-	public void setBonusDefensaEspecial(int bonusDefensaEspecial) {
+	public void setBonusDefensaEspecial(double bonusDefensaEspecial) {
 		this.bonusDefensaEspecial = bonusDefensaEspecial;
 	}
 
-	public int getPenalizacionAtaqueEspecial() {
+	public double getPenalizacionAtaqueEspecial() {
 		return penalizacionAtaqueEspecial;
 	}
 
-	public void setPenalizacionAtaqueEspecial(int penalizacionAtaqueEspecial) {
+	public void setPenalizacionAtaqueEspecial(double penalizacionAtaqueEspecial) {
 		this.penalizacionAtaqueEspecial = penalizacionAtaqueEspecial;
 	}
 
-	public int getPenalizacionDefensaEspecial() {
+	public double getPenalizacionDefensaEspecial() {
 		return penalizacionDefensaEspecial;
 	}
 
-	public void setPenalizacionDefensaEspecial(int penalizacionDefensaEspecial) {
+	public void setPenalizacionDefensaEspecial(double penalizacionDefensaEspecial) {
 		this.penalizacionDefensaEspecial = penalizacionDefensa;
 	}
 
-	public int getBonusVelocidad() {
+	public double getBonusVelocidad() {
 		return bonusVelocidad;
 	}
 
-	public void setBonusVelocidad(int bonusVelocidad) {
+	public void setBonusVelocidad(double bonusVelocidad) {
 		this.bonusVelocidad = bonusVelocidad;
 	}
 
-	public int getPenalizacionVelocidad() {
+	public double getPenalizacionVelocidad() {
 		return penalizacionVelocidad;
 	}
 
-	public void setPenalizacionVelocidad(int penalizacionVelocidad) {
+	public void setPenalizacionVelocidad(double penalizacionVelocidad) {
 		this.penalizacionVelocidad = penalizacionVelocidad;
 	}
 
