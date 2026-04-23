@@ -265,7 +265,7 @@ public class VistaEquipoController {
 
 				PokemonDAO pDAO = new PokemonDAO();
 
-				if (pDAO.liberarPokemon(p.getIdPokemon())) {
+				try{ if (pDAO.liberarPokemon(p.getIdPokemon())) {
 
 					System.out.println(p.getMote() + " ha sido enviado al  PC");
 
@@ -277,6 +277,12 @@ public class VistaEquipoController {
 					actualizarEquipo();
 				} else {
 					System.out.println("DEBUG: Error al eliminar en la base de datos"); // Un DEBUG por aqui
+				}
+				} catch(Exception e) {
+					System.out.println("ERROR:");
+					System.out.println("Mensaje: " + e.getMessage());
+					e.printStackTrace();
+					
 				}
 
 			} else {

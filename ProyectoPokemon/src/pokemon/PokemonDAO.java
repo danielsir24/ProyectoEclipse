@@ -20,6 +20,10 @@ public class PokemonDAO {
 		// id_Pokemon, num_Pokedex, id_Entrenador, id_Objeto, mote,
 		// vitalidad, ataque, defensa, ataq_Especial, velocidad,
 		// def_Especial, fertilidad, nivel, estado, ubicacion, sexo
+
+		// Falta la experiencia y la experiencia necesariopara subir d nivel, pero esta
+		// utima nisiquiera existe en ninguna parte del codigo, asi que me tocará
+		// hacerla, pero ya mañana
 		String sql = "INSERT INTO pokemon "
 				+ "(num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, vitalidadMaxima, "
 				+ "ataque, defensa, ataq_Especial, def_Especial, velocidad, "
@@ -78,6 +82,7 @@ public class PokemonDAO {
 					p.setIdPokemon(rs.getInt("id_Pokemon"));
 					p.setMote(rs.getString("mote"));
 					p.setVitalidad(rs.getInt("vitalidad"));
+					p.setVitalidadMaxima(rs.getInt("vitalidadMaxima"));
 					p.setAtaque(rs.getInt("ataque"));
 					p.setDefensa(rs.getInt("defensa"));
 					p.setAtaqueEspecial(rs.getInt("ataq_Especial"));
@@ -126,6 +131,7 @@ public class PokemonDAO {
 				p.setMote(rs.getString("mote"));
 				p.setNivel(rs.getInt("nivel"));
 				p.setVitalidad(rs.getInt("vitalidad"));
+				p.setVitalidadMaxima(rs.getInt("vitalidadMaxima"));
 				p.setAtaque(rs.getInt("ataque"));
 				p.setDefensa(rs.getInt("defensa"));
 				p.setAtaqueEspecial(rs.getInt("ataq_Especial"));
@@ -249,7 +255,7 @@ public class PokemonDAO {
 			System.err.println("Código de error SQL: " + e.getErrorCode());
 			e.printStackTrace();
 			return false;
-			//Te quiero mucho señor debug
+			// Te quiero mucho señor debug
 
 		}
 
@@ -272,6 +278,7 @@ public class PokemonDAO {
 				p.setNivel(rs.getInt("nivel"));
 				p.setIdEntrenador(rs.getInt("id_Entrenador"));
 				p.setVitalidad(rs.getInt("vitalidad"));
+				p.setVitalidadMaxima(rs.getInt("vitalidadMaxima"));
 				p.setAtaque(rs.getInt("ataque"));
 				p.setDefensa(rs.getInt("defensa"));
 				p.setAtaqueEspecial(rs.getInt("ataq_Especial"));
