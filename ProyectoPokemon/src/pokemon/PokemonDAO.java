@@ -163,6 +163,36 @@ public class PokemonDAO {
 		}
 		return listaPC;
 	}
+	//Método obligatorio para guardar el Entrenamiento y los Combates
+	public boolean actualizarPokemon(Pokemon p) {
+		String sql = "UPDATE pokemon SET vitalidad = ?, experiencia = ?, nivel = ?, estado = ?, ubicacion = ?, vitalidadMaxima = ?, ataque = ?, defensa = ?, ataq_Especial = ?, def_Especial = ?, velocidad = ? WHERE id_Pokemon = ?";
+			
+		try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+				
+				ps.setInt(1, p.getVitalidad());
+				ps.setInt(2, p.getExperiencia());
+				ps.setInt(3, p.getNivel());
+				ps.setString(4, p.getEstado() != null ? p.getEstado().name() : "NORMAL");
+				ps.setInt(5, p.getUbicacion());
+				
+				// Estadísticas que mejoran con el entrenamiento
+				ps.setInt(6, p.getVitalidadMaxima());
+				ps.setInt(7, p.getAtaque());
+				ps.setInt(8, p.getDefensa());
+				ps.setInt(9, p.getAtaqueEspecial());
+				ps.setInt(10, p.getDefensaEspecial());
+				ps.setInt(11, p.getVelocidad());
+				
+				// Condición del WHERE
+				ps.setInt(12, p.getIdPokemon());
+				
+				return ps.executeUpdate() > 0;
+			} catch (SQLException e) {
+				System.err.println("Error al actualizar el Pokemon " + p.getIdPokemon());
+				e.printStackTrace();
+				return false;
+			}
+		}
 
 	public boolean moverAlEquipo(int idPokemon) {
 		String sql = "UPDATE pokemon SET ubicacion = 1 WHERE id_Pokemon = ?";
