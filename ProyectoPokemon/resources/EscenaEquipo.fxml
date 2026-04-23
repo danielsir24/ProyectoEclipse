@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
@@ -96,6 +97,20 @@
                         <Font size="10.0" />
                      </font></Label>
                     </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Button layoutX="411.0" layoutY="10.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" style="-fx-background-color: linear-gradient(to bottom, #3a7bd5, #00d2ff);; -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="MOVER AL PC">
+                        <HBox.margin>
+                           <Insets right="290.0" />
+                        </HBox.margin>
+                     </Button>
+                     <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
 
                 </VBox>
             </AnchorPane>
@@ -144,6 +159,20 @@
                         <Font size="10.0" />
                      </font></Label>
                     </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Button layoutX="411.0" layoutY="10.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" style="-fx-background-color: linear-gradient(to bottom, #3a7bd5, #00d2ff);; -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="MOVER AL PC">
+                        <HBox.margin>
+                           <Insets right="290.0" />
+                        </HBox.margin>
+                     </Button>
+                     <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
 
                 </VBox>
             </AnchorPane>
@@ -192,6 +221,20 @@
                         <Font size="10.0" />
                      </font></Label>
                     </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Button layoutX="411.0" layoutY="10.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" style="-fx-background-color: linear-gradient(to bottom, #3a7bd5, #00d2ff);; -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="MOVER AL PC">
+                        <HBox.margin>
+                           <Insets right="290.0" />
+                        </HBox.margin>
+                     </Button>
+                     <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
 
                 </VBox>
             </AnchorPane>
@@ -240,6 +283,20 @@
                         <Font size="10.0" />
                      </font></Label>
                     </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Button layoutX="411.0" layoutY="10.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" style="-fx-background-color: linear-gradient(to bottom, #3a7bd5, #00d2ff);; -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="MOVER AL PC">
+                        <HBox.margin>
+                           <Insets right="290.0" />
+                        </HBox.margin>
+                     </Button>
+                     <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
 
                 </VBox>
             </AnchorPane>
@@ -287,6 +344,20 @@
                         <Font size="10.0" />
                      </font></Label>
                     </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Button layoutX="411.0" layoutY="10.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" style="-fx-background-color: linear-gradient(to bottom, #3a7bd5, #00d2ff);; -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="MOVER AL PC">
+                        <HBox.margin>
+                           <Insets right="290.0" />
+                        </HBox.margin>
+                     </Button>
+                     <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
 
                 </VBox>
             </AnchorPane>
@@ -335,6 +406,20 @@
                         <Font size="10.0" />
                      </font></Label>
                     </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Button layoutX="411.0" layoutY="10.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" style="-fx-background-color: linear-gradient(to bottom, #3a7bd5, #00d2ff);; -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="MOVER AL PC">
+                        <HBox.margin>
+                           <Insets right="290.0" />
+                        </HBox.margin>
+                     </Button>
+                     <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
 
                 </VBox>
             </AnchorPane>

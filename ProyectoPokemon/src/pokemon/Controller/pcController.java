@@ -7,7 +7,6 @@ import pokemon.Pokemon;
 import pokemon.PokedexDAO;
 import pokemon.PokemonDAO;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +24,8 @@ import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
 import pokemon.PokemonDAO;
 import pokemon.Main;
+import pokemon.MovimientoDAO;
+import pokemon.Movimiento;
 import pokemon.Pokedex;
 import pokemon.Pokemon;
 import javafx.scene.image.Image;
@@ -151,41 +152,43 @@ public class pcController {
 				{ slot_4_0, slot_4_1, slot_4_2, slot_4_3, slot_4_4 } };
 
 		cargarCaja(paginaActual);
-		
-		if (paginaActual > 1) {
-			btnCajaAnterior.setDisable(false);
-		} else {
-			btnCajaAnterior.setDisable(true);
-		}
+
 	}
 
 	// Metodo que carga la caja correspondiente
-	// Tmabien te digo que si te pones a capturar pokemon como pa llenar una caja te
+	// Tambien te digo que si te pones a capturar pokemon como pa llenar una caja te
 	// vas a tirar un rato
 
 	private void cargarCaja(int numeroCaja) {
-		
+
 		NombreCaja.setText("Caja " + paginaActual);
+		
+		PokemonDAO pDAO = new PokemonDAO();
 
-		ArrayList<Pokemon> pokemonEnCaja = Main.pcPokemon;
+		
+		ArrayList<Pokemon> pokemonEnCaja = pDAO.obtenerPokemonPC(Main.entrenadorLogueado.getId_Entrenador(), numeroCaja);
+	    System.out.println("Pokémon encontrados en el PC: " + pokemonEnCaja.size()); //Debug para saber cuantos pokemon ha encontrado
+	    //Contador para que recorra los espacios del array bidimensional
+		try {int contador = 0;
 
-		int contador = 0;
-
-		for (int fila = 0; fila > 5; fila++) {
-			for (int col = 0; col > 5; col++) {
+		for (int fila = 0; fila < 5; fila++) {
+			for (int col = 0; col < 5; col++) {
 
 				if (contador < pokemonEnCaja.size()) {
-					Pokemon p = pokemonEnCaja.get(contador);
-					//Con esto, hacemso que laa imagenes de los pokemon aparezca en sus respectivos slots
-					matrizSlots[fila][col].setImage((new Image(getClass().getResourceAsStream(p.getInfoPokedex().getImg_Frontal()))));
+					Pokemon p = pokemonEnCaja.get(contador);					
+					// Con esto, hacemos que laa imagenes de los pokemon aparezca en sus respectivos
+					// slots
+					matrizSlots[fila][col].setImage(new Image(getClass().getResourceAsStream(p.getInfoPokedex().getRutaImagen(true))));
+					
 					// Con este if nos aseguramos de que la informacion de la pokedex exista
-
 					if (p.getInfoPokedex() != null) {
-						
-						//Con esto, hacemso que laa imagenes de los pokemon aparezca en sus respectivos slots
-						matrizSlots[fila][col].setImage((new Image(getClass().getResourceAsStream(p.getInfoPokedex().getImg_Frontal()))));
-						//matrizSlots[fila][col].setOnMouseClicked(e -> mostrarDetalles(p));
-						//AAhora me pongo a hacer el metodo mostrarDetalles, pero lo dejo ahi puesto para luego
+
+						// Con esto, hacemos que las imagenes de los pokemon aparezca en sus respectivos
+						// slots
+						matrizSlots[fila][col].setImage(
+								(new Image(getClass().getResourceAsStream(p.getInfoPokedex().getRutaImagen(true)))));
+						matrizSlots[fila][col].setOnMouseClicked(e -> mostrarDetalles(p));
+					
 						
 
 						// En caso de haberlos, que nos avise por consola, lismpiamos el slot y
@@ -199,34 +202,70 @@ public class pcController {
 				}
 			}
 		}
+		
+		} catch (Exception e) { 
+			System.out.println("ERROR AQUI: " + e.getMessage());
+			e.printStackTrace();
+			
+		}
 
 	}
-	
+
 	private void mostrarDetalles(Pokemon p) {
-		//Datos basicosdel pokemon
+		// Datos basicosdel pokemon
 		nombrePokemon.setText(p.getMote());
 		generoPokemon.setText(p.getSexo().name().equalsIgnoreCase("MACHO") ? "♂" : "♀");
 		nomNivel.setText(String.valueOf(p.getNivel()));
-		
-		//Pokemon que sale en grande a la izquierda
+
+		// Pokemon que sale en grande a la izquierda
 		//
-		if(p.getInfoPokedex() != null) {
+		if (p.getInfoPokedex() != null) {
 			imgPokemon.setImage(new Image(getClass().getResourceAsStream(p.getInfoPokedex().getRutaImagen(true))));
-			
-			//Los tipos
+
+			// Los tipos
 			nomTipo1.setText(p.getInfoPokedex().getTipo1());
-			
-			if(p.getInfoPokedex().getTipo2() != null) {
+
+			if (p.getInfoPokedex().getTipo2() != null) {
 				nomTipo2.setText(p.getInfoPokedex().getTipo2());
 				nomTipo2.setVisible(true);
 			} else {
 				nomTipo2.setVisible(false);
 			}
 		}
-		
+
+		// Entrenador y Objeto
+		nomEntrenador.setText(Main.entrenadorLogueado.getNom_Entrenador());
+
+		if (p.getObjeto() != null) {
+			nomObjeto.setText(p.getObjeto().getNombre());
+		} else {
+			nomObjeto.setText("Sin objeto");
+		}
+
+		// Movimientos
+		MovimientoDAO movDAO = new MovimientoDAO();
+		ArrayList<Movimiento> movimientos = movDAO.obtenerMovimientosDePokemon(p.getIdPokemon());
+
+		// Limpiamos los textos de los movimientos antes de poner los nuevos
+		nomMov1.setText("-----------");
+		nomMov2.setText("-----------");
+		nomMov3.setText("-----------");
+		nomMov4.setText("-----------");
+
+		if (movimientos.size() > 0) {
+			nomMov1.setText(movimientos.get(0).getNombre());
+		}
+		if (movimientos.size() > 1) {
+			nomMov2.setText(movimientos.get(1).getNombre());
+		}
+		if (movimientos.size() > 2) {
+			nomMov3.setText(movimientos.get(2).getNombre());
+		}
+		if (movimientos.size() > 3) {
+			nomMov4.setText(movimientos.get(3).getNombre());
+		}
+		System.out.println("Movimientos encontrados para " + p.getNombre() + ": " + movimientos.size());
 	}
-	
-	
 
 	// Metodos para cambiar de pagina de la Caja
 
@@ -246,15 +285,14 @@ public class pcController {
 		}
 	}
 
-	
 	public void handleSalirAlMenu(ActionEvent event) {
-		cambiarEscena(event, "/EscenaMenu.fxml"," Menú Principal");
+		cambiarEscena(event, "/EscenaMenu.fxml", " Menú Principal");
 	}
-	
-	
+
 	public void handleEntrarEquipo(ActionEvent event) {
-		cambiarEscena(event, "/EscenaEquipo.fxml"," Menú Principal");
+		cambiarEscena(event, "/EscenaEquipo.fxml", " Menú Principal");
 	}
+
 	// Metodo para mover el Pokemon del PC al equipo
 	public void handleMoverAlEquipo(Pokemon seleccionado) {
 
@@ -309,10 +347,7 @@ public class pcController {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			}
 		}
-	
+	}
+
 }
-
-
-
