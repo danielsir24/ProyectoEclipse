@@ -181,7 +181,7 @@ public class CapturaController {
 	// Metodo para que nos de la información de cuando hemos asignado el metodo.
 
 	private void moteAsignado(ActionEvent event) {
-		txtLog.appendText("¿El Pokémon ha sido añadido a tu aventura! \n ");
+		txtLog.appendText("¡El Pokémon ha sido añadido a tu aventura! \n ");
 		menuRepetirCaptura();
 		txtMote.setVisible(false);
 		lblMote.setVisible(false);
