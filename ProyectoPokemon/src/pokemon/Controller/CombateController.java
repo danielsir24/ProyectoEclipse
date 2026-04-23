@@ -13,7 +13,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.io.InputStream;
 import pokemon.Entrenador;
@@ -26,14 +25,13 @@ import pokemon.Combate;
 
 public class CombateController {
 
-    // ==== ELEMENTOS DE LA INTERFAZ (FXML) ====
     
     //Jugador
     @FXML private Label lblNombreJugador, lblNivelJugador, lblHpJugador, lblStaminaJugador;
     @FXML private ProgressBar hpBarJugador, staminaBarJugador;
     @FXML private ImageView imgJugador;
     
-    // Rival
+    //Rival
     @FXML private Label lblNombreRival, lblNivelRival, lblHpRival, lblStaminaRival;
     @FXML private ProgressBar hpBarRival, staminaBarRival;
     @FXML private ImageView imgRival;
@@ -49,7 +47,7 @@ public class CombateController {
 
     @FXML
     public void initialize() {
-        //1.Obtener el primer Pokémon
+        //1.Obtener el primer Pokemon
         Pokemon miPokemon = obtenerPrimerPokemonVivo();
         if (miPokemon == null) {
             txtLogCombate.setText("¡No tienes Pokémon en condiciones para luchar!\n");
@@ -57,17 +55,17 @@ public class CombateController {
             return;
         }
 
-        // 2.Generar un Pokémon Rival aleatorio (Requisito: nivel máximo de nuestro equipo)
+        //2.Generar un Pokemon Rival aleatorio
         Pokemon rivalAleatorio = generarRivalAleatorio();
 
-        // 3.Crear un Entrenador Rival falso para el combate salvaje
+        //3.Crear un Entrenador Rival falso para el combate salvaje
         Entrenador rivalMalo = new Entrenador();
         rivalMalo.setNom_Entrenador("Entrenador Rival");
 
-        // 4.Inicializar el motor de combate
+        //4.Inicializar el motor de combate
         motorCombate = new Combate(Main.entrenadorLogueado, rivalMalo, miPokemon, rivalAleatorio);
 
-        // 5.Cargar sonidos base
+        //5.Cargar sonidos base
         try {
             sonidoAtaque = new AudioClip(getClass().getResource("/sounds/tackle.wav").toExternalForm());
         } catch (Exception e) {
@@ -111,11 +109,11 @@ public class CombateController {
     @FXML
     private void handleDescansar(ActionEvent event) {
         Pokemon miPokemon = motorCombate.getPokemonJugador();
-        miPokemon.setEstamina(100); // Requisito: Restaurar estamina
+        miPokemon.setEstamina(100); //Restaurar estamina
         
         txtLogCombate.appendText(miPokemon.getNombre() + " descansa y recupera su estamina.\n");
         
-        // El rival ataca mientras descansamos (Turno ciego)
+        // El rival ataca mientras descansamos
         String resultadoRival = motorCombate.ejecutarTurno(new pokemon.Movimiento("Descanso", 0, 0, 999)); 
         txtLogCombate.appendText(resultadoRival + "\n");
         
@@ -144,7 +142,7 @@ public class CombateController {
         Pokemon pJugador = motorCombate.getPokemonJugador();
         Pokemon pRival = motorCombate.getPokemonRival();
 
-        // --- Actualizar Jugador ---
+        //Actualizar Jugador
         lblNombreJugador.setText(pJugador.getMote() != null ? pJugador.getMote() : pJugador.getNombre());
         lblNivelJugador.setText("Nv. " + pJugador.getNivel());
         lblHpJugador.setText(pJugador.getVitalidad() + "/" + pJugador.getVitalidadMaxima());
