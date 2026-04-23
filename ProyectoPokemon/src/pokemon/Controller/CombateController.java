@@ -109,7 +109,7 @@ public class CombateController {
     @FXML
     private void handleDescansar(ActionEvent event) {
         Pokemon miPokemon = motorCombate.getPokemonJugador();
-        miPokemon.setEstamina(100); //Restaurar estamina
+        miPokemon.setEstamina(100);
         
         txtLogCombate.appendText(miPokemon.getNombre() + " descansa y recupera su estamina.\n");
         
@@ -211,7 +211,7 @@ public class CombateController {
         Pokemon rival = new Pokemon();
         rival.setInfoPokedex(especie);
         rival.setNombre(especie.getNombreEspecie());
-        rival.setNivel(nivelMaximo); // Requisito de nivel
+        rival.setNivel(nivelMaximo);
         
         //Ajustamos la vida
         rival.setVitalidadMaxima(20 + (nivelMaximo * 3));
@@ -236,7 +236,22 @@ public class CombateController {
 
     private void volverAlMenu(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/EscenaMenu.fxml"));
+            //1. Decidimos a qué pantalla ir
+            String rutaEscena = "/EscenaMenu.fxml";
+            
+            //Si el combate ha terminado y el rival era de la Liga...
+            if (motorCombate.getPokemonRival().getNivel() >= 50) {
+                rutaEscena = "/EscenaLiga.fxml";
+                
+                // Si hemos ganado, avanzamos el contador de la Liga
+                if (motorCombate.getPokemonRival().estaDebilitado()) {
+                    LigaController.combateActual++; 
+                    LigaController.premioAcumulado += 1000 * LigaController.combateActual;
+                }
+            }
+
+            //2. Cargamos la escena correspondiente
+            Parent root = FXMLLoader.load(getClass().getResource(rutaEscena));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
