@@ -185,7 +185,7 @@ public class VistaEquipoController {
 	@FXML
 	private void moverAlPC(int i) {
 
-		// Esto es para verificar que haya un pokemon en ese slot pq si no el metodono
+		try {// Esto es para verificar que haya un pokemon en ese slot pq si no el metodono
 		// funcionaría o daría problemas
 		if (i < Main.miEquipo.size()) {
 			Pokemon p = Main.miEquipo.get(i);
@@ -212,6 +212,12 @@ public class VistaEquipoController {
 			System.out.println("DEBUG: El slot está vacio"); //Y otro por aquí
 		}
 		//Gracias comentarios debug, no se que haría sin vosotros
+		} catch (Exception e) {
+			System.out.println("ERROR:");
+			e.printStackTrace();
+			
+			
+		}
 	}
 
 	// Ahora creamos un metodo para cada botón del menú del equipo
