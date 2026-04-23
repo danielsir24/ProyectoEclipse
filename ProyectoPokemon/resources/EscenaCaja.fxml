@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="761" prefWidth="1280" style="-fx-background-color: #8090A8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.pcController">
+<AnchorPane prefHeight="761" prefWidth="1280" style="-fx-background-color: #8090A8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.pcController">
 
     <VBox prefWidth="340" spacing="0" style="-fx-background-color: #E8E0C8; -fx-border-color: #707060 #A09880 #A09880 #707060; -fx-border-width: 5; -fx-background-radius: 6; -fx-border-radius: 6;" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
 
@@ -44,8 +44,8 @@
 
         <!-- Habilidad -->
         <VBox spacing="2" style="-fx-padding: 10 18 4 18;">
-            <Label style="-fx-font-size: 16; -fx-text-fill: #606060;" text="Habilidad" />
-            <Label fx:id="nomHabilidad" style="-fx-font-size: 20; -fx-text-fill: #202020; -fx-font-weight: bold;" text="-----------" />
+            <Label style="-fx-font-size: 16; -fx-text-fill: #606060;" text="Entrenador" />
+            <Label fx:id="nomEntrenador" style="-fx-font-size: 20; -fx-text-fill: #202020; -fx-font-weight: bold;" text="-----------" />
         </VBox>
 
         <!-- Objeto -->
@@ -186,8 +186,8 @@
 
 
         <HBox alignment="CENTER" spacing="20">
-            <Button fx:id="btnEquipo" prefHeight="58" prefWidth="280" style="-fx-background-color: #A0B8D8; -fx-border-color: #607898 #8090A8 #8090A8 #607898; -fx-border-width: 3; -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #202030; -fx-cursor: hand;" text="EQUIPO PKM" />
-            <Button fx:id="btnSalir" prefHeight="58" prefWidth="200" style="-fx-background-color: #A0B8D8; -fx-border-color: #607898 #8090A8 #8090A8 #607898; -fx-border-width: 3; -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #202030; -fx-cursor: hand;" text="SALIR" />
+            <Button fx:id="btnEquipo" onAction="#handleEntrarEquipo" prefHeight="58" prefWidth="280" style="-fx-background-color: #A0B8D8; -fx-border-color: #607898 #8090A8 #8090A8 #607898; -fx-border-width: 3; -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #202030; -fx-cursor: hand;" text="EQUIPO PKM" />
+            <Button fx:id="btnSalir" onAction="#handleSalirAlMenu" prefHeight="58" prefWidth="200" style="-fx-background-color: #A0B8D8; -fx-border-color: #607898 #8090A8 #8090A8 #607898; -fx-border-width: 3; -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #202030; -fx-cursor: hand;" text="SALIR" />
         </HBox>
 
     </VBox>

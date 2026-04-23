@@ -7,6 +7,7 @@ import pokemon.Pokemon;
 import pokemon.PokedexDAO;
 import pokemon.PokemonDAO;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +52,7 @@ public class pcController {
 	@FXML
 	private Label nomTipo2;
 	@FXML
-	private Label nomHabilidad;
+	private Label nomEntrenador;
 	@FXML
 	private Label nomObjeto;
 	@FXML
@@ -151,10 +152,10 @@ public class pcController {
 
 		cargarCaja(paginaActual);
 		
-		if (paginaActual == 1) {
-			btnCajaAnterior.setDisable(true);
-		} else {
+		if (paginaActual > 1) {
 			btnCajaAnterior.setDisable(false);
+		} else {
+			btnCajaAnterior.setDisable(true);
 		}
 	}
 
@@ -175,9 +176,17 @@ public class pcController {
 
 				if (contador < pokemonEnCaja.size()) {
 					Pokemon p = pokemonEnCaja.get(contador);
+					//Con esto, hacemso que laa imagenes de los pokemon aparezca en sus respectivos slots
+					matrizSlots[fila][col].setImage((new Image(getClass().getResourceAsStream(p.getInfoPokedex().getImg_Frontal()))));
 					// Con este if nos aseguramos de que la informacion de la pokedex exista
 
 					if (p.getInfoPokedex() != null) {
+						
+						//Con esto, hacemso que laa imagenes de los pokemon aparezca en sus respectivos slots
+						matrizSlots[fila][col].setImage((new Image(getClass().getResourceAsStream(p.getInfoPokedex().getImg_Frontal()))));
+						matrizSlots[fila][col].setOnMouseClicked(e -> mostrarDetalles(p));
+						//AAhora me pongo a hacer el metodo mostrarDetalles, pero lo dejo ahi puesto para luego
+						
 
 						// En caso de haberlos, que nos avise por consola, lismpiamos el slot y
 						// desactivamos la opción de pulsarlo
@@ -192,6 +201,8 @@ public class pcController {
 		}
 
 	}
+	
+	
 
 	// Metodos para cambiar de pagina de la Caja
 
@@ -211,6 +222,15 @@ public class pcController {
 		}
 	}
 
+	
+	public void handleSalirAlMenu(ActionEvent event) {
+		cambiarEscena(event, "/EscenaMenu.fxml"," Menú Principal");
+	}
+	
+	
+	public void handleEntrarEquipo(ActionEvent event) {
+		cambiarEscena(event, "/EscenaEquipo.fxml"," Menú Principal");
+	}
 	// Metodo para mover el Pokemon del PC al equipo
 	public void handleMoverAlEquipo(Pokemon seleccionado) {
 

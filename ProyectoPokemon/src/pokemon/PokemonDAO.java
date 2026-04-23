@@ -21,10 +21,10 @@ public class PokemonDAO {
 		// vitalidad, ataque, defensa, ataq_Especial, velocidad,
 		// def_Especial, fertilidad, nivel, estado, ubicacion, sexo
 		String sql = "INSERT INTO pokemon "
-				+ "(num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, "
+				+ "(num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, vitalidadMaxima, "
 				+ "ataque, defensa, ataq_Especial, def_Especial, velocidad, "
 				+ "fertilidad, nivel, estado, ubicacion, sexo) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 			statement.setInt(1, pokemon.getInfoPokedex().getNum_Pokedex());
@@ -36,16 +36,17 @@ public class PokemonDAO {
 			}
 			statement.setString(4, pokemon.getMote());
 			statement.setInt(5, pokemon.getVitalidad());
-			statement.setInt(6, pokemon.getAtaque());
-			statement.setInt(7, pokemon.getDefensa());
-			statement.setInt(8, pokemon.getAtaqueEspecial());
-			statement.setInt(9, pokemon.getDefensaEspecial());
-			statement.setInt(10, pokemon.getVelocidad());
-			statement.setInt(11, pokemon.getFertilidad());
-			statement.setInt(12, pokemon.getNivel());
-			statement.setString(13, pokemon.getEstado() != null ? pokemon.getEstado().name() : "NORMAL");
-			statement.setInt(14, ubicacion);
-			statement.setString(15, pokemon.getSexo() != null ? pokemon.getSexo().name() : "MACHO");
+			statement.setInt(6, pokemon.getVitalidadMaxima());
+			statement.setInt(7, pokemon.getAtaque());
+			statement.setInt(8, pokemon.getDefensa());
+			statement.setInt(9, pokemon.getAtaqueEspecial());
+			statement.setInt(10, pokemon.getDefensaEspecial());
+			statement.setInt(11, pokemon.getVelocidad());
+			statement.setInt(12, pokemon.getFertilidad());
+			statement.setInt(13, pokemon.getNivel());
+			statement.setString(14, pokemon.getEstado() != null ? pokemon.getEstado().name() : "NORMAL");
+			statement.setInt(15, ubicacion);
+			statement.setString(16, pokemon.getSexo() != null ? pokemon.getSexo().name() : "MACHO");
 
 			int filas = statement.executeUpdate();
 			return filas > 0;
