@@ -22,7 +22,6 @@ import pokemon.Pokemon;
 import pokemon.Pokedex;
 import pokemon.PokedexDAO;
 import javafx.scene.media.AudioClip;
-/*
 import pokemon.Combate;
 
 public class CombateController {
@@ -248,4 +247,3 @@ public class CombateController {
         }
     }
 }
-*/
