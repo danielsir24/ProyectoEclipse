@@ -158,6 +158,12 @@ public class pcController {
 	// Metodo que carga la caja correspondiente
 	// Tambien te digo que si te pones a capturar pokemon como pa llenar una caja te
 	// vas a tirar un rato
+	
+	//Esto es para cuando se mueva algun pokemon que desaparezca de la caja insta y asi queda mas chulo
+	private void actualizarCaja() {
+		cargarCaja(paginaActual);
+		
+	}
 
 	private void cargarCaja(int numeroCaja) {
 
@@ -211,14 +217,30 @@ public class pcController {
 
 	}
 
+	private void limpiarPanelIzquierda() {
+		nombrePokemon.setText(null);
+		generoPokemon.setText(null);
+		nomNivel.setText(null);
+		imgPokemon.setImage(null);
+		nomTipo1.setText(null);
+		nomTipo2.setVisible(false);
+		nomEntrenador.setText("-----------");
+		nomObjeto.setText("Sin objeto");
+		nomMov1.setText("-----------");
+		nomMov2.setText("-----------");
+		nomMov3.setText("-----------");
+		nomMov4.setText("-----------");	
+	}
+	private Pokemon pokemonSeleccionado;
 	private void mostrarDetalles(Pokemon p) {
+		this.pokemonSeleccionado = p;
 		// Datos basicosdel pokemon
 		nombrePokemon.setText(p.getMote());
 		generoPokemon.setText(p.getSexo().name().equalsIgnoreCase("MACHO") ? "♂" : "♀");
 		nomNivel.setText(String.valueOf(p.getNivel()));
+		p.getIdPokemon(); //Esto no va a salir en pantalla pero es necesario para el metodo de mover al pokemon
 
 		// Pokemon que sale en grande a la izquierda
-		//
 		if (p.getInfoPokedex() != null) {
 			imgPokemon.setImage(new Image(getClass().getResourceAsStream(p.getInfoPokedex().getRutaImagen(true))));
 
@@ -293,45 +315,36 @@ public class pcController {
 		cambiarEscena(event, "/EscenaEquipo.fxml", " Menú Principal");
 	}
 
-	// Metodo para mover el Pokemon del PC al equipo
-	public void handleMoverAlEquipo(Pokemon seleccionado) {
-
-		// Verificamos espacio en el main
-		if (Main.miEquipo.size() >= 6) {
-			System.out.println("El equipo está lleno. Suelta a alguien primero.");
-			return;
+	@FXML
+	//Metodo para mover el Pokemon del PC al equipo si hay espacio suficiente
+	//Este metodo lo copiermos en la vista del equipo, invirtiendo la ubicación para que se pueda usar para moverlo del equipo al pc
+	private void handleMoverAlEquipo() {
+		if(pokemonSeleccionado == null) {
+			System.out.println("DEBUG: Debes seleccionar un pokemon primero");
 		}
-		// Llamamos al DAO para actualizar la DB
-		PokemonDAO pDAO = new PokemonDAO();
-		if (pDAO.moverAlEquipo(seleccionado.getIdPokemon())) {
-
-			// Actualizamos el main si todo está correcto en la BD
-			seleccionado.setUbicacion(1);
-			Main.miEquipo.add(seleccionado);
-
-			// Refrescamos la interfaz (quitarlo de la lista del PC)
-			System.out.println(seleccionado.getMote() + " se ha unido al equipo.");
-
+		
+		if(Main.miEquipo.size() < 6) {
+			PokemonDAO pDAO = new PokemonDAO();
+			
+			
+			if(pDAO.moverAlEquipo(pokemonSeleccionado.getIdPokemon())) {
+				pokemonSeleccionado.setUbicacion(1);
+				Main.miEquipo.add(pokemonSeleccionado);
+				
+				System.out.println(pokemonSeleccionado.getMote()+ " se ha movido al equipo");
+				
+				limpiarPanelIzquierda();
+				actualizarCaja();
+				
+				pokemonSeleccionado = null;
+			}
+			
 		} else {
-			System.out.println("Error: No se pudo mover el Pokémon.");
+			System.out.println("Equipo lleno");
 		}
+		
 	}
-
-	/*
-	 * public void handleMoverAlPC(Pokemon seleccionado) { // Llamamos al DAO para
-	 * actualizar la DB PokemonDAO pDAO = new PokemonDAO(); if
-	 * (pDAO.moverAlEquipo(seleccionado.getIdPokemon())) {
-	 * 
-	 * // Actualizamos el main si todo está correcto en la BD
-	 * seleccionado.setUbicacion(1); Main.miEquipo.add(seleccionado);
-	 * 
-	 * // Refrescamos la interfaz (quitarlo de la lista del PC)
-	 * System.out.println(seleccionado.getMote() + " se ha unido al equipo.");
-	 * 
-	 * } else { System.out.println("Error: No se pudo mover el Pokémon."); } }
-	 */
-	// Esto es que lo he hecho aqui pero debería usarlo luego pa la del equipo xd
-
+	
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {
 

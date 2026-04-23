@@ -216,7 +216,13 @@ public class PokemonDAO {
 			System.err.println("Error al mover al PC: " + e.getMessage());
 			return false;
 		}
+		
 	}
+	
+
+//	public boolean liberarPokemon(int idPokemon) {
+//		
+//	}
 
 	public ArrayList<Pokemon> obtenerEquipo(int idEntrenador) {
 		ArrayList<Pokemon> equipoRecuperado = new ArrayList<>();

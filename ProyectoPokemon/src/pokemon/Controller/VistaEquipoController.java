@@ -19,6 +19,7 @@ import pokemon.Main;
 import javafx.scene.control.Button;
 
 import pokemon.Pokemon;
+import pokemon.PokemonDAO;
 
 import java.io.InputStream;
 
@@ -38,6 +39,8 @@ public class VistaEquipoController {
 	private ProgressBar hpBar1, expBar1;
 	@FXML
 	private ImageView imgPokemon1;
+	@FXML
+	private Button btnMover1, btnLiberar1;
 
 	// Slot 2
 	@FXML
@@ -46,7 +49,8 @@ public class VistaEquipoController {
 	private ProgressBar hpBar2, expBar2;
 	@FXML
 	private ImageView imgPokemon2;
-
+	@FXML
+	private Button btnMover2, btnLiberar2;
 	// Slot 3
 	@FXML
 	private Label lblNombre3, lblNivel3, lblPV3, lblEXP3, lblGenero3;
@@ -54,6 +58,8 @@ public class VistaEquipoController {
 	private ProgressBar hpBar3, expBar3;
 	@FXML
 	private ImageView imgPokemon3;
+	@FXML
+	private Button btnMover3, btnLiberar3;
 
 	// Slot 4
 	@FXML
@@ -62,6 +68,8 @@ public class VistaEquipoController {
 	private ProgressBar hpBar4, expBar4;
 	@FXML
 	private ImageView imgPokemon4;
+	@FXML
+	private Button btnMover4, btnLiberar4;
 
 	// Slot 5
 	@FXML
@@ -70,6 +78,8 @@ public class VistaEquipoController {
 	private ProgressBar hpBar5, expBar5;
 	@FXML
 	private ImageView imgPokemon5;
+	@FXML
+	private Button btnMover5, btnLiberar5;
 
 	// Slot 6
 	@FXML
@@ -78,6 +88,8 @@ public class VistaEquipoController {
 	private ProgressBar hpBar6, expBar6;
 	@FXML
 	private ImageView imgPokemon6;
+	@FXML
+	private Button btnMover6, btnLiberar6;
 
 	// Arrays para la optimizacion
 	private Label[] nombres, niveles, pvs, exps, generos;
@@ -85,6 +97,7 @@ public class VistaEquipoController {
 	private ImageView[] fotos;
 
 	// Metodo para cargar la fuente
+	
 	@FXML
 	public void initialize() {
 
@@ -104,14 +117,18 @@ public class VistaEquipoController {
 		cargarFuentePersonalizada();
 
 	}
+	private Pokemon pokemonSeleccionado;
 
 	private void actualizarEquipo() {
 		System.out.println("DEBUG: Actualizando equipo. Tamaño actual: " + Main.miEquipo.size());
+		
 
 		for (int i = 0; i < 6; i++) {
 			// Verificamos si existe un pokemon en esta posición de la lista
 			if (i < Main.miEquipo.size()) {
 				Pokemon pActual = Main.miEquipo.get(i);
+
+				
 
 				if (pActual != null) {
 					// Rellenamos datos
@@ -168,6 +185,34 @@ public class VistaEquipoController {
 			}
 		}
 	}
+	
+	
+	
+	@FXML
+	private void handleMoverAlPC(int indice	) {
+		
+		if (indice<Main.miEquipo.size()) {
+			Pokemon p = Main.miEquipo.get(indice);
+		
+		
+			PokemonDAO pDAO = new PokemonDAO();
+			
+			
+			if(pDAO.moverAlPC(pokemonSeleccionado.getIdPokemon())) {
+				pokemonSeleccionado.setUbicacion(0);
+				Main.miEquipo.add(pokemonSeleccionado);
+				
+				System.out.println(pokemonSeleccionado.getMote()+ " se ha movido al equipo");
+				
+				
+				pokemonSeleccionado = null;
+			}
+			
+		}else {
+			System.out.println("DEBUG: El slot está vacio");
+		}
+		}
+		
 
 	// La fuente esta que al final no se ni si la vamos a utilizar
 	private void cargarFuentePersonalizada() {
