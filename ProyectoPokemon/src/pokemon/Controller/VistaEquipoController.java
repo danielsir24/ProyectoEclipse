@@ -185,39 +185,39 @@ public class VistaEquipoController {
 	@FXML
 	private void moverAlPC(int i) {
 
-		try {// Esto es para verificar que haya un pokemon en ese slot pq si no el metodono
-		// funcionaría o daría problemas
-		if (i < Main.miEquipo.size()) {
-			Pokemon p = Main.miEquipo.get(i);
+		try {
+			// Esto es para verificar que haya un pokemon en ese slot pq si no el metodono
+			// funcionaría o daría problemas
+			if (i < Main.miEquipo.size()) {
+				Pokemon p = Main.miEquipo.get(i);
 
-			PokemonDAO pDAO = new PokemonDAO();
+				PokemonDAO pDAO = new PokemonDAO();
 
-			if (pDAO.moverAlPC(p.getIdPokemon())) {
+				if (pDAO.moverAlPC(p.getIdPokemon())) {
 
-				System.out.println(p.getMote() + " ha sido enviado al  PC");
+					System.out.println(p.getMote() + " ha sido enviado al  PC");
 
-				// Le cambiamos la ubicacion al pokemon para que la base de datos detecte que
-				// está en la caja y lo quitamos del ArrayList del equipo
-				p.setUbicacion(0);
-				Main.miEquipo.remove(i);
+					// Le cambiamos la ubicacion al pokemon para que la base de datos detecte que
+					// está en la caja y lo quitamos del ArrayList del equipo
+					p.setUbicacion(0);
+					Main.miEquipo.remove(i);
 
-				// Actualizamos el equipo para que desaparezca insta y que los pokemon se
-				// ordenen
-				actualizarEquipo();
+					// Actualizamos el equipo para que desaparezca insta y que los pokemon se
+					// ordenen
+					actualizarEquipo();
+				} else {
+					System.out.println("DEBUG: Error al mover en la base de datos"); // Un DEBUG por aqui
+				}
+
 			} else {
-				System.out.println("DEBUG: Error al mover en la base de datos"); //Un DEBUG por aqui
+				System.out.println("DEBUG: El slot está vacio"); // Y otro por aquí
 			}
-
-		} else {
-			System.out.println("DEBUG: El slot está vacio"); //Y otro por aquí
-		}
-		//Gracias comentarios debug, no se que haría sin vosotros
+			// Gracias comentarios debug, no se que haría sin vosotros
 		} catch (Exception e) {
 			System.out.println("ERROR:");
 			System.out.println("Mensaje: " + e.getMessage());
 			e.printStackTrace();
-			
-			
+
 		}
 	}
 
@@ -254,8 +254,78 @@ public class VistaEquipoController {
 		moverAlPC(5);
 	}
 
-	
-	//La dejo comentada de momentopq me esta dando problemas de superposición visual en la vista
+	// El metodo es practicamente igual que el de mover al PC, pero cambia que este
+	// lo libera y el pokemon se borra xd
+	public void liberarPokemon(int i) {
+		try {
+			// Esto es para verificar que haya un pokemon en ese slot pq si no el metodono
+			// funcionaría o daría problemas
+			if (i < Main.miEquipo.size()) {
+				Pokemon p = Main.miEquipo.get(i);
+
+				PokemonDAO pDAO = new PokemonDAO();
+
+				if (pDAO.liberarPokemon(p.getIdPokemon())) {
+
+					System.out.println(p.getMote() + " ha sido enviado al  PC");
+
+					// Noscargamos al pokemon y buenas noches
+					Main.miEquipo.remove(i);
+
+					// Actualizamos el equipo para que desaparezca insta y que los pokemon se
+					// ordenen
+					actualizarEquipo();
+				} else {
+					System.out.println("DEBUG: Error al eliminar en la base de datos"); // Un DEBUG por aqui
+				}
+
+			} else {
+				System.out.println("DEBUG: El slot está vacio"); // Y otro por aquí
+			}
+			// Gracias comentarios debug, no se que haría sin vosotros
+		} catch (Exception e) {
+			System.out.println("ERROR:");
+			System.out.println("Mensaje: " + e.getMessage());
+			e.printStackTrace();
+
+		}
+
+	}
+
+	// Y hacemos lo mismo queconlos de mover al equipo, solo que esto en vez de
+	// moverlos, obliteran al pokemon de la existencia
+	@FXML
+	private void handleLiberar1() {
+		liberarPokemon(0);
+	}
+
+	@FXML
+	private void handleLiberar2() {
+		liberarPokemon(1);
+	}
+
+	@FXML
+	private void handleLiberar3() {
+		liberarPokemon(2);
+	}
+
+	@FXML
+	private void handleLiberar4() {
+		liberarPokemon(3);
+	}
+
+	@FXML
+	private void handleLiberar5() {
+		liberarPokemon(4);
+	}
+
+	@FXML
+	private void handleLiberar6() {
+		liberarPokemon(5);
+	}
+
+	// La dejo comentada de momentopq me esta dando problemas de superposición
+	// visual en la vista
 //	private void cargarFuentePersonalizada() {
 //		try {
 //			Font pokemonFont = Font.loadFont(getClass().getResourceAsStream("/fonts/pokemon.ttf"), 18);

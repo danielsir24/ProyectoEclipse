@@ -147,10 +147,16 @@ public class PokemonDAO {
 					p.setNombre(info.getNombreEspecie());
 					List<Tipo> listaTipos = new ArrayList<>();
 					if (info.getTipo1() != null) {
-						try { listaTipos.add(Tipo.valueOf(info.getTipo1().toUpperCase())); } catch (Exception ignored) {}
+						try {
+							listaTipos.add(Tipo.valueOf(info.getTipo1().toUpperCase()));
+						} catch (Exception ignored) {
+						}
 					}
 					if (info.getTipo2() != null) {
-						try { listaTipos.add(Tipo.valueOf(info.getTipo2().toUpperCase())); } catch (Exception ignored) {}
+						try {
+							listaTipos.add(Tipo.valueOf(info.getTipo2().toUpperCase()));
+						} catch (Exception ignored) {
+						}
 					}
 					p.setTipos(listaTipos);
 				}
@@ -163,36 +169,37 @@ public class PokemonDAO {
 		}
 		return listaPC;
 	}
-	//Método obligatorio para guardar el Entrenamiento y los Combates
+
+	// Método obligatorio para guardar el Entrenamiento y los Combates
 	public boolean actualizarPokemon(Pokemon p) {
 		String sql = "UPDATE pokemon SET vitalidad = ?, experiencia = ?, nivel = ?, estado = ?, ubicacion = ?, vitalidadMaxima = ?, ataque = ?, defensa = ?, ataq_Especial = ?, def_Especial = ?, velocidad = ? WHERE id_Pokemon = ?";
-			
+
 		try (PreparedStatement ps = conexion.prepareStatement(sql)) {
-				
-				ps.setInt(1, p.getVitalidad());
-				ps.setInt(2, p.getExperiencia());
-				ps.setInt(3, p.getNivel());
-				ps.setString(4, p.getEstado() != null ? p.getEstado().name() : "NORMAL");
-				ps.setInt(5, p.getUbicacion());
-				
-				// Estadísticas que mejoran con el entrenamiento
-				ps.setInt(6, p.getVitalidadMaxima());
-				ps.setInt(7, p.getAtaque());
-				ps.setInt(8, p.getDefensa());
-				ps.setInt(9, p.getAtaqueEspecial());
-				ps.setInt(10, p.getDefensaEspecial());
-				ps.setInt(11, p.getVelocidad());
-				
-				// Condición del WHERE
-				ps.setInt(12, p.getIdPokemon());
-				
-				return ps.executeUpdate() > 0;
-			} catch (SQLException e) {
-				System.err.println("Error al actualizar el Pokemon " + p.getIdPokemon());
-				e.printStackTrace();
-				return false;
-			}
+
+			ps.setInt(1, p.getVitalidad());
+			ps.setInt(2, p.getExperiencia());
+			ps.setInt(3, p.getNivel());
+			ps.setString(4, p.getEstado() != null ? p.getEstado().name() : "NORMAL");
+			ps.setInt(5, p.getUbicacion());
+
+			// Estadísticas que mejoran con el entrenamiento
+			ps.setInt(6, p.getVitalidadMaxima());
+			ps.setInt(7, p.getAtaque());
+			ps.setInt(8, p.getDefensa());
+			ps.setInt(9, p.getAtaqueEspecial());
+			ps.setInt(10, p.getDefensaEspecial());
+			ps.setInt(11, p.getVelocidad());
+
+			// Condición del WHERE
+			ps.setInt(12, p.getIdPokemon());
+
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			System.err.println("Error al actualizar el Pokemon " + p.getIdPokemon());
+			e.printStackTrace();
+			return false;
 		}
+	}
 
 	public boolean moverAlEquipo(int idPokemon) {
 		String sql = "UPDATE pokemon SET ubicacion = 1 WHERE id_Pokemon = ?";
@@ -216,13 +223,37 @@ public class PokemonDAO {
 			System.err.println("Error al mover al PC: " + e.getMessage());
 			return false;
 		}
-		
-	}
-	
 
-//	public boolean liberarPokemon(int idPokemon) {
-//		
-//	}
+	}
+
+	public boolean liberarPokemon(int idPokemon) {
+		String sql = "DELETE FROM pokemon WHERE id_pokemon = ?";
+
+		try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+			ps.setInt(1, idPokemon);
+
+			int filasAfectadas = ps.executeUpdate();
+
+			if (filasAfectadas > 0) {
+				System.out.println("DEBUG: Pokemon con ID: " + idPokemon + " ha sido eliminado");
+				return true;
+			} else {
+				System.out.println("DEBUG: Pokemon no encontrado");
+				return false;
+			}
+
+		} catch (SQLException e) {
+			System.err.println("ERROR en el metodo nene");
+			System.err.println("Mensaje: " + e.getMessage());
+			System.err.println("Código de error SQL: " + e.getErrorCode());
+			e.printStackTrace();
+			return false;
+			//Te quiero mucho señor debug
+
+		}
+
+	}
 
 	public ArrayList<Pokemon> obtenerEquipo(int idEntrenador) {
 		ArrayList<Pokemon> equipoRecuperado = new ArrayList<>();
@@ -248,7 +279,7 @@ public class PokemonDAO {
 				p.setVelocidad(rs.getInt("velocidad"));
 				p.setFertilidad(rs.getInt("fertilidad"));
 
-				// Sexo 
+				// Sexo
 				String sexoStr = rs.getString("sexo");
 				if (sexoStr != null) {
 					try {
@@ -276,7 +307,8 @@ public class PokemonDAO {
 					p.setNombre(info.getNombreEspecie());
 				}
 
-				System.out.println("DAO: He encontrado a " + p.getMote() + " (" + p.getSexo() + ") en la base de datos.");
+				System.out
+						.println("DAO: He encontrado a " + p.getMote() + " (" + p.getSexo() + ") en la base de datos.");
 				equipoRecuperado.add(p);
 			}
 			System.out.println("Total recuperados: " + equipoRecuperado.size());

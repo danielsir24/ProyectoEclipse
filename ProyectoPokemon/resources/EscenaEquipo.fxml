@@ -104,7 +104,7 @@
                            <Insets right="290.0" />
                         </HBox.margin>
                      </Button>
-                     <Button fx:id="btnLiberar1" mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                     <Button fx:id="btnLiberar1" mnemonicParsing="false" onAction="#handleLiberar1" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
@@ -166,7 +166,7 @@
                            <Insets right="290.0" />
                         </HBox.margin>
                      </Button>
-                     <Button fx:id="btnLiberar2" mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                     <Button fx:id="btnLiberar2" mnemonicParsing="false" onAction="#handleLiberar2" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
@@ -228,7 +228,7 @@
                            <Insets right="290.0" />
                         </HBox.margin>
                      </Button>
-                     <Button fx:id="btnLiberar3" mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                     <Button fx:id="btnLiberar3" mnemonicParsing="false" onAction="#handleLiberar3" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
@@ -290,7 +290,7 @@
                            <Insets right="290.0" />
                         </HBox.margin>
                      </Button>
-                     <Button fx:id="btnLiberar4" mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                     <Button fx:id="btnLiberar4" mnemonicParsing="false" onAction="#handleLiberar4" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
@@ -351,7 +351,7 @@
                            <Insets right="290.0" />
                         </HBox.margin>
                      </Button>
-                     <Button fx:id="btnLiberar5" mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                     <Button fx:id="btnLiberar5" mnemonicParsing="false" onAction="#handleLiberar5" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
@@ -413,7 +413,7 @@
                            <Insets right="290.0" />
                         </HBox.margin>
                      </Button>
-                     <Button fx:id="btnLiberar6" mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
+                     <Button fx:id="btnLiberar6" mnemonicParsing="false" onAction="#handleLiberar6" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to bottom, #ff416c, #ff4b2b); -fx-background-radius: 20; -fx-border-color: #ffffff; -fx-border-width: 2; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15 5 15; -fx-border-radius: 20;" text="LIBERAR">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
