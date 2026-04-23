@@ -59,7 +59,7 @@
                            </graphic>
                         </Button>
                         
-                        <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.columnIndex="1">
+                        <Button fx:id="botonCombate" mnemonicParsing="false" onAction="#handleEntrarCombate" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.columnIndex="1">
                            <graphic>
                               <StackPane prefHeight="150.0" prefWidth="180.0">
                                  <children>
@@ -103,7 +103,7 @@
                            </graphic>
                         </Button>
 
-                        <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Button fx:id="botonLiga" mnemonicParsing="false" onAction="#handleEntrarLiga" prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <graphic>
                               <StackPane prefHeight="150.0" prefWidth="180.0">
                                  <children>

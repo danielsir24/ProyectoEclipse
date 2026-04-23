@@ -61,6 +61,18 @@ public class MainController {
 		cambiarEscena(event, "/EscenaCasino.fxml", "Menú Casino");
 
 	}
+	
+	@FXML
+	private void handleEntrarLiga(ActionEvent event) {
+		cambiarEscena(event, "/EscenaLiga.fxml", "Menú Casino");
+
+	}
+	
+	@FXML
+	private void handleEntrarCombate(ActionEvent event) {
+		cambiarEscena(event, "/EscenaCombate.fxml", "Menú Casino");
+
+	}
 
 	private void cambiarEscena(ActionEvent event, String fxml, String titulo) {
 		try {
