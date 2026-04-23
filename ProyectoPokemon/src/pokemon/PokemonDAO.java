@@ -136,6 +136,7 @@ public class PokemonDAO {
 				p.setIdPokemon(rs.getInt("id_Pokemon"));
 				p.setMote(rs.getString("mote"));
 				p.setNivel(rs.getInt("nivel"));
+				p.setExperiencia(rs.getInt("experiencia"));
 				p.setVitalidad(rs.getInt("vitalidad"));
 				p.setAtaque(rs.getInt("ataque"));
 				p.setDefensa(rs.getInt("defensa"));
@@ -251,6 +252,7 @@ public class PokemonDAO {
 				p.setIdPokemon(rs.getInt("id_Pokemon"));
 				p.setMote(rs.getString("mote"));
 				p.setNivel(rs.getInt("nivel"));
+				p.setExperiencia(rs.getInt("experiencia"));
 				p.setIdEntrenador(rs.getInt("id_Entrenador"));
 				p.setVitalidad(rs.getInt("vitalidad"));
 				p.setAtaque(rs.getInt("ataque"));
