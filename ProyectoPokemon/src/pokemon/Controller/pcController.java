@@ -202,6 +202,30 @@ public class pcController {
 
 	}
 	
+	private void mostrarDetalles(Pokemon p) {
+		//Datos basicosdel pokemon
+		nombrePokemon.setText(p.getMote());
+		generoPokemon.setText(p.getSexo().name().equalsIgnoreCase("MACHO") ? "♂" : "♀");
+		nomNivel.setText(String.valueOf(p.getNivel()));
+		
+		//Pokemon que sale en grande a la izquierda
+		//
+		if(p.getInfoPokedex() != null) {
+			imgPokemon.setImage(new Image(getClass().getResourceAsStream(p.getInfoPokedex().getRutaImagen(true))));
+			
+			//Los tipos
+			nomTipo1.setText(p.getInfoPokedex().getTipo1());
+			
+			if(p.getInfoPokedex().getTipo2() != null) {
+				nomTipo2.setText(p.getInfoPokedex().getTipo2());
+				nomTipo2.setVisible(true);
+			} else {
+				nomTipo2.setVisible(false);
+			}
+		}
+		
+	}
+	
 	
 
 	// Metodos para cambiar de pagina de la Caja
