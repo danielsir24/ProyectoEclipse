@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="761.0" prefWidth="1280" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="">
+
+
+    <ImageView fx:id="imgFondo" fitHeight="764.0" fitWidth="1417.0" preserveRatio="false" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+        <image><Image url="@images/ImagenFondoLiga.png" /></image>
+    </ImageView>
+
+
+    <Pane prefHeight="761.0" prefWidth="1380.0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" />
+
+    <HBox alignment="CENTER_LEFT" spacing="20" AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="28" AnchorPane.topAnchor="22">
+        <Label style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 22px; -fx-text-fill: white;" text="LIGA POKEMON" />
+    </HBox>
+
+
+    <HBox alignment="CENTER_LEFT" spacing="12" AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="340" AnchorPane.topAnchor="80">
+
+        <!-- Rival 1 -->
+        <StackPane fx:id="cardRival1" onMouseClicked="#seleccionarRival1" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
+            <ImageView fx:id="imgRival1" fitHeight="300" fitWidth="200" preserveRatio="false" style="-fx-opacity: 0.85;">
+                <image><Image url="@images/LORELEI.png" /></image>
+            </ImageView>
+
+            <Pane prefHeight="300" prefWidth="200" style="-fx-background-color: linear-gradient(from 0% 30% to 0% 100%, transparent 0%, rgba(3,8,20,0.95) 100%);" />
+
+            <VBox prefHeight="548.0" prefWidth="200.0" spacing="2" style="-fx-padding: 10 10 12 12;" StackPane.alignment="BOTTOM_LEFT">
+                <Label fx:id="lblNombreRival1" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px; -fx-text-fill: white;" text="Lorelei">
+               <font>
+                  <Font name="Pokemon Solid Normal" size="12.0" />
+               </font></Label>
+                <HBox alignment="CENTER_LEFT" spacing="4" />
+            </VBox>
+
+            <Label text="01" StackPane.alignment="TOP_RIGHT">
+            <font>
+               <Font size="39.0" />
+            </font></Label>
+        </StackPane>
+
+        <!-- Rival 2 -->
+        <StackPane fx:id="cardRival2" onMouseClicked="#seleccionarRival2" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
+            <ImageView fx:id="imgRival2" fitHeight="300" fitWidth="200" preserveRatio="false" style="-fx-opacity: 0.85;">
+                <image><Image url="@images/Bruno.png" /></image>
+            </ImageView>
+            <Pane prefHeight="300" prefWidth="200" style="-fx-background-color: linear-gradient(from 0% 30% to 0% 100%, transparent 0%, rgba(3,8,20,0.95) 100%);">
+            <children>
+                  <VBox layoutX="-47.0" layoutY="-13.0" spacing="2" style="-fx-padding: 10 10 12 12;">
+                      <Label fx:id="lblNombreRival2" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px; -fx-text-fill: white;" text="Bruno" />
+                      <HBox alignment="CENTER_LEFT" spacing="4" />
+                  </VBox>
+            </children></Pane>
+            <Label text="02" StackPane.alignment="TOP_RIGHT">
+            <font>
+               <Font size="40.0" />
+            </font></Label>
+        </StackPane>
+
+        <!-- Rival 3 -->
+        <StackPane fx:id="cardRival3" onMouseClicked="#seleccionarRival3" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
+            <ImageView fx:id="imgRival3" fitHeight="300" fitWidth="200" preserveRatio="false" style="-fx-opacity: 0.85;">
+                <image><Image url="@images/Agatha.png" /></image>
+            </ImageView>
+            <Pane prefHeight="300" prefWidth="200" style="-fx-background-color: linear-gradient(from 0% 30% to 0% 100%, transparent 0%, rgba(3,8,20,0.95) 100%);" />
+            <VBox spacing="2" style="-fx-padding: 10 10 12 12;" StackPane.alignment="BOTTOM_LEFT">
+                <Label fx:id="lblNombreRival3" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px; -fx-text-fill: white;" text="Agatha" />
+                <HBox alignment="CENTER_LEFT" spacing="4" />
+            </VBox>
+            <Label text="03" StackPane.alignment="TOP_RIGHT">
+            <font>
+               <Font size="40.0" />
+            </font></Label>
+        </StackPane>
+
+        <!-- Rival 4 -->
+        <StackPane fx:id="cardRival4" onMouseClicked="#seleccionarRival4" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
+            <ImageView fx:id="imgRival4" fitHeight="300" fitWidth="200" preserveRatio="false" style="-fx-opacity: 0.85;">
+                <image><Image url="@images/Lance.png" /></image>
+            </ImageView>
+            <Pane prefHeight="300" prefWidth="200" style="-fx-background-color: linear-gradient(from 0% 30% to 0% 100%, transparent 0%, rgba(3,8,20,0.95) 100%);" />
+            <VBox spacing="2" style="-fx-padding: 10 10 12 12;" StackPane.alignment="BOTTOM_LEFT">
+                <Label fx:id="lblNombreRival4" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px; -fx-text-fill: white;" text="Lance" />
+                <HBox alignment="CENTER_LEFT" spacing="4" />
+            </VBox>
+            <Label text="04" StackPane.alignment="TOP_RIGHT">
+            <font>
+               <Font size="40.0" />
+            </font></Label>
+        </StackPane>
+
+        <!-- Rival 5 -->
+        <StackPane fx:id="cardRival5" onMouseClicked="#seleccionarRival5" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
+            <ImageView fx:id="imgRival5" fitHeight="300" fitWidth="200" preserveRatio="false" style="-fx-opacity: 0.85;">
+                <image><Image url="@images/RojoRojoFuego.png" /></image>
+            </ImageView>
+            <Pane prefHeight="300" prefWidth="200" style="-fx-background-color: linear-gradient(from 0% 30% to 0% 100%, transparent 0%, rgba(3,8,20,0.95) 100%);" />
+            <VBox spacing="2" style="-fx-padding: 10 10 12 12;" StackPane.alignment="BOTTOM_LEFT">
+                <Label fx:id="lblNombreRival5" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px; -fx-text-fill: white;" text=" CAMPEON 👑" />
+                <HBox alignment="CENTER_LEFT" spacing="4" />
+            </VBox>
+            <Label text="05" StackPane.alignment="TOP_RIGHT">
+            <font>
+               <Font size="40.0" />
+            </font></Label>
+        </StackPane>
+
+    </HBox>
+
+
+    <VBox alignment="CENTER" prefWidth="300" spacing="14" style="-fx-background-color: rgba(3,10,25,0.80);                -fx-border-color: rgba(26,159,255,0.20);                -fx-border-width: 0 0 0 1;                -fx-padding: 30 28 30 28;" AnchorPane.bottomAnchor="70" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="80">
+
+
+        <VBox alignment="CENTER" spacing="6" style="-fx-background-color: rgba(26,159,255,0.10);                    -fx-border-color: rgba(26,159,255,0.30);                    -fx-border-width: 1;                    -fx-background-radius: 8;                    -fx-border-radius: 8;                    -fx-padding: 12 16 12 16;">
+            <Label style="-fx-font-size: 9px; -fx-text-fill: #7abacc;                        -fx-font-family: 'Pokemon Solid Normal';" text="RIVAL SELECCIONADO" />
+            <Label fx:id="nombreRivalSeleccionado" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 15px;                        -fx-text-fill: white;                        -fx-effect: dropshadow(gaussian, #1a9fff, 6, 0.3, 0, 0);" text="---" />
+        </VBox>
+
+
+        <Pane prefHeight="1" prefWidth="240" style="-fx-background-color: rgba(255,255,255,0.10);" />
+
+                 <!-- BOTON COMBATIR -->
+        <Button fx:id="btnCombatir" onAction="#handleCombatir" prefHeight="72" prefWidth="244" style="-fx-background-color: #cc2222; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 16px; -fx-background-radius: 10; -fx-border-color: #881111; -fx-border-width: 0 0 4 0; -fx-border-radius: 10;" text="⚔  COMBATIR" />
+
+                 <!-- BOTON CURAR EQUIPO -->
+        <Button fx:id="btnCurar" onAction="#handleCurar" prefHeight="72" prefWidth="244" style="-fx-background-color: #1a8844; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 16px; -fx-background-radius: 10; -fx-border-color: #0d5529; -fx-border-width: 0 0 4 0; -fx-border-radius: 10;" text="✚  CURAR EQUIPO" />
+
+                 <!-- BOTON SALIR -->
+        <Button fx:id="btnSalir" onAction="#handleSalir" prefHeight="72" prefWidth="244" style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.75); -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 16px; -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.20); -fx-border-width: 1; -fx-border-radius: 10;" text="←  SALIR" />
+
+             </VBox>
+
+</AnchorPane>
