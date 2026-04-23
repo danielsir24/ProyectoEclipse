@@ -184,7 +184,7 @@ public class pcController {
 						
 						//Con esto, hacemso que laa imagenes de los pokemon aparezca en sus respectivos slots
 						matrizSlots[fila][col].setImage((new Image(getClass().getResourceAsStream(p.getInfoPokedex().getImg_Frontal()))));
-						matrizSlots[fila][col].setOnMouseClicked(e -> mostrarDetalles(p));
+						//matrizSlots[fila][col].setOnMouseClicked(e -> mostrarDetalles(p));
 						//AAhora me pongo a hacer el metodo mostrarDetalles, pero lo dejo ahi puesto para luego
 						
 
