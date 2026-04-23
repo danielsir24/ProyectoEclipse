@@ -97,7 +97,7 @@ public class VistaEquipoController {
 	private ImageView[] fotos;
 
 	// Metodo para cargar la fuente
-	
+
 	@FXML
 	public void initialize() {
 
@@ -114,21 +114,17 @@ public class VistaEquipoController {
 		fotos = new ImageView[] { imgPokemon1, imgPokemon2, imgPokemon3, imgPokemon4, imgPokemon5, imgPokemon6 };
 
 		actualizarEquipo();
-		cargarFuentePersonalizada();
+//		cargarFuentePersonalizada();
 
 	}
-	private Pokemon pokemonSeleccionado;
 
 	private void actualizarEquipo() {
 		System.out.println("DEBUG: Actualizando equipo. Tamaño actual: " + Main.miEquipo.size());
-		
 
 		for (int i = 0; i < 6; i++) {
 			// Verificamos si existe un pokemon en esta posición de la lista
 			if (i < Main.miEquipo.size()) {
 				Pokemon pActual = Main.miEquipo.get(i);
-
-				
 
 				if (pActual != null) {
 					// Rellenamos datos
@@ -185,75 +181,113 @@ public class VistaEquipoController {
 			}
 		}
 	}
-	
-	
-	
+
 	@FXML
-	private void handleMoverAlPC(int indice	) {
-		
-		if (indice<Main.miEquipo.size()) {
-			Pokemon p = Main.miEquipo.get(indice);
-		
-		
+	private void moverAlPC(int i) {
+
+		// Esto es para verificar que haya un pokemon en ese slot pq si no el metodono
+		// funcionaría o daría problemas
+		if (i < Main.miEquipo.size()) {
+			Pokemon p = Main.miEquipo.get(i);
+
 			PokemonDAO pDAO = new PokemonDAO();
-			
-			
-			if(pDAO.moverAlPC(pokemonSeleccionado.getIdPokemon())) {
-				pokemonSeleccionado.setUbicacion(0);
-				Main.miEquipo.add(pokemonSeleccionado);
-				
-				System.out.println(pokemonSeleccionado.getMote()+ " se ha movido al equipo");
-				
-				
-				pokemonSeleccionado = null;
-			}
-			
-		}else {
-			System.out.println("DEBUG: El slot está vacio");
-		}
-		}
-		
 
-	// La fuente esta que al final no se ni si la vamos a utilizar
-	private void cargarFuentePersonalizada() {
-		try {
-			Font pokemonFont = Font.loadFont(getClass().getResourceAsStream("/fonts/pokemon.ttf"), 18);
+			if (pDAO.moverAlPC(p.getIdPokemon())) {
 
-			if (pokemonFont != null) {
-				lblNombre1.setFont(pokemonFont);
-				lblNivel1.setFont(pokemonFont);
-				lblPV1.setFont(pokemonFont);
-				lblEXP1.setFont(pokemonFont);
-				lblNombre2.setFont(pokemonFont);
-				lblNivel2.setFont(pokemonFont);
-				lblPV2.setFont(pokemonFont);
-				lblEXP2.setFont(pokemonFont);
-				lblNombre3.setFont(pokemonFont);
-				lblNivel3.setFont(pokemonFont);
-				lblPV3.setFont(pokemonFont);
-				lblEXP3.setFont(pokemonFont);
-				lblNombre4.setFont(pokemonFont);
-				lblNivel4.setFont(pokemonFont);
-				lblPV4.setFont(pokemonFont);
-				lblEXP4.setFont(pokemonFont);
-				lblNombre5.setFont(pokemonFont);
-				lblNivel5.setFont(pokemonFont);
-				lblPV5.setFont(pokemonFont);
-				lblEXP5.setFont(pokemonFont);
-				lblNombre6.setFont(pokemonFont);
-				lblNivel6.setFont(pokemonFont);
-				lblPV6.setFont(pokemonFont);
-				lblEXP6.setFont(pokemonFont);
-				lblEntrarPC.setFont(pokemonFont);
-				lblVolverMenu.setFont(pokemonFont);
+				System.out.println(p.getMote() + " ha sido enviado al  PC");
 
+				// Le cambiamos la ubicacion al pokemon para que la base de datos detecte que
+				// está en la caja y lo quitamos del ArrayList del equipo
+				p.setUbicacion(0);
+				Main.miEquipo.remove(i);
+
+				// Actualizamos el equipo para que desaparezca insta y que los pokemon se
+				// ordenen
+				actualizarEquipo();
 			} else {
-				System.out.println("No se pudo cargar la fuente: comprueba la ruta.");
+				System.out.println("DEBUG: Error al mover en la base de datos"); //Un DEBUG por aqui
 			}
-		} catch (Exception e) {
-			System.out.println("Error al cargar la fuente: " + e.getMessage());
+
+		} else {
+			System.out.println("DEBUG: El slot está vacio"); //Y otro por aquí
 		}
+		//Gracias comentarios debug, no se que haría sin vosotros
 	}
+
+	// Ahora creamos un metodo para cada botón del menú del equipo
+	// El numero es la i del metodo de movverAlPC (indice del array, que empieza en
+	// 0)
+	@FXML
+	private void handleMover1() {
+		moverAlPC(0);
+	}
+
+	@FXML
+	private void handleMover2() {
+		moverAlPC(1);
+	}
+
+	@FXML
+	private void handleMover3() {
+		moverAlPC(2);
+	}
+
+	@FXML
+	private void handleMover4() {
+		moverAlPC(3);
+	}
+
+	@FXML
+	private void handleMover5() {
+		moverAlPC(4);
+	}
+
+	@FXML
+	private void handleMover6() {
+		moverAlPC(5);
+	}
+
+	
+	//La dejo comentada de momentopq me esta dando problemas de superposición visual en la vista
+//	private void cargarFuentePersonalizada() {
+//		try {
+//			Font pokemonFont = Font.loadFont(getClass().getResourceAsStream("/fonts/pokemon.ttf"), 18);
+//
+//			if (pokemonFont != null) {
+//				lblNombre1.setFont(pokemonFont);
+//				lblNivel1.setFont(pokemonFont);
+//				lblPV1.setFont(pokemonFont);
+//				lblEXP1.setFont(pokemonFont);
+//				lblNombre2.setFont(pokemonFont);
+//				lblNivel2.setFont(pokemonFont);
+//				lblPV2.setFont(pokemonFont);
+//				lblEXP2.setFont(pokemonFont);
+//				lblNombre3.setFont(pokemonFont);
+//				lblNivel3.setFont(pokemonFont);
+//				lblPV3.setFont(pokemonFont);
+//				lblEXP3.setFont(pokemonFont);
+//				lblNombre4.setFont(pokemonFont);
+//				lblNivel4.setFont(pokemonFont);
+//				lblPV4.setFont(pokemonFont);
+//				lblEXP4.setFont(pokemonFont);
+//				lblNombre5.setFont(pokemonFont);
+//				lblNivel5.setFont(pokemonFont);
+//				lblPV5.setFont(pokemonFont);
+//				lblEXP5.setFont(pokemonFont);
+//				lblNombre6.setFont(pokemonFont);
+//				lblNivel6.setFont(pokemonFont);
+//				lblPV6.setFont(pokemonFont);
+//				lblEXP6.setFont(pokemonFont);
+//				lblEntrarPC.setFont(pokemonFont);
+//				lblVolverMenu.setFont(pokemonFont);
+//
+//			} else {
+//				System.out.println("No se pudo cargar la fuente: comprueba la ruta.");
+//			}
+//		} catch (Exception e) {
+//			System.out.println("Error al cargar la fuente: " + e.getMessage());
+//		}
+//	}
 
 	// Metodos de cambiode escena
 	@FXML

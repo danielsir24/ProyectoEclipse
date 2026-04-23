@@ -205,6 +205,10 @@ public class pcController {
 						matrizSlots[fila][col].setOnMouseClicked(null);
 					}
 					contador++;
+				} else {
+					matrizSlots[fila][col].setImage(null);
+					matrizSlots[fila][col].setOnMouseClicked(null);
+					
 				}
 			}
 		}
