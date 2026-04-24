@@ -15,28 +15,20 @@ public class PokemonDAO {
 		this.conexion = ConexionBD.getConnection();
 	}
 
-	public boolean insertarPokemonCapturado(Pokemon pokemon, int idEntrenador) {
-	    // La ubicación para capturados siempre es la caja
+	public boolean insertarPokemonCapturado(Pokemon pokemon, int idEntrenador, int ubicacion) {
+	    // Definimos la ubicación (0 para PC/Caja según tu última actualización)
 	    int ubicacionCaja = 0; 
 	    
+	    // HE AÑADIDO 'experiencia' a la lista de columnas (ahora hay 17 columnas y 17 interrogantes)
 	    String sql = "INSERT INTO pokemon (num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, "
 	               + "vitalidadMaxima, ataque, defensa, ataq_Especial, def_Especial, velocidad, "
-	               + "fertilidad, nivel, estado, ubicacion, sexo) "
-	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	               + "fertilidad, nivel, estado, ubicacion, sexo, experiencia) "
+	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	    try (PreparedStatement statement = conexion.prepareStatement(sql)) {
-	        // 1. Datos identificativos
 	        statement.setInt(1, pokemon.getInfoPokedex().getNum_Pokedex());
 	        statement.setInt(2, idEntrenador);
-	        
-	        // Manejo de objeto nulo
-	        if (pokemon.getObjeto() != null) {
-	            statement.setInt(3, pokemon.getObjeto().getIdObjeto());
-	        } else {
-	            statement.setNull(3, java.sql.Types.INTEGER);
-	        }
-
-	        // 2. Mote y Estadísticas (Ya reseteadas a nivel 1 en el Controller
+	        statement.setNull(3, java.sql.Types.INTEGER);
 	        statement.setString(4, pokemon.getMote());
 	        statement.setInt(5, pokemon.getVitalidad());
 	        statement.setInt(6, pokemon.getVitalidadMaxima());
@@ -45,19 +37,15 @@ public class PokemonDAO {
 	        statement.setInt(9, pokemon.getAtaqueEspecial());
 	        statement.setInt(10, pokemon.getDefensaEspecial());
 	        statement.setInt(11, pokemon.getVelocidad());
-	        
-	        // 3. Estado y Reglas de Captura
-	        statement.setInt(12, pokemon.getFertilidad()); // Debería ser 5
-	        statement.setInt(13, 1); // Nivel siempre 1 al capturar 
-	        statement.setString(14, pokemon.getEstado() != null ? pokemon.getEstado().name() : "NORMAL");
-	        statement.setInt(15, ubicacionCaja);
-	        statement.setString(16, pokemon.getSexo() != null ? pokemon.getSexo().name() : "MACHO");
+	        statement.setInt(12, 5); // Fertilidad inicial [cite: 16]
+	        statement.setInt(13, 1); // Nivel inicial [cite: 14, 150]
+	        statement.setString(14, "NORMAL");
+	        statement.setInt(15, ubicacion); // AQUÍ YA NO DARÁ ERROR
+	        statement.setString(16, pokemon.getSexo().name());
+	        statement.setInt(17, 0); // Experiencia inicial [cite: 26]
 
-	        int filas = statement.executeUpdate();
-	        return filas > 0;
-
+	        return statement.executeUpdate() > 0;
 	    } catch (SQLException e) {
-	        System.out.println("ERROR EN EL INSERT DE CAPTURA");
 	        e.printStackTrace();
 	        return false;
 	    }

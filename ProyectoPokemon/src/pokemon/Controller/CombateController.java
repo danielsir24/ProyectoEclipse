@@ -153,7 +153,8 @@ public class CombateController {
                 int idDuenio = Main.entrenadorLogueado.getId_Entrenador();
                 
                 // 3. Ejecutar la persistencia
-                boolean exito = pDAO.insertarPokemonCapturado(pokemonCapturado, idDuenio);
+                int ubicacionDestino = (Main.miEquipo.size() < 6) ? 1 : 0;
+                boolean exito = pDAO.insertarPokemonCapturado(pokemonCapturado, idDuenio, ubicacionDestino);
                 
                 if (exito) {
                     txtLogCombate.appendText("¡" + mote + " ha sido guardado en tu caja!\n");
