@@ -99,7 +99,6 @@ public class CasinoController {
                 mensaje.append("¡Acertaste color! ");
             }
 
-    
             if (premioTotal > 0) {
                 lblResultadoRuleta.setText("✨ " + mensaje.toString() + "Ganas " + premioTotal + " Pokedólares.");
             } else {
@@ -110,13 +109,13 @@ public class CasinoController {
         }
     }
 
+    // Adivinar Número
     @FXML
     void jugarAdivinarNumero(ActionEvent event) {
         try {
             int apuesta = Integer.parseInt(txtApuestaAdivinar.getText());
             int numeroElegido = Integer.parseInt(txtNumeroAdivinar.getText());
 
-           
             int numeroSecreto = (int) (Math.random() * 10) + 1; 
 
             if (numeroElegido == numeroSecreto) {
@@ -129,4 +128,26 @@ public class CasinoController {
             lblResultadoAdivinar.setText("️ Escribe números válidos.");
         }
     }
+
+    // Botón de escape al menú principal
+    @FXML
+    void volverAlMenu(ActionEvent event) {
+        try {
+            // Cargamos el diseño del menú principal
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/EscenaMenu.fxml"));
+            javafx.scene.Parent root = loader.load();
+            
+            // Cogemos la ventana actual y le cambiamos la escena
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            
+            stage.setTitle("Menú Principal Pokémon");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.show();
+            
+        } catch (Exception e) {
+            System.out.println("Error al volver al menú:");
+            e.printStackTrace();
+        }
+    }
+
 }
