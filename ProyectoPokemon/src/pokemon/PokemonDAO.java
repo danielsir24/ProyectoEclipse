@@ -325,4 +325,9 @@ public class PokemonDAO {
 		}
 		return equipoRecuperado;
 	}
+	
+	public void asiganrAtaquesPredetermiandos(int idPokemon, int numPokedex) {
+		
+	}
 }
+

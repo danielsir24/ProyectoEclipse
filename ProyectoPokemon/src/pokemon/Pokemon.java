@@ -33,7 +33,7 @@ public class Pokemon {
 
 
 	// Constructor con todos los parámetros
-	public Pokemon(Pokedex infoPokedex, String nombre, String mote, int idPokemon, int vitalidad, int ataque, int defensa,
+	public Pokemon(Pokedex infoPokedex, String nombre, String mote, int idPokemon, int vitalidad, int vitalidadMaxima, int ataque, int defensa,
 			int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia,
 			int fertilidad, Sexo sexo, List<Movimiento> movimientos, List<Movimiento> movimientosDisponibles,
 			List<Tipo> tipos, Estado estado, Objeto objeto, int ubicacion, int idEntrenador) {
@@ -43,7 +43,7 @@ public class Pokemon {
 		this.mote = mote;
 		this.idPokemon = idPokemon;
 		this.vitalidad = vitalidad;
-		this.vitalidadMaxima = vitalidad;
+		this.vitalidadMaxima = vitalidadMaxima;
 		this.ataque = ataque;
 		this.defensa = defensa;
 		this.ataqueEspecial = ataqueEspecial;
@@ -99,7 +99,7 @@ public class Pokemon {
 		this.mote = "";
 		this.idPokemon = 0;
 		this.vitalidad = random.nextInt(10) + 20;
-		this.vitalidadMaxima = this.vitalidad;
+		this.vitalidadMaxima = 0;
 		this.ataque = random.nextInt(10) + 1;
 		this.defensa = random.nextInt(10) + 1;
 		this.ataqueEspecial = random.nextInt(10) + 1;

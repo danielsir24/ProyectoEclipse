@@ -364,6 +364,17 @@ CREATE TABLE `pokemon` (
   `sexo` char(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--Tabla que servirá para qu ecada pokemon tenga unos ataques basicos
+CREATE TABLE `pokedex_movimiento` (
+	`num_Pokedex` int(11) NOT NULL,
+	`id_Movimiento` int(11) NOT NULL,
+	PRIMARY KEY (`num_Pokedex`, `id_Movimiento`),
+	FOREIGN KEY (`num_Pokedex`) REFERENCES `pokedex` (`num_Pokedex`),
+	FOREIGN KEY (`id_Movimiento`) REFERENCES `movimiento` (`id_Movimiento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--	Inserts de ataques basicos de cada Pokemon
+-- Hechos con IA porque yo para tanto no doy
 -- --------------------------------------------------------
 
 --
