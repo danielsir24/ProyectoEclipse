@@ -16,7 +16,6 @@ public class PokemonDAO {
 	}
 
 	public boolean guardarPokemon(Pokemon pokemon, int idEntrenador, int ubicacion) {
-	    // La ubicación para capturados siempre es la caja
 	    
 	    String sql = "INSERT INTO pokemon (num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, "
 	               + "vitalidadMaxima, ataque, defensa, ataq_Especial, def_Especial, velocidad, "
