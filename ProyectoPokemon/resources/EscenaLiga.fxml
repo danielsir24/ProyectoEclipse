@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="761.0" prefWidth="1280" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.LigaController">
+<AnchorPane prefHeight="761.0" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.LigaController">
 
 
     <ImageView fx:id="imgFondo" fitHeight="764.0" fitWidth="1417.0" preserveRatio="false" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
@@ -29,7 +29,7 @@
     <HBox alignment="CENTER_LEFT" spacing="12" AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="340" AnchorPane.topAnchor="80">
 
         <!-- Rival 1 -->
-        <StackPane fx:id="cardRival1" onMouseClicked="#seleccionarRival1" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
+        <StackPane fx:id="cardRival1" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
             <ImageView fx:id="imgRival1" fitHeight="300" fitWidth="200" preserveRatio="false" style="-fx-opacity: 0.85;">
                 <image><Image url="@images/LORELEI.png" /></image>
             </ImageView>

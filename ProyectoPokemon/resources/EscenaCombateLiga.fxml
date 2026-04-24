@@ -12,19 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CombateController">
+<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CombateController">
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- FONDO CAMPO DE BATALLA (todo el alto)          -->
-    <!-- ══════════════════════════════════════════════ -->
+
     <ImageView fx:id="imgFondoCombate" fitHeight="470" fitWidth="1280" preserveRatio="false" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
         <image><Image url="@../Downloads/Gemini_Generated_Image_sloobzsloobzsloo.png" /></image>
     </ImageView>
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- PANEL INFO RIVAL - arriba izquierda            -->
-    <!-- Estilo GBA: caja blanca borde negro grueso     -->
-    <!-- ══════════════════════════════════════════════ -->
+  
     <VBox layoutX="152.0" layoutY="64.0" prefWidth="260" spacing="3" style="-fx-background-color: white;                -fx-border-color: #222222;                -fx-border-width: 3;                -fx-padding: 8 14 8 14;" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="64.0">
 
         <!-- Nombre + genero + nivel -->
@@ -42,9 +37,7 @@
         </HBox>
     </VBox>
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- PANEL INFO JUGADOR - abajo derecha del campo   -->
-    <!-- ══════════════════════════════════════════════ -->
+   
     <VBox layoutX="867.0" layoutY="325.0" prefWidth="300" spacing="3" style="-fx-background-color: white;                -fx-border-color: #222222;                -fx-border-width: 3;                -fx-padding: 8 14 10 14;" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="325.0">
 
         <!-- Nombre + genero + nivel -->
@@ -73,20 +66,14 @@
         </HBox>
     </VBox>
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- SPRITE RIVAL - frontal, derecha del campo      -->
-    <!-- ══════════════════════════════════════════════ -->
+  
     <ImageView fx:id="spriteRival" fitHeight="190" fitWidth="190" layoutX="867.0" layoutY="95.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.2, 0, 6);" AnchorPane.leftAnchor="867.0" AnchorPane.topAnchor="95.0" />
    <ImageView fx:id="spriteEntrenadorRival" fitHeight="190" fitWidth="190" layoutX="1017.0" layoutY="64.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.2, 0, 6);" />
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- SPRITE JUGADOR - espalda, izquierda del campo  -->
-    <!-- ══════════════════════════════════════════════ -->
+  
     <ImageView fx:id="spriteJugador" fitHeight="200" fitWidth="200" layoutX="191.0" layoutY="260.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 8);" AnchorPane.leftAnchor="191.0" AnchorPane.topAnchor="260.0" />
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- INDICADORES TURNO/KO - banda superior          -->
-    <!-- ══════════════════════════════════════════════ -->
+ 
     <HBox alignment="CENTER_LEFT" spacing="14" style="-fx-background-color: rgba(0,0,0,0.55); -fx-padding: 4 16 4 16;" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
         <Label fx:id="lblTurno" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 11px; -fx-text-fill: #ffffff;" text="Turno 1" />
         <Pane HBox.hgrow="ALWAYS" />
@@ -95,10 +82,7 @@
         <Pane HBox.hgrow="ALWAYS" />
     </HBox>
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- ZONA INFERIOR: LOG + BOTONES DE ACCION         -->
-    <!-- Estilo fiel al GBA: log izquierda, botones der -->
-    <!-- ══════════════════════════════════════════════ -->
+ 
     <HBox prefHeight="250" spacing="0" style="-fx-background-color: #c8c890;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
         <!-- Caja de texto del combate -->
@@ -125,9 +109,7 @@
         </VBox>
     </HBox>
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- PANEL MOVIMIENTOS - oculto, reemplaza acciones -->
-    <!-- ══════════════════════════════════════════════ -->
+ 
     <HBox fx:id="panelMovimientos" managed="false" prefHeight="250" spacing="0" style="-fx-background-color: #c8c890;" visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
         <!-- Info del movimiento seleccionado -->
@@ -154,9 +136,7 @@
         </VBox>
     </HBox>
 
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- PANEL CAMBIO POKEMON - oculto                  -->
-    <!-- ══════════════════════════════════════════════ -->
+
     <VBox fx:id="panelCambioPokemon" managed="false" prefHeight="250" spacing="0" style="-fx-background-color: #1a1a2e; -fx-border-color: #444422; -fx-border-width: 4 0 0 0;" visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
         <HBox alignment="CENTER_LEFT" prefHeight="28" style="-fx-background-color: #2a2a44; -fx-padding: 0 16 0 16;">
