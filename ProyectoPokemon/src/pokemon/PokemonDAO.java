@@ -325,9 +325,60 @@ public class PokemonDAO {
 		}
 		return equipoRecuperado;
 	}
-	
+
 	public void asiganrAtaquesPredetermiandos(int idPokemon, int numPokedex) {
-		
+		// Select pa pillar los ataques de cada especie buscando su numero en la pokedex
+		String sqlSelect = "SELECT id_Movimiento FROM pokedex_Movimiento WHERE num_Pokedex = ? LIMIT 4";
+		// Y con esto se los insertamos al Pokemon concreto
+		String sqlInsert = "INSERT INTO pokemon_movimento (id_Pokemon, id_Movimiento, activo, puntos_Poder) VALUER (?, ?, 1; 20)";
+
+		try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
+			psSelect.setInt(1, numPokedex);
+			ResultSet rs = psSelect.executeQuery();
+
+			try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
+				// Nunca he puesto un coentario en estos bucles pero vaya que sirven para que
+				// vaya recorriendo todos los statements mientras el rs este activo que es
+				// basicamente la ejecucion de la consulta
+				while (rs.next()) {
+					psInsert.setInt(1, idPokemon);
+					psInsert.setInt(2, rs.getInt("id_Movimiento"));
+					psInsert.executeUpdate();
+				}
+
+			}
+			System.out.println("DEBUG: Ataques asignados correctamente");
+
+		} catch (SQLException e) {
+			System.out.println("Error al asignar ataques: " + e.getMessage());
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public int obtenerUltimoIdGenerado() {
+		// Esta consulta busca el número más alto en id_Pokemon
+		// para saber ccual es el ultimo que s eha creado y asi meterle los movimientos
+
+		// Lo malo es que cualquier pokemon que hubiera hasta la creacion de este
+		// metodo debe ser extermianadopq nova a tenermovimientos, siempre
+		// os recordaremos como unos grandes
+		String sql = "SELECT MAX(id_Pokemon) FROM pokemon";
+
+		// Hace falta que siga cometandocada vez que hago una conexion con la base de
+		// datos?
+		try (PreparedStatement st = conexion.prepareStatement(sql); ResultSet rs = st.executeQuery(sql)) {
+
+			if (rs.next()) {
+				return rs.getInt(1); // Y aqui devuelve el id mas alto que ha encontrado que al estar en
+										// AUTOINCREMENT en la base de datos pues el ultimo siempre será el mas alto
+										// (espero que funcione)
+			}
+		} catch (SQLException e) {
+			System.out.println("Error al recuperar el último ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
-

@@ -1,6 +1,7 @@
 package pokemon.Controller;
 
 import javafx.event.ActionEvent;
+import pokemon.MovimientoDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,7 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
-
+import java.util.List;
+import pokemon.Movimiento;
 import javafx.scene.media.AudioClip;
 
 import javafx.scene.control.Button;
@@ -127,6 +129,9 @@ public class CapturaController {
 			lblNombre.setText(pokemonActual.getNombre());
 			lblNivel.setText("Niv." + pokemonActual.getNivel());
 
+			MovimientoDAO movDAO =new MovimientoDAO();
+			List<Movimiento> ataquesPred = movDAO.obtenerMovimientosDePokemon(especie.getNum_Pokedex());
+			this.pokemonActual.setMovimientos(ataquesPred);
 
 			int numPokedex = especie.getNum_Pokedex();
 
@@ -337,6 +342,9 @@ public class CapturaController {
 
 		// Almacenamos en la base de datos
 		pDAO.guardarPokemon(pokemonActual, Main.entrenadorLogueado.getId_Entrenador(), destinoUbicacion);
+		
+		int idPkemonBD = pDAO.obtenerUltimoIdGenerado();
+		pDAO.asiganrAtaquesPredetermiandos(idPkemonBD, pokemonActual.getInfoPokedex().getNum_Pokedex());
 		// Hacemos que salga el menú de repetir captura
 
 		moteAsignado(event);
