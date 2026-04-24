@@ -15,9 +15,8 @@ public class PokemonDAO {
 		this.conexion = ConexionBD.getConnection();
 	}
 
-	public boolean insertarPokemonCapturado(Pokemon pokemon, int idEntrenador) {
+	public boolean guardarPokemon(Pokemon pokemon, int idEntrenador, int ubicacion) {
 	    // La ubicación para capturados siempre es la caja
-	    int ubicacionCaja = 0; 
 	    
 	    String sql = "INSERT INTO pokemon (num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, "
 	               + "vitalidadMaxima, ataque, defensa, ataq_Especial, def_Especial, velocidad, "
@@ -48,9 +47,9 @@ public class PokemonDAO {
 	        
 	        // 3. Estado y Reglas de Captura
 	        statement.setInt(12, pokemon.getFertilidad()); // Debería ser 5
-	        statement.setInt(13, 1); // Nivel siempre 1 al capturar 
+	        statement.setInt(13, pokemon.getNivel()); 
 	        statement.setString(14, pokemon.getEstado() != null ? pokemon.getEstado().name() : "NORMAL");
-	        statement.setInt(15, ubicacionCaja);
+	        statement.setInt(15, ubicacion);
 	        statement.setString(16, pokemon.getSexo() != null ? pokemon.getSexo().name() : "MACHO");
 
 	        int filas = statement.executeUpdate();

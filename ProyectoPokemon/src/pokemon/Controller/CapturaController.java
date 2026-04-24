@@ -344,7 +344,7 @@ public class CapturaController {
 		pDAO.guardarPokemon(pokemonActual, Main.entrenadorLogueado.getId_Entrenador(), destinoUbicacion);
 		
 		int idPkemonBD = pDAO.obtenerUltimoIdGenerado();
-		pDAO.asiganrAtaquesPredetermiandos(idPkemonBD, pokemonActual.getInfoPokedex().getNum_Pokedex());
+		pDAO.asignarAtaquesPredetermiandos(idPkemonBD, pokemonActual.getInfoPokedex().getNum_Pokedex());
 		// Hacemos que salga el menú de repetir captura
 
 		moteAsignado(event);
