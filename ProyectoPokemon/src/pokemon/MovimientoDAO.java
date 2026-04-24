@@ -27,7 +27,9 @@ public class MovimientoDAO {
                     mov = new Movimiento(
                         rs.getString("nom_Movimiento"),
                         rs.getInt("potencia"),
-                        rs.getInt("estamina"),
+                        Tipo.NORMAL,
+                        "ATAQUE",
+                        0,
                         rs.getInt("id_Movimiento")
                     );
                 }
@@ -54,7 +56,9 @@ public class MovimientoDAO {
                     Movimiento mov = new Movimiento(
                         rs.getString("nom_Movimiento"),
                         rs.getInt("potencia"),
-                        rs.getInt("puntos_Poder"),
+                        Tipo.NORMAL,
+                        "ATAQUE",
+                        0,
                         rs.getInt("id_Movimiento")
                     );
                     movimientos.add(mov);
