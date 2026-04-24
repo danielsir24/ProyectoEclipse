@@ -45,9 +45,8 @@ public class MovimientoDAO {
     public ArrayList<Movimiento> obtenerMovimientosDePokemon(int idPokemon) {
         ArrayList<Movimiento> movimientos = new ArrayList<>();
         String sql = "SELECT m.* FROM movimiento m "
-                   + "JOIN pokemon_movimiento pm ON m.id_Movimiento = pm.id_Movimiento "
-                   + "WHERE pm.id_Pokemon = ? AND pm.activo = 1";
-
+                + "JOIN pokedex_movimiento pm ON m.id_Movimiento = pm.id_Movimiento "
+                + "WHERE pm.num_Pokedex = ?";
         try (PreparedStatement statement = conexion.prepareStatement(sql)) {
             statement.setInt(1, idPokemon);
 
@@ -56,9 +55,9 @@ public class MovimientoDAO {
                     Movimiento mov = new Movimiento(
                         rs.getString("nom_Movimiento"),
                         rs.getInt("potencia"),
-                        Tipo.NORMAL,
-                        "ATAQUE",
-                        0,
+                        Tipo.valueOf(rs.getString("tipo")),
+                        rs.getString("clase_Movimiento"),
+                        rs.getInt("coste_estamina"),
                         rs.getInt("id_Movimiento")
                     );
                     movimientos.add(mov);
@@ -68,6 +67,7 @@ public class MovimientoDAO {
 
         } catch (SQLException e) {
             System.err.println("Error al obtener movimientos del pokemon " + idPokemon);
+            e.getMessage();
             e.printStackTrace();
         }
         return movimientos;

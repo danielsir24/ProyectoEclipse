@@ -309,42 +309,46 @@ public class CapturaController {
 	// Metodo para guardar el mote del pokemon
 	@FXML
 	private void handleGuardarMote(ActionEvent event) {
-	    PokemonDAO pDAO = new PokemonDAO();
-	    String mote = txtMote.getText().trim();
 
-	    // REQUISITO: Validación estricta con Expresiones Regulares (Regex)
-	    // Solo letras, sin espacios ni números [cite: 155]
-	    String regex = "^[a-zA-Z]+$";
-	    
-	    if (mote.isEmpty()) {
-	        mote = pokemonActual.getNombre();
-	    } else if (!java.util.regex.Pattern.matches(regex, mote)) {
-	        txtLog.appendText("¡Mote inválido! Solo se permiten letras (sin números ni espacios).\n");
-	        return; // Detiene el proceso si el mote es inválido [cite: 154]
-	    }
+		// Instanciar la clase DAO pa quese hagan los inserts de los pokemon y se
+		// guarden
+		PokemonDAO pDAO = new PokemonDAO();
 
-	    pokemonActual.setMote(mote);
-	    
-	    // REQUISITO: Resetear estadísticas a Nivel 1 y valores aleatorios [cite: 2
-	    pokemonActual.inicializarEstadisticasBase();
+		int destinoUbicacion;
+		String mote = txtMote.getText().trim();
 
-	    int destinoUbicacion;
-	    if (Main.miEquipo.size() < 6) {
-	        destinoUbicacion = 1; // Equipo
-	        Main.miEquipo.add(pokemonActual);
-	        txtLog.appendText("¡" + mote + " se ha unido a tu equipo!\n");
-	    } else {
-	        destinoUbicacion = 0; // PC/Caja
-	        Main.pcPokemon.add(pokemonActual);
-	        txtLog.appendText("Equipo lleno. " + mote + " enviado a la caja.\n");
-	    }
+		if (mote.isEmpty()) {
+			mote = pokemonActual.getNombre();
+			txtLog.appendText("No has añadido ningún mote, el pokémon se unirá a tu equipo como: " + pokemonActual.getNombre()+"\n");
+			txtLog.appendText("\n");
+		}
+		
 
-	    // Guardar en BD 
-	    if (pDAO.insertarPokemonCapturado(pokemonActual, Main.entrenadorLogueado.getId_Entrenador(), destinoUbicacion)) {
-	        int idGenerado = pDAO.obtenerUltimoIdGenerado();
-	        pDAO.asignarAtaquesPredetermiandos(idGenerado, pokemonActual.getInfoPokedex().getNum_Pokedex());
-	    }
+		pokemonActual.setMote(mote);
+		if (Main.miEquipo.size() < 6) {
 
-	    moteAsignado(event);
+			// Esto es para saber si el pokemon está en el q¡equipo o en el PC
+			// Sitiene un 1 está en el equipo
+			destinoUbicacion = 1;
+			Main.miEquipo.add(pokemonActual);
+			txtLog.appendText("¡El pokemon se ha unido a tu equipo como: " + mote + "!\n");
+		} else {
+			// Si tiene un se envía al PC pq no hay espacio
+			destinoUbicacion = 0;
+			Main.pcPokemon.add(pokemonActual);
+			txtLog.appendText("Espacio insuficiente en el equipo. ¡El pokemon ha sido enviaado a la caja del PC como: "
+					+ mote + "!\n");
+		}
+
+		// Almacenamos en la base de datos
+		pDAO.guardarPokemon(pokemonActual, Main.entrenadorLogueado.getId_Entrenador(), destinoUbicacion);
+		
+		int idPkemonBD = pDAO.obtenerUltimoIdGenerado();
+		pDAO.asignarAtaquesPredetermiandos(idPkemonBD, pokemonActual.getInfoPokedex().getNum_Pokedex());
+		// Hacemos que salga el menú de repetir captura
+
+		moteAsignado(event);
+
 	}
+
 }

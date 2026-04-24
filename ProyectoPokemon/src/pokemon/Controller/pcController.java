@@ -270,7 +270,7 @@ public class pcController {
 
 		// Movimientos
 		MovimientoDAO movDAO = new MovimientoDAO();
-		ArrayList<Movimiento> movimientos = movDAO.obtenerMovimientosDePokemon(p.getIdPokemon());
+		ArrayList<Movimiento> movimientos = movDAO.obtenerMovimientosDePokemon(p.getInfoPokedex().getNum_Pokedex());
 
 		// Limpiamos los textos de los movimientos antes de poner los nuevos
 		nomMov1.setText("-----------");
