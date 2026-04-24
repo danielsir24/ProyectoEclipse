@@ -22,6 +22,9 @@ import pokemon.Pokedex;
 import pokemon.PokedexDAO;
 import javafx.scene.media.AudioClip;
 import pokemon.Combate;
+import javafx.scene.control.TextInputDialog;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class CombateController {
 
@@ -121,7 +124,48 @@ public class CombateController {
             comprobarFinCombate();
         }
     }
+    @FXML
+    private void handleCapturar(ActionEvent event) {
+        if (motorCombate.getEntrenadorRival() != null && 
+            !"SALVAJE".equals(motorCombate.getEntrenadorRival().getTipo_Entrenador())) {
+            txtLogCombate.appendText("¡No puedes capturar el Pokémon de otro entrenador!\n");
+            return;
+        }
 
+        if (Math.random() <= (2.0 / 3.0)) { // Probabilidad 2/3
+            txtLogCombate.appendText("¡La Pokéball ha capturado al Pokémon!\n");
+            
+            Pokemon pokemonCapturado = motorCombate.getPokemonRival();
+            
+            // 1. Solicitar y validar mote con Regex
+            String mote = solicitarMoteValidado();
+            pokemonCapturado.setMote(mote);
+            
+            // 2. Recalcular estadísticas 
+            pokemonCapturado.inicializarEstadisticasBase(); 
+            
+            // 3. Guardar en la caja del entrenador
+            try {
+                // 1. Instanciar el DAO
+                pokemon.PokemonDAO pDAO = new pokemon.PokemonDAO();
+                
+                // 2. Obtener el ID del entrenador
+                int idDuenio = Main.entrenadorLogueado.getId_Entrenador();
+                
+                // 3. Ejecutar la persistencia
+                boolean exito = pDAO.insertarPokemonCapturado(pokemonCapturado, idDuenio);
+                
+                if (exito) {
+                    txtLogCombate.appendText("¡" + mote + " ha sido guardado en tu caja!\n");
+                } else {
+                    txtLogCombate.appendText("Error: No se pudo guardar en la base de datos.\n");
+                }
+            } catch (Exception e) {
+                txtLogCombate.appendText("Error al guardar en la caja: " + e.getMessage() + "\n");
+            }
+        }
+    }
+    
     @FXML
     private void handleDescansar(ActionEvent event) {
         Pokemon miPokemon = motorCombate.getPokemonJugador();
@@ -151,9 +195,9 @@ public class CombateController {
              // Aquí puedes añadir la ruta real: new AudioClip(getClass().getResource(miPokemon.getInfoPokedex().getSonido()).toExternalForm()).play();
         }
     }
+    
 
     //MÉTODOS DE APOYO
-
     private void actualizarUI() {
         Pokemon pJugador = motorCombate.getPokemonJugador();
         Pokemon pRival = motorCombate.getPokemonRival();
@@ -247,6 +291,30 @@ public class CombateController {
             if (is != null) imgView.setImage(new Image(is));
         } catch (Exception e) {
             System.err.println("Imagen no encontrada: " + ruta);
+        }
+    }
+    private String solicitarMoteValidado() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Mote del Pokémon");
+        dialog.setHeaderText("¡Has capturado un Pokémon!");
+        dialog.setContentText("Introduce su mote (solo letras):");
+
+        // Expresión regular: ^[a-zA-Z]+$ (Solo letras de la A a la Z, mayúsculas o minúsculas) 
+        String regex = "^[a-zA-Z]+$";
+        
+        while (true) {
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                String input = result.get().trim();
+                if (Pattern.matches(regex, input)) {
+                    return input; // Mote válido
+                } else {
+                    dialog.setHeaderText("Mote inválido. Solo letras, sin espacios ni números.");
+                }
+            } else {
+                // Si el usuario cancela o cierra, devolvemos el nombre original por defecto
+                return motorCombate.getPokemonRival().getNombre();
+            }
         }
     }
 
