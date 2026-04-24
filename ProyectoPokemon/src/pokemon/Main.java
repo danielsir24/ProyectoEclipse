@@ -14,6 +14,7 @@ public class Main extends Application {
 	public static ArrayList<Pokemon> pcPokemon = new ArrayList<>();
 
 	public static Entrenador entrenadorLogueado;
+	public static Entrenador rivalActual;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

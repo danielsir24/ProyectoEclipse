@@ -10,83 +10,107 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pokemon.*;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class LigaController {
 
-    @FXML private Label lblNombreRival, lblNivelRival, lblPokedollars;
+    @FXML private Label lblNombreRival, lblPokedollars, lblCombateNum;
     @FXML private Button btnCombatir, btnCurar;
 
-    //Variables de estado de la Liga
     public static int combateActual = 1;
-    public static int premioAcumulado = 0;
-    private static boolean seHaCurado = false;
-
-    private String[] nombresAltoMando = {"Lorelei", "Bruno", "Agatha", "Lance", "Azul"};
-    private int[] nivelesAltoMando = {50, 52, 54, 56, 60};
+    public static boolean seHaCuradoEnEsteTurno = false;
+    
+    // Lista para manejar el orden aleatorio del Alto Mando
+    private static List<Entrenador> listaAltoMando;
 
     @FXML
     public void initialize() {
+        if (listaAltoMando == null) {
+            prepararLiga();
+        }
         actualizarInfoLiga();
     }
 
-    private void actualizarInfoLiga() {
-        if (combateActual > 5) {
-            lblNombreRival.setText("¡CAMPEÓN!");
-            btnCombatir.setDisable(true);
-            return;
+    private void prepararLiga() {
+        listaAltoMando = new ArrayList<>();
+        
+        // Creamos los entrenadores usando el constructor vacío + setters
+        // Esto evita el error de "constructor not found"
+        String[] nombres = {"Lorelei", "Bruno", "Agatha", "Lance"};
+        for (String nombre : nombres) {
+            Entrenador e = new Entrenador();
+            e.setNom_Entrenador(nombre);
+            e.setImg_Entrenador(nombre.toLowerCase() + ".png");
+            e.setTipo_Entrenador("ALTO_MANDO");
+            e.setPokedollars(0); 
+            listaAltoMando.add(e);
         }
 
-        lblNombreRival.setText(nombresAltoMando[combateActual - 1]);
-        lblNivelRival.setText("Nivel medio: " + nivelesAltoMando[combateActual - 1]);
-        lblPokedollars.setText("Pokédollars: " + Main.entrenadorLogueado.getPokedollars() + " ₽");
+        // 1. Aleatorizamos los primeros 4 según el requisito
+        Collections.shuffle(listaAltoMando);
+        
+        // 2. Añadimos al Campeón fijo al final (posición 5)
+        Entrenador campeon = new Entrenador();
+        campeon.setNom_Entrenador("Azul");
+        campeon.setImg_Entrenador("azul.png");
+        campeon.setTipo_Entrenador("ALTO_MANDO");
+        listaAltoMando.add(campeon);
     }
 
-    @FXML
-    private void handleCombatir(ActionEvent event) {
-        //Lógica para lanzar el combate contra el miembro del Alto Mando
-        try {
-            //Guardamos el progreso antes de ir al combate
-            System.out.println("Iniciando combate " + combateActual + " contra " + nombresAltoMando[combateActual-1]);
-            
-            //Cargamos la escena de combate de la liga
-            Parent root = FXMLLoader.load(getClass().getResource("/EscenaCombateLiga.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void actualizarInfoLiga() {
+        if (Main.entrenadorLogueado == null) return;
+
+        lblPokedollars.setText("Pokedollars: " + Main.entrenadorLogueado.getPokedollars());
+
+        if (combateActual > 5) {
+            lblNombreRival.setText("¡ERES EL CAMPEÓN!");
+            btnCombatir.setDisable(true);
+            btnCurar.setDisable(true);
+        } else {
+            Entrenador rival = listaAltoMando.get(combateActual - 1);
+            lblNombreRival.setText("Rival: " + rival.getNom_Entrenador());
+            lblCombateNum.setText("Combate " + combateActual + " de 5");
+            btnCurar.setDisable(seHaCuradoEnEsteTurno);
         }
     }
 
     @FXML
     private void handleCurar(ActionEvent event) {
-        //Requisito: Curar cuesta la mitad del premio acumulado o una tasa fija
-        for (Pokemon p : Main.miEquipo) {
-            p.setVitalidad(p.getVitalidadMaxima());
-            p.setEstamina(100);
-            p.setEstado(Estado.NORMAL);
+        // Requisito: Restablecer vitalidad y estamina
+        if (Main.miEquipo != null) {
+            for (Pokemon p : Main.miEquipo) {
+                p.setVitalidad(p.getVitalidadMaxima());
+                p.setEstamina(100);
+                p.setEstado(Estado.NORMAL);
+            }
+            seHaCuradoEnEsteTurno = true;
+            btnCurar.setDisable(true);
+            actualizarInfoLiga();
         }
-        
-        seHaCurado = true;
-        Main.entrenadorLogueado.setPokedollars(Main.entrenadorLogueado.getPokedollars() - 500);
-        
-        System.out.println("Equipo curado. Penalización aplicada.");
-        actualizarInfoLiga();
     }
 
     @FXML
-    private void handleSalir(ActionEvent event) {
-        //Resetear liga si se sale
-        combateActual = 1;
+    private void handleCombatir(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/EscenaMenu.fxml"));
+            // Pasamos el rival actual al motor de combate antes de cambiar de escena
+            // Asegúrate de que Main.rivalActual exista
+            // Main.rivalActual = listaAltoMando.get(combateActual - 1);
+            
+            Parent root = FXMLLoader.load(getClass().getResource("/EscenaCombate.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void resetearLiga() {
+        combateActual = 1;
+        listaAltoMando = null;
+        seHaCuradoEnEsteTurno = false;
     }
 }

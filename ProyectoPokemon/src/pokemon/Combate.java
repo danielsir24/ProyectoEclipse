@@ -159,4 +159,8 @@ import java.util.Random;
     public Pokemon getPokemonRival() { 
     	return pokemonRival; 
     }
+ 
+    public Entrenador getEntrenadorRival() {
+        return this.rival;
+    }
 }
