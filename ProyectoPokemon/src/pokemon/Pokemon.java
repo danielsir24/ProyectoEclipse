@@ -149,6 +149,31 @@ public class Pokemon {
 		this.velocidad += random.nextInt(5) + 1;
 		System.out.println("¡" + nombre + " subió al nivel " + nivel + "!");
 	}
+	//Reestablece las estadísticas del pokemon entre 1 y 10
+	public void inicializarEstadisticasBase() {
+		Random rnd = new Random();
+	    // Generar valores aleatorios entre 1 y 10 
+	    this.vitalidadMaxima = rnd.nextInt(10) + 1;
+	    this.vitalidad = this.vitalidadMaxima; // Empieza con la vida llena
+	    this.ataque = rnd.nextInt(10) + 1;
+	    this.defensa = rnd.nextInt(10) + 1;
+	    this.ataqueEspecial = rnd.nextInt(10) + 1;
+	    this.defensaEspecial = rnd.nextInt(10) + 1;
+	    this.velocidad = rnd.nextInt(10) + 1;
+	    
+	    // La estamina siempre inicia al máximo (100 o valor base) [cite: 54]
+	    this.estamina = 100; 
+	    
+	    this.experiencia = 0;
+	    
+	    this.estado = Estado.NORMAL;
+	    
+	    // El nivel siempre es 1 al ser capturado o nacer [cite: 14, 150]
+	    this.nivel = 1;
+	    
+	    // La fertilidad inicial es de 5 [cite: 16]
+	    this.fertilidad = 5;
+	}
 
 	public String getNombre() {
 		return nombre;
