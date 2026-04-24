@@ -47,7 +47,7 @@ public class CombateController {
 
     @FXML
     public void initialize() {
-        //1.Obtener el primer Pokemon
+        // 1. Obtener el primer Pokemon de tu equipo
         Pokemon miPokemon = obtenerPrimerPokemonVivo();
         if (miPokemon == null) {
             txtLogCombate.setText("¡No tienes Pokémon en condiciones para luchar!\n");
@@ -55,24 +55,40 @@ public class CombateController {
             return;
         }
 
-        //2.Generar un Pokemon Rival aleatorio
-        Pokemon rivalAleatorio = generarRivalAleatorio();
+        Entrenador rivalCombate;
+        Pokemon pokemonRival;
 
-        //3.Crear un Entrenador Rival falso para el combate salvaje
-        Entrenador rivalMalo = new Entrenador();
-        rivalMalo.setNom_Entrenador("Entrenador Rival");
+        // 2. DETECCIÓN: ¿Venimos de la Liga o es un combate Salvaje?
+        if (Main.rivalActual != null && "ALTO_MANDO".equals(Main.rivalActual.getTipo_Entrenador())) {
+            
+            // LÓGICA DE LIGA POKÉMON
+            rivalCombate = Main.rivalActual;
+            pokemonRival = generarRivalAleatorio(); // Genera un pokemon que escale a tu nivel
+            txtLogCombate.setText("¡El Alto Mando " + rivalCombate.getNom_Entrenador() + " te desafía!\n");
+            
+        } else {
+            
+            // LÓGICA DE COMBATE SALVAJE
+            rivalCombate = new Entrenador();
+            rivalCombate.setNom_Entrenador("Entrenador Rival");
+            rivalCombate.setTipo_Entrenador("SALVAJE"); // Para evitar confusiones
+            pokemonRival = generarRivalAleatorio();
+            txtLogCombate.setText("¡Un " + pokemonRival.getNombre() + " salvaje ha aparecido!\n");
+            
+        }
 
-        //4.Inicializar el motor de combate
-        motorCombate = new Combate(Main.entrenadorLogueado, rivalMalo, miPokemon, rivalAleatorio);
+        // 3. Inicializar el motor de combate con los datos correctos
+        motorCombate = new Combate(Main.entrenadorLogueado, rivalCombate, miPokemon, pokemonRival);
 
-        //5.Cargar sonidos base
+        // 4. Cargar sonidos base
         try {
             sonidoAtaque = new AudioClip(getClass().getResource("/sounds/tackle.wav").toExternalForm());
         } catch (Exception e) {
             System.out.println("Sonido de ataque no encontrado. Se omitirá.");
         }
 
-        txtLogCombate.setText("¡Un " + rivalAleatorio.getNombre() + " salvaje ha aparecido!\n¡Adelante, " + miPokemon.getMote() + "!\n\n");
+        String nombreMote = miPokemon.getMote() != null && !miPokemon.getMote().isEmpty() ? miPokemon.getMote() : miPokemon.getNombre();
+        txtLogCombate.appendText("¡Adelante, " + nombreMote + "!\n\n");
         
         actualizarUI();
     }
@@ -114,7 +130,7 @@ public class CombateController {
         txtLogCombate.appendText(miPokemon.getNombre() + " descansa y recupera su estamina.\n");
         
         // El rival ataca mientras descansamos
-        String resultadoRival = motorCombate.ejecutarTurno(new pokemon.Movimiento("Descanso", 0, 0, 999)); 
+        String resultadoRival = motorCombate.ejecutarTurno(new pokemon.Movimiento("Descanso", 0, pokemon.Tipo.NORMAL,"ESTADO",0, 999)); 
         txtLogCombate.appendText(resultadoRival + "\n");
         
         actualizarUI();
@@ -180,7 +196,7 @@ public class CombateController {
     private void comprobarFinCombate() {
         if (motorCombate.getPokemonJugador().estaDebilitado() || motorCombate.getPokemonRival().estaDebilitado()) {
             desactivarBotones();
-            btnHuir.setText("Salir"); // Cambiamos el texto de Huir para que sea el botón de salir
+            btnHuir.setText("Salir"); //Cambiamos el texto de Huir para que sea el botón de salir
         }
     }
 
@@ -236,26 +252,35 @@ public class CombateController {
 
     private void volverAlMenu(ActionEvent event) {
         try {
-            //1. Decidimos a qué pantalla ir
+            // 1. Definimos la ruta por defecto (combate salvaje o normal)
             String rutaEscena = "/EscenaMenu.fxml";
             
-            //Si el combate ha terminado y el rival era de la Liga...
-            if (motorCombate.getPokemonRival().getNivel() >= 50) {
-                rutaEscena = "/EscenaLiga.fxml";
+            // 2. Extraemos el objeto rival directamente del motor de combate
+            Entrenador rival = motorCombate.getEntrenadorRival(); 
+
+            // 3. Verificamos si el rival pertenece al Alto Mando
+            if (rival != null && "ALTO_MANDO".equals(rival.getTipo_Entrenador())) {
                 
-                // Si hemos ganado, avanzamos el contador de la Liga
+                // Si el jugador ganó (el Pokémon rival está debilitado)
                 if (motorCombate.getPokemonRival().estaDebilitado()) {
+                    // Incrementamos el progreso de la liga y volvemos a la pantalla de la Liga
                     LigaController.combateActual++; 
-                    LigaController.premioAcumulado += 1000 * LigaController.combateActual;
+                    rutaEscena = "/EscenaLiga.fxml";
+                } else {
+                    // Si el jugador perdió, la liga se resetea y vuelve al menú principal
+                    LigaController.resetearLiga();
+                    rutaEscena = "/EscenaMenu.fxml";
                 }
             }
 
-            //2. Cargamos la escena correspondiente
+            // 4. Cambiamos la escena
             Parent root = FXMLLoader.load(getClass().getResource(rutaEscena));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
+
         } catch (IOException e) {
+            System.err.println("Error crítico al navegar: " + e.getMessage());
             e.printStackTrace();
         }
     }
