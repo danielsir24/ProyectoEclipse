@@ -184,12 +184,36 @@ public class CombateController {
 		pokemonRivalActual.setNivel(nivelRival);
 
 		// Stats proporcionales al nivel
-		int base = 10 + nivelRival * 2;
-		pokemonRivalActual.setVitalidad(base + random.nextInt(10));
+		// Calculamos la media de ataque y defensa de tu equipo
+		int mediaAtaque = 0, mediaDefensa = 0;
+		for (Pokemon p : Main.miEquipo) {
+		    mediaAtaque  += p.getAtaque();
+		    mediaDefensa += p.getDefensa();
+		}
+		mediaAtaque  /= Main.miEquipo.size();
+		mediaDefensa /= Main.miEquipo.size();
+
+		// El rival tiene stats similares a los tuyos con pequeña variacion
+		pokemonRivalActual.setAtaque(mediaAtaque  + random.nextInt(5) - 2);
+		pokemonRivalActual.setDefensa(mediaDefensa + random.nextInt(5) - 2);
+		pokemonRivalActual.setVitalidad(20 + nivelRival * 3);
 		pokemonRivalActual.setVitalidadMaxima(pokemonRivalActual.getVitalidad());
-		pokemonRivalActual.setAtaque(base + random.nextInt(8));
-		pokemonRivalActual.setDefensa(base + random.nextInt(8));
-		pokemonRivalActual.setEstado(Estado.NORMAL);
+		// Asignamos el tipo del rival desde su info de pokedex
+		if (especie != null) {
+			java.util.List<Tipo> tipos = new java.util.ArrayList<>();
+			try {
+				if (especie.getTipo1() != null && !especie.getTipo1().isEmpty()) {
+					tipos.add(Tipo.valueOf(especie.getTipo1().toUpperCase()));
+				}
+				if (especie.getTipo2() != null && !especie.getTipo2().isEmpty()
+						&& !especie.getTipo2().equalsIgnoreCase("ninguno")) {
+					tipos.add(Tipo.valueOf(especie.getTipo2().toUpperCase()));
+				}
+			} catch (Exception ex) {
+				System.out.println("[Combate] Tipo no reconocido: " + ex.getMessage());
+			}
+			pokemonRivalActual.setTipos(tipos);
+		}
 
 		// Actualizamos la pantalla con los datos de los dos pokemon
 		actualizarPantalla();
@@ -732,6 +756,68 @@ public class CombateController {
 			((VBox) panel).setManaged(true);
 		}
 
+	}
+	
+	@FXML
+	private void handleDescansar(ActionEvent event) {
+	    // Si ya se esta ejecutando un turno no hacemos nada
+	    if (combateEnPausa) return;
+	    combateEnPausa = true;
+
+	    // Recuperamos toda la estamina del pokemon jugador
+	    pokemonJugadorActual.setEstamina(100);
+	    log(pokemonJugadorActual.getMote() + " descansa y recupera su estamina!");
+
+	    // El rival aprovecha para atacar mientras descansamos
+	    int danoRival = calcularDanoRival();
+	    final int danoFinal = danoRival;
+
+	    javafx.animation.Timeline timeline = new javafx.animation.Timeline(
+
+	        // Segundo 1: el rival ataca
+	        new javafx.animation.KeyFrame(javafx.util.Duration.seconds(1), e -> {
+	            log(pokemonRivalActual.getNombre() + " aprovecho y ataco!");
+	        }),
+
+	        // Segundo 2: aplicamos el dano del rival
+	        new javafx.animation.KeyFrame(javafx.util.Duration.seconds(2), e -> {
+	            pokemonJugadorActual.recibirDano(danoFinal);
+	            log("Recibiste " + danoFinal + " puntos de dano!");
+	            actualizarPantalla();
+	        }),
+
+	        // Segundo 3: comprobamos si el jugador se debilito
+	        new javafx.animation.KeyFrame(javafx.util.Duration.seconds(3), e -> {
+	            if (pokemonJugadorActual.estaDebilitado()) {
+	                log(pokemonJugadorActual.getMote() + " se debilito!");
+	                koJugador++;
+
+	                Pokemon siguiente = null;
+	                for (Pokemon p : Main.miEquipo) {
+	                    if (!p.estaDebilitado() && p != pokemonJugadorActual) {
+	                        siguiente = p;
+	                        break;
+	                    }
+	                }
+
+	                if (siguiente != null) {
+	                    pokemonJugadorActual = siguiente;
+	                    actualizarPantalla();
+	                    log("Vamos " + pokemonJugadorActual.getMote() + "!");
+	                } else {
+	                    finalizarCombate(false);
+	                    return;
+	                }
+	            }
+
+	            turno++;
+	            lblTurno.setText("Turno " + turno);
+	            log("Que hara " + pokemonJugadorActual.getMote() + "?");
+	            combateEnPausa = false;
+	        })
+	    );
+
+	    timeline.play();
 	}
 
 }

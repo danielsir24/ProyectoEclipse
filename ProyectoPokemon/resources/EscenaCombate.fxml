@@ -107,6 +107,10 @@
 
                 <Button fx:id="btnHuir" onAction="#handleHuir" prefHeight="90" prefWidth="340" style="-fx-background-color: #3377dd;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #1144aa;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="HUIR" />
             </HBox>
+
+            <HBox alignment="CENTER" spacing="16">
+                <Button fx:id="btnDescansar" onAction="#handleDescansar" prefHeight="90" prefWidth="700" style="-fx-background-color: #9966cc;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #6633aa;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="DESCANSAR" />
+            </HBox>
         </VBox>
     </HBox>
 
