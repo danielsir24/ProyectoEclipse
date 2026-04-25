@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CombateLigaController">
 
 
     <ImageView fx:id="imgFondoCombate" fitHeight="470" fitWidth="1280" preserveRatio="false" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
@@ -96,16 +96,16 @@
 
             <HBox alignment="CENTER" spacing="16">
 
-                <Button fx:id="btnLuchar" prefHeight="90" prefWidth="340" style="-fx-background-color: #ee5544;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #aa2211;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="LUCHAR" />
+                <Button fx:id="btnLuchar" onAction="#handleLuchar" prefHeight="90" prefWidth="340" style="-fx-background-color: #ee5544; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 18px; -fx-background-radius: 12; -fx-border-color: #aa2211; -fx-border-width: 0 0 4 0; -fx-border-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="LUCHAR" />
 
-                <Button fx:id="btnMochila" prefHeight="90" prefWidth="340" style="-fx-background-color: #ddaa22;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #aa7700;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="MOCHILA" />
+                <Button fx:id="btnMochila" onAction="#handleMochila" prefHeight="90" prefWidth="340" style="-fx-background-color: #ddaa22; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 18px; -fx-background-radius: 12; -fx-border-color: #aa7700; -fx-border-width: 0 0 4 0; -fx-border-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="MOCHILA" />
             </HBox>
 
             <HBox alignment="CENTER" spacing="16">
 
-                <Button fx:id="btnCambiarPokemon" prefHeight="90" prefWidth="340" style="-fx-background-color: #44bb44;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #228822;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="POKEMON" />
+                <Button fx:id="btnPokemon" onAction="#handlePokemon" prefHeight="90" prefWidth="340" style="-fx-background-color: #44bb44; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 18px; -fx-background-radius: 12; -fx-border-color: #228822; -fx-border-width: 0 0 4 0; -fx-border-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="POKEMON" />
 
-                <Button fx:id="btnHuir" prefHeight="90" prefWidth="340" style="-fx-background-color: #3377dd;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #1144aa;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="HUIR" />
+                <Button fx:id="btnHuir" onAction="#handleHuir" prefHeight="90" prefWidth="340" style="-fx-background-color: #3377dd; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 18px; -fx-background-radius: 12;                            -fx-border-color: #1144aa;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="HUIR" />
             </HBox>
         </VBox>
     </HBox>
