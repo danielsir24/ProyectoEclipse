@@ -64,13 +64,13 @@ public class MainController {
 	
 	@FXML
 	private void handleEntrarLiga(ActionEvent event) {
-		cambiarEscena(event, "/EscenaLiga.fxml", "Menú Casino");
+		cambiarEscena(event, "/EscenaLiga.fxml", "Menú Liga");
 
 	}
 	
 	@FXML
 	private void handleEntrarCombate(ActionEvent event) {
-		cambiarEscena(event, "/EscenaCombate.fxml", "Menú Casino");
+		cambiarEscena(event, "/EscenaCombate.fxml", "Menú Combate");
 
 	}
 
@@ -81,10 +81,15 @@ public class MainController {
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-			Scene scene = new Scene(root);
+			Scene scene = new Scene(root, 1280, 761);
 			stage.setScene(scene);
 			stage.setTitle(titulo);
 			stage.setMaximized(false);
+			
+			stage.setMinWidth(1280);
+			stage.setMinHeight(761);
+			
+			stage.centerOnScreen();
 			stage.show();
 
 		} catch (IOException e) {
@@ -183,5 +188,4 @@ public class MainController {
 			errorLabel.setText("Error al registrar. Inténtalo de nuevo.");
 		}
 	}
-  
 }
