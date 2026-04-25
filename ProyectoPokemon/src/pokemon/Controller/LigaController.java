@@ -8,8 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pokemon.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,14 +21,32 @@ import java.util.List;
 
 public class LigaController {
 
+
     @FXML private Label lblNombreRival, lblPokedollars, lblCombateNum;
-    @FXML private Button btnCombatir, btnCurar;
+    @FXML private Label nombreRivalSeleccionado;
+
+
+    @FXML private Label lblNombreRival1, lblNombreRival2, lblNombreRival3,
+                        lblNombreRival4, lblNombreRival5;
+
+
+    @FXML private StackPane cardRival1, cardRival2, cardRival3,
+                            cardRival4, cardRival5;
+
+
+    @FXML private ImageView imgRival1, imgRival2, imgRival3,
+                            imgRival4, imgRival5;
+
+
+    @FXML private Button btnCombatir, btnCurar, btnSalir;
 
     public static int combateActual = 1;
     public static boolean seHaCuradoEnEsteTurno = false;
-    
-    // Lista para manejar el orden aleatorio del Alto Mando
+
     private static List<Entrenador> listaAltoMando;
+
+    // Rival seleccionado por el jugador
+    private int rivalSeleccionado = -1;
 
     @FXML
     public void initialize() {
@@ -32,27 +54,25 @@ public class LigaController {
             prepararLiga();
         }
         actualizarInfoLiga();
+        // Deshabilitar combatir hasta que se seleccione rival
+        btnCombatir.setDisable(true);
     }
 
     private void prepararLiga() {
         listaAltoMando = new ArrayList<>();
-        
-        // Creamos los entrenadores usando el constructor vacío + setters
-        // Esto evita el error de "constructor not found"
+
         String[] nombres = {"Lorelei", "Bruno", "Agatha", "Lance"};
         for (String nombre : nombres) {
             Entrenador e = new Entrenador();
             e.setNom_Entrenador(nombre);
             e.setImg_Entrenador(nombre.toLowerCase() + ".png");
             e.setTipo_Entrenador("ALTO_MANDO");
-            e.setPokedollars(0); 
+            e.setPokedollars(0);
             listaAltoMando.add(e);
         }
 
-        // 1. Aleatorizamos los primeros 4 según el requisito
         Collections.shuffle(listaAltoMando);
-        
-        // 2. Añadimos al Campeón fijo al final (posición 5)
+
         Entrenador campeon = new Entrenador();
         campeon.setNom_Entrenador("Azul");
         campeon.setImg_Entrenador("azul.png");
@@ -63,23 +83,56 @@ public class LigaController {
     private void actualizarInfoLiga() {
         if (Main.entrenadorLogueado == null) return;
 
-        lblPokedollars.setText("Pokedollars: " + Main.entrenadorLogueado.getPokedollars());
+        if (lblPokedollars != null)
+            lblPokedollars.setText("Pokedollars: " + Main.entrenadorLogueado.getPokedollars());
 
         if (combateActual > 5) {
-            lblNombreRival.setText("¡ERES EL CAMPEÓN!");
+            if (lblNombreRival != null) lblNombreRival.setText("¡ERES EL CAMPEÓN!");
             btnCombatir.setDisable(true);
             btnCurar.setDisable(true);
         } else {
             Entrenador rival = listaAltoMando.get(combateActual - 1);
-            lblNombreRival.setText("Rival: " + rival.getNom_Entrenador());
-            lblCombateNum.setText("Combate " + combateActual + " de 5");
+            if (lblNombreRival != null)
+                lblNombreRival.setText("Rival: " + rival.getNom_Entrenador());
+            if (lblCombateNum != null)
+                lblCombateNum.setText("Combate " + combateActual + " de 5");
             btnCurar.setDisable(seHaCuradoEnEsteTurno);
         }
     }
 
+
+
+    @FXML
+    private void seleccionarRival2(MouseEvent event) {
+        seleccionarRival(2);
+    }
+
+    @FXML
+    private void seleccionarRival3(MouseEvent event) {
+        seleccionarRival(3);
+    }
+
+    @FXML
+    private void seleccionarRival4(MouseEvent event) {
+        seleccionarRival(4);
+    }
+
+    @FXML
+    private void seleccionarRival5(MouseEvent event) {
+        seleccionarRival(5);
+    }
+
+    private void seleccionarRival(int numero) {
+        rivalSeleccionado = numero;
+        Entrenador rival = listaAltoMando.get(numero - 1);
+        nombreRivalSeleccionado.setText(rival.getNom_Entrenador());
+        btnCombatir.setDisable(false);
+    }
+
+    // Botones 
+
     @FXML
     private void handleCurar(ActionEvent event) {
-        // Requisito: Restablecer vitalidad y estamina
         if (Main.miEquipo != null) {
             for (Pokemon p : Main.miEquipo) {
                 p.setVitalidad(p.getVitalidadMaxima());
@@ -95,11 +148,21 @@ public class LigaController {
     @FXML
     private void handleCombatir(ActionEvent event) {
         try {
-            // Pasamos el rival actual al motor de combate antes de cambiar de escena
-            // Asegúrate de que Main.rivalActual exista
-            // Main.rivalActual = listaAltoMando.get(combateActual - 1);
-            
-            Parent root = FXMLLoader.load(getClass().getResource("/EscenaCombate.fxml"));
+
+
+            Parent root = FXMLLoader.load(getClass().getResource("/EscenaCombateLiga.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleSalir(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/EscenaMenuPrincipal.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
