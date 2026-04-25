@@ -381,4 +381,22 @@ public class PokemonDAO {
 		}
 		return 0;
 	}
+	
+	//Añadimos el objeto del pokemon a la bbdd
+	public boolean equiparObjeto(int idPokemon, int idObjeto) {
+	    String sql = "UPDATE pokemon SET id_Objeto = ? WHERE id_Pokemon = ?";
+		  try (Connection conexion = ConexionBD.getConnection();
+				PreparedStatement st = conexion.prepareStatement(sql)) {
+			  if (idObjeto == 0) {
+		            st.setNull(1, java.sql.Types.INTEGER);
+		        } else {
+		            st.setInt(1, idObjeto);
+		        }
+		        st.setInt(2, idPokemon);
+		        return st.executeUpdate() > 0;
+		    } catch (SQLException e) {
+		        System.err.println("Error al equipar objeto: " + e.getMessage());
+		        return false;
+		    }
+		}
 }
