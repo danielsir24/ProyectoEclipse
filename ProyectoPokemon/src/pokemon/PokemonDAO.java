@@ -247,26 +247,26 @@ public class PokemonDAO {
 
 	// Borra definitivamente un Pokémon de la base de datos (lo libera)
 	public boolean liberarPokemon(int idPokemon) {
-		String sql = "DELETE FROM pokemon WHERE id_pokemon = ?";
+		try {
+			// Primero borramos los movimientos del pokemon
+			// si no la foreign key no nos deja borrar el pokemon
+			String sqlMovimientos = "DELETE FROM pokemon_movimiento WHERE id_Pokemon = ?";
+			try (PreparedStatement stMov = conexion.prepareStatement(sqlMovimientos)) {
+				stMov.setInt(1, idPokemon);
+				stMov.executeUpdate();
+			}
 
-		try (PreparedStatement ps = conexion.prepareStatement(sql)) {
-
-			ps.setInt(1, idPokemon);
-
-			int filasAfectadas = ps.executeUpdate();
-
-			if (filasAfectadas > 0) {
-				System.out.println("DEBUG: Pokemon con ID: " + idPokemon + " ha sido eliminado");
-				return true;
-			} else {
-				System.out.println("DEBUG: Pokemon no encontrado");
-				return false;
+			// Ahora ya podemos borrar el pokemon
+			String sqlPokemon = "DELETE FROM pokemon WHERE id_Pokemon = ?";
+			try (PreparedStatement stPok = conexion.prepareStatement(sqlPokemon)) {
+				stPok.setInt(1, idPokemon);
+				return stPok.executeUpdate() > 0;
 			}
 
 		} catch (SQLException e) {
-			System.err.println("ERROR en el metodo nene");
-			System.err.println("Mensaje: " + e.getMessage());
-			System.err.println("Código de error SQL: " + e.getErrorCode());
+			System.out.println("ERROR en el metodo nene");
+			System.out.println("Mensaje: " + e.getMessage());
+			System.out.println("Codigo de error SQL: " + e.getErrorCode());
 			e.printStackTrace();
 			return false;
 		}
