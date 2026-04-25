@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import java.util.List;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +28,9 @@ import pokemon.Movimiento;
 import pokemon.Pokedex;
 import pokemon.PokedexDAO;
 import pokemon.Pokemon;
+import pokemon.PokemonDAO;
 import pokemon.Tipo;
+import pokemon.Entrenador;
 
 public class CombateController {
 
@@ -83,6 +86,17 @@ public class CombateController {
 	private Button btnMovimiento3;
 	@FXML
 	private Button btnMovimiento4;
+	@FXML
+	private Button btnLuchar;
+	@FXML
+	private Button btnMochila;
+	@FXML
+	private Button btnHuir;
+	@FXML
+	private Button btnCambiarPokemon;
+
+	// Botones: btnMovimiento1 btnMovimiento2 btnMovimiento3 btnMovimiento4
+	// btnLuchar btnMochila btnHuir btnCambiarPokemon
 
 	@FXML
 	private Label lblTipoMovimiento;
@@ -122,7 +136,7 @@ public class CombateController {
 	@FXML
 	public void initialize() {
 
-		//Coger el primer pokemon vivo del equipo del jugador
+		// Coger el primer pokemon vivo del equipo del jugador
 		for (Pokemon p : Main.miEquipo) {
 			if (!p.estaDebilitado()) {
 				pokemonJugadorActual = p;
@@ -191,95 +205,210 @@ public class CombateController {
 		// Sacalos de pokemonJugadorActual.getMovimientos()
 	}
 
-
 	@FXML
 	private void handleMovimiento1(ActionEvent event) {
-		 ejecutarMovimiento(1);
+		ejecutarMovimiento(1);
 	}
 
 	@FXML
 	private void handleMovimiento2(ActionEvent event) {
-		 ejecutarMovimiento(2);
+		ejecutarMovimiento(2);
 	}
 
 	@FXML
 	private void handleMovimiento3(ActionEvent event) {
-		 ejecutarMovimiento(3);
+		ejecutarMovimiento(3);
 	}
 
 	@FXML
 	private void handleMovimiento4(ActionEvent event) {
-		 ejecutarMovimiento(4);
+		ejecutarMovimiento(4);
 	}
 
 	private void ejecutarMovimiento(int indice) {
 
-		//Si se esyta haciendo un turno no hacemos nada 
-		if(  combateEnPausa) return;
+		// Si se esyta haciendo un turno no hacemos nada
+		if (combateEnPausa)
+			return;
 		combateEnPausa = true;
-		
-		//Se vueleve al panel mientras se ahce el turno
+
+		// Se vueleve al panel mientras se ahce el turno
 		mostrarPanel(panelAcciones);
-		
-		//Se coge el movimiento que quereamos
+
+		// Se coge el movimiento que quereamos
 		Movimiento movimiento;
-		//Hemoscreado un objeto movimiento
-		
-		if(pokemonJugadorActual.getMovimientos() != null
-				&& !pokemonJugadorActual.getMovimientos().isEmpty()
+		// Hemoscreado un objeto movimiento
+
+		if (pokemonJugadorActual.getMovimientos() != null && !pokemonJugadorActual.getMovimientos().isEmpty()
 				&& indice < pokemonJugadorActual.getMovimientos().size()) {
-			movimiento = pokemonJugadorActual.getMovimientos().get(indice);	
-				} else  {
-					 // Si no tienen ningun efecto se pone este por defecto, pero es imposible porque todos los pokemon ya vivnen generados con sus movimientos y ya
-			        movimiento = new Movimiento("Placaje", 40, Tipo.NORMAL, "ATAQUE", 0, 0);
-			    }
-				
-				//Ahora hacemos el metodo para comprobar que tiene suficiente estamiona
-		 	if (pokemonJugadorActual.getEstamina() < movimiento.getCosteEstamina()) {
-		        log(pokemonJugadorActual.getMote() + " no tiene estamina para usar "
-		                + movimiento.getNombre() + "!");
-		        combateEnPausa = false;
-		        return;
-	
-		 	}
-		 	
-		 	//Si se usa el ataque se gasta la estamina
-		    pokemonJugadorActual.setEstamina(
-		            pokemonJugadorActual.getEstamina() - movimiento.getCosteEstamina());
-		    
-		    
-		    //Ahora calculamos la efectividad de los tipos de ataque que hemos creado en tipos.java
-		    //Creamos la variable efectividad
-		    double efectividad = 1.0;
-		    String mensajeEfectividad = "";
-		    String resultadoTipo = "NEUTRO";
-		    
-		    if(pokemonRivalActual.getTipos() != null && !pokemonRivalActual.getTipos().isEmpty()) {
-		    	Tipo tipo1 = pokemonRivalActual.getTipos().get(0);
-		    	Tipo tipo2 = pokemonRivalActual.getTipos().size() > 1
-		    			?  pokemonRivalActual.getTipos().get(1): null;
-		    	
-		    	efectividad = movimiento.getTipo().calcularEfectividadDoble(tipo1, tipo2);
+			movimiento = pokemonJugadorActual.getMovimientos().get(indice);
+		} else {
+			// Si no tienen ningun efecto se pone este por defecto, pero es imposible porque
+			// todos los pokemon ya vivnen generados con sus movimientos y ya
+			movimiento = new Movimiento("Placaje", 40, Tipo.NORMAL, "ATAQUE", 0, 0);
+		}
 
-		    }
-		    
-		    
-		    //Deteminamos la ventaja si ess doble ventaja, ventaja neutro o desventaa, hacemos una condicional para comprobarlo, si la eefectivad es mayor a lo que se pide, es doble ventaja
-		    if (efectividad >= 4.0) {
-	            resultadoTipo     = "DOBLE_VENTAJA";
-	            mensajeEfectividad = "Es doblemente efectivo!";
-	        } else if (efectividad >= 2.0) {
-	            resultadoTipo     = "VENTAJA";
-	            mensajeEfectividad = "Es super efectivo";
-	        } else if (efectividad < 1.0 && efectividad > 0.0) {
-	            resultadoTipo     = "DESVENTAJA";
-	            mensajeEfectividad = "No es muy efectivo";
-	        } else if (efectividad == 0.0) {
-	            resultadoTipo     = "DESVENTAJA";
-	            mensajeEfectividad = "No afecta a " + pokemonRivalActual.getNombre();
-	        }
+		// Ahora hacemos el metodo para comprobar que tiene suficiente estamiona
+		if (pokemonJugadorActual.getEstamina() < movimiento.getCosteEstamina()) {
+			log(pokemonJugadorActual.getMote() + " no tiene estamina para usar " + movimiento.getNombre() + "!");
+			combateEnPausa = false;
+			return;
 
+		}
+
+		// Si se usa el ataque se gasta la estamina
+		pokemonJugadorActual.setEstamina(pokemonJugadorActual.getEstamina() - movimiento.getCosteEstamina());
+
+		// Ahora calculamos la efectividad de los tipos de ataque que hemos creado en
+		// tipos.java
+		// Creamos la variable efectividad
+		double efectividad = 1.0;
+		String mensajeEfectividad = "";
+		String resultadoTipo = "NEUTRO";
+
+		if (pokemonRivalActual.getTipos() != null && !pokemonRivalActual.getTipos().isEmpty()) {
+			Tipo tipo1 = pokemonRivalActual.getTipos().get(0);
+			Tipo tipo2 = pokemonRivalActual.getTipos().size() > 1 ? pokemonRivalActual.getTipos().get(1) : null;
+
+			efectividad = movimiento.getTipo().calcularEfectividadDoble(tipo1, tipo2);
+
+		}
+
+		// Deteminamos la ventaja si ess doble ventaja, ventaja neutro o desventaa,
+		// hacemos una condicional para comprobarlo, si la eefectivad es mayor a lo que
+		// se pide, es doble ventaja
+		if (efectividad >= 4.0) {
+			resultadoTipo = "DOBLE_VENTAJA";
+			mensajeEfectividad = "Es doblemente efectivo!";
+		} else if (efectividad >= 2.0) {
+			resultadoTipo = "VENTAJA";
+			mensajeEfectividad = "Es super efectivo";
+		} else if (efectividad < 1.0 && efectividad > 0.0) {
+			resultadoTipo = "DESVENTAJA";
+			mensajeEfectividad = "No es muy efectivo";
+		} else if (efectividad == 0.0) {
+			resultadoTipo = "DESVENTAJA";
+			mensajeEfectividad = "No afecta a " + pokemonRivalActual.getNombre();
+		}
+
+		// Calculamos el dano aplicando la efectividad de tipos
+		int danoJugador = (int) (calcularDano(pokemonJugadorActual, pokemonRivalActual, indice) * efectividad);
+		danoJugador = Math.max(1, danoJugador);
+
+		// Calculamos el dano que hara el rival
+		int danoRival = calcularDanoRival();
+
+		// Variables final para usarlas dentro del Timeline
+		final String nombreMov = movimiento.getNombre();
+		final String msgEfectividad = mensajeEfectividad;
+		final String resumenTipo = resultadoTipo;
+		final int danoFinalJugador = danoJugador;
+		final int danoFinalRival = danoRival;
+
+		// Timeline - cada KeyFrame es un segundo de retardo
+		// para que el jugador pueda leer los mensajes uno a uno
+		javafx.animation.Timeline timeline = new javafx.animation.Timeline(
+
+				// Segundo 0: mostramos el ataque del jugador
+				new javafx.animation.KeyFrame(javafx.util.Duration.seconds(0), e -> {
+					log(pokemonJugadorActual.getMote() + " uso " + nombreMov + "!");
+					if (!msgEfectividad.isEmpty())
+						log(msgEfectividad);
+					log("[Tipo: " + resumenTipo + "]");
+				}),
+
+				// Segundo 1: aplicamos el dano al rival y actualizamos su barra
+				new javafx.animation.KeyFrame(javafx.util.Duration.seconds(1), e -> {
+					pokemonRivalActual.recibirDano(danoFinalJugador);
+					log("Hizo " + danoFinalJugador + " puntos de dano!");
+					actualizarPantalla();
+				}),
+
+				// Segundo 2: comprobamos si el rival se debilito
+				new javafx.animation.KeyFrame(javafx.util.Duration.seconds(2), e -> {
+					if (pokemonRivalActual.estaDebilitado()) {
+						log(pokemonRivalActual.getNombre() + " se debilito!");
+						koRival++;
+						// El combate termina cuando el rival cae
+						finalizarCombate(true);
+					} else {
+						// Si sigue vivo el rival contraataca
+						log(pokemonRivalActual.getNombre() + " ataco!");
+					}
+				}),
+
+				// Segundo 3: aplicamos el dano del rival al jugador
+				new javafx.animation.KeyFrame(javafx.util.Duration.seconds(3), e -> {
+					if (!pokemonRivalActual.estaDebilitado()) {
+						pokemonJugadorActual.recibirDano(danoFinalRival);
+						log("Recibiste " + danoFinalRival + " puntos de dano!");
+						actualizarPantalla();
+					}
+				}),
+
+				// Segundo 4: comprobamos si el jugador se debilito
+				new javafx.animation.KeyFrame(javafx.util.Duration.seconds(4), e -> {
+					if (!pokemonRivalActual.estaDebilitado()) {
+						if (pokemonJugadorActual.estaDebilitado()) {
+							log(pokemonJugadorActual.getMote() + " se debilito!");
+							koJugador++;
+
+							// Buscamos el siguiente pokemon vivo
+							Pokemon siguiente = null;
+							for (Pokemon p : Main.miEquipo) {
+								if (!p.estaDebilitado() && p != pokemonJugadorActual) {
+									siguiente = p;
+									break;
+								}
+							}
+
+							if (siguiente != null) {
+								pokemonJugadorActual = siguiente;
+								actualizarPantalla();
+								log("Vamos " + pokemonJugadorActual.getMote() + "!");
+							} else {
+								log("No te quedan pokemon...");
+								finalizarCombate(false);
+								return;
+							}
+						}
+
+						// Subimos el turno y dejamos actuar al jugador
+						turno++;
+						lblTurno.setText("Turno " + turno);
+						log("Que hara " + pokemonJugadorActual.getMote() + "?");
+						combateEnPausa = false;
+					}
+				}));
+
+		timeline.play();
 	}
+	private void finalizarCombate(boolean ganoJugador) {
+	    combateEnPausa = true;
+
+	    if (ganoJugador) {
+	        // Formula de experiencia: (nivelJugador + nivelRival * 10) / 4
+	        int expGanada = (pokemonJugadorActual.getNivel()
+	                       + pokemonRivalActual.getNivel() * 10) / 4;
+
+	        // Le damos la experiencia al pokemon jugador
+	        // el metodo ganarExperiencia ya comprueba si sube de nivel
+	        pokemonJugadorActual.ganarExperiencia(expGanada);
+
+	        log("Ganaste el combate!");
+	        log(pokemonJugadorActual.getMote() + " gano " + expGanada + " puntos de experiencia!");
+
+	        // Actualizamos la barra de exp en pantalla
+	        actualizarPantalla();
+
+	    } else {
+	        log("Perdiste el combate");
+	    }
+
+	    // Desactivamos los botones para que no se pueda seguir jugando
+	    panelAcciones.setDisable(true);
+	}
+
 
 	// Hemos hecho el metodo de calcular el daño por ambos, del rival y del equipo.
 
@@ -318,62 +447,56 @@ public class CombateController {
 	@FXML
 	private void handleCambiarPokemon(ActionEvent event) {
 
+		// Juntamos los slots en arrays para manejarlos con un bucle
+		VBox[] slots = { slotCambio1, slotCambio2, slotCambio3, slotCambio4, slotCambio5, slotCambio6 };
+		ImageView[] imgs = { imgCambio1, imgCambio2, imgCambio3, imgCambio4, imgCambio5, imgCambio6 };
+		Label[] nombres = { lblCambio1, lblCambio2, lblCambio3, lblCambio4, lblCambio5, lblCambio6 };
+		ProgressBar[] barras = { hpCambio1, hpCambio2, hpCambio3, hpCambio4, hpCambio5, hpCambio6 };
 
-		    // Juntamos los slots en arrays para manejarlos con un bucle
-		    VBox[]        slots   = {slotCambio1, slotCambio2, slotCambio3,
-		                              slotCambio4, slotCambio5, slotCambio6};
-		    ImageView[]   imgs    = {imgCambio1, imgCambio2, imgCambio3,
-		                              imgCambio4, imgCambio5, imgCambio6};
-		    Label[]       nombres = {lblCambio1, lblCambio2, lblCambio3,
-		                              lblCambio4, lblCambio5, lblCambio6};
-		    ProgressBar[] barras  = {hpCambio1, hpCambio2, hpCambio3,
-		                              hpCambio4, hpCambio5, hpCambio6};
+		// Rellenamos cada slot con los datos del pokemon del equipo
+		for (int i = 0; i < 6; i++) {
+			if (Main.miEquipo != null && i < Main.miEquipo.size()) {
+				Pokemon p = Main.miEquipo.get(i);
 
-		    // Rellenamos cada slot con los datos del pokemon del equipo
-		    for (int i = 0; i < 6; i++) {
-		        if (Main.miEquipo != null && i < Main.miEquipo.size()) {
-		            Pokemon p = Main.miEquipo.get(i);
+				// Este es el nombre o si tiene mote el mote
+				String nombre = (p.getMote() != null && !p.getMote().isEmpty()) ? p.getMote() : p.getNombre();
+				nombres[i].setText(nombre);
 
-		            // Este es el nombre o si tiene mote el mote
-		            String nombre = (p.getMote() != null && !p.getMote().isEmpty())
-		                          ? p.getMote() : p.getNombre();
-		            nombres[i].setText(nombre);
+				// Esta es la barra de vida
+				double porcentaje = (double) p.getVitalidad() / p.getVitalidadMaxima();
+				barras[i].setProgress(Math.max(0, porcentaje));
 
-		            //Esta es la barra de vida
-		            double porcentaje = (double) p.getVitalidad() / p.getVitalidadMaxima();
-		            barras[i].setProgress(Math.max(0, porcentaje));
+				if (p.getInfoPokedex() != null) {
+					try {
+						InputStream is = getClass().getResourceAsStream(
+								"/spritesPokemons/Front/" + p.getInfoPokedex().getNum_Pokedex() + ".png");
+						if (is != null)
+							imgs[i].setImage(new Image(is));
+					} catch (Exception e) {
+						System.out.println("[Combate] No se pudo cargar sprite slot " + i);
+					}
+				}
 
+				// Si esta debilitado lo ponemos transparente para que se vea que no se puede
+				// usar
+				slots[i].setOpacity(p.estaDebilitado() ? 0.4 : 1.0);
 
-		            if (p.getInfoPokedex() != null) {
-		                try {
-		                    InputStream is = getClass().getResourceAsStream(
-		                        "/spritesPokemons/Front/"
-		                        + p.getInfoPokedex().getNum_Pokedex() + ".png");
-		                    if (is != null) imgs[i].setImage(new Image(is));
-		                } catch (Exception e) {
-		                    System.out.println("[Combate] No se pudo cargar sprite slot " + i);
-		                }
-		            }
+				// Al hacer clic en el slot cambiamos al pokemon
 
-		            // Si esta debilitado lo ponemos transparente para que se vea que no se puede usar
-		            slots[i].setOpacity(p.estaDebilitado() ? 0.4 : 1.0);
+				final int indice = i;
+				slots[i].setOnMouseClicked(e -> cambiarPokemon(indice));
 
-		            // Al hacer clic en el slot cambiamos al pokemon
+			} else {
+				// Slot vacio
+				nombres[i].setText("---");
+				barras[i].setProgress(0);
+				imgs[i].setImage(null);
+				slots[i].setOnMouseClicked(null);
+			}
+		}
+		// Aqui se muetra el cambio
+		mostrarPanel(panelCambioPokemon);
 
-		            final int indice = i;
-		            slots[i].setOnMouseClicked(e -> cambiarPokemon(indice));
-
-		        } else {
-		            // Slot vacio
-		            nombres[i].setText("---");
-		            barras[i].setProgress(0);
-		            imgs[i].setImage(null);
-		            slots[i].setOnMouseClicked(null);
-		        }
-		    }
-		    //Aqui se muetra el cambio
-		    mostrarPanel(panelCambioPokemon);
-		
 	}
 
 	private void cambiarPokemon(int indice) {
@@ -401,6 +524,7 @@ public class CombateController {
 
 	@FXML
 	private void handleMochila(ActionEvent event) {
+
 		// Metemos esto para que cuando nos metamos a mochila no se pierda el combate si
 		// no se quede guardado y poder seguir desde donde hemos salidlo.
 		Main.venimosDeCombate = true;
@@ -438,13 +562,99 @@ public class CombateController {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	@FXML
 	private void handleVolverAcciones(ActionEvent event) {
-	    mostrarPanel(panelAcciones);
+		mostrarPanel(panelAcciones);
 	}
 
+	<<<<<<<HEAD=======
+	// ══════════════════════════════════════════════════
+	// FINALIZAR COMBATE - se llama cuando alguno de
+	// los dos llega a 6 KO o cuando no quedan pokemon
+	// ══════════════════════════════════════════════════
+
+	public void calcularPokedollars(int pdGanados) {
+		Entrenador e = new Entrenador();
+
+		int pdActuales = e.getPokedollars();
+
+		pdGanados = pdActuales / 3;
+
+	}
+
+//	public void repartirExperiencia(int expTotal) {
+//		PokemonDAO pDAO = new PokemonDAO();
+//		List<Pokemon> equipo = Main.miEquipo;
+//		
+//		
+//		
+//		if(equipo==null || equipo.isEmpty()) return;
+//				
+//		txtLog.appendText("Repartida un total de: " + expTotal+ " EXP entre " + equipo.size() + " pokemón.\n");
+//		
+//		for(Pokemon p: equipo) {
+//			int expDividida = (p.getNivel() + (nivelRival * 10)) / 4;
+//			boolean si = pDAO.actualizarExperiencia(p, expDividida);
+//			
+//			if(si) {
+//				txtLog.appendText(p.getMote() + " ha ganado "+ expDividida);
+//			}
+//		}
+//		
+//		
+//		
+//	}
+//	//No me sale,ayuda
+//
+//
+//	private void finalizarCombate(boolean ganoJugador) {
+//		 btnMovimiento1.setDisable(true);
+//		 btnMovimiento2.setDisable(true);
+//		 btnMovimiento3.setDisable(true); 
+//		 btnMovimiento4.setDisable(true); 
+//		 btnLuchar.setDisable(true); 
+//		 btnMochila.setDisable(true); 
+//		 btnHuir.setDisable(true); 
+//		 btnCambiarPokemon.setDisable(true);
+//		 
+//		 Entrenador e = new Entrenador();
+//
+//		
+//	    if (ganoJugador == true) {
+//	    	//([NIVEL_POKEMON] + [NIVEL_POKEMON_RIVAL]*10) / 4 
+//	    	
+//	   
+//	    	
+//	        int expGanada = 
+//	        int pokedollars = calcularPokedollars();
+//	        repartirExperiencia(expGanada);
+//	       e.ganarPokedollars(pdGanados);
+//	        
+//	        
+//	        
+//	    } else {
+//	    	
+//	        txtLog.appendText("Has sido derrotado...\n");
+//	    }
+//	}
+//		
+
+	// TODO: Si ganoJugador es true:
+	// - Calcular experiencia con la formula:
+	// (nivelJugador + nivelRival * 10) / 4
+	// - Sumarle la experiencia al pokemon jugador
+	// - Escribir en el log "Ganaste el combate!"
+
+	// TODO: Si ganoJugador es false:
+	// - El jugador pierde 1/3 de sus pokedollars
+	// - Escribir en el log "Perdiste el combate..."
+
+	// TODO: Desactivar todos los botones para que
+	// no se pueda seguir jugando
+	// panelAcciones.setDisable(true);
+
+	>>>>>>>b6846134fb1e78e4dd87726a57fb1b8dc4c4d74d
 
 	private void actualizarPantalla() {
 
@@ -469,14 +679,12 @@ public class CombateController {
 				/ pokemonJugadorActual.getVitalidadMaxima();
 		hpBarJugador.setProgress(Math.max(0, porcentajeJugador));
 
-
 		cargarSprite(spritePokemonRival, pokemonRivalActual, true);
 		cargarSprite(spritePokemon, pokemonJugadorActual, false);
 
 		// Turno actual
 		lblTurno.setText("Turno " + turno);
 	}
-
 
 	private void cargarSprite(ImageView imageView, Pokemon pokemon, boolean frontal) {
 
@@ -500,7 +708,6 @@ public class CombateController {
 			System.out.println("[Combate] Error al cargar sprite: " + ruta);
 		}
 	}
-
 
 	private void log(String mensaje) {
 		// Aqui se escribe el mensaje en el textarea del combate

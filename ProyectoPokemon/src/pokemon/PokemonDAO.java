@@ -21,8 +21,8 @@ public class PokemonDAO {
 	    
 	    String sql = "INSERT INTO pokemon (num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, "
 	               + "vitalidadMaxima, ataque, defensa, ataq_Especial, def_Especial, velocidad, "
-	               + "fertilidad, nivel, estado, ubicacion, sexo) "
-	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	               + "fertilidad, nivel, estado, ubicacion, sexo, experiencia) "
+	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	    try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 	        // Vamos metiendo todos los datos del objeto Pokémon en los huecos de la consulta
@@ -52,6 +52,7 @@ public class PokemonDAO {
 	        statement.setString(14, pokemon.getEstado() != null ? pokemon.getEstado().name() : "NORMAL");
 	        statement.setInt(15, ubicacion); // 1 si va al equipo, 0 si va al PC
 	        statement.setString(16, pokemon.getSexo() != null ? pokemon.getSexo().name() : "MACHO");
+	        statement.setInt(17, pokemon.getExperiencia());
 
 	        int filas = statement.executeUpdate();
 	        return filas > 0;
@@ -360,6 +361,37 @@ public class PokemonDAO {
 		}
 	}
 
+	//Metodo para ganar experiencia
+	public boolean actualizarExperiencia(Pokemon p, int experienciaGanada) {
+		p.ganarExperiencia(experienciaGanada);
+		
+		//Con esta query actualizamos las estadisticas del pokemon si sube de nivel
+		String sql = "UPDATE pokemon SET experiencia = ?, nivel = ?, vitalidadMaxima = ?, vitalidad = ?, "
+	               + "ataque = ?, defensa = ?, ataq_Especial = ?, def_Especial = ?, velocidad = ? "
+	               + "WHERE id_Pokemon = ?";		
+		
+		
+		try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+			
+			ps.setInt(1, p.getExperiencia());
+	        ps.setInt(2, p.getNivel());
+	        ps.setInt(3, p.getVitalidadMaxima());
+	        ps.setInt(4, p.getVitalidad());
+	        ps.setInt(5, p.getAtaque());
+	        ps.setInt(6, p.getDefensa());
+	        ps.setInt(7, p.getAtaqueEspecial());
+	        ps.setInt(8, p.getDefensaEspecial());
+	        ps.setInt(9, p.getVelocidad());
+	        ps.setInt(10, p.getIdPokemon());
+
+	        return ps.executeUpdate() > 0;
+			
+		} catch (SQLException e) {
+	        System.err.println("Error al dar experiencia al Pokemon: " + p.getIdPokemon());
+	        e.printStackTrace();
+	        return false;
+	        }
+	}
 	// Busca el ID más alto de la tabla Pokémon para saber cuál ha sido el último en crearse
 	public int obtenerUltimoIdGenerado() {
 		// Esta consulta busca el número más alto en id_Pokemon
