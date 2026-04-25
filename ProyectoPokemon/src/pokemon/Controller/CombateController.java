@@ -123,23 +123,62 @@ public class CombateController {
 	public void initialize() {
 
 		// TODO: Coger el primer pokemon vivo del equipo del jugador
-		// y guardarlo en pokemonJugadorActual
-		// Ejemplo: pokemonJugadorActual = Main.miEquipo.get(0);
+		for (Pokemon p : Main.miEquipo) {
+			if (!p.estaDebilitado()) {
+				pokemonJugadorActual = p;
+				break;
+			}
+		}
 
-		// TODO: Generar el pokemon rival aleatorio
-		// y guardarlo en pokemonRivalActual
-		// Puedes usar PokedexDAO para sacar una especie aleatoria
+		//Si no hay pokemon vivos no se puede lucchar
+		if (pokemonJugadorActual == null) {
+			log("Tienes muerto todos los pokemon");
+			panelAcciones.setDisable(true);
+			return;
+		}
+		 // Generamos el pokemon rival aleatorio desde la pokedex
+	    PokedexDAO pokedexDAO = new PokedexDAO();
+	    int idAleatorio = pokedexDAO.generarIdPokedexAleatorio();
+	    Pokedex especie = pokedexDAO.buscarPorIdPokedex(idAleatorio);
 
-		// TODO: Llamar a actualizarPantalla() para mostrar
-		// los datos en la pantalla
+	    pokemonRivalActual = new Pokemon();
+	    pokemonRivalActual.setInfoPokedex(especie);
 
-		// TODO: Escribir en el log el mensaje de inicio
-		// Ejemplo: log("Un Pikachu salvaje aparecio!");
+	    if (especie != null) {
+	        pokemonRivalActual.setNombre(especie.getNombreEspecie());
+	        pokemonRivalActual.setMote(especie.getNombreEspecie());
+	    } else {
+	        pokemonRivalActual.setNombre("Pokemon");
+	        pokemonRivalActual.setMote("Pokemon");
+	    }
+
+	    // El nivel del rival es aleatorio dentro del rango de niveles de tu equipo
+	    int nivelMin = Integer.MAX_VALUE;
+	    int nivelMax = Integer.MIN_VALUE;
+	    for (Pokemon p : Main.miEquipo) {
+	        if (p.getNivel() < nivelMin) nivelMin = p.getNivel();
+	        if (p.getNivel() > nivelMax) nivelMax = p.getNivel();
+	    }
+	    int nivelRival = nivelMin + random.nextInt(Math.max(1, nivelMax - nivelMin + 1));
+	    pokemonRivalActual.setNivel(nivelRival);
+	    
+	    // Stats proporcionales al nivel
+	    int base = 10 + nivelRival * 2;
+	    pokemonRivalActual.setVitalidad(base + random.nextInt(10));
+	    pokemonRivalActual.setVitalidadMaxima(pokemonRivalActual.getVitalidad());
+	    pokemonRivalActual.setAtaque(base + random.nextInt(8));
+	    pokemonRivalActual.setDefensa(base + random.nextInt(8));
+	    pokemonRivalActual.setEstado(Estado.NORMAL);
+
+	    // Actualizamos la pantalla con los datos de los dos pokemon
+	    actualizarPantalla();
+
+	    // Mensaje de inicio en el log
+	    log("Un " + pokemonRivalActual.getNombre() + " salvaje aparecio!");
+	    log("Que hara " + pokemonJugadorActual.getMote() + "?");
 	}
+	
 
-	// ══════════════════════════════════════════════════
-	// BOTON LUCHAR - muestra el panel con los 4 movimientos
-	// ══════════════════════════════════════════════════
 
 	@FXML
 	private void handleLuchar(ActionEvent event) {
