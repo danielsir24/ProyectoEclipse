@@ -14,9 +14,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="761" prefWidth="1280" style="-fx-background-color: #8090A8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.pcController">
+<AnchorPane prefHeight="761" prefWidth="1280" style="-fx-background-color: #8090A8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.pcController">
+   <Button mnemonicParsing="false" text="Button" />
 
-    <VBox prefWidth="340" spacing="0" style="-fx-background-color: #E8E0C8; -fx-border-color: #707060 #A09880 #A09880 #707060; -fx-border-width: 5; -fx-background-radius: 6; -fx-border-radius: 6;" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
+    <VBox prefWidth="340" spacing="0" style="-fx-background-color: #E8E0C8; -fx-border-color: #707060 #A09880 #A09880 #707060; -fx-border-width: 5; -fx-background-radius: 6; -fx-border-radius: 6;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
 
         <!-- Nombre del Pokemon -->
         <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #6890B0; -fx-border-color: #507090; -fx-border-width: 0 0 3 0; -fx-padding: 10 18;">
@@ -64,7 +65,6 @@
             <Label fx:id="nomMov2" style="-fx-font-size: 20; -fx-text-fill: #303030;" text="-----------" />
             <Label fx:id="nomMov3" style="-fx-font-size: 20; -fx-text-fill: #303030;" text="-----------" />
             <Label fx:id="nomMov4" style="-fx-font-size: 20; -fx-text-fill: #303030;" text="-----------" />
-         <Button fx:id="btnCambiarMovimientos" onAction="#handleCambiarMovimientos" prefHeight="58" prefWidth="280" style="-fx-background-color: #A0B8D8; -fx-border-color: #607898 #8090A8 #8090A8 #607898; -fx-border-width: 3; -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #202030; -fx-cursor: hand;" text="CAMBIAR MOVIMIENTOS" />
         </VBox>
 
         <Region VBox.vgrow="ALWAYS" />
@@ -85,87 +85,87 @@
         <GridPane fx:id="Caja5x5" alignment="CENTER" hgap="10" style="-fx-background-color: #C0D8B0; -fx-border-color: #708060; -fx-border-width: 3; -fx-padding: 14; -fx-background-radius: 4;" vgap="10" VBox.vgrow="ALWAYS">
 
             <!-- FILA 0 -->
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1">
                 <ImageView fx:id="slot_0_0" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2">
                 <ImageView fx:id="slot_0_1" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3">
                 <ImageView fx:id="slot_0_2" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="0">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4">
                 <ImageView fx:id="slot_0_3" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="0">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="5">
                 <ImageView fx:id="slot_0_4" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
 
             <!-- FILA 1 -->
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <ImageView fx:id="slot_1_0" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <ImageView fx:id="slot_1_1" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                 <ImageView fx:id="slot_1_2" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="1">
                 <ImageView fx:id="slot_1_3" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="5" GridPane.rowIndex="1">
                 <ImageView fx:id="slot_1_4" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
 
             <!-- FILA 2 -->
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <ImageView fx:id="slot_2_0" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                 <ImageView fx:id="slot_2_1" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="2">
                 <ImageView fx:id="slot_2_2" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="2">
                 <ImageView fx:id="slot_2_3" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="5" GridPane.rowIndex="2">
                 <ImageView fx:id="slot_2_4" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
 
             <!-- FILA 3 -->
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <ImageView fx:id="slot_3_0" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="3">
                 <ImageView fx:id="slot_3_1" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="3">
                 <ImageView fx:id="slot_3_2" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="3">
                 <ImageView fx:id="slot_3_3" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="5" GridPane.rowIndex="3">
                 <ImageView fx:id="slot_3_4" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
 
             <!-- FILA 4 -->
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="0" GridPane.rowIndex="4">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <ImageView fx:id="slot_4_0" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="4">
                 <ImageView fx:id="slot_4_1" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="4">
                 <ImageView fx:id="slot_4_2" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="4">
                 <ImageView fx:id="slot_4_3" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
-            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <StackPane prefHeight="118" prefWidth="120" style="-fx-background-color: #D8E8C8; -fx-border-color: #90A870; -fx-border-width: 2;" GridPane.columnIndex="5" GridPane.rowIndex="4">
                 <ImageView fx:id="slot_4_4" fitHeight="96" fitWidth="96" preserveRatio="true" />
             </StackPane>
             <columnConstraints>
@@ -174,6 +174,7 @@
                 <ColumnConstraints />
                 <ColumnConstraints />
                 <ColumnConstraints />
+            <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints />

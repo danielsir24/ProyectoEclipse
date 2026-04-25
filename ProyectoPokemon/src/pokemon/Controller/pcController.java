@@ -16,8 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
+
 import javafx.scene.media.AudioClip;
-import javafx.scene.control.ListView;
+
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import pokemon.PokedexDAO;
@@ -63,8 +64,6 @@ public class pcController {
 	private Label nomMov3;
 	@FXML
 	private Label nomMov4;
-	@FXML
-	ListView<Movimiento> listaMovimientos;
 
 	// Botones de cambiar de caja (no se ni si los vamos a usar)
 	@FXML
