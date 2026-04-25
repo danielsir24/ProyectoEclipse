@@ -52,21 +52,35 @@ public class CombateLigaController {
       
     }
 
-    @FXML
-    private void handleMochila(ActionEvent event) {
-        System.out.println("Acción: MOCHILA (Descansar)");
-        // Según los requisitos, en combate se puede descansar para recuperar estamina[cite: 228].
-        if (Main.miEquipo != null && !Main.miEquipo.isEmpty()) {
-            Pokemon activo = Main.miEquipo.get(0); // Suponiendo que el índice 0 es el activo
-            // activo.setEstamina(activo.getEstamina() + X); // Aplica tu fórmula de recuperación
-            
-            System.out.println(activo.getNombre() + " ha descansado y recuperado estamina.");
-            
-        
-        }
-    }
+	@FXML
+	private void handleMochila(ActionEvent event) {
+		//Codigo reciclado de CombateController jiji
+		//Metemos esto para que cuando nos metamos a mochila no se pierda el combate si no se quede guardado y poder seguir desde donde hemos salidlo.
+		 Main.venimosDeCombate = true;
+		//Abirmos mochila para ver neustros objetos
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/EscenaMochila.fxml"));
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Mochila");
+			stage.show();
+			
+		} catch (IOException e) {
+			log("Error al entrar a mochila" + e.getMessage());
+			e.printStackTrace();
+		}
 
-    @FXML
+	}
+
+
+    private void log(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@FXML
     private void handlePokemon(ActionEvent event) {
         System.out.println("Acción: POKEMON (Cambiar)");
         // Oculta los botones y muestra la lista de tu equipo[cite: 230].
