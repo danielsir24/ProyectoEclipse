@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
 
 
     <ImageView fx:id="imgFondoCombate" fitHeight="470" fitWidth="1280" preserveRatio="false" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
@@ -37,7 +37,7 @@
         </HBox>
     </VBox>
 
-    <VBox layoutX="867.0" layoutY="325.0" prefWidth="300" spacing="3" style="-fx-background-color: white;                -fx-border-color: #222222;                -fx-border-width: 3;                -fx-padding: 8 14 10 14;" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="325.0">
+    <VBox layoutX="819.0" layoutY="325.0" prefWidth="300" spacing="3" style="-fx-background-color: white;                -fx-border-color: #222222;                -fx-border-width: 3;                -fx-padding: 8 14 10 14;" AnchorPane.rightAnchor="161.0" AnchorPane.topAnchor="325.0">
 
         <HBox alignment="CENTER_LEFT" spacing="6">
             <Label fx:id="lblNombreJugador" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 15px; -fx-text-fill: #111111;" />
@@ -64,10 +64,16 @@
     </VBox>
 
 
-    <ImageView fx:id="spriteRival" fitHeight="190" fitWidth="190" layoutX="910.0" layoutY="53.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.2, 0, 6);" AnchorPane.leftAnchor="910.0" AnchorPane.topAnchor="53.0" />
+    <ImageView fx:id="spritePokemonRival" fitHeight="233.0" fitWidth="289.0" layoutX="856.0" layoutY="65.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.2, 0, 6);" AnchorPane.leftAnchor="856.0" AnchorPane.topAnchor="65.0">
+      <image>
+         <Image url="@spritesPokemonsGifsFront/9.gif" />
+      </image></ImageView>
 
 
-    <ImageView fx:id="spriteJugador" fitHeight="200" fitWidth="200" layoutX="191.0" layoutY="260.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 8);" AnchorPane.leftAnchor="191.0" AnchorPane.topAnchor="260.0" />
+    <ImageView fx:id="spritePokemon" fitHeight="332.0" fitWidth="300.0" layoutX="132.0" layoutY="170.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 8);" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="170.0">
+      <image>
+         <Image url="@../../../../Desktop/imagenesgenero/ProyectoPokemon/resources/spritesPokemonsGifsBack/Aerodactyl.gif" />
+      </image></ImageView>
 
     <HBox alignment="CENTER_LEFT" spacing="14" style="-fx-background-color: rgba(0,0,0,0.55); -fx-padding: 4 16 4 16;" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
         <Label fx:id="lblTurno" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 11px; -fx-text-fill: #ffffff;" text="Turno 1" />

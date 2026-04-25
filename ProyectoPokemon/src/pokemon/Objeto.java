@@ -1,7 +1,9 @@
 package pokemon;
 
+// Esta clase representa los objetos o ítems que pueden equiparse los Pokémon para mejorar sus stats
 public class Objeto {
 
+	// Atributos para el nombre del ítem, su ID y todos los posibles bonos o penalizaciones de combate
 	private String nombre;
 	private int idObjeto;
 	private double bonusAtaque;
@@ -15,6 +17,7 @@ public class Objeto {
 	private double bonusVelocidad;
 	private double penalizacionVelocidad;
 
+	// Constructor completo para crear un objeto con todos sus efectos de estadísticas definidos
 	public Objeto(String nombre, int idObjeto, double bonusAtaque, double bonusDefensa, double penalizacionAtaque,
 			double penalizacionDefensa, double bonusAtaqueEspecial, double bonusDefensaEspecial, double bonusVelocidad,
 			double penalizacionAtaqueEspecial, double penalizacionDefensaEspecial, double penalizacionVelocidad) {
@@ -32,6 +35,7 @@ public class Objeto {
 		this.penalizacionVelocidad = penalizacionVelocidad;
 	}
 
+	// Constructor por defecto que inicializa los valores para que no afecten a las stats (multiplicador 1.0)
 	public Objeto() {
 		nombre = "";
 		this.idObjeto = 0;
@@ -40,6 +44,9 @@ public class Objeto {
 		this.penalizacionAtaque = 1.0;
 		this.penalizacionDefensa = 1.0;
 	}
+
+	// ----- GETTERS Y SETTERS -----
+	// Los usamos para que otras clases puedan consultar cuánto mejora o empeora cada stat el objeto
 
 	public String getNombre() {
 		return nombre;
@@ -118,7 +125,7 @@ public class Objeto {
 	}
 
 	public void setPenalizacionDefensaEspecial(double penalizacionDefensaEspecial) {
-		this.penalizacionDefensaEspecial = penalizacionDefensa;
+		this.penalizacionDefensaEspecial = penalizacionDefensaEspecial;
 	}
 
 	public double getBonusVelocidad() {
@@ -137,10 +144,12 @@ public class Objeto {
 		this.penalizacionVelocidad = penalizacionVelocidad;
 	}
 
+	// Devuelve una frase corta con el resumen de lo que hace el objeto (útil para la interfaz)
 	public String obtenerInfo() {
 		return nombre + " (Ataque: +" + bonusAtaque + " | Defensa: -" + penalizacionDefensa + ")";
 	}
 
+	// Comprueba si el objeto es principalmente para atacar (si el bono de ataque es mayor que lo que quita de defensa)
 	public boolean esOfensivo() {
 		return bonusAtaque > penalizacionDefensa;
 	}

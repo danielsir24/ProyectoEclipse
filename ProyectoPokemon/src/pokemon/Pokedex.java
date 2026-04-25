@@ -1,7 +1,9 @@
 package pokemon;
 
+// Esta clase representa la información de la enciclopedia Pokémon (la Pokédex)
 public class Pokedex {
 
+	// Atributos con los datos fijos de cada especie: número, nombre, tipos y rutas de archivos
 	private int num_Pokedex;
 	private String nombreEspecie;
 	private String tipo1;
@@ -10,6 +12,7 @@ public class Pokedex {
 	private String sonido;
 	private String img_Frontal;
 
+	// Constructor para crear una entrada de la Pokédex con sus datos principales
 	public Pokedex(int num_Pokedex, String tipo1, String tipo2, String img_Back, String sonido, String img_Frontal) {
 		super();
 		this.num_Pokedex = num_Pokedex;
@@ -20,15 +23,19 @@ public class Pokedex {
 		this.img_Frontal = img_Frontal;
 	}
 
+	// Constructor vacío por si necesitamos crear el objeto y rellenarlo luego
 	public Pokedex() {
 		super();
 	}
 
+	// Método para saber si un Pokémon tiene un segundo tipo o solo uno
 	public boolean tieneSegundoTipo() {
 		return tipo2 != null && !tipo2.isEmpty() && !tipo2.equalsIgnoreCase("ninguno");
 	}
 
+	// Este método nos devuelve la ruta de la carpeta donde están guardados los sprites (imágenes)
 	public String getRutaImagen(boolean frontal) {
+		// Si pedimos la imagen frontal nos da una ruta, si no, nos da la de espalda
 		if (frontal = true) {
 			return "/spritesPokemons/Front/" + this.num_Pokedex + ".png";
 		} else {
@@ -36,6 +43,7 @@ public class Pokedex {
 		}
 	}
 
+	// Un método rápido para imprimir por consola el número y los tipos del Pokémon
 	public void mostrarInfoBasica() {
 		String tipos = tipo1;
 		if (tieneSegundoTipo()) {
@@ -43,6 +51,9 @@ public class Pokedex {
 		}
 		System.out.println("Nº Pokedex: " + num_Pokedex + " | Tipos: " + tipos);
 	}
+
+	// ----- GETTERS Y SETTERS -----
+	// Los usamos para leer y modificar la información de la Pokédex desde otras clases
 
 	public int getNum_Pokedex() {
 		return num_Pokedex;
