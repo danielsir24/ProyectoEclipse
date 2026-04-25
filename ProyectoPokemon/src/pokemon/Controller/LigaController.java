@@ -132,19 +132,31 @@ public class LigaController {
         btnCombatir.setDisable(false);
     }
 
-    // Botones 
-
+    // Botones
     @FXML
     private void handleCurar(ActionEvent event) {
-        if (Main.miEquipo != null) {
+        // 1. Verificar que el equipo existe
+        if (Main.miEquipo != null && !Main.miEquipo.isEmpty()) {
+            
+            // 2. Aplicar restauración total
             for (Pokemon p : Main.miEquipo) {
                 p.setVitalidad(p.getVitalidadMaxima());
                 p.setEstamina(100);
-                p.setEstado(Estado.NORMAL);
+                p.setEstado(Estado.NORMAL); // Elimina parálisis, sueño, etc.
             }
+
+            // 3. Activar bandera de penalización
+            // Esta variable estática DEBE ser consultada por el controlador de combate
+            // al finalizar la batalla para dividir el premio entre 2.
             seHaCuradoEnEsteTurno = true;
+
+            // 4. Visual y deshabilitar botón
             btnCurar.setDisable(true);
             actualizarInfoLiga();
+            
+            System.out.println("Equipo curado. Se ha aplicado la penalización de recompensa (50%).");
+        } else {
+            System.err.println("Error: No se encontró el equipo del entrenador.");
         }
     }
 
