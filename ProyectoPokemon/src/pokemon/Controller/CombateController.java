@@ -123,23 +123,62 @@ public class CombateController {
 	public void initialize() {
 
 		// TODO: Coger el primer pokemon vivo del equipo del jugador
-		// y guardarlo en pokemonJugadorActual
-		// Ejemplo: pokemonJugadorActual = Main.miEquipo.get(0);
+		for (Pokemon p : Main.miEquipo) {
+			if (!p.estaDebilitado()) {
+				pokemonJugadorActual = p;
+				break;
+			}
+		}
 
-		// TODO: Generar el pokemon rival aleatorio
-		// y guardarlo en pokemonRivalActual
-		// Puedes usar PokedexDAO para sacar una especie aleatoria
+		// Si no hay pokemon vivos no se puede lucchar
+		if (pokemonJugadorActual == null) {
+			log("Tienes muerto todos los pokemon");
+			panelAcciones.setDisable(true);
+			return;
+		}
+		// Generamos el pokemon rival aleatorio desde la pokedex
+		PokedexDAO pokedexDAO = new PokedexDAO();
+		int idAleatorio = pokedexDAO.generarIdPokedexAleatorio();
+		Pokedex especie = pokedexDAO.buscarPorIdPokedex(idAleatorio);
 
-		// TODO: Llamar a actualizarPantalla() para mostrar
-		// los datos en la pantalla
+		pokemonRivalActual = new Pokemon();
+		pokemonRivalActual.setInfoPokedex(especie);
 
-		// TODO: Escribir en el log el mensaje de inicio
-		// Ejemplo: log("Un Pikachu salvaje aparecio!");
+		if (especie != null) {
+			pokemonRivalActual.setNombre(especie.getNombreEspecie());
+			pokemonRivalActual.setMote(especie.getNombreEspecie());
+		} else {
+			pokemonRivalActual.setNombre("Pokemon");
+			pokemonRivalActual.setMote("Pokemon");
+		}
+
+		// El nivel del rival es aleatorio dentro del rango de niveles de tu equipo
+		int nivelMin = Integer.MAX_VALUE;
+		int nivelMax = Integer.MIN_VALUE;
+		for (Pokemon p : Main.miEquipo) {
+			if (p.getNivel() < nivelMin)
+				nivelMin = p.getNivel();
+			if (p.getNivel() > nivelMax)
+				nivelMax = p.getNivel();
+		}
+		int nivelRival = nivelMin + random.nextInt(Math.max(1, nivelMax - nivelMin + 1));
+		pokemonRivalActual.setNivel(nivelRival);
+
+		// Stats proporcionales al nivel
+		int base = 10 + nivelRival * 2;
+		pokemonRivalActual.setVitalidad(base + random.nextInt(10));
+		pokemonRivalActual.setVitalidadMaxima(pokemonRivalActual.getVitalidad());
+		pokemonRivalActual.setAtaque(base + random.nextInt(8));
+		pokemonRivalActual.setDefensa(base + random.nextInt(8));
+		pokemonRivalActual.setEstado(Estado.NORMAL);
+
+		// Actualizamos la pantalla con los datos de los dos pokemon
+		actualizarPantalla();
+
+		// Mensaje de inicio en el log
+		log("Un " + pokemonRivalActual.getNombre() + " salvaje aparecio!");
+		log("Que hara " + pokemonJugadorActual.getMote() + "?");
 	}
-
-	// ══════════════════════════════════════════════════
-	// BOTON LUCHAR - muestra el panel con los 4 movimientos
-	// ══════════════════════════════════════════════════
 
 	@FXML
 	private void handleLuchar(ActionEvent event) {
@@ -253,41 +292,40 @@ public class CombateController {
 
 	private void cambiarPokemon(int indice) {
 		Pokemon seleccionado = Main.miEquipo.get(indice);
-		//Vemos si el pokemon esta debilitado ono
-		
+		// Vemos si el pokemon esta debilitado ono
+
 		if (seleccionado.estaDebilitado()) {
 			log(seleccionado.getMote() + "no puede pelear, esta muerto");
 			return;
 		}
-		
-		//Comprobnacion de que noe s el mismo pokemon
+
+		// Comprobnacion de que noe s el mismo pokemon
 		if (seleccionado == pokemonJugadorActual) {
 			log(seleccionado.getMote() + "ya esta peleando");
 			return;
 		}
-		
-		//Camiamos el pokemon
+
+		// Camiamos el pokemon
 		pokemonJugadorActual = seleccionado;
 		actualizarPantalla();
-		log("Pelemaos con "+ seleccionado.getMote());
+		log("Pelemaos con " + seleccionado.getMote());
 		mostrarPanel(panelAcciones);
 
 	}
 
-
-
 	@FXML
 	private void handleMochila(ActionEvent event) {
-		//Metemos esto para que cuando nos metamos a mochila no se pierda el combate si no se quede guardado y poder seguir desde donde hemos salidlo.
-		 Main.venimosDeCombate = true;
-		//Abirmos mochila para ver neustros objetos
+		// Metemos esto para que cuando nos metamos a mochila no se pierda el combate si
+		// no se quede guardado y poder seguir desde donde hemos salidlo.
+		Main.venimosDeCombate = true;
+		// Abirmos mochila para ver neustros objetos
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/EscenaMochila.fxml"));
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 			stage.setTitle("Mochila");
 			stage.show();
-			
+
 		} catch (IOException e) {
 			log("Error al entrar a mochila" + e.getMessage());
 			e.printStackTrace();
@@ -358,23 +396,33 @@ public class CombateController {
 
 	private void actualizarPantalla() {
 
-		// TODO: Actualizar el label del nombre del rival
-		// lblNombreRival.setText(pokemonRivalActual.getNombre());
+		// Nombre y nivel del rival
+		lblNombreRival.setText(pokemonRivalActual.getNombre());
+		lblNivelRival.setText("Nv." + pokemonRivalActual.getNivel());
 
-		// TODO: Actualizar el label del nivel del rival
-		// lblNivelRival.setText("Nv." + pokemonRivalActual.getNivel());
+		// Barra de vida del rival
+		double porcentajeRival = (double) pokemonRivalActual.getVitalidad() / pokemonRivalActual.getVitalidadMaxima();
+		hpBarRival.setProgress(Math.max(0, porcentajeRival));
 
-		// TODO: Actualizar la barra de vida del rival
-		// hpBarRival.setProgress((double) vida / vidaMaxima);
+		// Nombre, nivel y vida del jugador
+		String mote = (pokemonJugadorActual.getMote() != null && !pokemonJugadorActual.getMote().isEmpty())
+				? pokemonJugadorActual.getMote()
+				: pokemonJugadorActual.getNombre();
+		lblNombreJugador.setText(mote);
+		lblNivelJugador.setText("Nv." + pokemonJugadorActual.getNivel());
+		lblPsJugador.setText(pokemonJugadorActual.getVitalidad() + "/" + pokemonJugadorActual.getVitalidadMaxima());
 
-		// TODO: Lo mismo para el jugador con sus labels y barra
+		// Barra de vida del jugador
+		double porcentajeJugador = (double) pokemonJugadorActual.getVitalidad()
+				/ pokemonJugadorActual.getVitalidadMaxima();
+		hpBarJugador.setProgress(Math.max(0, porcentajeJugador));
 
-		// TODO: Cargar los sprites (gifs) de los pokemon
-		// cargarSprite(spriteRival, pokemonRivalActual, true);
-		// cargarSprite(spriteJugador, pokemonJugadorActual, false);
+		// Sprites - rival frontal, jugador de espalda
+		cargarSprite(spritePokemonRival, pokemonRivalActual, true);
+		cargarSprite(spritePokemon, pokemonJugadorActual, false);
 
-		// TODO: Actualizar el label del turno
-		// lblTurno.setText("Turno " + turno);
+		// Turno actual
+		lblTurno.setText("Turno " + turno);
 	}
 
 	// ══════════════════════════════════════════════════
@@ -385,14 +433,25 @@ public class CombateController {
 
 	private void cargarSprite(ImageView imageView, Pokemon pokemon, boolean frontal) {
 
-		// TODO: Construir la ruta del gif segun si es frontal o espalda
-		// Frontal: "/spritesPokemonsGifsFront/" + numPokedex + ".gif"
-		// Espalda: "/spritesPokemonsGifsBack/" + numPokedex + ".gif"
+		// Comprobamos que el pokemon tiene info de la pokedex
+		if (pokemon.getInfoPokedex() == null)
+			return;
 
-		// TODO: Cargar la imagen con getClass().getResourceAsStream(ruta)
-		// y asignarla al imageView con imageView.setImage(new Image(is))
+		// Construimos la ruta segun si es frontal o de espalda
+		String carpeta = frontal ? "spritesPokemonsGifsFront" : "spritesPokemonsGifsBack";
+		String ruta = "/" + carpeta + "/" + pokemon.getInfoPokedex().getNum_Pokedex() + ".gif";
 
-		// TODO: Manejar el caso de que la imagen no exista (try/catch)
+		// Cargamos el gif
+		try {
+			InputStream is = getClass().getResourceAsStream(ruta);
+			if (is != null) {
+				imageView.setImage(new Image(is));
+			} else {
+				System.out.println("[Combate] Sprite no encontrado: " + ruta);
+			}
+		} catch (Exception e) {
+			System.out.println("[Combate] Error al cargar sprite: " + ruta);
+		}
 	}
 
 	// ══════════════════════════════════════════════════
@@ -419,13 +478,14 @@ public class CombateController {
 		panelCambioPokemon.setVisible(false);
 		panelCambioPokemon.setManaged(false);
 		// aqui ssolo se pasa lo que hay como parametro
-	    if (panel instanceof HBox) {
-	        ((HBox) panel).setVisible(true);
-	        ((HBox) panel).setManaged(true);
-	    } else if (panel instanceof VBox) {
-	        ((VBox) panel).setVisible(true);
-	        ((VBox) panel).setManaged(true);
-	    }
+		if (panel instanceof HBox) {
+			((HBox) panel).setVisible(true);
+			((HBox) panel).setManaged(true);
+		} else if (panel instanceof VBox) {
+			((VBox) panel).setVisible(true);
+			((VBox) panel).setManaged(true);
+		}
 
 	}
+
 }
