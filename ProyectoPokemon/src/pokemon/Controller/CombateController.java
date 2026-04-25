@@ -17,11 +17,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import java.util.List;
-
+import pokemon.PokemonDAO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
-
+import javafx.geometry.Pos;
+import pokemon.PokemonDAO;
 import pokemon.Estado;
 import pokemon.Main;
 import pokemon.Movimiento;
@@ -136,6 +137,10 @@ public class CombateController {
 	@FXML
 	public void initialize() {
 
+		// Recargamos el equipo desde la BD para tener los movimientos actualizados
+		PokemonDAO pDAO = new PokemonDAO();
+		Main.miEquipo = pDAO.obtenerEquipo(Main.entrenadorLogueado.getId_Entrenador());
+
 		// Coger el primer pokemon vivo del equipo del jugador
 		for (Pokemon p : Main.miEquipo) {
 			if (!p.estaDebilitado()) {
@@ -197,32 +202,53 @@ public class CombateController {
 	@FXML
 	private void handleLuchar(ActionEvent event) {
 
-		// TODO: Mostrar el panelMovimientos
-		// y ocultar el panelAcciones
+		// Ponemos los nombres de los movimientos en los botones
+		Button[] botones = { btnMovimiento1, btnMovimiento2, btnMovimiento3, btnMovimiento4 };
 
-		// TODO: Poner los nombres de los movimientos
-		// en los botones btnMovimiento1, 2, 3, 4
-		// Sacalos de pokemonJugadorActual.getMovimientos()
+		if (pokemonJugadorActual.getMovimientos() == null || pokemonJugadorActual.getMovimientos().isEmpty()) {
+			// Si no tiene movimientos usamos Placaje por defecto
+			btnMovimiento1.setText("Placaje");
+			btnMovimiento2.setText("---");
+			btnMovimiento3.setText("---");
+			btnMovimiento4.setText("---");
+			btnMovimiento2.setDisable(true);
+			btnMovimiento3.setDisable(true);
+			btnMovimiento4.setDisable(true);
+		} else {
+			for (int i = 0; i < 4; i++) {
+				if (i < pokemonJugadorActual.getMovimientos().size()) {
+					botones[i].setText(pokemonJugadorActual.getMovimientos().get(i).getNombre());
+					botones[i].setDisable(false);
+				} else {
+					// Si tiene menos de 4 movimientos dejamos los sobrantes desactivados
+					botones[i].setText("---");
+					botones[i].setDisable(true);
+				}
+			}
+		}
+
+		// Mostramos el panel de movimientos
+		mostrarPanel(panelMovimientos);
 	}
 
 	@FXML
 	private void handleMovimiento1(ActionEvent event) {
-		ejecutarMovimiento(1);
+		ejecutarMovimiento(0);
 	}
 
 	@FXML
 	private void handleMovimiento2(ActionEvent event) {
-		ejecutarMovimiento(2);
+		ejecutarMovimiento(1);
 	}
 
 	@FXML
 	private void handleMovimiento3(ActionEvent event) {
-		ejecutarMovimiento(3);
+		ejecutarMovimiento(2);
 	}
 
 	@FXML
 	private void handleMovimiento4(ActionEvent event) {
-		ejecutarMovimiento(4);
+		ejecutarMovimiento(3);
 	}
 
 	private void ejecutarMovimiento(int indice) {
@@ -231,6 +257,8 @@ public class CombateController {
 		if (combateEnPausa)
 			return;
 		combateEnPausa = true;
+		System.out.println("[DEBUG] Movimientos: " + (pokemonJugadorActual.getMovimientos() == null ? "null"
+				: pokemonJugadorActual.getMovimientos().size()));
 
 		// Se vueleve al panel mientras se ahce el turno
 		mostrarPanel(panelAcciones);
@@ -383,32 +411,79 @@ public class CombateController {
 
 		timeline.play();
 	}
+
 	private void finalizarCombate(boolean ganoJugador) {
-	    combateEnPausa = true;
+		combateEnPausa = true;
 
-	    if (ganoJugador) {
-	        // Formula de experiencia: (nivelJugador + nivelRival * 10) / 4
-	        int expGanada = (pokemonJugadorActual.getNivel()
-	                       + pokemonRivalActual.getNivel() * 10) / 4;
+		if (ganoJugador) {
+			// Formula de experiencia: (nivelJugador + nivelRival * 10) / 4
+			int expGanada = (pokemonJugadorActual.getNivel() + pokemonRivalActual.getNivel() * 10) / 4;
 
-	        // Le damos la experiencia al pokemon jugador
-	        // el metodo ganarExperiencia ya comprueba si sube de nivel
-	        pokemonJugadorActual.ganarExperiencia(expGanada);
+			// Le damos la experiencia al pokemon jugador
+			// el metodo ganarExperiencia ya comprueba si sube de nivel
+			pokemonJugadorActual.ganarExperiencia(expGanada);
 
-	        log("Ganaste el combate!");
-	        log(pokemonJugadorActual.getMote() + " gano " + expGanada + " puntos de experiencia!");
+			log("Ganaste el combate!");
+			log(pokemonJugadorActual.getMote() + " gano " + expGanada + " puntos de experiencia!");
 
-	        // Actualizamos la barra de exp en pantalla
-	        actualizarPantalla();
+			// Actualizamos la barra de exp en pantalla
+			actualizarPantalla();
 
-	    } else {
-	        log("Perdiste el combate");
-	    }
+		} else {
+			log("Perdiste el combate");
+		}
 
-	    // Desactivamos los botones para que no se pueda seguir jugando
-	    panelAcciones.setDisable(true);
+		// Desactivamos los botones para que no se pueda seguir jugando
+		panelAcciones.setDisable(true);
+
+		// Creamos dos botones dinamicamente para repetir o salir
+		javafx.scene.control.Button btnRepetir = new javafx.scene.control.Button("Repetir combate");
+		btnRepetir.setStyle("-fx-background-color: #44bb44; -fx-text-fill: white;"
+				+ "-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 14px;"
+				+ "-fx-background-radius: 10; -fx-padding: 10 20 10 20; -fx-cursor: hand;");
+
+		javafx.scene.control.Button btnSalir = new javafx.scene.control.Button("Volver al menu");
+		btnSalir.setStyle("-fx-background-color: #3377dd; -fx-text-fill: white;"
+				+ "-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 14px;"
+				+ "-fx-background-radius: 10; -fx-padding: 10 20 10 20; -fx-cursor: hand;");
+
+		// Al pulsar repetir recargamos la escena de combate
+		btnRepetir.setOnAction(e -> {
+			try {
+				// Recargamos el equipo antes de volver a combatir
+				PokemonDAO pDAO = new PokemonDAO();
+				Main.miEquipo = pDAO.obtenerEquipo(Main.entrenadorLogueado.getId_Entrenador());
+
+				Parent root = FXMLLoader.load(getClass().getResource("/EscenaCombate.fxml"));
+				Stage stage = (Stage) panelAcciones.getScene().getWindow();
+				stage.setScene(new Scene(root));
+				stage.setTitle("Combate");
+				stage.show();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		});
+
+		// Al pulsar salir volvemos al menu principal
+		btnSalir.setOnAction(e -> {
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/EscenaMenu.fxml"));
+				Stage stage = (Stage) panelAcciones.getScene().getWindow();
+				stage.setScene(new Scene(root));
+				stage.setTitle("Menu Principal");
+				stage.show();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		});
+
+		// Añadimos los botones al panel de acciones en un HBox centrado
+		javafx.scene.layout.HBox hboxBotones = new javafx.scene.layout.HBox(20);
+		hboxBotones.setAlignment(javafx.geometry.Pos.CENTER);
+		hboxBotones.getChildren().addAll(btnRepetir, btnSalir);
+		panelAcciones.getChildren().add(hboxBotones);
+		panelAcciones.setDisable(false);
 	}
-
 
 	// Hemos hecho el metodo de calcular el daño por ambos, del rival y del equipo.
 
@@ -568,12 +643,6 @@ public class CombateController {
 		mostrarPanel(panelAcciones);
 	}
 
-	<<<<<<<HEAD=======
-	// ══════════════════════════════════════════════════
-	// FINALIZAR COMBATE - se llama cuando alguno de
-	// los dos llega a 6 KO o cuando no quedan pokemon
-	// ══════════════════════════════════════════════════
-
 	public void calcularPokedollars(int pdGanados) {
 		Entrenador e = new Entrenador();
 
@@ -582,79 +651,6 @@ public class CombateController {
 		pdGanados = pdActuales / 3;
 
 	}
-
-//	public void repartirExperiencia(int expTotal) {
-//		PokemonDAO pDAO = new PokemonDAO();
-//		List<Pokemon> equipo = Main.miEquipo;
-//		
-//		
-//		
-//		if(equipo==null || equipo.isEmpty()) return;
-//				
-//		txtLog.appendText("Repartida un total de: " + expTotal+ " EXP entre " + equipo.size() + " pokemón.\n");
-//		
-//		for(Pokemon p: equipo) {
-//			int expDividida = (p.getNivel() + (nivelRival * 10)) / 4;
-//			boolean si = pDAO.actualizarExperiencia(p, expDividida);
-//			
-//			if(si) {
-//				txtLog.appendText(p.getMote() + " ha ganado "+ expDividida);
-//			}
-//		}
-//		
-//		
-//		
-//	}
-//	//No me sale,ayuda
-//
-//
-//	private void finalizarCombate(boolean ganoJugador) {
-//		 btnMovimiento1.setDisable(true);
-//		 btnMovimiento2.setDisable(true);
-//		 btnMovimiento3.setDisable(true); 
-//		 btnMovimiento4.setDisable(true); 
-//		 btnLuchar.setDisable(true); 
-//		 btnMochila.setDisable(true); 
-//		 btnHuir.setDisable(true); 
-//		 btnCambiarPokemon.setDisable(true);
-//		 
-//		 Entrenador e = new Entrenador();
-//
-//		
-//	    if (ganoJugador == true) {
-//	    	//([NIVEL_POKEMON] + [NIVEL_POKEMON_RIVAL]*10) / 4 
-//	    	
-//	   
-//	    	
-//	        int expGanada = 
-//	        int pokedollars = calcularPokedollars();
-//	        repartirExperiencia(expGanada);
-//	       e.ganarPokedollars(pdGanados);
-//	        
-//	        
-//	        
-//	    } else {
-//	    	
-//	        txtLog.appendText("Has sido derrotado...\n");
-//	    }
-//	}
-//		
-
-	// TODO: Si ganoJugador es true:
-	// - Calcular experiencia con la formula:
-	// (nivelJugador + nivelRival * 10) / 4
-	// - Sumarle la experiencia al pokemon jugador
-	// - Escribir en el log "Ganaste el combate!"
-
-	// TODO: Si ganoJugador es false:
-	// - El jugador pierde 1/3 de sus pokedollars
-	// - Escribir en el log "Perdiste el combate..."
-
-	// TODO: Desactivar todos los botones para que
-	// no se pueda seguir jugando
-	// panelAcciones.setDisable(true);
-
-	>>>>>>>b6846134fb1e78e4dd87726a57fb1b8dc4c4d74d
 
 	private void actualizarPantalla() {
 
