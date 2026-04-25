@@ -4,44 +4,51 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// Esta clase controla el progreso del jugador a través de la Liga Pokémon
 public class Liga {
-    private List<Entrenador> altoMando;
-    private int combateActual; // Del 0 al 4
-    private boolean haDescansado;
-    private int[] premiosSinDescanso = {1000, 2000, 4000, 6000, 8000};
+    private List<Entrenador> altoMando; // Lista de los entrenadores a los que hay que ganar
+    private int combateActual; // Índice para saber por qué combate vamos (del 0 al 4)
+    private boolean haDescansado; // Variable para saber si el jugador ha curado a su equipo
+    private int[] premiosSinDescanso = {1000, 2000, 4000, 6000, 8000}; // Dinero que ganas en cada fase
 
+    // Constructor para empezar la Liga desde el principio
     public Liga() {
-        this.combateActual = 0;
-        this.haDescansado = false;
-        this.altoMando = cargarAltoMando();
+        this.combateActual = 0; // Empezamos en el primer combate
+        this.haDescansado = false; // Al empezar nadie ha descansado aún
+        this.altoMando = cargarAltoMando(); // Llamamos al método para llenar la lista de rivales
     }
 
+    // Método para rellenar la lista de los entrenadores del Alto Mando
     private List<Entrenador> cargarAltoMando() {
         List<Entrenador> entrenadores = new ArrayList<>();
         
-        Collections.shuffle(entrenadores); // Orden aleatorio 
+        // Aquí barajamos la lista para que el orden de los rivales sea aleatorio
+        Collections.shuffle(entrenadores); 
         
-        // Añadir al Campeón al final (siempre es el mismo o basado en tu récord)
-        // entrenadores.add(campeon); 
+        // El Campeón se añadiría aquí al final para que siempre sea el último escollo
         
         return entrenadores;
     }
 
+    // Método para calcular cuánto dinero se lleva el jugador al ganar un combate
     public int calcularPremio() {
         int premioBase = premiosSinDescanso[combateActual];
-        // Si descansa entre combates (a partir del segundo), el premio es la mitad
+        // Si el jugador decide descansar (curar), el premio se reduce a la mitad por "cobarde"
         return haDescansado ? premioBase / 2 : premioBase;
     }
 
+    // Este método restaura la vida y la estamina de todo el equipo
     public void curarEquipo(List<Pokemon> equipo) {
         for (Pokemon p : equipo) {
-            p.setVitalidad(p.getVitalidadMaxima());
-            p.setEstamina(100);
+            p.setVitalidad(p.getVitalidadMaxima()); // Vida al tope
+            p.setEstamina(100); // Energía al tope
         }
-        this.haDescansado = true; // Marcar que ha usado el botón 
+        this.haDescansado = true; // Marcamos que ha usado la ayuda para penalizar el premio
     }
 
-    // Getters y setters...
+    // ----- GETTERS Y SETTERS -----
+    // Los necesitamos para que el controlador pueda leer y modificar el estado de la liga
+
 	public List<Entrenador> getAltoMando() {
 		return altoMando;
 	}
