@@ -22,26 +22,29 @@ import pokemon.PokemonDAO;
 
 public class EntrenamientoController {
 
+    // Elementos de la interfaz para elegir Pokémon, tipo de entrenamiento y ver el saldo
     @FXML private ComboBox<String> comboPokemon;
     @FXML private ComboBox<String> comboEntrenamiento;
     @FXML private Label lblPokedollars;
     @FXML private TextArea txtResultado;
     @FXML private Button btnEntrenar;
 
+    // Lista para manejar los Pokémon que el entrenador lleva encima
     private ArrayList<Pokemon> equipoActual;
 
+    // Se ejecuta al abrir la pantalla para preparar los desplegables y el dinero
     @FXML
     public void initialize() {
         equipoActual = Main.miEquipo;
         lblPokedollars.setText("Tus Pokedollars: " + Main.entrenadorLogueado.getPokedollars() + " ₽");
 
-        //Cargar el equipo en el desplegable
+        // Recorremos el equipo para llenar el ComboBox con el mote o nombre y su nivel
         for (Pokemon p : equipoActual) {
             String nombreMostrar = p.getMote() != null && !p.getMote().isEmpty() ? p.getMote() : p.getNombre();
             comboPokemon.getItems().add(nombreMostrar + " (Nv. " + p.getNivel() + ")");
         }
 
-        //Cargar los tipos de entrenamiento según el requisito
+        // Cargamos las 4 opciones de entrenamiento con sus beneficios y costes
         comboEntrenamiento.getItems().addAll(
             "EntrenamientoLevel1 (20xNivel Pokedollars) [+Def, +DefEsp, +Vit]",
             "EntrenamientoLevel2 (30xNivel Pokedollars) [+Atq, +AtqEsp, +Vel]",
@@ -50,11 +53,14 @@ public class EntrenamientoController {
         );
     }
 
+    // Método principal que se activa al pulsar el botón "Entrenar"
     @FXML
     private void handleEntrenar(ActionEvent event) {
+        // Obtenemos qué Pokémon y qué entrenamiento se han seleccionado
         int indicePokemon = comboPokemon.getSelectionModel().getSelectedIndex();
         int indiceTipo = comboEntrenamiento.getSelectionModel().getSelectedIndex();
 
+        // Validación básica por si no han seleccionado nada
         if (indicePokemon < 0 || indiceTipo < 0) {
             txtResultado.setText("Por favor, selecciona un Pokémon y un tipo de entrenamiento.");
             return;
@@ -63,7 +69,7 @@ public class EntrenamientoController {
         Pokemon pElegido = equipoActual.get(indicePokemon);
         int coste = 0;
 
-        //Calcular coste según el tipo de entrenamiento
+        // Calculamos el precio multiplicando el factor del entrenamiento por el nivel del Pokémon
         switch (indiceTipo) {
             case 0: coste = 20 * pElegido.getNivel(); break; // Entrenamiento Level 1
             case 1: coste = 30 * pElegido.getNivel(); break; // Entrenamiento Level 2
@@ -71,31 +77,31 @@ public class EntrenamientoController {
             case 3: coste = 40 * pElegido.getNivel(); break; // Entrenamiento Level 4
         }
 
-        //Comprobar dinero
+        // Comprobamos si el entrenador tiene dinero suficiente antes de seguir
         if (!Main.entrenadorLogueado.gastarPokedollars(coste)) {
             txtResultado.setText("¡No tienes suficientes Dinero! Cuesta " + coste + " Pokedollars.");
             return;
         }
 
-        //Aplicar las mejoras (+5 puntos según requisito)
+        // Aplicamos la subida de +5 puntos en los atributos correspondientes según el nivel elegido
         switch (indiceTipo) {
-            case 0: //EntrenamientoLevel1
+            case 0: // EntrenamientoLevel1 enfocada a defensa y vida
                 pElegido.setDefensa(pElegido.getDefensa() + 5);
                 pElegido.setDefensaEspecial(pElegido.getDefensaEspecial() + 5);
                 pElegido.setVitalidadMaxima(pElegido.getVitalidadMaxima() + 5);
                 break;
-            case 1: //EntrenamientoLevel2
+            case 1: // EntrenamientoLevel2 enfocada a ataque y velocidad
                 pElegido.setAtaque(pElegido.getAtaque() + 5);
                 pElegido.setAtaqueEspecial(pElegido.getAtaqueEspecial() + 5);
                 pElegido.setVelocidad(pElegido.getVelocidad() + 5);
                 break;
-            case 2: //EntrenamientoLevel3
+            case 2: // EntrenamientoLevel3 equilibrado (Vel, Atq, Def, Vit)
                 pElegido.setVelocidad(pElegido.getVelocidad() + 5);
                 pElegido.setAtaque(pElegido.getAtaque() + 5);
                 pElegido.setDefensa(pElegido.getDefensa() + 5);
                 pElegido.setVitalidadMaxima(pElegido.getVitalidadMaxima() + 5);
                 break;
-            case 3: //EntrenamientoLevel4
+            case 3: // EntrenamientoLevel4 especial (Vel, AtqEsp, DefEsp, Vit)
                 pElegido.setVelocidad(pElegido.getVelocidad() + 5);
                 pElegido.setAtaqueEspecial(pElegido.getAtaqueEspecial() + 5);
                 pElegido.setDefensaEspecial(pElegido.getDefensaEspecial() + 5);
@@ -103,21 +109,23 @@ public class EntrenamientoController {
                 break;
         }
         
-        //Curamos al Pokemon la vitalidad nueva que ha ganado
+        // Al mejorar su vitalidad máxima, lo curamos para que esté a tope
         pElegido.setVitalidad(pElegido.getVitalidadMaxima());
 
-        //Guardar cambios en Base de Datos
+        // Guardamos los nuevos parámetros del Pokémon en la Base de Datos
         PokemonDAO pDAO = new PokemonDAO();
         pDAO.actualizarPokemon(pElegido);
         
+        // También guardamos el nuevo saldo del entrenador en la BD
         EntrenadorDAO eDAO = new EntrenadorDAO();
         eDAO.actualizarPokedollars(Main.entrenadorLogueado);
 
-        //Actualizar UI
+        // Actualizamos la información visual de la pantalla
         lblPokedollars.setText("Tus Pokedollars: " + Main.entrenadorLogueado.getPokedollars() + " ₽");
         txtResultado.setText("¡Entrenamiento completado! Has gastado " + coste + " Pokedollars " + pElegido.getNombre() + " se ha vuelto más fuerte.");
     }
 
+    // Método para cerrar la sesión de entrenamiento y regresar a la escena principal
     @FXML
     private void volverAlMenu(ActionEvent event) {
         try {

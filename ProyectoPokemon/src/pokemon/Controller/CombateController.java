@@ -145,31 +145,25 @@ public class CombateController {
 
     @FXML
     private void handleMovimiento1(ActionEvent event) {
-        // TODO: Llamar a ejecutarMovimiento(0)
+
     }
 
     @FXML
     private void handleMovimiento2(ActionEvent event) {
-        // TODO: Llamar a ejecutarMovimiento(1)
+
     }
 
     @FXML
     private void handleMovimiento3(ActionEvent event) {
-        // TODO: Llamar a ejecutarMovimiento(2)
+
     }
 
     @FXML
     private void handleMovimiento4(ActionEvent event) {
-        // TODO: Llamar a ejecutarMovimiento(3)
+
     }
 
-    // ══════════════════════════════════════════════════
-    // EJECUTAR MOVIMIENTO - aqui va toda la logica
-    // de un turno de combate:
-    // 1. El jugador ataca al rival
-    // 2. El rival ataca al jugador
-    // 3. Comprobamos si alguno se ha debilitado
-    // ══════════════════════════════════════════════════
+
 
     private void ejecutarMovimiento(int indice) {
 
@@ -204,15 +198,21 @@ public class CombateController {
     // ══════════════════════════════════════════════════
 
     private int calcularDano(Pokemon atacante, Pokemon defensor, int indiceMovimiento) {
+    	int potencia = 50;
+    	if(atacante.getMovimientos() != null
+            && !atacante.getMovimientos().isEmpty() 
+            && indiceMovimiento < atacante.getMovimientos().size()) {
+        potencia = atacante.getMovimientos().get(indiceMovimiento).getPotencia();
+    	}
+    	 double nivelComp  = (2.0 * atacante.getNivel() / 5.0) + 2.0;
+    	 double statsComp  = (double) atacante.getAtaque() / defensor.getDefensa();
+    	 double danoBase   = ((nivelComp * potencia * statsComp) / 50.0) + 2.0;
+    	 
+    	 int variacion = random.nextInt(5) - 2;
+    	 int danoFinal = (int) danoBase + variacion;
+    	 
+    	 return Math.max(1, danoFinal);
 
-        // TODO: Sacar la potencia del movimiento si lo tiene
-        // Si no tiene movimientos, usar el ataque base del pokemon
-
-        // TODO: Aplicar la formula:
-        // dano = (ataque del atacante - defensa del defensor) + numero aleatorio
-        // El dano minimo siempre debe ser 1 (usar Math.max(1, dano))
-
-        return 0; // Quitar este return cuando implementes el metodo
     }
 
     private int calcularDanoRival() {
