@@ -252,22 +252,29 @@ public class CombateController {
 	}
 
 	private void cambiarPokemon(int indice) {
+		Pokemon seleccionado = Main.miEquipo.get(indice);
+		//Vemos si el pokemon esta debilitado ono
+		
+		if (seleccionado.estaDebilitado()) {
+			log(seleccionado.getMote() + "no puede pelear, esta muerto");
+			return;
+		}
+		
+		//Comprobnacion de que noe s el mismo pokemon
+		if (seleccionado == pokemonJugadorActual) {
+			log(seleccionado.getMote() + "ya esta peleando");
+			return;
+		}
+		
+		//Camiamos el pokemon
+		pokemonJugadorActual = seleccionado;
+		actualizarPantalla();
+		log("Pelemaos con "+ seleccionado.getMote());
+		mostrarPanel(panelAcciones);
 
-		// TODO: Comprobar que el pokemon seleccionado no esta debilitado
-		// Si lo esta, mostrar un mensaje en el log y no hacer nada
-
-		// TODO: Comprobar que no es el mismo pokemon que ya esta en combate
-
-		// TODO: Cambiar pokemonJugadorActual al pokemon seleccionado
-
-		// TODO: Llamar a actualizarPantalla()
-
-		// TODO: Volver al panelAcciones
 	}
 
-	// ══════════════════════════════════════════════════
-	// BOTON MOCHILA - para usar objetos en combate
-	// ══════════════════════════════════════════════════
+
 
 	@FXML
 	private void handleMochila(ActionEvent event) {
