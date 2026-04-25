@@ -12,347 +12,386 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.io.InputStream;
-import pokemon.Entrenador;
+import java.util.Random;
+
+import pokemon.Estado;
 import pokemon.Main;
-import pokemon.Pokemon;
+import pokemon.Movimiento;
 import pokemon.Pokedex;
 import pokemon.PokedexDAO;
-import javafx.scene.media.AudioClip;
-import pokemon.Combate;
-import javafx.scene.control.TextInputDialog;
-import java.util.Optional;
-import java.util.regex.Pattern;
+import pokemon.Pokemon;
+import pokemon.Tipo;
 
 public class CombateController {
 
-    
-    //Jugador
-    @FXML private Label lblNombreJugador, lblNivelJugador, lblHpJugador, lblStaminaJugador;
-    @FXML private ProgressBar hpBarJugador, staminaBarJugador;
-    @FXML private ImageView imgJugador;
-    
-    //Rival
-    @FXML private Label lblNombreRival, lblNivelRival, lblHpRival, lblStaminaRival;
-    @FXML private ProgressBar hpBarRival, staminaBarRival;
-    @FXML private ImageView imgRival;
-    
-    //Controles
-    @FXML private Button btnAtaque1, btnAtaque2, btnAtaque3, btnAtaque4;
-    @FXML private Button btnDescansar, btnHuir, btnSonidoJugador;
-    @FXML private TextArea txtLogCombate;
 
-    //VARIABLES INTERNAS
-    private Combate motorCombate;
-    private AudioClip sonidoAtaque;
+
+    @FXML private Label lblNombreRival;
+    @FXML private Label lblNivelRival;
+
+
+    @FXML private Label lblNombreJugador;
+    @FXML private Label lblNivelJugador;
+    @FXML private Label lblPsJugador;
+
+
+    @FXML private ProgressBar hpBarRival;
+    @FXML private ProgressBar hpBarJugador;
+    @FXML private ProgressBar expBarJugador;
+
+
+    @FXML private Circle estadoRival;
+    @FXML private Circle estadoJugador;
+
+
+    @FXML private ImageView spriteRival;   
+    @FXML private ImageView spriteJugador; 
+
+    @FXML private TextArea txtLog;
+
+
+    @FXML private Label lblTurno;
+
+
+    @FXML private HBox panelAcciones;
+
+
+    @FXML private HBox panelMovimientos;
+
+    @FXML private VBox panelCambioPokemon;
+
+
+    @FXML private Button btnMovimiento1;
+    @FXML private Button btnMovimiento2;
+    @FXML private Button btnMovimiento3;
+    @FXML private Button btnMovimiento4;
+
+
+    @FXML private Label lblTipoMovimiento;
+    @FXML private Label lblPPMovimiento;
+
+
+    @FXML private VBox slotCambio1, slotCambio2, slotCambio3;
+    @FXML private VBox slotCambio4, slotCambio5, slotCambio6;
+    @FXML private ImageView imgCambio1, imgCambio2, imgCambio3;
+    @FXML private ImageView imgCambio4, imgCambio5, imgCambio6;
+    @FXML private Label lblCambio1, lblCambio2, lblCambio3;
+    @FXML private Label lblCambio4, lblCambio5, lblCambio6;
+    @FXML private ProgressBar hpCambio1, hpCambio2, hpCambio3;
+    @FXML private ProgressBar hpCambio4, hpCambio5, hpCambio6;
+
+
+    private Pokemon pokemonJugadorActual;
+
+
+    private Pokemon pokemonRivalActual;
+
+    private int koJugador = 0;
+    private int koRival   = 0;
+
+    private int turno = 1;
+
+    private boolean combateEnPausa = false;
+
+
+    private final Random random = new Random();
+
+
 
     @FXML
     public void initialize() {
-        // 1. Obtener el primer Pokemon de tu equipo
-        Pokemon miPokemon = obtenerPrimerPokemonVivo();
-        if (miPokemon == null) {
-            txtLogCombate.setText("¡No tienes Pokémon en condiciones para luchar!\n");
-            desactivarBotones();
-            return;
-        }
 
-        Entrenador rivalCombate;
-        Pokemon pokemonRival;
+        // TODO: Coger el primer pokemon vivo del equipo del jugador
+        // y guardarlo en pokemonJugadorActual
+        // Ejemplo: pokemonJugadorActual = Main.miEquipo.get(0);
 
-        // 2. DETECCIÓN: ¿Venimos de la Liga o es un combate Salvaje?
-        if (Main.rivalActual != null && "ALTO_MANDO".equals(Main.rivalActual.getTipo_Entrenador())) {
-            
-            // LÓGICA DE LIGA POKÉMON
-            rivalCombate = Main.rivalActual;
-            pokemonRival = generarRivalAleatorio(); // Genera un pokemon que escale a tu nivel
-            txtLogCombate.setText("¡El Alto Mando " + rivalCombate.getNom_Entrenador() + " te desafía!\n");
-            
-        } else {
-            
-            // LÓGICA DE COMBATE SALVAJE
-            rivalCombate = new Entrenador();
-            rivalCombate.setNom_Entrenador("Entrenador Rival");
-            rivalCombate.setTipo_Entrenador("SALVAJE"); // Para evitar confusiones
-            pokemonRival = generarRivalAleatorio();
-            txtLogCombate.setText("¡Un " + pokemonRival.getNombre() + " salvaje ha aparecido!\n");
-            
-        }
+        // TODO: Generar el pokemon rival aleatorio
+        // y guardarlo en pokemonRivalActual
+        // Puedes usar PokedexDAO para sacar una especie aleatoria
 
-        // 3. Inicializar el motor de combate con los datos correctos
-        motorCombate = new Combate(Main.entrenadorLogueado, rivalCombate, miPokemon, pokemonRival);
+        // TODO: Llamar a actualizarPantalla() para mostrar
+        // los datos en la pantalla
 
-        // 4. Cargar sonidos base
-        try {
-            sonidoAtaque = new AudioClip(getClass().getResource("/sounds/tackle.wav").toExternalForm());
-        } catch (Exception e) {
-            System.out.println("Sonido de ataque no encontrado. Se omitirá.");
-        }
-
-        String nombreMote = miPokemon.getMote() != null && !miPokemon.getMote().isEmpty() ? miPokemon.getMote() : miPokemon.getNombre();
-        txtLogCombate.appendText("¡Adelante, " + nombreMote + "!\n\n");
-        
-        actualizarUI();
+        // TODO: Escribir en el log el mensaje de inicio
+        // Ejemplo: log("Un Pikachu salvaje aparecio!");
     }
 
-    //ACCIONES DE LOS BOTONES
+    // ══════════════════════════════════════════════════
+    // BOTON LUCHAR - muestra el panel con los 4 movimientos
+    // ══════════════════════════════════════════════════
 
     @FXML
-    private void handleAtaque(ActionEvent event) {
-        Button btnClick = (Button) event.getSource();
-        int indiceAtaque = Integer.parseInt(btnClick.getUserData().toString());
-        
-        Pokemon miPokemon = motorCombate.getPokemonJugador();
-        
-        if (indiceAtaque < miPokemon.getMovimientos().size()) {
-            pokemon.Movimiento mov = miPokemon.getMovimientos().get(indiceAtaque);
-            
-            //Requisito: Validar estamina
-            if (miPokemon.getEstamina() < mov.getCosteEstamina()) {
-                txtLogCombate.appendText("¡No tienes suficiente estamina para usar " + mov.getNombre() + "!\n");
-                return;
-            }
+    private void handleLuchar(ActionEvent event) {
 
-            if (sonidoAtaque != null) sonidoAtaque.play();
-            
-            //Ejecutar el turno en el motor y volcar el resultado en el TextArea
-            String resultadoTurno = motorCombate.ejecutarTurno(mov);
-            txtLogCombate.appendText(resultadoTurno + "\n");
-            
-            actualizarUI();
-            comprobarFinCombate();
-        }
-    }
-    @FXML
-    private void handleCapturar(ActionEvent event) {
-        if (motorCombate.getEntrenadorRival() != null && 
-            !"SALVAJE".equals(motorCombate.getEntrenadorRival().getTipo_Entrenador())) {
-            txtLogCombate.appendText("¡No puedes capturar el Pokémon de otro entrenador!\n");
-            return;
-        }
+        // TODO: Mostrar el panelMovimientos
+        // y ocultar el panelAcciones
 
-        if (Math.random() <= (2.0 / 3.0)) { // Probabilidad 2/3
-            txtLogCombate.appendText("¡La Pokéball ha capturado al Pokémon!\n");
-            
-            Pokemon pokemonCapturado = motorCombate.getPokemonRival();
-            
-            // 1. Solicitar y validar mote con Regex
-            String mote = solicitarMoteValidado();
-            pokemonCapturado.setMote(mote);
-            
-            // 2. Recalcular estadísticas 
-            pokemonCapturado.inicializarEstadisticasBase(); 
-            
-            // 3. Guardar en la caja del entrenador
-            try {
-                // 1. Instanciar el DAO
-                pokemon.PokemonDAO pDAO = new pokemon.PokemonDAO();
-                
-                // 2. Obtener el ID del entrenador
-                int idDuenio = Main.entrenadorLogueado.getId_Entrenador();
-                
-                // 3. Ejecutar la persistencia
-                int ubicacionDestino = (Main.miEquipo.size() < 6) ? 1 : 0;
-                boolean exito = pDAO.guardarPokemon(pokemonCapturado, idDuenio, ubicacionDestino);
-                
-                if (exito) {
-                    txtLogCombate.appendText("¡" + mote + " ha sido guardado en tu caja!\n");
-                } else {
-                    txtLogCombate.appendText("Error: No se pudo guardar en la base de datos.\n");
-                }
-            } catch (Exception e) {
-                txtLogCombate.appendText("Error al guardar en la caja: " + e.getMessage() + "\n");
-            }
-        }
+        // TODO: Poner los nombres de los movimientos
+        // en los botones btnMovimiento1, 2, 3, 4
+        // Sacalos de pokemonJugadorActual.getMovimientos()
     }
-    
+
+    // ══════════════════════════════════════════════════
+    // BOTONES DE MOVIMIENTO - cada uno llama a
+    // ejecutarMovimiento() con el indice del movimiento
+    // ══════════════════════════════════════════════════
+
     @FXML
-    private void handleDescansar(ActionEvent event) {
-        Pokemon miPokemon = motorCombate.getPokemonJugador();
-        miPokemon.setEstamina(100);
-        
-        txtLogCombate.appendText(miPokemon.getNombre() + " descansa y recupera su estamina.\n");
-        
-        // El rival ataca mientras descansamos
-        String resultadoRival = motorCombate.ejecutarTurno(new pokemon.Movimiento("Descanso", 0, pokemon.Tipo.NORMAL,"ESTADO",0, 999)); 
-        txtLogCombate.appendText(resultadoRival + "\n");
-        
-        actualizarUI();
-        comprobarFinCombate();
+    private void handleMovimiento1(ActionEvent event) {
+        // TODO: Llamar a ejecutarMovimiento(0)
     }
+
+    @FXML
+    private void handleMovimiento2(ActionEvent event) {
+        // TODO: Llamar a ejecutarMovimiento(1)
+    }
+
+    @FXML
+    private void handleMovimiento3(ActionEvent event) {
+        // TODO: Llamar a ejecutarMovimiento(2)
+    }
+
+    @FXML
+    private void handleMovimiento4(ActionEvent event) {
+        // TODO: Llamar a ejecutarMovimiento(3)
+    }
+
+    // ══════════════════════════════════════════════════
+    // EJECUTAR MOVIMIENTO - aqui va toda la logica
+    // de un turno de combate:
+    // 1. El jugador ataca al rival
+    // 2. El rival ataca al jugador
+    // 3. Comprobamos si alguno se ha debilitado
+    // ══════════════════════════════════════════════════
+
+    private void ejecutarMovimiento(int indice) {
+
+        // TODO: Comprobar que combateEnPausa es false
+        // Si es true, no hacemos nada (ya se esta ejecutando un turno)
+
+        // TODO: Poner combateEnPausa = true para bloquear
+        // los botones mientras se ejecuta el turno
+
+        // TODO: Volver al panelAcciones (ocultar panelMovimientos)
+
+        // TODO: Calcular el dano que hace el jugador al rival
+        // usando calcularDano()
+
+        // TODO: Calcular el dano que hace el rival al jugador
+        // usando calcularDanoRival()
+
+        // TODO: Usar un Timeline para mostrar los mensajes
+        // con un retardo de 1 segundo entre cada uno.
+        // El Timeline debe hacer esto en orden:
+        //   - Segundo 0: mostrar "X uso Y!"
+        //   - Segundo 1: aplicar dano al rival y actualizar su barra
+        //   - Segundo 2: comprobar si el rival se debilito
+        //   - Segundo 3: si sigue vivo, el rival ataca
+        //   - Segundo 4: comprobar si el jugador se debilito
+        //   - Al final: subir el turno y poner combateEnPausa = false
+    }
+
+    // ══════════════════════════════════════════════════
+    // CALCULAR DANO - formula sencilla para calcular
+    // cuanto dano hace un pokemon al otro
+    // ══════════════════════════════════════════════════
+
+    private int calcularDano(Pokemon atacante, Pokemon defensor, int indiceMovimiento) {
+
+        // TODO: Sacar la potencia del movimiento si lo tiene
+        // Si no tiene movimientos, usar el ataque base del pokemon
+
+        // TODO: Aplicar la formula:
+        // dano = (ataque del atacante - defensa del defensor) + numero aleatorio
+        // El dano minimo siempre debe ser 1 (usar Math.max(1, dano))
+
+        return 0; // Quitar este return cuando implementes el metodo
+    }
+
+    private int calcularDanoRival() {
+
+        // TODO: Es igual que calcularDano pero el atacante
+        // es pokemonRivalActual y el defensor es pokemonJugadorActual
+        // El rival elige un movimiento aleatorio con random.nextInt()
+
+        return 0; // Quitar este return cuando implementes el metodo
+    }
+
+    // ══════════════════════════════════════════════════
+    // BOTON POKEMON - muestra el panel para cambiar
+    // de pokemon durante el combate
+    // ══════════════════════════════════════════════════
+
+    @FXML
+    private void handleCambiarPokemon(ActionEvent event) {
+
+        // TODO: Rellenar los slots con los datos del equipo
+        // usando Main.miEquipo (nombre, barra de vida, sprite)
+
+        // TODO: Mostrar el panelCambioPokemon
+        // y ocultar el panelAcciones
+
+        // TODO: Asignar un setOnMouseClicked a cada slot
+        // para que al hacer clic se llame a cambiarPokemon(indice)
+    }
+
+    private void cambiarPokemon(int indice) {
+
+        // TODO: Comprobar que el pokemon seleccionado no esta debilitado
+        // Si lo esta, mostrar un mensaje en el log y no hacer nada
+
+        // TODO: Comprobar que no es el mismo pokemon que ya esta en combate
+
+        // TODO: Cambiar pokemonJugadorActual al pokemon seleccionado
+
+        // TODO: Llamar a actualizarPantalla()
+
+        // TODO: Volver al panelAcciones
+    }
+
+    // ══════════════════════════════════════════════════
+    // BOTON MOCHILA - para usar objetos en combate
+    // ══════════════════════════════════════════════════
+
+    @FXML
+    private void handleMochila(ActionEvent event) {
+
+        // TODO: Mostrar los objetos disponibles en la mochila
+        // Por ahora puedes poner solo un mensaje en el log
+        // diciendo que la mochila no esta implementada todavia
+    }
+
+    // ══════════════════════════════════════════════════
+    // BOTON HUIR - el jugador abandona el combate
+    // Siempre puede huir, pero el rival gana
+    // ══════════════════════════════════════════════════
 
     @FXML
     private void handleHuir(ActionEvent event) {
-        txtLogCombate.appendText("¡Has huido del combate!\n");
-        volverAlMenu(event);
+
+        // TODO: Escribir en el log "Has huido del combate!"
+
+        // TODO: Cargar la escena EscenaMenu.fxml
+        // usando FXMLLoader igual que en los otros controllers
     }
-    
+
+    // ══════════════════════════════════════════════════
+    // BOTON VOLVER - vuelve al panel de acciones
+    // principal desde el panel de movimientos
+    // o desde el panel de cambio de pokemon
+    // ══════════════════════════════════════════════════
+
     @FXML
-    private void handleEmitirSonido() {
-        Pokemon miPokemon = motorCombate.getPokemonJugador();
-        if (miPokemon.getInfoPokedex() != null) {
-             System.out.println("Aquí iría el grito del Pokémon " + miPokemon.getNombre());
-             // Aquí puedes añadir la ruta real: new AudioClip(getClass().getResource(miPokemon.getInfoPokedex().getSonido()).toExternalForm()).play();
-        }
-    }
-    
+    private void handleVolverAcciones(ActionEvent event) {
 
-    //MÉTODOS DE APOYO
-    private void actualizarUI() {
-        Pokemon pJugador = motorCombate.getPokemonJugador();
-        Pokemon pRival = motorCombate.getPokemonRival();
-
-        //Actualizar Jugador
-        lblNombreJugador.setText(pJugador.getMote() != null ? pJugador.getMote() : pJugador.getNombre());
-        lblNivelJugador.setText("Nv. " + pJugador.getNivel());
-        lblHpJugador.setText(pJugador.getVitalidad() + "/" + pJugador.getVitalidadMaxima());
-        hpBarJugador.setProgress((double) pJugador.getVitalidad() / pJugador.getVitalidadMaxima());
-        
-        lblStaminaJugador.setText(pJugador.getEstamina() + "/100");
-        staminaBarJugador.setProgress((double) pJugador.getEstamina() / 100.0);
-        
-        cargarSprite(imgJugador, pJugador.getInfoPokedex().getNum_Pokedex(), false); // false = vista trasera
-
-        //Actualizar Rival
-        lblNombreRival.setText(pRival.getNombre());
-        lblNivelRival.setText("Nv. " + pRival.getNivel());
-        lblHpRival.setText(pRival.getVitalidad() + "/" + pRival.getVitalidadMaxima());
-        hpBarRival.setProgress((double) pRival.getVitalidad() / pRival.getVitalidadMaxima());
-        
-        lblStaminaRival.setText(pRival.getEstamina() + "/100");
-        staminaBarRival.setProgress((double) pRival.getEstamina() / 100.0);
-        
-        cargarSprite(imgRival, pRival.getInfoPokedex().getNum_Pokedex(), true); // true = vista frontal
-
-        //Actualizar Botones de Ataque
-        Button[] botones = {btnAtaque1, btnAtaque2, btnAtaque3, btnAtaque4};
-        for (int i = 0; i < 4; i++) {
-            if (i < pJugador.getMovimientos().size()) {
-                botones[i].setText(pJugador.getMovimientos().get(i).getNombre());
-                botones[i].setDisable(false);
-            } else {
-                botones[i].setText("-");
-                botones[i].setDisable(true);
-            }
-        }
+        // TODO: Mostrar el panelAcciones
+        // y ocultar los demas paneles
     }
 
-    private void comprobarFinCombate() {
-        if (motorCombate.getPokemonJugador().estaDebilitado() || motorCombate.getPokemonRival().estaDebilitado()) {
-            desactivarBotones();
-            btnHuir.setText("Salir"); //Cambiamos el texto de Huir para que sea el botón de salir
-        }
+    // ══════════════════════════════════════════════════
+    // FINALIZAR COMBATE - se llama cuando alguno de
+    // los dos llega a 6 KO o cuando no quedan pokemon
+    // ══════════════════════════════════════════════════
+
+    private void finalizarCombate(boolean ganoJugador) {
+
+        // TODO: Si ganoJugador es true:
+        //   - Calcular experiencia con la formula:
+        //     (nivelJugador + nivelRival * 10) / 4
+        //   - Sumarle la experiencia al pokemon jugador
+        //   - El rival pierde 1/3 de sus pokedollars
+        //   - Escribir en el log "Ganaste el combate!"
+
+        // TODO: Si ganoJugador es false:
+        //   - El jugador pierde 1/3 de sus pokedollars
+        //   - Escribir en el log "Perdiste el combate..."
+
+        // TODO: Desactivar todos los botones para que
+        // no se pueda seguir jugando
+        // panelAcciones.setDisable(true);
     }
 
-    private void desactivarBotones() {
-        btnAtaque1.setDisable(true);
-        btnAtaque2.setDisable(true);
-        btnAtaque3.setDisable(true);
-        btnAtaque4.setDisable(true);
-        btnDescansar.setDisable(true);
+    // ══════════════════════════════════════════════════
+    // ACTUALIZAR PANTALLA - refresca todos los labels,
+    // barras de vida y sprites con los datos actuales
+    // ══════════════════════════════════════════════════
+
+    private void actualizarPantalla() {
+
+        // TODO: Actualizar el label del nombre del rival
+        // lblNombreRival.setText(pokemonRivalActual.getNombre());
+
+        // TODO: Actualizar el label del nivel del rival
+        // lblNivelRival.setText("Nv." + pokemonRivalActual.getNivel());
+
+        // TODO: Actualizar la barra de vida del rival
+        // hpBarRival.setProgress((double) vida / vidaMaxima);
+
+        // TODO: Lo mismo para el jugador con sus labels y barra
+
+        // TODO: Cargar los sprites (gifs) de los pokemon
+        // cargarSprite(spriteRival, pokemonRivalActual, true);
+        // cargarSprite(spriteJugador, pokemonJugadorActual, false);
+
+        // TODO: Actualizar el label del turno
+        // lblTurno.setText("Turno " + turno);
     }
 
-    private Pokemon obtenerPrimerPokemonVivo() {
-        for (Pokemon p : Main.miEquipo) {
-            if (!p.estaDebilitado()) return p;
-        }
-        return null;
+    // ══════════════════════════════════════════════════
+    // CARGAR SPRITE - carga el gif del pokemon en el
+    // ImageView. Si frontal es true carga el gif de
+    // frente, si es false carga el de espalda
+    // ══════════════════════════════════════════════════
+
+    private void cargarSprite(ImageView imageView, Pokemon pokemon, boolean frontal) {
+
+        // TODO: Construir la ruta del gif segun si es frontal o espalda
+        // Frontal:  "/spritesPokemonsGifsFront/" + numPokedex + ".gif"
+        // Espalda:  "/spritesPokemonsGifsBack/"  + numPokedex + ".gif"
+
+        // TODO: Cargar la imagen con getClass().getResourceAsStream(ruta)
+        // y asignarla al imageView con imageView.setImage(new Image(is))
+
+        // TODO: Manejar el caso de que la imagen no exista (try/catch)
     }
 
-    private Pokemon generarRivalAleatorio() {
-        int nivelMaximo = 1;
-        for (Pokemon p : Main.miEquipo) {
-            if (p.getNivel() > nivelMaximo) nivelMaximo = p.getNivel();
-        }
+    // ══════════════════════════════════════════════════
+    // METODO LOG - escribe un mensaje en el TextArea
+    // del combate y tambien lo imprime en consola
+    // ══════════════════════════════════════════════════
 
-        PokedexDAO pxDAO = new PokedexDAO();
-        Pokedex especie = pxDAO.buscarPorIdPokedex(pxDAO.generarIdPokedexAleatorio());
-        
-        Pokemon rival = new Pokemon();
-        rival.setInfoPokedex(especie);
-        rival.setNombre(especie.getNombreEspecie());
-        rival.setNivel(nivelMaximo);
-        
-        //Ajustamos la vida
-        rival.setVitalidadMaxima(20 + (nivelMaximo * 3));
-        rival.setVitalidad(rival.getVitalidadMaxima());
-        rival.setAtaque(5 + (nivelMaximo * 2));
-        rival.setDefensa(5 + (nivelMaximo * 2));
-        rival.setEstamina(100);
-        
-        return rival;
+    private void log(String mensaje) {
+
+        // TODO: Escribir el mensaje en txtLog
+        // txtLog.appendText(mensaje + "\n");
+
+        // TODO: Imprimir en consola para debug
+        // System.out.println("[Combate] " + mensaje);
     }
 
-    private void cargarSprite(ImageView imgView, int numPokedex, boolean frontal) {
-        String carpeta = frontal ? "Front" : "Back";
-        String ruta = "/spritesPokemons/" + carpeta + "/" + numPokedex + ".png";
-        try {
-            InputStream is = getClass().getResourceAsStream(ruta);
-            if (is != null) imgView.setImage(new Image(is));
-        } catch (Exception e) {
-            System.err.println("Imagen no encontrada: " + ruta);
-        }
+    // ══════════════════════════════════════════════════
+    // MOSTRAR PANEL - muestra un panel y oculta los
+    // demas. Solo puede estar visible uno a la vez.
+    // ══════════════════════════════════════════════════
+
+    private void mostrarPanel(Object panel) {
+
+        // TODO: Ocultar todos los paneles primero:
+        // panelAcciones.setVisible(false);
+        // panelAcciones.setManaged(false);
+        // panelMovimientos.setVisible(false);
+        // panelMovimientos.setManaged(false);
+        // panelCambioPokemon.setVisible(false);
+        // panelCambioPokemon.setManaged(false);
+
+        // TODO: Mostrar solo el panel que nos pasan
+        // comprobando si es HBox o VBox con instanceof
     }
-    private String solicitarMoteValidado() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Mote del Pokémon");
-        dialog.setHeaderText("¡Has capturado un Pokémon!");
-        dialog.setContentText("Introduce su mote (solo letras):");
-
-        // Expresión regular: ^[a-zA-Z]+$ (Solo letras de la A a la Z, mayúsculas o minúsculas) 
-        String regex = "^[a-zA-Z]+$";
-        
-        while (true) {
-            Optional<String> result = dialog.showAndWait();
-            if (result.isPresent()) {
-                String input = result.get().trim();
-                if (Pattern.matches(regex, input)) {
-                    return input; // Mote válido
-                } else {
-                    dialog.setHeaderText("Mote inválido. Solo letras, sin espacios ni números.");
-                }
-            } else {
-                // Si el usuario cancela o cierra, devolvemos el nombre original por defecto
-                return motorCombate.getPokemonRival().getNombre();
-            }
-        }
-    }
-
-    private void volverAlMenu(ActionEvent event) {
-        try {
-            // 1. Definimos la ruta por defecto (combate salvaje o normal)
-            String rutaEscena = "/EscenaMenu.fxml";
-            
-            // 2. Extraemos el objeto rival directamente del motor de combate
-            Entrenador rival = motorCombate.getEntrenadorRival(); 
-
-            // 3. Verificamos si el rival pertenece al Alto Mando
-            if (rival != null && "ALTO_MANDO".equals(rival.getTipo_Entrenador())) {
-                
-                // Si el jugador ganó (el Pokémon rival está debilitado)
-                if (motorCombate.getPokemonRival().estaDebilitado()) {
-                    // Incrementamos el progreso de la liga y volvemos a la pantalla de la Liga
-                    LigaController.combateActual++; 
-                    rutaEscena = "/EscenaLiga.fxml";
-                } else {
-                    // Si el jugador perdió, la liga se resetea y vuelve al menú principal
-                    LigaController.resetearLiga();
-                    rutaEscena = "/EscenaMenu.fxml";
-                }
-            }
-
-            // 4. Cambiamos la escena
-            Parent root = FXMLLoader.load(getClass().getResource(rutaEscena));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            System.err.println("Error crítico al navegar: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    
-    
 }
