@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CasinoController">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CasinoController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -46,7 +46,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Button contentDisplay="CENTER" layoutX="22.0" layoutY="518.0" mnemonicParsing="false" style="visibility: -fx-background-color: #2b2b2b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-border-color: #ffd700; -fx-border-radius: 20; -fx-border-width: 2;;" text="Salir">
+                              <Button contentDisplay="CENTER" layoutX="22.0" layoutY="518.0" mnemonicParsing="false" onAction="#volverAlMenu" style="visibility: -fx-background-color: #2b2b2b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-border-color: #ffd700; -fx-border-radius: 20; -fx-border-width: 2;;" text="Salir">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
