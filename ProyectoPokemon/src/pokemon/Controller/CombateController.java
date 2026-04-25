@@ -280,14 +280,62 @@ public class CombateController {
 	@FXML
 	private void handleCambiarPokemon(ActionEvent event) {
 
-		// TODO: Rellenar los slots con los datos del equipo
-		// usando Main.miEquipo (nombre, barra de vida, sprite)
 
-		// TODO: Mostrar el panelCambioPokemon
-		// y ocultar el panelAcciones
+		    // Juntamos los slots en arrays para manejarlos con un bucle
+		    VBox[]        slots   = {slotCambio1, slotCambio2, slotCambio3,
+		                              slotCambio4, slotCambio5, slotCambio6};
+		    ImageView[]   imgs    = {imgCambio1, imgCambio2, imgCambio3,
+		                              imgCambio4, imgCambio5, imgCambio6};
+		    Label[]       nombres = {lblCambio1, lblCambio2, lblCambio3,
+		                              lblCambio4, lblCambio5, lblCambio6};
+		    ProgressBar[] barras  = {hpCambio1, hpCambio2, hpCambio3,
+		                              hpCambio4, hpCambio5, hpCambio6};
 
-		// TODO: Asignar un setOnMouseClicked a cada slot
-		// para que al hacer clic se llame a cambiarPokemon(indice)
+		    // Rellenamos cada slot con los datos del pokemon del equipo
+		    for (int i = 0; i < 6; i++) {
+		        if (Main.miEquipo != null && i < Main.miEquipo.size()) {
+		            Pokemon p = Main.miEquipo.get(i);
+
+		            // Este es el nombre o si tiene mote el mote
+		            String nombre = (p.getMote() != null && !p.getMote().isEmpty())
+		                          ? p.getMote() : p.getNombre();
+		            nombres[i].setText(nombre);
+
+		            //Esta es la barra de vida
+		            double porcentaje = (double) p.getVitalidad() / p.getVitalidadMaxima();
+		            barras[i].setProgress(Math.max(0, porcentaje));
+
+
+		            if (p.getInfoPokedex() != null) {
+		                try {
+		                    InputStream is = getClass().getResourceAsStream(
+		                        "/spritesPokemons/Front/"
+		                        + p.getInfoPokedex().getNum_Pokedex() + ".png");
+		                    if (is != null) imgs[i].setImage(new Image(is));
+		                } catch (Exception e) {
+		                    System.out.println("[Combate] No se pudo cargar sprite slot " + i);
+		                }
+		            }
+
+		            // Si esta debilitado lo ponemos transparente para que se vea que no se puede usar
+		            slots[i].setOpacity(p.estaDebilitado() ? 0.4 : 1.0);
+
+		            // Al hacer clic en el slot cambiamos al pokemon
+
+		            final int indice = i;
+		            slots[i].setOnMouseClicked(e -> cambiarPokemon(indice));
+
+		        } else {
+		            // Slot vacio
+		            nombres[i].setText("---");
+		            barras[i].setProgress(0);
+		            imgs[i].setImage(null);
+		            slots[i].setOnMouseClicked(null);
+		        }
+		    }
+		    //Aqui se muetra el cambio
+		    mostrarPanel(panelCambioPokemon);
+		
 	}
 
 	private void cambiarPokemon(int indice) {
@@ -352,24 +400,14 @@ public class CombateController {
 			e.printStackTrace();
 		}
 	}
-
-	// ══════════════════════════════════════════════════
-	// BOTON VOLVER - vuelve al panel de acciones
-	// principal desde el panel de movimientos
-	// o desde el panel de cambio de pokemon
-	// ══════════════════════════════════════════════════
-
+	
+	
 	@FXML
 	private void handleVolverAcciones(ActionEvent event) {
-
-		// TODO: Mostrar el panelAcciones
-		// y ocultar los demas paneles
+	    mostrarPanel(panelAcciones);
 	}
 
-	// ══════════════════════════════════════════════════
-	// FINALIZAR COMBATE - se llama cuando alguno de
-	// los dos llega a 6 KO o cuando no quedan pokemon
-	// ══════════════════════════════════════════════════
+
 
 	private void finalizarCombate(boolean ganoJugador) {
 
@@ -389,10 +427,7 @@ public class CombateController {
 		// panelAcciones.setDisable(true);
 	}
 
-	// ══════════════════════════════════════════════════
-	// ACTUALIZAR PANTALLA - refresca todos los labels,
-	// barras de vida y sprites con los datos actuales
-	// ══════════════════════════════════════════════════
+
 
 	private void actualizarPantalla() {
 
@@ -417,7 +452,7 @@ public class CombateController {
 				/ pokemonJugadorActual.getVitalidadMaxima();
 		hpBarJugador.setProgress(Math.max(0, porcentajeJugador));
 
-		// Sprites - rival frontal, jugador de espalda
+
 		cargarSprite(spritePokemonRival, pokemonRivalActual, true);
 		cargarSprite(spritePokemon, pokemonJugadorActual, false);
 
@@ -425,11 +460,6 @@ public class CombateController {
 		lblTurno.setText("Turno " + turno);
 	}
 
-	// ══════════════════════════════════════════════════
-	// CARGAR SPRITE - carga el gif del pokemon en el
-	// ImageView. Si frontal es true carga el gif de
-	// frente, si es false carga el de espalda
-	// ══════════════════════════════════════════════════
 
 	private void cargarSprite(ImageView imageView, Pokemon pokemon, boolean frontal) {
 
@@ -437,7 +467,7 @@ public class CombateController {
 		if (pokemon.getInfoPokedex() == null)
 			return;
 
-		// Construimos la ruta segun si es frontal o de espalda
+		// Construimos la ruta segun si el gif es para nuestro pokemon o para el suyo
 		String carpeta = frontal ? "spritesPokemonsGifsFront" : "spritesPokemonsGifsBack";
 		String ruta = "/" + carpeta + "/" + pokemon.getInfoPokedex().getNum_Pokedex() + ".gif";
 
@@ -454,10 +484,6 @@ public class CombateController {
 		}
 	}
 
-	// ══════════════════════════════════════════════════
-	// METODO LOG - escribe un mensaje en el TextArea
-	// del combate y tambien lo imprime en consola
-	// ══════════════════════════════════════════════════
 
 	private void log(String mensaje) {
 		// Aqui se escribe el mensaje en el textarea del combate
