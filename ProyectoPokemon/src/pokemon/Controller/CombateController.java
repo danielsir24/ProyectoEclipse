@@ -192,18 +192,19 @@ public class CombateController {
         //   - Al final: subir el turno y poner combateEnPausa = false
     }
 
-    // ══════════════════════════════════════════════════
-    // CALCULAR DANO - formula sencilla para calcular
-    // cuanto dano hace un pokemon al otro
-    // ══════════════════════════════════════════════════
+ 
+    //Hemos hecho el metodo de calcular el daño por ambos, del rival y del equipo.
+
 
     private int calcularDano(Pokemon atacante, Pokemon defensor, int indiceMovimiento) {
+    	//Ponemos como principal la potencia a 50 porque es la potencia del ataque basico como asi
     	int potencia = 50;
     	if(atacante.getMovimientos() != null
             && !atacante.getMovimientos().isEmpty() 
             && indiceMovimiento < atacante.getMovimientos().size()) {
         potencia = atacante.getMovimientos().get(indiceMovimiento).getPotencia();
     	}
+    	//Estas formulas son por la clase combate del teams
     	 double nivelComp  = (2.0 * atacante.getNivel() / 5.0) + 2.0;
     	 double statsComp  = (double) atacante.getAtaque() / defensor.getDefensa();
     	 double danoBase   = ((nivelComp * potencia * statsComp) / 50.0) + 2.0;
@@ -216,20 +217,17 @@ public class CombateController {
     }
 
     private int calcularDanoRival() {
-
-        // TODO: Es igual que calcularDano pero el atacante
-        // es pokemonRivalActual y el defensor es pokemonJugadorActual
-        // El rival elige un movimiento aleatorio con random.nextInt()
-
-        return 0; // Quitar este return cuando implementes el metodo
+    	//aqui hacemos lo mismo, los mismos metoedos pero solo cambiamos nuestro pokemon por el pokemonRIval
+   	 double nivelComp  = (2.0 * pokemonRivalActual.getNivel() / 5.0) + 2.0;
+   	 double statsComp  = (double) pokemonRivalActual.getAtaque() / pokemonJugadorActual.getDefensa();
+   	 double danoBase   = ((nivelComp * 40 * statsComp) / 50.0) + 2.0;
+   	 
+   	 int variacion = random.nextInt(5) - 2;
+   	 
+   	return Math.max(1, (int) danoBase + variacion);
     }
 
-    // ══════════════════════════════════════════════════
-    // BOTON POKEMON - muestra el panel para cambiar
-    // de pokemon durante el combate
-    // ══════════════════════════════════════════════════
-
-    @FXML
+       @FXML
     private void handleCambiarPokemon(ActionEvent event) {
 
         // TODO: Rellenar los slots con los datos del equipo
@@ -368,30 +366,34 @@ public class CombateController {
     // ══════════════════════════════════════════════════
 
     private void log(String mensaje) {
-
-        // TODO: Escribir el mensaje en txtLog
-        // txtLog.appendText(mensaje + "\n");
-
-        // TODO: Imprimir en consola para debug
-        // System.out.println("[Combate] " + mensaje);
+    	//Aqui se escribe el mensaje en el textarea del combate
+        if (txtLog != null) {
+            txtLog.appendText(mensaje + "\n");
+        }
+        
+        System.out.println("[Combate] " + mensaje);
     }
 
-    // ══════════════════════════════════════════════════
-    // MOSTRAR PANEL - muestra un panel y oculta los
-    // demas. Solo puede estar visible uno a la vez.
-    // ══════════════════════════════════════════════════
+
 
     private void mostrarPanel(Object panel) {
+    	//sE Oocutaln todos los paneles
+    	
+        panelAcciones.setVisible(false);
+        panelAcciones.setManaged(false);
+        panelMovimientos.setVisible(false);
+        panelMovimientos.setManaged(false);
+        panelCambioPokemon.setVisible(false);
+        panelCambioPokemon.setManaged(false);
+        //aqui ssolo se pasa lo que hay como parametro
+        if (panel instanceof HBox) {
+            ((HBox) panel).setVisible(true);
+            ((HBox) panel).setManaged(true);
+        } else if (panel instanceof VBox) {
+            ((VBox) panel).setVisible(true);
+            ((VBox) panel).setManaged(true);
+        }
 
-        // TODO: Ocultar todos los paneles primero:
-        // panelAcciones.setVisible(false);
-        // panelAcciones.setManaged(false);
-        // panelMovimientos.setVisible(false);
-        // panelMovimientos.setManaged(false);
-        // panelCambioPokemon.setVisible(false);
-        // panelCambioPokemon.setManaged(false);
 
-        // TODO: Mostrar solo el panel que nos pasan
-        // comprobando si es HBox o VBox con instanceof
     }
 }
