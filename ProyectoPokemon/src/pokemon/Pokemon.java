@@ -1,4 +1,3 @@
-
 package pokemon;
 
 import java.util.*;
@@ -6,12 +5,13 @@ import pokemon.Entrenador;
 
 public class Pokemon {
 
+	// Atributos principales que definen a cada Pokémon (stats, niveles, tipos, etc.)
 	private Pokedex infoPokedex;
 	private String nombre;
 	private String mote;
 	private int idPokemon;
 	private int vitalidad;
-	private int vitalidadMaxima; // Añadido para controlar el límite de curación
+	private int vitalidadMaxima; // Para saber el tope de vida al curar
 	private int ataque;
 	private int defensa;
 	private int ataqueEspecial;
@@ -27,12 +27,12 @@ public class Pokemon {
 	private List<Tipo> tipos;
 	private Estado estado;
 	private Objeto objeto;
-	private int ubicacion;
+	private int ubicacion; // Para saber si está en el equipo o en el PC
 	private int idEntrenador;
 	private Random random = new Random();
 
 
-	// Constructor con todos los parámetros
+	// Constructor completo para crear un Pokémon con todos sus datos ya definidos
 	public Pokemon(Pokedex infoPokedex, String nombre, String mote, int idPokemon, int vitalidad, int vitalidadMaxima, int ataque, int defensa,
 			int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia,
 			int fertilidad, Sexo sexo, List<Movimiento> movimientos, List<Movimiento> movimientosDisponibles,
@@ -63,7 +63,7 @@ public class Pokemon {
 		this.idEntrenador = idEntrenador;
 	}
 
-	// Constructor copia
+	// Constructor copia: sirve para crear un Pokémon exactamente igual a otro
 	public Pokemon(Pokemon p) {
 		super();
 		this.infoPokedex = p.infoPokedex;
@@ -82,6 +82,7 @@ public class Pokemon {
 		this.experiencia = p.experiencia;
 		this.fertilidad = p.fertilidad;
 		this.sexo = p.sexo;
+		// Copiamos las listas para que sean objetos independientes
 		this.movimientos = new ArrayList<>(p.movimientos);
 		this.movimientosDisponibles = new ArrayList<>(p.movimientosDisponibles);
 		this.tipos = new ArrayList<>(p.tipos);
@@ -91,13 +92,14 @@ public class Pokemon {
 		this.idEntrenador = p.idEntrenador;
 	}
 
-	// Constructor por defecto
+	// Constructor por defecto: crea un Pokémon con stats aleatorios básicos
 	public Pokemon() {
 		super();
 		this.infoPokedex = null;
 		this.nombre = "";
 		this.mote = "";
 		this.idPokemon = 0;
+		// La vida y stats empiezan con un valor al azar pequeño
 		this.vitalidad = random.nextInt(10) + 20;
 		this.vitalidadMaxima = 0;
 		this.ataque = random.nextInt(10) + 1;
@@ -119,29 +121,35 @@ public class Pokemon {
 		this.idEntrenador = 0;
 	}
 
-	// Métodos de lógica
+	// Método para restar vida cuando recibe un golpe en combate
 	public void recibirDano(int dano) {
 		this.vitalidad -= dano;
+		// Si la vida baja de 0, la dejamos en 0 para que no sea un número negativo
 		if (this.vitalidad < 0)
 			this.vitalidad = 0;
 	}
 
+	// Indica si el Pokémon se ha quedado sin vida
 	public boolean estaDebilitado() {
 		return this.vitalidad <= 0;
 	}
 
+	// Suma experiencia y comprueba si tiene la suficiente para subir de nivel
 	public void ganarExperiencia(int cantidad) {
 		this.experiencia += cantidad;
+		// La fórmula para subir es 10 veces su nivel actual
 		while (this.experiencia >= (10 * nivel)) {
 			subirNivel();
 		}
 	}
 
+	// Sube el nivel y mejora las estadísticas del Pokémon al azar
 	private void subirNivel() {
 		experiencia -= 10 * nivel;
 		nivel++;
+		// Al subir de nivel, aumentamos un poco todos sus atributos
 		this.vitalidadMaxima += random.nextInt(5) + 1;
-		this.vitalidad = vitalidadMaxima;
+		this.vitalidad = vitalidadMaxima; // Se cura al subir de nivel
 		this.ataque += random.nextInt(5) + 1;
 		this.defensa += random.nextInt(5) + 1;
 		this.ataqueEspecial += random.nextInt(5) + 1;
@@ -149,31 +157,29 @@ public class Pokemon {
 		this.velocidad += random.nextInt(5) + 1;
 		System.out.println("¡" + nombre + " subió al nivel " + nivel + "!");
 	}
-	//Reestablece las estadísticas del pokemon entre 1 y 10
+
+	// Este método resetea al Pokémon para cuando es recién capturado o nace de un huevo
 	public void inicializarEstadisticasBase() {
 		Random rnd = new Random();
-	    // Generar valores aleatorios entre 1 y 10 
+	    // Valores aleatorios para un nivel 1
 	    this.vitalidadMaxima = rnd.nextInt(10) + 1;
-	    this.vitalidad = this.vitalidadMaxima; // Empieza con la vida llena
+	    this.vitalidad = this.vitalidadMaxima; 
 	    this.ataque = rnd.nextInt(10) + 1;
 	    this.defensa = rnd.nextInt(10) + 1;
 	    this.ataqueEspecial = rnd.nextInt(10) + 1;
 	    this.defensaEspecial = rnd.nextInt(10) + 1;
 	    this.velocidad = rnd.nextInt(10) + 1;
 	    
-	    // La estamina siempre inicia al máximo (100 o valor base) [cite: 54]
+	    // La estamina siempre inicia al máximo (100)
 	    this.estamina = 100; 
-	    
 	    this.experiencia = 0;
-	    
 	    this.estado = Estado.NORMAL;
-	    
-	    // El nivel siempre es 1 al ser capturado o nacer [cite: 14, 150]
 	    this.nivel = 1;
-	    
-	    // La fertilidad inicial es de 5 [cite: 16]
 	    this.fertilidad = 5;
 	}
+
+	// ----- GETTERS Y SETTERS -----
+	// Métodos para leer y escribir los atributos privados
 
 	public String getNombre() {
 		return nombre;
@@ -358,8 +364,8 @@ public class Pokemon {
 	}
 	
 	
-	public void setIdEntrenador(int ubicacion) {
-		this.idEntrenador = ubicacion;
+	public void setIdEntrenador(int id) {
+		this.idEntrenador = id;
 	}
 	
 	public Random getRandom() {
@@ -369,7 +375,5 @@ public class Pokemon {
 	public void setRandom(Random random) {
 		this.random = random;
 	}
-
-	// Getters y Setters completos
 
 }

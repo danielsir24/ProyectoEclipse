@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 public class ObjetoDAO {
 
-
-    // Busca un objeto por su id
+    // Método para buscar un objeto específico en la base de datos usando su ID
     public Objeto buscarPorIdObjeto(int idObjeto) {
         Objeto obj = null;
         String sql = "SELECT * FROM objeto WHERE id_Objeto = ?";
 
-        // Usamos try-with-resources para cerrar la conexión automáticamente
+        // Conectamos a la base de datos y preparamos la consulta SQL
         try (Connection con = ConexionBD.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
             
             statement.setInt(1, idObjeto);
             try (ResultSet rs = statement.executeQuery()) {
+                // Si existe el objeto, creamos una instancia y le pasamos todos sus bonos y penalizaciones
                 if (rs.next()) {
                     obj = new Objeto();
                     obj.setIdObjeto(rs.getInt("id_Objeto"));
                     obj.setNombre(rs.getString("nom_Objeto"));
                     
-                    // Mapeo directo con los nombres de BBDD
+                    // Pasamos cada valor de la tabla a los atributos del objeto Java
                     obj.setBonusAtaque(rs.getDouble("bonus_Ataque"));
                     obj.setBonusDefensa(rs.getDouble("bonus_Defensa"));
                     obj.setPenalizacionAtaque(rs.getDouble("penalizacion_Ataque"));
@@ -44,7 +44,7 @@ public class ObjetoDAO {
         return obj;
     }
 
- // Devuelve todos los objetos
+    // Este método devuelve una lista con todos los objetos que existen en el juego (para la tienda, por ejemplo)
     public ArrayList<Objeto> obtenerTodosLosObjetos() {
         ArrayList<Objeto> lista = new ArrayList<>();
         String sql = "SELECT * FROM objeto";
@@ -53,6 +53,7 @@ public class ObjetoDAO {
              PreparedStatement statement = con.prepareStatement(sql);
              ResultSet rs = statement.executeQuery()) {
 
+            // Vamos recorriendo la tabla y añadiendo cada objeto a nuestra lista
             while (rs.next()) {
                 Objeto obj = new Objeto();
                 obj.setIdObjeto(rs.getInt("id_Objeto"));
@@ -79,9 +80,10 @@ public class ObjetoDAO {
         return lista;
     }
 
-    // Devuelve los objetos que tiene un entrenador
+    // Sirve para sacar todos los objetos que tiene un entrenador concreto en su mochila
     public ArrayList<Object[]> obtenerMochila(int idEntrenador) {
         ArrayList<Object[]> mochila = new ArrayList<>();
+        // Usamos un JOIN para saber el nombre y stats del objeto además de la cantidad que tiene el usuario
         String sql = "SELECT o.*, m.cantidad FROM objeto o "
                    + "JOIN mochila m ON o.id_Objeto = m.id_Objeto "
                    + "WHERE m.id_Entrenador = ?";
@@ -96,6 +98,7 @@ public class ObjetoDAO {
                     Objeto obj = new Objeto();
                     obj.setIdObjeto(rs.getInt("id_Objeto"));
                     obj.setNombre(rs.getString("nom_Objeto"));
+                    // (Aquí se repite el mapeo de todas las estadísticas...)
                     obj.setBonusAtaque(rs.getDouble("bonus_Ataque"));
                     obj.setBonusDefensa(rs.getDouble("bonus_Defensa"));
                     obj.setPenalizacionAtaque(rs.getDouble("penalizacion_Ataque"));
@@ -108,6 +111,7 @@ public class ObjetoDAO {
                     obj.setPenalizacionVelocidad(rs.getDouble("penalizacion_Velocidad"));
                     
                     int cantidad = rs.getInt("cantidad");
+                    // Guardamos el objeto y su cantidad en un array de objetos para devolverlo
                     mochila.add(new Object[]{obj, cantidad});
                 }
             }
@@ -120,12 +124,12 @@ public class ObjetoDAO {
         return mochila;
     }
 
-    // Añade un objeto a la mochila
+    // Este método añade un objeto a la mochila. Si ya existe, simplemente suma la cantidad.
     public boolean añadirAMochila(int idEntrenador, int idObjeto, int cantidad) {
+        // Usamos "ON DUPLICATE KEY UPDATE" para que SQL sume si el objeto ya está en la mochila
         String sql = "INSERT INTO mochila (id_Entrenador, id_Objeto, cantidad) VALUES (?, ?, ?) "
                    + "ON DUPLICATE KEY UPDATE cantidad = cantidad + ?";
 
-        // Añadimos la conexión aquí dentro del try
         try (Connection con = ConexionBD.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
             statement.setInt(1, idEntrenador);
@@ -141,11 +145,10 @@ public class ObjetoDAO {
         }
     }
 
-    // Quita un objeto
+    // Método para restar 1 a la cantidad de un objeto cuando se usa. Si solo quedaba uno, borra la fila.
     public boolean usarDeEstaMochila(int idEntrenador, int idObjeto) {
         String sqlSelect = "SELECT cantidad FROM mochila WHERE id_Entrenador = ? AND id_Objeto = ?";
 
-        // Añadimos la conexión aquí también
         try (Connection con = ConexionBD.getConnection();
              PreparedStatement stSelect = con.prepareStatement(sqlSelect)) {
             stSelect.setInt(1, idEntrenador);
@@ -154,6 +157,7 @@ public class ObjetoDAO {
             try (ResultSet rs = stSelect.executeQuery()) {
                 if (rs.next()) {
                     int cantidad = rs.getInt("cantidad");
+                    // Si es el último que queda, borramos la entrada de la mochila
                     if (cantidad <= 1) {
                         String sqlDelete = "DELETE FROM mochila WHERE id_Entrenador = ? AND id_Objeto = ?";
                         try (PreparedStatement stDelete = con.prepareStatement(sqlDelete)) {
@@ -162,6 +166,7 @@ public class ObjetoDAO {
                             return stDelete.executeUpdate() > 0;
                         }
                     } else {
+                        // Si tenemos más de uno, simplemente restamos una unidad
                         String sqlUpdate = "UPDATE mochila SET cantidad = cantidad - 1 WHERE id_Entrenador = ? AND id_Objeto = ?";
                         try (PreparedStatement stUpdate = con.prepareStatement(sqlUpdate)) {
                             stUpdate.setInt(1, idEntrenador);

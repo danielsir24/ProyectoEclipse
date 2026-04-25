@@ -8,9 +8,15 @@ public enum Tipo {
 	LUCHA, VENENO, TIERRA, VOLADOR, PSIQUICO, BICHO, 
 	ROCA, FANTASMA, DRAGON;
 
+	// Usamos un Map para guardar qué tipos son fuertes o débiles contra otros
 	private static Map<String, Double> efectividades = new HashMap<>();
 
 	static {
+		// Aquí configuramos la tabla de tipos clásica:
+		// 2.0 significa que es súper efectivo
+		// 0.5 significa que no es muy efectivo
+		// 0.0 significa que no le hace nada de daño
+
 		// NORMAL
 		efectividades.put("NORMAL-ROCA", 0.5);
 		efectividades.put("NORMAL-FANTASMA", 0.0);
@@ -124,19 +130,24 @@ public enum Tipo {
 		efectividades.put("DRAGON-DRAGON", 2.0);
 	}
 
+	// Compara el tipo del ataque con el del pokémon defensor para ver el multiplicador
 	public double calcularEfectividad(Tipo tipoDefensor) {
 		String clave = this.name() + "-" + tipoDefensor.name();
+		// Si la combinación no está en el mapa, el daño es normal (1.0)
 		return efectividades.getOrDefault(clave, 1.0);
 	}
 
+	// Calcula la efectividad final si el pokémon defensor tiene dos tipos
 	public double calcularEfectividadDoble(Tipo tipo1, Tipo tipo2) {
 		double efectividad = calcularEfectividad(tipo1);
 		if (tipo2 != null && tipo1 != tipo2) {
+			// Multiplicamos los dos valores (ej: 2.0 * 2.0 = x4 de daño)
 			efectividad *= calcularEfectividad(tipo2);
 		}
 		return efectividad;
 	}
 
+	// Devuelve el mensaje de texto que saldrá en pantalla durante el combate
 	public String getMensajeEfectividad(double multiplicador) {
 		if (multiplicador > 1.0) return "¡Es súper efectivo!";
 		if (multiplicador > 0.0 && multiplicador < 1.0) return "No es muy efectivo...";
@@ -144,10 +155,12 @@ public enum Tipo {
 		return "";
 	}
 
+	// Bono STAB: Si el pokémon usa un ataque de su mismo tipo, pega un 50% más fuerte
 	public double calcularSTAB(Tipo tipoPokemon) {
 		return (this == tipoPokemon) ? 1.5 : 1.0;
 	}
 
+	// Método auxiliar para imprimir el tipo por consola
 	public void mostrarEfectividades() {
 		System.out.println("Tipo: " + this.name());
 	}

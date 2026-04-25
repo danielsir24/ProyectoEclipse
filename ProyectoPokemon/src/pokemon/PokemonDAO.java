@@ -11,10 +11,12 @@ public class PokemonDAO {
 
 	private Connection conexion;
 
+	// El constructor se encarga de pillar la conexión a la base de datos nada más empezar
 	public PokemonDAO() {
 		this.conexion = ConexionBD.getConnection();
 	}
 
+	// Este método sirve para registrar un Pokémon nuevo en la base de datos (por ejemplo, al capturarlo)
 	public boolean guardarPokemon(Pokemon pokemon, int idEntrenador, int ubicacion) {
 	    
 	    String sql = "INSERT INTO pokemon (num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, "
@@ -23,18 +25,18 @@ public class PokemonDAO {
 	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	    try (PreparedStatement statement = conexion.prepareStatement(sql)) {
-	        // 1. Datos identificativos
+	        // Vamos metiendo todos los datos del objeto Pokémon en los huecos de la consulta
 	        statement.setInt(1, pokemon.getInfoPokedex().getNum_Pokedex());
 	        statement.setInt(2, idEntrenador);
 	        
-	        // Manejo de objeto nulo
+	        // Si el Pokémon no lleva ningún objeto equipado, ponemos un nulo en la base de datos
 	        if (pokemon.getObjeto() != null) {
 	            statement.setInt(3, pokemon.getObjeto().getIdObjeto());
 	        } else {
 	            statement.setNull(3, java.sql.Types.INTEGER);
 	        }
 
-	        // 2. Mote y Estadísticas (Ya reseteadas a nivel 1 en el Controller
+	        // Ponemos el mote y todas las estadísticas de combate
 	        statement.setString(4, pokemon.getMote());
 	        statement.setInt(5, pokemon.getVitalidad());
 	        statement.setInt(6, pokemon.getVitalidadMaxima());
@@ -44,11 +46,11 @@ public class PokemonDAO {
 	        statement.setInt(10, pokemon.getDefensaEspecial());
 	        statement.setInt(11, pokemon.getVelocidad());
 	        
-	        // 3. Estado y Reglas de Captura
-	        statement.setInt(12, pokemon.getFertilidad()); // Debería ser 5
+	        // También guardamos su nivel, su estado de salud y si es macho o hembra
+	        statement.setInt(12, pokemon.getFertilidad()); 
 	        statement.setInt(13, pokemon.getNivel()); 
 	        statement.setString(14, pokemon.getEstado() != null ? pokemon.getEstado().name() : "NORMAL");
-	        statement.setInt(15, ubicacion);
+	        statement.setInt(15, ubicacion); // 1 si va al equipo, 0 si va al PC
 	        statement.setString(16, pokemon.getSexo() != null ? pokemon.getSexo().name() : "MACHO");
 
 	        int filas = statement.executeUpdate();
@@ -60,6 +62,8 @@ public class PokemonDAO {
 	        return false;
 	    }
 	}
+
+	// Método para buscar un Pokémon concreto usando su ID de la base de datos
 	public Pokemon buscarPorIdPokemon(int idBusqueda) {
 		Pokemon p = null;
 		String sql = "SELECT * FROM pokemon WHERE id_Pokemon = ?";
@@ -69,6 +73,7 @@ public class PokemonDAO {
 
 			try (ResultSet rs = statement.executeQuery()) {
 				if (rs.next()) {
+					// Si lo encuentra, creamos el objeto y vamos rellenando sus datos
 					p = new Pokemon();
 					int idFichaPokedex = rs.getInt("num_Pokedex");
 					PokedexDAO pokedexDAO = new PokedexDAO();
@@ -86,6 +91,7 @@ public class PokemonDAO {
 					p.setNivel(rs.getInt("nivel"));
 					p.setFertilidad(rs.getInt("fertilidad"));
 
+					// Pasamos el texto de la base de datos a los Enums de Java
 					String sexoStr = rs.getString("sexo");
 					p.setSexo(sexoStr != null ? Sexo.valueOf(sexoStr) : Sexo.MACHO);
 
@@ -97,6 +103,7 @@ public class PokemonDAO {
 						p.setNombre(especieCargada.getNombreEspecie());
 					}
 
+					// Si tenía un objeto, lo buscamos también usando su DAO
 					int idObjeto = rs.getInt("id_Objeto");
 					if (!rs.wasNull()) {
 						ObjetoDAO objetoDAO = new ObjetoDAO();
@@ -110,6 +117,7 @@ public class PokemonDAO {
 		return p;
 	}
 
+	// Recupera todos los Pokémon que el entrenador tiene guardados en el PC (ubicación 0)
 	public ArrayList<Pokemon> obtenerPokemonPC(int idEntrenador, int posicionCaja) {
 		ArrayList<Pokemon> listaPC = new ArrayList<>();
 		String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 0";
@@ -121,6 +129,7 @@ public class PokemonDAO {
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
+				// Vamos creando la lista de Pokémon que están en el almacenamiento
 				Pokemon p = new Pokemon();
 				p.setIdPokemon(rs.getInt("id_Pokemon"));
 				p.setMote(rs.getString("mote"));
@@ -140,6 +149,7 @@ public class PokemonDAO {
 				String estadoStr = rs.getString("estado");
 				p.setEstado(estadoStr != null ? Estado.valueOf(estadoStr) : Estado.NORMAL);
 
+				// Cargamos también la info de la Pokédex para tener los tipos y el nombre real
 				int numPokedex = rs.getInt("num_Pokedex");
 				PokedexDAO pxDAO = new PokedexDAO();
 				Pokedex info = pxDAO.buscarPorIdPokedex(numPokedex);
@@ -171,7 +181,7 @@ public class PokemonDAO {
 		return listaPC;
 	}
 
-	// Método obligatorio para guardar el Entrenamiento y los Combates
+	// Este método actualiza los datos de un Pokémon tras un combate o entrenamiento
 	public boolean actualizarPokemon(Pokemon p) {
 		String sql = "UPDATE pokemon SET vitalidad = ?, experiencia = ?, nivel = ?, estado = ?, ubicacion = ?, vitalidadMaxima = ?, ataque = ?, defensa = ?, ataq_Especial = ?, def_Especial = ?, velocidad = ? WHERE id_Pokemon = ?";
 
@@ -183,7 +193,7 @@ public class PokemonDAO {
 			ps.setString(4, p.getEstado() != null ? p.getEstado().name() : "NORMAL");
 			ps.setInt(5, p.getUbicacion());
 
-			// Estadísticas que mejoran con el entrenamiento
+			// Actualizamos las estadísticas por si ha subido de nivel
 			ps.setInt(6, p.getVitalidadMaxima());
 			ps.setInt(7, p.getAtaque());
 			ps.setInt(8, p.getDefensa());
@@ -191,7 +201,7 @@ public class PokemonDAO {
 			ps.setInt(10, p.getDefensaEspecial());
 			ps.setInt(11, p.getVelocidad());
 
-			// Condición del WHERE
+			// Usamos el ID para saber qué Pokémon estamos editando
 			ps.setInt(12, p.getIdPokemon());
 
 			return ps.executeUpdate() > 0;
@@ -202,6 +212,7 @@ public class PokemonDAO {
 		}
 	}
 
+	// Cambia la ubicación del Pokémon al equipo (ubicación 1)
 	public boolean moverAlEquipo(int idPokemon) {
 		String sql = "UPDATE pokemon SET ubicacion = 1 WHERE id_Pokemon = ?";
 		try (Connection conexion = ConexionBD.getConnection();
@@ -214,6 +225,7 @@ public class PokemonDAO {
 		}
 	}
 
+	// Cambia la ubicación del Pokémon al PC (ubicación 0)
 	public boolean moverAlPC(int idPokemon) {
 		String sql = "UPDATE pokemon SET ubicacion = 0 WHERE id_Pokemon = ?";
 		try (Connection conexion = ConexionBD.getConnection();
@@ -224,9 +236,9 @@ public class PokemonDAO {
 			System.err.println("Error al mover al PC: " + e.getMessage());
 			return false;
 		}
-
 	}
 
+	// Borra definitivamente un Pokémon de la base de datos (lo libera)
 	public boolean liberarPokemon(int idPokemon) {
 		String sql = "DELETE FROM pokemon WHERE id_pokemon = ?";
 
@@ -250,12 +262,10 @@ public class PokemonDAO {
 			System.err.println("Código de error SQL: " + e.getErrorCode());
 			e.printStackTrace();
 			return false;
-			// Te quiero mucho señor debug
-
 		}
-
 	}
 
+	// Obtiene los 6 (o menos) Pokémon que el entrenador lleva encima para combatir
 	public ArrayList<Pokemon> obtenerEquipo(int idEntrenador) {
 		ArrayList<Pokemon> equipoRecuperado = new ArrayList<>();
 		String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 1";
@@ -267,6 +277,7 @@ public class PokemonDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				// Rellenamos el objeto con toda la información de combate necesaria
 				Pokemon p = new Pokemon();
 				p.setIdPokemon(rs.getInt("id_Pokemon"));
 				p.setMote(rs.getString("mote"));
@@ -281,7 +292,7 @@ public class PokemonDAO {
 				p.setVelocidad(rs.getInt("velocidad"));
 				p.setFertilidad(rs.getInt("fertilidad"));
 
-				// Sexo
+				// Manejo de Enums con control de errores por si hay datos raros en la BD
 				String sexoStr = rs.getString("sexo");
 				if (sexoStr != null) {
 					try {
@@ -291,7 +302,6 @@ public class PokemonDAO {
 					}
 				}
 
-				// Estado
 				String estadoStr = rs.getString("estado");
 				if (estadoStr != null) {
 					try {
@@ -321,10 +331,9 @@ public class PokemonDAO {
 		return equipoRecuperado;
 	}
 
+	// Este método asigna los ataques básicos de la especie a un Pokémon recién capturado
 	public void asignarAtaquesPredetermiandos(int idPokemon, int numPokedex) {
-		// Select pa pillar los ataques de cada especie buscando su numero en la pokedex
 		String sqlSelect = "SELECT id_Movimiento FROM pokedex_Movimiento WHERE num_Pokedex = ? LIMIT 4";
-		// Y con esto se los insertamos al Pokemon concreto
 		String sqlInsert = "INSERT INTO pokemon_movimento (id_Pokemon, id_Movimiento, activo, puntos_Poder) VALUES (?, ?, 1; 20)";
 
 		try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
@@ -332,43 +341,30 @@ public class PokemonDAO {
 			ResultSet rs = psSelect.executeQuery();
 
 			try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
-				// Nunca he puesto un coentario en estos bucles pero vaya que sirven para que
-				// vaya recorriendo todos los statements mientras el rs este activo que es
-				// basicamente la ejecucion de la consulta
+				// Recorremos los ataques encontrados y los vamos insertando para ese Pokémon
 				while (rs.next()) {
 					psInsert.setInt(1, idPokemon);
 					psInsert.setInt(2, rs.getInt("id_Movimiento"));
 					psInsert.executeUpdate();
 				}
-
 			}
 			System.out.println("DEBUG: Ataques asignados correctamente");
 
 		} catch (SQLException e) {
 			System.out.println("Error al asignar ataques: " + e.getMessage());
 			e.printStackTrace();
-
 		}
-
 	}
 
+	// Busca el ID más alto de la tabla Pokémon para saber cuál ha sido el último en crearse
 	public int obtenerUltimoIdGenerado() {
-		// Esta consulta busca el número más alto en id_Pokemon
-		// para saber ccual es el ultimo que s eha creado y asi meterle los movimientos
-
-		// Lo malo es que cualquier pokemon que hubiera hasta la creacion de este
-		// metodo debe ser extermianadopq nova a tenermovimientos, siempre
-		// os recordaremos como unos grandes
 		String sql = "SELECT MAX(id_Pokemon) FROM pokemon";
 
-		// Hace falta que siga cometandocada vez que hago una conexion con la base de
-		// datos?
 		try (PreparedStatement st = conexion.prepareStatement(sql); ResultSet rs = st.executeQuery(sql)) {
 
 			if (rs.next()) {
-				return rs.getInt(1); // Y aqui devuelve el id mas alto que ha encontrado que al estar en
-										// AUTOINCREMENT en la base de datos pues el ultimo siempre será el mas alto
-										// (espero que funcione)
+				// Al ser AUTOINCREMENT, el último ID creado siempre será el número más grande
+				return rs.getInt(1); 
 			}
 		} catch (SQLException e) {
 			System.out.println("Error al recuperar el último ID: " + e.getMessage());
