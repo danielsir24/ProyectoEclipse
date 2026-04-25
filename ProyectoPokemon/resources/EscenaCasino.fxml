@@ -97,6 +97,14 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
+                              <Button contentDisplay="CENTER" layoutX="63.0" layoutY="649.0" mnemonicParsing="false" onAction="#volverAlMenu1" style="visibility: -fx-background-color: #2b2b2b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-border-color: #ffd700; -fx-border-radius: 20; -fx-border-width: 2;;" text="Salir">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                            </children>
                         </AnchorPane>
                     </content>
@@ -137,6 +145,14 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
+                              <Button contentDisplay="CENTER" layoutX="73.0" layoutY="659.0" mnemonicParsing="false" onAction="#volverAlMenu2" style="visibility: -fx-background-color: #2b2b2b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-border-color: #ffd700; -fx-border-radius: 20; -fx-border-width: 2;;" text="Salir">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                            </children>
                         </AnchorPane>
                     </content>

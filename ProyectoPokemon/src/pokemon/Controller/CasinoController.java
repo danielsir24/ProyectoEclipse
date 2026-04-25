@@ -11,6 +11,7 @@ import pokemon.Main;
 
 public class CasinoController {
 
+    // --- ELEMENTOS DE LA INTERFAZ ---
     @FXML
     private ComboBox<String> comboCaraCruz;
 
@@ -26,9 +27,7 @@ public class CasinoController {
     @FXML
     private Label lblResultadoRuleta;
 
-    // AQUÍ ESTÁN TUS 3 MARCADORES INDEPENDIENTES
-    // Nota: Si en Scene Builder arrastraste un "Button" en vez de un "Label", 
-    // cambia la palabra "Label" por "Button" en estas 3 líneas.
+    // Marcadores independientes de dinero para cada pestaña del casino
     @FXML
     private Label lblPokedollars;
     @FXML
@@ -51,19 +50,21 @@ public class CasinoController {
     @FXML
     private TextField txtNumeroRuleta;
 
-    // Conectamos con el DAO para guardar el dinero
+    // Objeto para conectar con la base de datos y guardar el dinero
     private EntrenadorDAO entrenadorDAO = new EntrenadorDAO();
 
+    //Inicializacion
     @FXML
     void initialize() {
+        // Rellenamos los desplegables de los juegos
         comboCaraCruz.getItems().addAll("Cara", "Cruz");
         comboColorRuleta.getItems().addAll("Rojo", "Negro");
         
-        // Nada más abrir el casino, mostramos el dinero actual en las 3 pestañas
+        // Actualizamos los 3 marcadores de dinero nada más entrar
         actualizarMarcadorDinero();
     }
 
-    // Método que actualiza los 3 marcadores a la vez
+    // Método interno que actualiza los 3 labels a la vez
     private void actualizarMarcadorDinero() {
         if (Main.entrenadorLogueado != null) {
             String textoDinero = "Saldo: " + Main.entrenadorLogueado.getPokedollars() + " $";
@@ -74,40 +75,43 @@ public class CasinoController {
         }
     }
 
-    // Cara o Cruz
+    // Cara o cruz 
+    
     @FXML
     void jugarCaraCruz(ActionEvent event) {
         try {
             int apuesta = Integer.parseInt(txtApuestaCaraCruz.getText());
             String eleccion = comboCaraCruz.getValue();
 
+            // Comprobamos que haya elegido una opción
             if (eleccion == null) {
                 lblResultadoCaraCruz.setText("¡Debes elegir Cara o Cruz!");
                 return;
             }
 
-            // Comprobar si hay dinero suficiente
+            // Comprobamos si tiene el dinero suficiente para apostar
             if (apuesta <= 0 || Main.entrenadorLogueado.getPokedollars() < apuesta) {
                 lblResultadoCaraCruz.setText("No tienes suficientes Pokedólares.");
                 return;
             }
 
             // Restamos la apuesta
-            Main.entrenadorLogueado.setPokedollars(Main.entrenadorLogueado.getPokedollars() - apuesta);
+            Main.entrenadorLogueado.gastarPokedollars(apuesta);
 
+            // Tiramos la moneda al azar
             String[] opciones = {"Cara", "Cruz"};
             String resultadoMoneda = opciones[(int) (Math.random() * 2)];
 
+            // Comprobamos si ha ganado (Premio x2)
             if (eleccion.equals(resultadoMoneda)) {
                 int premio = apuesta * 2;
-                // Sumamos el premio
-                Main.entrenadorLogueado.setPokedollars(Main.entrenadorLogueado.getPokedollars() + premio);
+                Main.entrenadorLogueado.ganarPokedollars(premio);
                 lblResultadoCaraCruz.setText("¡Salió " + resultadoMoneda + "! Ganas " + premio + " $.");
             } else {
                 lblResultadoCaraCruz.setText("Salió " + resultadoMoneda + ". Pierdes " + apuesta + " $.");
             }
 
-            // Guardamos en BD y actualizamos los marcadores
+            // Guardamos en BD y actualizamos los marcadores visuales
             entrenadorDAO.actualizarPokedollars(Main.entrenadorLogueado);
             actualizarMarcadorDinero();
 
@@ -116,31 +120,39 @@ public class CasinoController {
         }
     }
 
-    // Ruleta
+   // Ruleta
     @FXML
     void jugarRuleta(ActionEvent event) {
         try {
             int apuesta = Integer.parseInt(txtApuestaRuleta.getText());
             String colorElegido = comboColorRuleta.getValue();
-            String numTexto = txtNumeroRuleta.getText();
+            String numTexto = txtNumeroRuleta.getText().trim();
 
-            // Comprobar si hay dinero suficiente
+            // ¡AQUÍ ESTÁ EL ARREGLO! 
+            // Si el color es nulo o vacío Y ADEMÁS el texto del número está vacío, cortamos.
+            if ((colorElegido == null || colorElegido.isEmpty()) && numTexto.isEmpty()) {
+                lblResultadoRuleta.setText("¡Debes elegir un número, un color o ambos!");
+                return; // El return hace que el método acabe aquí y no te quite dinero
+            }
+
+            // Comprobamos saldo
             if (apuesta <= 0 || Main.entrenadorLogueado.getPokedollars() < apuesta) {
                 lblResultadoRuleta.setText("No tienes suficientes Pokedólares.");
                 return;
             }
 
-            // Restamos la apuesta
-            Main.entrenadorLogueado.setPokedollars(Main.entrenadorLogueado.getPokedollars() - apuesta);
+            // Como ha pasado los filtros, le cobramos la apuesta al darle al botón
+            Main.entrenadorLogueado.gastarPokedollars(apuesta);
 
             int premioTotal = 0;
-            // La máquina genera número (1-37) y color
+            // Tirada de la ruleta: Número (1-37) y Color (Rojo/Negro)
             int numeroRuleta = (int) (Math.random() * 37) + 1; 
             String[] colores = {"Rojo", "Negro"};
             String colorRuleta = colores[(int) (Math.random() * 2)];
 
             StringBuilder mensaje = new StringBuilder("Salió " + numeroRuleta + " " + colorRuleta + ". ");
 
+            // Si apostó a un número, comprobamos si ha acertado (Premio x10)
             if (!numTexto.isEmpty()) {
                 int numeroElegido = Integer.parseInt(numTexto);
                 if (numeroElegido == numeroRuleta) {
@@ -149,20 +161,20 @@ public class CasinoController {
                 }
             }
 
+            // Si apostó a color, comprobamos si acierta (Premio x2)
             if (colorElegido != null && colorElegido.equals(colorRuleta)) {
                 premioTotal += apuesta * 2;
                 mensaje.append("¡Acertaste color! ");
             }
 
+            // Mostramos resultado final y pagamos el premio si toca
             if (premioTotal > 0) {
-                // Sumamos el premio total
-                Main.entrenadorLogueado.setPokedollars(Main.entrenadorLogueado.getPokedollars() + premioTotal);
+                Main.entrenadorLogueado.ganarPokedollars(premioTotal);
                 lblResultadoRuleta.setText("✨ " + mensaje.toString() + "Ganas " + premioTotal + " $.");
             } else {
                 lblResultadoRuleta.setText("❌ " + mensaje.toString() + "Pierdes " + apuesta + " $.");
             }
 
-            // Guardamos en BD y actualizamos los marcadores
             entrenadorDAO.actualizarPokedollars(Main.entrenadorLogueado);
             actualizarMarcadorDinero();
 
@@ -171,34 +183,34 @@ public class CasinoController {
         }
     }
 
-    // Adivinar Número
+    // Adivinar el numero 
     @FXML
     void jugarAdivinarNumero(ActionEvent event) {
         try {
             int apuesta = Integer.parseInt(txtApuestaAdivinar.getText());
             int numeroElegido = Integer.parseInt(txtNumeroAdivinar.getText());
 
-            // Comprobar si hay dinero suficiente
+            // Comprobamos saldo
             if (apuesta <= 0 || Main.entrenadorLogueado.getPokedollars() < apuesta) {
                 lblResultadoAdivinar.setText("No tienes suficientes Pokedólares.");
                 return;
             }
 
-            // Restamos la apuesta
-            Main.entrenadorLogueado.setPokedollars(Main.entrenadorLogueado.getPokedollars() - apuesta);
+            // Cobramos la apuesta
+            Main.entrenadorLogueado.gastarPokedollars(apuesta);
 
+            // Generamos número secreto del 1 al 10
             int numeroSecreto = (int) (Math.random() * 10) + 1; 
 
+            // Si acierta, el premio es x10
             if (numeroElegido == numeroSecreto) {
                 int premio = apuesta * 10; 
-                // Sumamos el premio
-                Main.entrenadorLogueado.setPokedollars(Main.entrenadorLogueado.getPokedollars() + premio);
+                Main.entrenadorLogueado.ganarPokedollars(premio);
                 lblResultadoAdivinar.setText("¡Acertaste! Era el " + numeroSecreto + ". Ganas " + premio + " $.");
             } else {
                 lblResultadoAdivinar.setText("Salió el " + numeroSecreto + ". Pierdes " + apuesta + " $.");
             }
 
-            // Guardamos en BD y actualizamos los marcadores
             entrenadorDAO.actualizarPokedollars(Main.entrenadorLogueado);
             actualizarMarcadorDinero();
 
@@ -207,22 +219,35 @@ public class CasinoController {
         }
     }
 
-    // Botón de escape al menú principal
+   //Botones de salida
+    
+    // Botón de salir de cara o cruz
     @FXML
     void volverAlMenu(ActionEvent event) {
+        ejecutarSalida(event);
+    }
+    
+    // Botón de salir de ruleta 
+    @FXML
+    void volverAlMenu1(ActionEvent event) {
+        ejecutarSalida(event);
+    }
+    
+    // Botón de salir de adivinar numero 
+    @FXML
+    void volverAlMenu2(ActionEvent event) {
+        ejecutarSalida(event);
+    }
+    
+    // Lógica común para no repetir el código del FXMLLoader 3 veces
+    private void ejecutarSalida(ActionEvent event) {
         try {
-            // Cargamos el diseño del menú principal
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/EscenaMenu.fxml"));
             javafx.scene.Parent root = loader.load();
-            
-            // Cogemos la ventana actual y le cambiamos la escena
             javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            
             stage.setTitle("Menú Principal Pokémon");
-            // Mantenemos las proporciones gigantes 1280x761 para volver al menú y no se minimice
             stage.setScene(new javafx.scene.Scene(root, 1280, 761));
             stage.show();
-            
         } catch (Exception e) {
             System.out.println("Error al volver al menú:");
             e.printStackTrace();
