@@ -122,7 +122,7 @@ public class CombateController {
 	@FXML
 	public void initialize() {
 
-		// TODO: Coger el primer pokemon vivo del equipo del jugador
+		//Coger el primer pokemon vivo del equipo del jugador
 		for (Pokemon p : Main.miEquipo) {
 			if (!p.estaDebilitado()) {
 				pokemonJugadorActual = p;
@@ -191,56 +191,94 @@ public class CombateController {
 		// Sacalos de pokemonJugadorActual.getMovimientos()
 	}
 
-	// ══════════════════════════════════════════════════
-	// BOTONES DE MOVIMIENTO - cada uno llama a
-	// ejecutarMovimiento() con el indice del movimiento
-	// ══════════════════════════════════════════════════
 
 	@FXML
 	private void handleMovimiento1(ActionEvent event) {
-
+		 ejecutarMovimiento(1);
 	}
 
 	@FXML
 	private void handleMovimiento2(ActionEvent event) {
-
+		 ejecutarMovimiento(2);
 	}
 
 	@FXML
 	private void handleMovimiento3(ActionEvent event) {
-
+		 ejecutarMovimiento(3);
 	}
 
 	@FXML
 	private void handleMovimiento4(ActionEvent event) {
-
+		 ejecutarMovimiento(4);
 	}
 
 	private void ejecutarMovimiento(int indice) {
 
-		// TODO: Comprobar que combateEnPausa es false
-		// Si es true, no hacemos nada (ya se esta ejecutando un turno)
+		//Si se esyta haciendo un turno no hacemos nada 
+		if(  combateEnPausa) return;
+		combateEnPausa = true;
+		
+		//Se vueleve al panel mientras se ahce el turno
+		mostrarPanel(panelAcciones);
+		
+		//Se coge el movimiento que quereamos
+		Movimiento movimiento;
+		//Hemoscreado un objeto movimiento
+		
+		if(pokemonJugadorActual.getMovimientos() != null
+				&& !pokemonJugadorActual.getMovimientos().isEmpty()
+				&& indice < pokemonJugadorActual.getMovimientos().size()) {
+			movimiento = pokemonJugadorActual.getMovimientos().get(indice);	
+				} else  {
+					 // Si no tienen ningun efecto se pone este por defecto, pero es imposible porque todos los pokemon ya vivnen generados con sus movimientos y ya
+			        movimiento = new Movimiento("Placaje", 40, Tipo.NORMAL, "ATAQUE", 0, 0);
+			    }
+				
+				//Ahora hacemos el metodo para comprobar que tiene suficiente estamiona
+		 	if (pokemonJugadorActual.getEstamina() < movimiento.getCosteEstamina()) {
+		        log(pokemonJugadorActual.getMote() + " no tiene estamina para usar "
+		                + movimiento.getNombre() + "!");
+		        combateEnPausa = false;
+		        return;
+	
+		 	}
+		 	
+		 	//Si se usa el ataque se gasta la estamina
+		    pokemonJugadorActual.setEstamina(
+		            pokemonJugadorActual.getEstamina() - movimiento.getCosteEstamina());
+		    
+		    
+		    //Ahora calculamos la efectividad de los tipos de ataque que hemos creado en tipos.java
+		    //Creamos la variable efectividad
+		    double efectividad = 1.0;
+		    String mensajeEfectividad = "";
+		    String resultadoTipo = "NEUTRO";
+		    
+		    if(pokemonRivalActual.getTipos() != null && !pokemonRivalActual.getTipos().isEmpty()) {
+		    	Tipo tipo1 = pokemonRivalActual.getTipos().get(0);
+		    	Tipo tipo2 = pokemonRivalActual.getTipos().size() > 1
+		    			?  pokemonRivalActual.getTipos().get(1): null;
+		    	
+		    	efectividad = movimiento.getTipo().calcularEfectividadDoble(tipo1, tipo2);
 
-		// TODO: Poner combateEnPausa = true para bloquear
-		// los botones mientras se ejecuta el turno
+		    }
+		    
+		    
+		    //Deteminamos la ventaja si ess doble ventaja, ventaja neutro o desventaa, hacemos una condicional para comprobarlo, si la eefectivad es mayor a lo que se pide, es doble ventaja
+		    if (efectividad >= 4.0) {
+	            resultadoTipo     = "DOBLE_VENTAJA";
+	            mensajeEfectividad = "Es doblemente efectivo!";
+	        } else if (efectividad >= 2.0) {
+	            resultadoTipo     = "VENTAJA";
+	            mensajeEfectividad = "Es super efectivo";
+	        } else if (efectividad < 1.0 && efectividad > 0.0) {
+	            resultadoTipo     = "DESVENTAJA";
+	            mensajeEfectividad = "No es muy efectivo";
+	        } else if (efectividad == 0.0) {
+	            resultadoTipo     = "DESVENTAJA";
+	            mensajeEfectividad = "No afecta a " + pokemonRivalActual.getNombre();
+	        }
 
-		// TODO: Volver al panelAcciones (ocultar panelMovimientos)
-
-		// TODO: Calcular el dano que hace el jugador al rival
-		// usando calcularDano()
-
-		// TODO: Calcular el dano que hace el rival al jugador
-		// usando calcularDanoRival()
-
-		// TODO: Usar un Timeline para mostrar los mensajes
-		// con un retardo de 1 segundo entre cada uno.
-		// El Timeline debe hacer esto en orden:
-		// - Segundo 0: mostrar "X uso Y!"
-		// - Segundo 1: aplicar dano al rival y actualizar su barra
-		// - Segundo 2: comprobar si el rival se debilito
-		// - Segundo 3: si sigue vivo, el rival ataca
-		// - Segundo 4: comprobar si el jugador se debilito
-		// - Al final: subir el turno y poner combateEnPausa = false
 	}
 
 	// Hemos hecho el metodo de calcular el daño por ambos, del rival y del equipo.
@@ -406,27 +444,6 @@ public class CombateController {
 	private void handleVolverAcciones(ActionEvent event) {
 	    mostrarPanel(panelAcciones);
 	}
-
-
-
-	private void finalizarCombate(boolean ganoJugador) {
-
-		// TODO: Si ganoJugador es true:
-		// - Calcular experiencia con la formula:
-		// (nivelJugador + nivelRival * 10) / 4
-		// - Sumarle la experiencia al pokemon jugador
-		// - El rival pierde 1/3 de sus pokedollars
-		// - Escribir en el log "Ganaste el combate!"
-
-		// TODO: Si ganoJugador es false:
-		// - El jugador pierde 1/3 de sus pokedollars
-		// - Escribir en el log "Perdiste el combate..."
-
-		// TODO: Desactivar todos los botones para que
-		// no se pueda seguir jugando
-		// panelAcciones.setDisable(true);
-	}
-
 
 
 	private void actualizarPantalla() {
