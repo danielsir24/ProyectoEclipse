@@ -110,12 +110,13 @@ public class CapturaController {
 
 		// Buscamos toda la info de esa especie en concreto
 		Pokedex especie = pokedexDAO.buscarPorIdPokedex(idPokedex);
-
+		PokemonDAO pDAO = new PokemonDAO();
 		// Si hemos encontrado la especie bien en la BD, creamos el Pokémon
 		if (especie != null) {
 
 			// Ponemos su nombre en la etiqueta de arriba
 			lblNombre.setText(especie.getNombreEspecie());
+			
 
 			// Le generamos un nivel aleatorio entre el 2 y el 10
 			int nivelAleatorio = (int) (Math.random() * (10 - 2 + 1) + 2);
@@ -123,14 +124,19 @@ public class CapturaController {
 
 			// Creamos el objeto Pokémon y le pasamos todos los datos que hemos generado
 			this.pokemonActual = new Pokemon();
+			this.pokemonActual.inicializarEstadisticasBase();
 
+			int idGenerado = pDAO.obtenerUltimoIdGenerado();
+			
+			this.pokemonActual.setIdPokemon(idGenerado);
 			this.pokemonActual.setInfoPokedex(especie);
 			this.pokemonActual.setNombre(especie.getNombreEspecie());
 			this.pokemonActual.setNivel(nivelAleatorio);
 			this.pokemonActual.setMote(especie.getNombreEspecie()); // Por defecto su mote es su nombre
 			// 50% de probabilidad de que sea macho o hembra
 			this.pokemonActual.setSexo(Math.random() < 0.5 ? pokemon.Sexo.MACHO : pokemon.Sexo.HEMBRA);
-
+			
+			
 			// Actualizamos las etiquetas de la pantalla con los datos reales
 			lblNombre.setText(pokemonActual.getNombre());
 			lblNivel.setText("Niv." + pokemonActual.getNivel());
@@ -361,7 +367,9 @@ public class CapturaController {
 		pDAO.asignarAtaquesPredetermiandos(idPkemonBD, pokemonActual.getInfoPokedex().getNum_Pokedex()); //
 
 		// Terminamos mostrando el menú para ver si quiere seguir cazando
+		txtMote.clear();
 		moteAsignado(event); //
+		
 
 	}
 
