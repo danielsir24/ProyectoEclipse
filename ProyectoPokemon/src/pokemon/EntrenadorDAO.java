@@ -98,4 +98,9 @@ public class EntrenadorDAO {
             return false;
         }
     }
+
+	public void actualizarPokedollars(int id_Entrenador, int pokedollars) {
+		// TODO Auto-generated method stub
+		
+	}
 }

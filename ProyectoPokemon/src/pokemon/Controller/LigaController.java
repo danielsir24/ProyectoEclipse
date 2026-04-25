@@ -47,6 +47,8 @@ public class LigaController {
 
     // Rival seleccionado por el jugador
     private int rivalSeleccionado = -1;
+    
+    public static Liga partidaActual;
 
     @FXML
     public void initialize() {
