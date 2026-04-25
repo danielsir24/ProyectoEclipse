@@ -395,7 +395,7 @@ public class PokemonDAO {
 	// Busca el ID más alto de la tabla Pokémon para saber cuál ha sido el último en crearse
 	public int obtenerUltimoIdGenerado() {
 		// Esta consulta busca el número más alto en id_Pokemon
-		// para saber cual es el ultimo que s eha creado y asi meterle los movimientos
+		// para saber ccual es el ultimo que s eha creado y asi meterle los movimientos
 
 		//Al final no ha hecho falta exterminar a los Pokemon
 
@@ -413,4 +413,22 @@ public class PokemonDAO {
 		}
 		return 0;
 	}
+	
+	//Añadimos el objeto del pokemon a la bbdd
+	public boolean equiparObjeto(int idPokemon, int idObjeto) {
+	    String sql = "UPDATE pokemon SET id_Objeto = ? WHERE id_Pokemon = ?";
+		  try (Connection conexion = ConexionBD.getConnection();
+				PreparedStatement st = conexion.prepareStatement(sql)) {
+			  if (idObjeto == 0) {
+		            st.setNull(1, java.sql.Types.INTEGER);
+		        } else {
+		            st.setInt(1, idObjeto);
+		        }
+		        st.setInt(2, idPokemon);
+		        return st.executeUpdate() > 0;
+		    } catch (SQLException e) {
+		        System.err.println("Error al equipar objeto: " + e.getMessage());
+		        return false;
+		    }
+		}
 }

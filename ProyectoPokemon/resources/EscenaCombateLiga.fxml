@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CombateLigaController">
 
 
     <ImageView fx:id="imgFondoCombate" fitHeight="470" fitWidth="1280" preserveRatio="false" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
@@ -20,7 +20,7 @@
     </ImageView>
 
 
-    <VBox layoutX="152.0" layoutY="64.0" prefWidth="260" spacing="3" style="-fx-background-color: white;                -fx-border-color: #222222;                -fx-border-width: 3;                -fx-padding: 8 14 8 14;" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="64.0">
+    <VBox layoutX="152.0" layoutY="64.0" prefWidth="260" spacing="3" style="-fx-background-color: white; -fx-border-color: #222222; -fx-border-width: 3; -fx-padding: 8 14 8 14;" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="64.0">
 
 
         <HBox alignment="CENTER_LEFT" spacing="6">
@@ -37,7 +37,7 @@
         </HBox>
     </VBox>
 
-    <VBox layoutX="819.0" layoutY="325.0" prefWidth="300" spacing="3" style="-fx-background-color: white;                -fx-border-color: #222222;                -fx-border-width: 3;                -fx-padding: 8 14 10 14;" AnchorPane.rightAnchor="161.0" AnchorPane.topAnchor="325.0">
+    <VBox layoutX="819.0" layoutY="325.0" prefWidth="300" spacing="3" style="-fx-background-color: white; -fx-border-color: #222222; -fx-border-width: 3; -fx-padding: 8 14 10 14;" AnchorPane.rightAnchor="161.0" AnchorPane.topAnchor="325.0">
 
         <HBox alignment="CENTER_LEFT" spacing="6">
             <Label fx:id="lblNombreJugador" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 15px; -fx-text-fill: #111111;" />
@@ -87,25 +87,25 @@
     <HBox prefHeight="250" spacing="0" style="-fx-background-color: #c8c890;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
 
-        <VBox prefWidth="500" style="-fx-background-color: #e8e4c8;                    -fx-border-color: #444422;                    -fx-border-width: 4 3 4 4;                    -fx-padding: 0;" HBox.hgrow="NEVER">
+        <VBox prefWidth="500" style="-fx-background-color: #e8e4c8; -fx-border-color: #444422; -fx-border-width: 4 3 4 4; -fx-padding: 0;" HBox.hgrow="NEVER">
             <TextArea fx:id="txtLog" editable="false" prefHeight="250" style="-fx-control-inner-background: #000000; -fx-text-fill: #ffffff;" wrapText="true" />
         </VBox>
 
 
-        <VBox fx:id="panelAcciones" alignment="CENTER" prefWidth="780" spacing="8" style="-fx-background-color: #c8c890;                    -fx-border-color: #444422;                    -fx-border-width: 4 4 4 0;                    -fx-padding: 20 30 20 30;" HBox.hgrow="ALWAYS">
+        <VBox fx:id="panelAcciones" alignment="CENTER" prefWidth="780" spacing="8" style="-fx-background-color: #c8c890; -fx-border-color: #444422; -fx-border-width: 4 4 4 0; -fx-padding: 20 30 20 30;" HBox.hgrow="ALWAYS">
 
             <HBox alignment="CENTER" spacing="16">
 
-                <Button fx:id="btnLuchar" prefHeight="90" prefWidth="340" style="-fx-background-color: #ee5544;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #aa2211;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="LUCHAR" />
+                <Button fx:id="btnLuchar" onAction="#handleLuchar" prefHeight="90" prefWidth="340" style="-fx-background-color: #ee5544; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 18px; -fx-background-radius: 12; -fx-border-color: #aa2211; -fx-border-width: 0 0 4 0; -fx-border-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="LUCHAR" />
 
-                <Button fx:id="btnMochila" prefHeight="90" prefWidth="340" style="-fx-background-color: #ddaa22;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #aa7700;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="MOCHILA" />
+                <Button fx:id="btnMochila" onAction="#handleMochila" prefHeight="90" prefWidth="340" style="-fx-background-color: #ddaa22; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 18px; -fx-background-radius: 12; -fx-border-color: #aa7700; -fx-border-width: 0 0 4 0; -fx-border-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="MOCHILA" />
             </HBox>
 
             <HBox alignment="CENTER" spacing="16">
 
-                <Button fx:id="btnCambiarPokemon" prefHeight="90" prefWidth="340" style="-fx-background-color: #44bb44;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #228822;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="POKEMON" />
+                <Button fx:id="btnPokemon" onAction="#handlePokemon" prefHeight="90" prefWidth="340" style="-fx-background-color: #44bb44; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 18px; -fx-background-radius: 12; -fx-border-color: #228822; -fx-border-width: 0 0 4 0; -fx-border-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="POKEMON" />
 
-                <Button fx:id="btnHuir" prefHeight="90" prefWidth="340" style="-fx-background-color: #3377dd;                            -fx-text-fill: white;                            -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 18px;                            -fx-background-radius: 12;                            -fx-border-color: #1144aa;                            -fx-border-width: 0 0 4 0;                            -fx-border-radius: 12;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="HUIR" />
+                <Button fx:id="btnHuir" onAction="#handleHuir" prefHeight="90" prefWidth="340" style="-fx-background-color: #3377dd; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 18px; -fx-background-radius: 12; -fx-border-color: #1144aa; -fx-border-width: 0 0 4 0; -fx-border-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.2, 0, 3);" text="HUIR" />
             </HBox>
         </VBox>
     </HBox>
@@ -114,26 +114,26 @@
     <HBox fx:id="panelMovimientos" managed="false" prefHeight="250" spacing="0" style="-fx-background-color: #c8c890;" visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
         <!-- Info del movimiento seleccionado -->
-        <VBox alignment="CENTER" prefWidth="260" spacing="10" style="-fx-background-color: #e8e4c8;                    -fx-border-color: #444422;                    -fx-border-width: 4 3 4 4;                    -fx-padding: 20;">
-            <Label fx:id="lblTipoMovimiento" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px;                        -fx-background-color: #aaaaaa; -fx-text-fill: white;                        -fx-background-radius: 8; -fx-padding: 4 14 4 14;" text="NORMAL" />
+        <VBox alignment="CENTER" prefWidth="260" spacing="10" style="-fx-background-color: #e8e4c8; -fx-border-color: #444422; -fx-border-width: 4 3 4 4; -fx-padding: 20;">
+            <Label fx:id="lblTipoMovimiento" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px; -fx-background-color: #aaaaaa; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 4 14 4 14;" text="NORMAL" />
             <Label fx:id="lblPPMovimiento" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px; -fx-text-fill: #333;" text="PP  --/--" />
         </VBox>
 
 
         <VBox spacing="0" style="-fx-border-color: #444422; -fx-border-width: 4 4 4 0;" HBox.hgrow="ALWAYS">
             <HBox prefHeight="125" spacing="0" VBox.vgrow="ALWAYS">
-                <Button fx:id="btnMovimiento1" prefHeight="125" style="-fx-background-color: #e8e4c8; -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 15px; -fx-text-fill: #111; -fx-background-radius: 0;                            -fx-border-color: #aaaaaa; -fx-border-width: 0 1 1 0; -fx-cursor: hand;" text="---" HBox.hgrow="ALWAYS" />
-                <Button fx:id="btnMovimiento2" prefHeight="125" style="-fx-background-color: #e8e4c8; -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 15px; -fx-text-fill: #111; -fx-background-radius: 0;                            -fx-border-color: #aaaaaa; -fx-border-width: 0 0 1 0; -fx-cursor: hand;" text="---" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnMovimiento1" prefHeight="125" style="-fx-background-color: #e8e4c8; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 15px; -fx-text-fill: #111; -fx-background-radius: 0; -fx-border-color: #aaaaaa; -fx-border-width: 0 1 1 0; -fx-cursor: hand;" text="---" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnMovimiento2" prefHeight="125" style="-fx-background-color: #e8e4c8; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 15px; -fx-text-fill: #111; -fx-background-radius: 0; -fx-border-color: #aaaaaa; -fx-border-width: 0 0 1 0; -fx-cursor: hand;" text="---" HBox.hgrow="ALWAYS" />
             </HBox>
             <HBox prefHeight="125" spacing="0" VBox.vgrow="ALWAYS">
-                <Button fx:id="btnMovimiento3" prefHeight="125" style="-fx-background-color: #e8e4c8; -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 15px; -fx-text-fill: #111; -fx-background-radius: 0;                            -fx-border-color: #aaaaaa; -fx-border-width: 0 1 0 0; -fx-cursor: hand;" text="---" HBox.hgrow="ALWAYS" />
-                <Button fx:id="btnMovimiento4" prefHeight="125" style="-fx-background-color: #e8e4c8; -fx-font-family: 'Pokemon Solid Normal';                            -fx-font-size: 15px; -fx-text-fill: #111; -fx-background-radius: 0;                            -fx-border-color: transparent; -fx-cursor: hand;" text="---" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnMovimiento3" prefHeight="125" style="-fx-background-color: #e8e4c8; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 15px; -fx-text-fill: #111; -fx-background-radius: 0; -fx-border-color: #aaaaaa; -fx-border-width: 0 1 0 0; -fx-cursor: hand;" text="---" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnMovimiento4" prefHeight="125" style="-fx-background-color: #e8e4c8; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 15px; -fx-text-fill: #111; -fx-background-radius: 0; -fx-border-color: transparent; -fx-cursor: hand;" text="---" HBox.hgrow="ALWAYS" />
             </HBox>
         </VBox>
 
         <!-- Boton volver -->
         <VBox alignment="BOTTOM_RIGHT" prefWidth="60" style="-fx-background-color: #c8c890; -fx-padding: 8;">
-            <Button prefHeight="50" prefWidth="50" style="-fx-background-color: #888866; -fx-text-fill: white;                        -fx-font-size: 16px; -fx-background-radius: 8; -fx-cursor: hand;" text="←" />
+            <Button prefHeight="50" prefWidth="50" style="-fx-background-color: #888866; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 8; -fx-cursor: hand;" text="←" />
         </VBox>
     </HBox>
 
@@ -143,47 +143,47 @@
         <HBox alignment="CENTER_LEFT" prefHeight="28" style="-fx-background-color: #2a2a44; -fx-padding: 0 16 0 16;">
             <Label style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 12px; -fx-text-fill: white;" text="Elige un Pokemon" />
             <Pane HBox.hgrow="ALWAYS" />
-            <Button style="-fx-background-color: #555577; -fx-text-fill: white;                        -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 10px;                        -fx-background-radius: 4; -fx-padding: 2 10 2 10; -fx-cursor: hand;" text="←  Volver" />
+            <Button style="-fx-background-color: #555577; -fx-text-fill: white; -fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 10px; -fx-background-radius: 4; -fx-padding: 2 10 2 10; -fx-cursor: hand;" text="←  Volver" />
         </HBox>
 
         <HBox fx:id="hboxEquipoCambio" prefHeight="222" spacing="6" style="-fx-padding: 10 14 10 14;">
 
-            <VBox fx:id="slotCambio1" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10;                        -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+            <VBox fx:id="slotCambio1" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
                 <ImageView fx:id="imgCambio1" fitHeight="64" fitWidth="64" preserveRatio="true" />
                 <Label fx:id="lblCambio1" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 10px; -fx-text-fill: white;" text="---" />
                 <ProgressBar fx:id="hpCambio1" prefHeight="6" prefWidth="100" progress="1.0" style="-fx-accent: #44cc44;" />
                 <Label fx:id="lblPsCambio1" style="-fx-font-size: 9px; -fx-text-fill: #aaaaaa;" text="--/--" />
             </VBox>
 
-            <VBox fx:id="slotCambio2" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10;                        -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+            <VBox fx:id="slotCambio2" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
                 <ImageView fx:id="imgCambio2" fitHeight="64" fitWidth="64" preserveRatio="true" />
                 <Label fx:id="lblCambio2" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 10px; -fx-text-fill: white;" text="---" />
                 <ProgressBar fx:id="hpCambio2" prefHeight="6" prefWidth="100" progress="1.0" style="-fx-accent: #44cc44;" />
                 <Label fx:id="lblPsCambio2" style="-fx-font-size: 9px; -fx-text-fill: #aaaaaa;" text="--/--" />
             </VBox>
 
-            <VBox fx:id="slotCambio3" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10;                        -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+            <VBox fx:id="slotCambio3" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
                 <ImageView fx:id="imgCambio3" fitHeight="64" fitWidth="64" preserveRatio="true" />
                 <Label fx:id="lblCambio3" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 10px; -fx-text-fill: white;" text="---" />
                 <ProgressBar fx:id="hpCambio3" prefHeight="6" prefWidth="100" progress="1.0" style="-fx-accent: #44cc44;" />
                 <Label fx:id="lblPsCambio3" style="-fx-font-size: 9px; -fx-text-fill: #aaaaaa;" text="--/--" />
             </VBox>
 
-            <VBox fx:id="slotCambio4" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10;                        -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+            <VBox fx:id="slotCambio4" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
                 <ImageView fx:id="imgCambio4" fitHeight="64" fitWidth="64" preserveRatio="true" />
                 <Label fx:id="lblCambio4" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 10px; -fx-text-fill: white;" text="---" />
                 <ProgressBar fx:id="hpCambio4" prefHeight="6" prefWidth="100" progress="1.0" style="-fx-accent: #44cc44;" />
                 <Label fx:id="lblPsCambio4" style="-fx-font-size: 9px; -fx-text-fill: #aaaaaa;" text="--/--" />
             </VBox>
 
-            <VBox fx:id="slotCambio5" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10;                        -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+            <VBox fx:id="slotCambio5" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
                 <ImageView fx:id="imgCambio5" fitHeight="64" fitWidth="64" preserveRatio="true" />
                 <Label fx:id="lblCambio5" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 10px; -fx-text-fill: white;" text="---" />
                 <ProgressBar fx:id="hpCambio5" prefHeight="6" prefWidth="100" progress="1.0" style="-fx-accent: #44cc44;" />
                 <Label fx:id="lblPsCambio5" style="-fx-font-size: 9px; -fx-text-fill: #aaaaaa;" text="--/--" />
             </VBox>
 
-            <VBox fx:id="slotCambio6" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10;                        -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+            <VBox fx:id="slotCambio6" alignment="CENTER" spacing="4" style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.18); -fx-border-radius: 10; -fx-padding: 6; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
                 <ImageView fx:id="imgCambio6" fitHeight="64" fitWidth="64" preserveRatio="true" />
                 <Label fx:id="lblCambio6" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 10px; -fx-text-fill: white;" text="---" />
                 <ProgressBar fx:id="hpCambio6" prefHeight="6" prefWidth="100" progress="1.0" style="-fx-accent: #44cc44;" />

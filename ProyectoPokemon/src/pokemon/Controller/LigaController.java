@@ -102,34 +102,32 @@ public class LigaController {
 
     @FXML
     private void seleccionarRival1(MouseEvent event) {
-        seleccionarRival(1);
+        if (combateActual == 1) seleccionarRival(1);
     }
 
     @FXML
     private void seleccionarRival2(MouseEvent event) {
-        seleccionarRival(2);
+    	 if (combateActual == 2) seleccionarRival(2);
     }
 
     @FXML
     private void seleccionarRival3(MouseEvent event) {
-        seleccionarRival(3);
-    }
+    	 if (combateActual == 3) seleccionarRival(3);    }
 
     @FXML
     private void seleccionarRival4(MouseEvent event) {
-        seleccionarRival(4);
-    }
+    	 if (combateActual == 4) seleccionarRival(4);    }
 
     @FXML
     private void seleccionarRival5(MouseEvent event) {
-        seleccionarRival(5);
-    }
+    	 if (combateActual == 5) seleccionarRival(5);    }
 
     private void seleccionarRival(int numero) {
         rivalSeleccionado = numero;
         Entrenador rival = listaAltoMando.get(numero - 1);
         nombreRivalSeleccionado.setText(rival.getNom_Entrenador());
         btnCombatir.setDisable(false);
+        System.out.println("Rival " + numero + " seleccionado: " + rival.getNom_Entrenador());
     }
 
     // Botones

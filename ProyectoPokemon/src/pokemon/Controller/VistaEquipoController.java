@@ -17,6 +17,15 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import pokemon.Main;
 import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import pokemon.Objeto;
+import pokemon.ObjetoDAO;
+import pokemon.PokemonDAO;
+import java.util.ArrayList;
 
 import pokemon.Pokemon;
 import pokemon.PokemonDAO;
@@ -24,6 +33,13 @@ import pokemon.PokemonDAO;
 import java.io.InputStream;
 
 public class VistaEquipoController {
+
+	@FXML private void handleObjeto1() { equiparObjeto(0); }
+	@FXML private void handleObjeto2() { equiparObjeto(1); }
+	@FXML private void handleObjeto3() { equiparObjeto(2); }
+	@FXML private void handleObjeto4() { equiparObjeto(3); }
+	@FXML private void handleObjeto5() { equiparObjeto(4); }
+	@FXML private void handleObjeto6() { equiparObjeto(5); }
 
 	// Elementos generales
 	@FXML
@@ -95,6 +111,10 @@ public class VistaEquipoController {
 	private Label[] nombres, niveles, pvs, exps, generos;
 	private ProgressBar[] barrasHP, barrasEXP;
 	private ImageView[] fotos;
+	
+	//Los botones de objetos
+	@FXML private Button btnObjeto1, btnObjeto2, btnObjeto3;
+	@FXML private Button btnObjeto4, btnObjeto5, btnObjeto6;
 
 	// Metodo para cargar la fuente
 
@@ -413,4 +433,128 @@ public class VistaEquipoController {
 		}
 	}
 
+	// Abre una ventana modal con los objetos de la mochila para equipar al pokemon del slot indicado
+	private void equiparObjeto(int indicePokemon) {
+ 
+		// Comprobamos que el slot tiene un pokemon
+		if (indicePokemon >= Main.miEquipo.size()) {
+			System.out.println("[Equipo] El slot " + indicePokemon + " esta vacio.");
+			return;
+		}
+ 
+		Pokemon pokemon = Main.miEquipo.get(indicePokemon);
+ 
+		// Cargamos la mochila del jugador desde la base de datos
+		ObjetoDAO objetoDAO = new ObjetoDAO();
+		ArrayList<Object[]> mochila = objetoDAO.obtenerMochila(
+				Main.entrenadorLogueado.getId_Entrenador());
+ 
+		if (mochila.isEmpty()) {
+			System.out.println("[Equipo] La mochila esta vacia, no hay objetos para equipar.");
+			return;
+		}
+ 
+		// Construimos la ventana modal de seleccion de objeto
+		Stage ventana = new Stage();
+		ventana.initModality(Modality.APPLICATION_MODAL);
+		ventana.setTitle("Equipar objeto a " + pokemon.getMote());
+		ventana.setResizable(false);
+ 
+		VBox root = new VBox(10);
+		root.setStyle("-fx-background-color: #1a2a1a; -fx-padding: 16;");
+		root.setAlignment(Pos.TOP_CENTER);
+ 
+		// Titulo de la ventana
+		Label titulo = new Label("Elige un objeto para " + pokemon.getMote());
+		titulo.setStyle("-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 13px;"
+				+ "-fx-text-fill: white; -fx-padding: 0 0 8 0;");
+		root.getChildren().add(titulo);
+ 
+		// Si ya tiene objeto equipado lo mostramos
+		if (pokemon.getObjeto() != null) {
+			Label lblActual = new Label("Objeto actual: " + pokemon.getObjeto().getNombre());
+			lblActual.setStyle("-fx-font-size: 11px; -fx-text-fill: #ffd700; -fx-padding: 0 0 6 0;");
+			root.getChildren().add(lblActual);
+		}
+ 
+		// Una fila por cada objeto de la mochila
+		for (Object[] entrada : mochila) {
+			Objeto obj      = (Objeto) entrada[0];
+			int    cantidad = (int)    entrada[1];
+ 
+			javafx.scene.layout.HBox fila = new javafx.scene.layout.HBox(12);
+			fila.setAlignment(Pos.CENTER_LEFT);
+			fila.setStyle("-fx-background-color: rgba(255,255,255,0.07);"
+					+ "-fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.15);"
+					+ "-fx-border-radius: 8; -fx-padding: 8 14 8 10; -fx-cursor: hand;");
+ 
+			// Nombre y cantidad del objeto
+			Label lblObjeto = new Label(obj.getNombre() + "  x" + cantidad);
+			lblObjeto.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
+ 
+			// Descripcion corta de los bonos
+			Label lblInfo = new Label(obj.obtenerInfo());
+			lblInfo.setStyle("-fx-font-size: 10px; -fx-text-fill: #aaaaaa;");
+ 
+			VBox textos = new VBox(2, lblObjeto, lblInfo);
+			fila.getChildren().add(textos);
+ 
+			// Al hacer clic se equipa el objeto al pokemon
+			fila.setOnMouseClicked(e -> {
+				pokemon.setObjeto(obj);
+				PokemonDAO pokemonDAO = new PokemonDAO();
+				pokemonDAO.equiparObjeto(pokemon.getIdPokemon(), obj.getIdObjeto());
+				System.out.println("[Equipo] " + obj.getNombre() + " equipado a " + pokemon.getMote());
+				ventana.close();
+				actualizarEquipo();
+			});
+ 
+			// Efecto hover al pasar el raton por encima
+			fila.setOnMouseEntered(ev -> fila.setStyle(
+					"-fx-background-color: rgba(255,215,0,0.15);"
+					+ "-fx-background-radius: 8; -fx-border-color: #ffd700;"
+					+ "-fx-border-radius: 8; -fx-padding: 8 14 8 10; -fx-cursor: hand;"));
+			fila.setOnMouseExited(ev -> fila.setStyle(
+					"-fx-background-color: rgba(255,255,255,0.07);"
+					+ "-fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.15);"
+					+ "-fx-border-radius: 8; -fx-padding: 8 14 8 10; -fx-cursor: hand;"));
+ 
+			root.getChildren().add(fila);
+		}
+ 
+		// Boton para quitar el objeto que ya tiene equipado el pokemon
+		if (pokemon.getObjeto() != null) {
+			Button btnQuitar = new Button("Quitar objeto");
+			btnQuitar.setStyle("-fx-background-color: #cc4444; -fx-text-fill: white;"
+					+ "-fx-background-radius: 6; -fx-padding: 6 20 6 20; -fx-cursor: hand;");
+			btnQuitar.setOnAction(e -> {
+				pokemon.setObjeto(null);
+				PokemonDAO pokemonDAO = new PokemonDAO();
+				pokemonDAO.equiparObjeto(pokemon.getIdPokemon(), 0); // 0 = sin objeto
+				System.out.println("[Equipo] Objeto quitado a " + pokemon.getMote());
+				ventana.close();
+				actualizarEquipo();
+			});
+			root.getChildren().add(btnQuitar);
+		}
+ 
+		// Boton para cerrar sin hacer nada
+		Button btnCancelar = new Button("Cancelar");
+		btnCancelar.setStyle("-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white;"
+				+ "-fx-background-radius: 6; -fx-padding: 6 20 6 20; -fx-cursor: hand;");
+		btnCancelar.setOnAction(e -> ventana.close());
+		root.getChildren().add(btnCancelar);
+ 
+		javafx.scene.control.ScrollPane scroll = new javafx.scene.control.ScrollPane(root);
+		scroll.setFitToWidth(true);
+		scroll.setStyle("-fx-background-color: transparent;");
+ 
+		javafx.scene.Scene escena = new javafx.scene.Scene(scroll, 400,
+				Math.min(500, 120 + mochila.size() * 70));
+		ventana.setScene(escena);
+		ventana.showAndWait();
+	}
+ 
+ 
 }
+
