@@ -18,7 +18,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+ 
 		// Cargar escena de Login
 		Parent root = FXMLLoader.load(getClass().getResource("/EscenaLogin.fxml"));
 		primaryStage.setTitle("Login Pokémon");
