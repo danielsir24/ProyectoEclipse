@@ -363,7 +363,7 @@ public class PokemonDAO {
 	// Busca el ID más alto de la tabla Pokémon para saber cuál ha sido el último en crearse
 	public int obtenerUltimoIdGenerado() {
 		// Esta consulta busca el número más alto en id_Pokemon
-		// para saber cual es el ultimo que s eha creado y asi meterle los movimientos
+		// para saber ccual es el ultimo que s eha creado y asi meterle los movimientos
 
 		//Al final no ha hecho falta exterminar a los Pokemon
 
