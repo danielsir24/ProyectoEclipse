@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-
+import java.util.List;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
@@ -100,6 +100,7 @@ public class VistaEquipoController {
 
 	@FXML
 	public void initialize() {
+		PokemonDAO pDAO = new PokemonDAO();
 
 		// Incializamos los arrays en orden
 		nombres = new Label[] { lblNombre1, lblNombre2, lblNombre3, lblNombre4, lblNombre5, lblNombre6 };
@@ -113,6 +114,9 @@ public class VistaEquipoController {
 
 		fotos = new ImageView[] { imgPokemon1, imgPokemon2, imgPokemon3, imgPokemon4, imgPokemon5, imgPokemon6 };
 
+		List<Pokemon> desdeBD = pDAO.obtenerEquipo(Main.entrenadorLogueado.getId_Entrenador());
+		Main.miEquipo.clear();
+		Main.miEquipo.addAll(desdeBD);
 		actualizarEquipo();
 //		cargarFuentePersonalizada();
 

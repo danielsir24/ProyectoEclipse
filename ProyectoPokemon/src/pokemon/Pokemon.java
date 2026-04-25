@@ -101,7 +101,7 @@ public class Pokemon {
 		this.idPokemon = 0;
 		// La vida y stats empiezan con un valor al azar pequeño
 		this.vitalidad = random.nextInt(10) + 20;
-		this.vitalidadMaxima = 0;
+		this.vitalidadMaxima = this.vitalidad;
 		this.ataque = random.nextInt(10) + 1;
 		this.defensa = random.nextInt(10) + 1;
 		this.ataqueEspecial = random.nextInt(10) + 1;
@@ -162,7 +162,7 @@ public class Pokemon {
 	public void inicializarEstadisticasBase() {
 		Random rnd = new Random();
 	    // Valores aleatorios para un nivel 1
-	    this.vitalidadMaxima = rnd.nextInt(10) + 1;
+	    this.vitalidadMaxima = rnd.nextInt(30) + 20;
 	    this.vitalidad = this.vitalidadMaxima; 
 	    this.ataque = rnd.nextInt(10) + 1;
 	    this.defensa = rnd.nextInt(10) + 1;
