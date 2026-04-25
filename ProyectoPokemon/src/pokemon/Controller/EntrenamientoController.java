@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import pokemon.EntrenadorDAO;
 import pokemon.Main;
@@ -30,7 +31,7 @@ public class EntrenamientoController {
     @FXML private Button btnEntrenar;
 
     // Lista para manejar los Pokémon que el entrenador lleva encima
-    private ArrayList<Pokemon> equipoActual;
+    private List<Pokemon> equipoActual;
 
     // Se ejecuta al abrir la pantalla para preparar los desplegables y el dinero
     @FXML
@@ -46,10 +47,10 @@ public class EntrenamientoController {
 
         // Cargamos las 4 opciones de entrenamiento con sus beneficios y costes
         comboEntrenamiento.getItems().addAll(
-            "EntrenamientoLevel1 (20xNivel Pokedollars) [+Def, +DefEsp, +Vit]",
-            "EntrenamientoLevel2 (30xNivel Pokedollars) [+Atq, +AtqEsp, +Vel]",
-            "EntrenamientoLevel3 (40xNivel Pokedollars) [+Vel, +Atq, +Def, +Vit]",
-            "EntrenamientoLevel4 (40xNivel Pokedollars) [+Vel, +AtqEsp, +DefEsp, +Vit]"
+            "Entrenamiento Pesado (20xNivel Pokedollars) [+Def, +DefEsp, +Vit]",
+            "Entrenamiento Furioso (30xNivel Pokedollars) [+Atq, +AtqEsp, +Vel]",
+            "Entrenamiento Funcional (40xNivel Pokedollars) [+Vel, +Atq, +Def, +Vit]",
+            "Entrenamiento Onírico (40xNivel Pokedollars) [+Vel, +AtqEsp, +DefEsp, +Vit]"
         );
     }
 
@@ -71,10 +72,10 @@ public class EntrenamientoController {
 
         // Calculamos el precio multiplicando el factor del entrenamiento por el nivel del Pokémon
         switch (indiceTipo) {
-            case 0: coste = 20 * pElegido.getNivel(); break; // Entrenamiento Level 1
-            case 1: coste = 30 * pElegido.getNivel(); break; // Entrenamiento Level 2
-            case 2: coste = 40 * pElegido.getNivel(); break; // Entrenamiento Level 3
-            case 3: coste = 40 * pElegido.getNivel(); break; // Entrenamiento Level 4
+            case 0: coste = 20 * pElegido.getNivel(); break; // Entrenamiento Pesado
+            case 1: coste = 30 * pElegido.getNivel(); break; // Entrenamiento Furioso
+            case 2: coste = 40 * pElegido.getNivel(); break; // Entrenamiento Funcional
+            case 3: coste = 40 * pElegido.getNivel(); break; // Entrenamiento Onírico
         }
 
         // Comprobamos si el entrenador tiene dinero suficiente antes de seguir
@@ -85,23 +86,23 @@ public class EntrenamientoController {
 
         // Aplicamos la subida de +5 puntos en los atributos correspondientes según el nivel elegido
         switch (indiceTipo) {
-            case 0: // EntrenamientoLevel1 enfocada a defensa y vida
+            case 0: // Entrenamiento Pesado enfocada a defensa y vida
                 pElegido.setDefensa(pElegido.getDefensa() + 5);
                 pElegido.setDefensaEspecial(pElegido.getDefensaEspecial() + 5);
                 pElegido.setVitalidadMaxima(pElegido.getVitalidadMaxima() + 5);
                 break;
-            case 1: // EntrenamientoLevel2 enfocada a ataque y velocidad
+            case 1: // Entrenamiento Furioso enfocada a ataque y velocidad
                 pElegido.setAtaque(pElegido.getAtaque() + 5);
                 pElegido.setAtaqueEspecial(pElegido.getAtaqueEspecial() + 5);
                 pElegido.setVelocidad(pElegido.getVelocidad() + 5);
                 break;
-            case 2: // EntrenamientoLevel3 equilibrado (Vel, Atq, Def, Vit)
+            case 2: // Entrenamiento Funcional equilibrado (Vel, Atq, Def, Vit)
                 pElegido.setVelocidad(pElegido.getVelocidad() + 5);
                 pElegido.setAtaque(pElegido.getAtaque() + 5);
                 pElegido.setDefensa(pElegido.getDefensa() + 5);
                 pElegido.setVitalidadMaxima(pElegido.getVitalidadMaxima() + 5);
                 break;
-            case 3: // EntrenamientoLevel4 especial (Vel, AtqEsp, DefEsp, Vit)
+            case 3: // Entrenamiento Onírico especial (Vel, AtqEsp, DefEsp, Vit)
                 pElegido.setVelocidad(pElegido.getVelocidad() + 5);
                 pElegido.setAtaqueEspecial(pElegido.getAtaqueEspecial() + 5);
                 pElegido.setDefensaEspecial(pElegido.getDefensaEspecial() + 5);
