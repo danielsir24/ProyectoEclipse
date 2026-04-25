@@ -53,9 +53,7 @@ public class CasinoController {
     // Objeto para conectar con la base de datos y guardar el dinero
     private EntrenadorDAO entrenadorDAO = new EntrenadorDAO();
 
-    // ══════════════════════════════════════════════
-    // INICIALIZACIÓN
-    // ══════════════════════════════════════════════
+    //Inicializacion
     @FXML
     void initialize() {
         // Rellenamos los desplegables de los juegos
@@ -77,9 +75,8 @@ public class CasinoController {
         }
     }
 
-    // ══════════════════════════════════════════════
-    // MINIJUEGO 1: CARA O CRUZ
-    // ══════════════════════════════════════════════
+    // Cara o cruz 
+    
     @FXML
     void jugarCaraCruz(ActionEvent event) {
         try {
@@ -123,9 +120,7 @@ public class CasinoController {
         }
     }
 
-    // ══════════════════════════════════════════════
-    // MINIJUEGO 2: RULETA
-    // ══════════════════════════════════════════════
+   // Ruleta
     @FXML
     void jugarRuleta(ActionEvent event) {
         try {
@@ -188,9 +183,7 @@ public class CasinoController {
         }
     }
 
-    // ══════════════════════════════════════════════
-    // MINIJUEGO 3: ADIVINAR NÚMERO
-    // ══════════════════════════════════════════════
+    // Adivinar el numero 
     @FXML
     void jugarAdivinarNumero(ActionEvent event) {
         try {
@@ -228,19 +221,19 @@ public class CasinoController {
 
    //Botones de salida
     
-    // Botón de salir de la Pestaña 1
+    // Botón de salir de cara o cruz
     @FXML
     void volverAlMenu(ActionEvent event) {
         ejecutarSalida(event);
     }
     
-    // Botón de salir de la Pestaña 2
+    // Botón de salir de ruleta 
     @FXML
     void volverAlMenu1(ActionEvent event) {
         ejecutarSalida(event);
     }
     
-    // Botón de salir de la Pestaña 3
+    // Botón de salir de adivinar numero 
     @FXML
     void volverAlMenu2(ActionEvent event) {
         ejecutarSalida(event);
