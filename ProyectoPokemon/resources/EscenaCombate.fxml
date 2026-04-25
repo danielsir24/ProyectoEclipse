@@ -16,7 +16,7 @@
 
 
     <ImageView fx:id="imgFondoCombate" fitHeight="470" fitWidth="1280" preserveRatio="false" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
-        <image><Image url="@images/ImagenFondoLiga.png" /></image>
+        <image><Image url="@images/ImagenFondoCombate.png" /></image>
     </ImageView>
 
 
@@ -66,7 +66,7 @@
 
     <ImageView fx:id="spritePokemonRival" fitHeight="233.0" fitWidth="289.0" layoutX="856.0" layoutY="65.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.2, 0, 6);" AnchorPane.leftAnchor="856.0" AnchorPane.topAnchor="65.0">
       <image>
-         <Image url="@images/Lance.png" />
+         <Image url="@spritesPokemonsGifsFront/9.gif" />
       </image></ImageView>
 
 
@@ -191,10 +191,5 @@
             </VBox>
         </HBox>
     </VBox>
-   <ImageView fx:id="spriteRival" fitHeight="148.0" fitWidth="142.0" layoutX="1110.0" layoutY="51.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 8);">
-      <image>
-         <Image url="@../../../../Desktop/imagenesgenero/ProyectoPokemon/resources/spritesPokemonsGifsBack/Aerodactyl.gif" />
-      </image>
-   </ImageView>
 
 </AnchorPane>
