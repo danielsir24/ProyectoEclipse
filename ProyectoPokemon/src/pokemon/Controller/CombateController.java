@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import java.util.List;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +28,10 @@ import pokemon.Movimiento;
 import pokemon.Pokedex;
 import pokemon.PokedexDAO;
 import pokemon.Pokemon;
+import pokemon.PokemonDAO;
 import pokemon.Tipo;
+import pokemon.Entrenador;
+
 
 public class CombateController {
 
@@ -83,7 +87,17 @@ public class CombateController {
 	private Button btnMovimiento3;
 	@FXML
 	private Button btnMovimiento4;
-
+	@FXML
+	private Button btnLuchar;
+	@FXML
+	private Button btnMochila;
+	@FXML
+	private Button btnHuir;
+	@FXML
+	private Button btnCambiarPokemon;
+	
+	//Botones: btnMovimiento1 btnMovimiento2 btnMovimiento3 btnMovimiento4 btnLuchar btnMochila btnHuir btnCambiarPokemon
+ 
 	@FXML
 	private Label lblTipoMovimiento;
 	@FXML
@@ -278,12 +292,15 @@ public class CombateController {
 
 	@FXML
 	private void handleMochila(ActionEvent event) {
+		
+		
+		
 
 		// TODO: Mostrar los objetos disponibles en la mochila
 		// Por ahora puedes poner solo un mensaje en el log
 		// diciendo que la mochila no esta implementada todavia
 	}
-
+	//-----------------------------------------------------------------------------------------------------------
 	// ══════════════════════════════════════════════════
 	// BOTON HUIR - el jugador abandona el combate
 	// Siempre puede huir, pero el rival gana
@@ -326,14 +343,79 @@ public class CombateController {
 	// FINALIZAR COMBATE - se llama cuando alguno de
 	// los dos llega a 6 KO o cuando no quedan pokemon
 	// ══════════════════════════════════════════════════
-
+	
+	public void calcularPokedollars(int pdGanados) {
+		Entrenador e = new Entrenador();
+		
+		int pdActuales= e.getPokedollars();
+		
+		pdGanados = pdActuales/3;
+		
+	
+	}
+	
+	
+	
+	
+	public void repartirExperiencia(int expTotal) {
+		PokemonDAO pDAO = new PokemonDAO();
+		List<Pokemon> equipo = Main.miEquipo;
+		
+		
+		
+		if(equipo==null || equipo.isEmpty()) return;
+				
+		txtLog.appendText("Repartida un total de: " + expTotal+ " EXP entre " + equipo.size() + " pokemón.\n");
+		
+		for(Pokemon p: equipo) {
+			int expDividida = (p.getNivel() + (nivelRival * 10)) / 4;
+			boolean si = pDAO.actualizarExperiencia(p, expDividida);
+			
+			if(si) {
+				txtLog.appendText(p.getMote() + " ha ganado "+ expDividida);
+			}
+		}
+		
+		
+		
+	}
+	//No me sale,ayuda
 	private void finalizarCombate(boolean ganoJugador) {
+		 btnMovimiento1.setDisable(true);
+		 btnMovimiento2.setDisable(true);
+		 btnMovimiento3.setDisable(true); 
+		 btnMovimiento4.setDisable(true); 
+		 btnLuchar.setDisable(true); 
+		 btnMochila.setDisable(true); 
+		 btnHuir.setDisable(true); 
+		 btnCambiarPokemon.setDisable(true);
+		 
+		 Entrenador e = new Entrenador();
+
+		
+	    if (ganoJugador == true) {
+	    	//([NIVEL_POKEMON] + [NIVEL_POKEMON_RIVAL]*10) / 4 
+	    	
+	   
+	    	
+	        int expGanada = 
+	        int pokedollars = calcularPokedollars();
+	        repartirExperiencia(expGanada);
+	       e.ganarPokedollars(pdGanados);
+	        
+	        
+	        
+	    } else {
+	    	
+	        txtLog.appendText("Has sido derrotado...\n");
+	    }
+	}
+		
 
 		// TODO: Si ganoJugador es true:
 		// - Calcular experiencia con la formula:
 		// (nivelJugador + nivelRival * 10) / 4
 		// - Sumarle la experiencia al pokemon jugador
-		// - El rival pierde 1/3 de sus pokedollars
 		// - Escribir en el log "Ganaste el combate!"
 
 		// TODO: Si ganoJugador es false:
@@ -343,7 +425,7 @@ public class CombateController {
 		// TODO: Desactivar todos los botones para que
 		// no se pueda seguir jugando
 		// panelAcciones.setDisable(true);
-	}
+	
 
 	// ══════════════════════════════════════════════════
 	// ACTUALIZAR PANTALLA - refresca todos los labels,

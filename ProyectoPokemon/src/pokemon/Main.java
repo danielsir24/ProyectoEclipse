@@ -7,10 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main extends Application {
 
-	public static ArrayList<Pokemon> miEquipo = new ArrayList<>();
+	public static List<Pokemon> miEquipo = new ArrayList<>();
 	public static ArrayList<Pokemon> pcPokemon = new ArrayList<>();
 
 	public static Entrenador entrenadorLogueado;
