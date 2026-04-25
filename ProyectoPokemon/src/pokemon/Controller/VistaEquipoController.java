@@ -125,6 +125,7 @@ public class VistaEquipoController {
 			// Verificamos si existe un pokemon en esta posición de la lista
 			if (i < Main.miEquipo.size()) {
 				Pokemon pActual = Main.miEquipo.get(i);
+				System.out.println("DEBUG: Vida del bicho: " + pActual.getVitalidadMaxima());
 
 				if (pActual != null) {
 					// Rellenamos datos

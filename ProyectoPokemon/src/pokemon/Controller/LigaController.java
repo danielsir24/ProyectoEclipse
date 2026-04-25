@@ -100,7 +100,10 @@ public class LigaController {
         }
     }
 
-
+    @FXML
+    private void seleccionarRival1(MouseEvent event) {
+        seleccionarRival(1);
+    }
 
     @FXML
     private void seleccionarRival2(MouseEvent event) {
@@ -162,11 +165,32 @@ public class LigaController {
     @FXML
     private void handleSalir(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/EscenaMenuPrincipal.fxml"));
+            // 1. Verificamos la ruta antes de intentar cargarla
+            java.net.URL urlVistas = getClass().getResource("/EscenaMenu.fxml");
+            
+            if (urlVistas == null) {
+                // Si entra aquí, es que el archivo NO está en la raíz del classpath (carpeta bin/)
+                // Intenta buscarlo relativo al controlador
+                urlVistas = getClass().getResource("EscenaMenu.fxml");
+                
+                // Si sigue siendo nulo, el archivo no se llama así o no está compilado.
+                if(urlVistas == null){
+                    throw new IllegalStateException("FATAL: No se encuentra el archivo EscenaMenuPrincipal.fxml. "
+                            + "Revisa que el nombre sea exacto y que esté dentro de la carpeta src (o resources).");
+                }
+            }
+
+            // 2. Cargamos el FXML validado
+            FXMLLoader loader = new FXMLLoader(urlVistas);
+            Parent root = loader.load();
+            
+            // 3. Cambiamos la escena
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
+            
         } catch (IOException e) {
+            System.err.println("Error interno de JavaFX al procesar el archivo FXML.");
             e.printStackTrace();
         }
     }
