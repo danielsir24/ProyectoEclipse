@@ -15,6 +15,7 @@ public class Main extends Application {
 
 	public static Entrenador entrenadorLogueado;
 	public static Entrenador rivalActual;
+	public static boolean venimosDeCombate = false;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

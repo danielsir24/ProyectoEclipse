@@ -278,16 +278,22 @@ public class CombateController {
 
 	@FXML
 	private void handleMochila(ActionEvent event) {
+		//Metemos esto para que cuando nos metamos a mochila no se pierda el combate si no se quede guardado y poder seguir desde donde hemos salidlo.
+		 Main.venimosDeCombate = true;
+		//Abirmos mochila para ver neustros objetos
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/EscenaMochila.fxml"));
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Mochila");
+			stage.show();
+			
+		} catch (IOException e) {
+			log("Error al entrar a mochila" + e.getMessage());
+			e.printStackTrace();
+		}
 
-		// TODO: Mostrar los objetos disponibles en la mochila
-		// Por ahora puedes poner solo un mensaje en el log
-		// diciendo que la mochila no esta implementada todavia
 	}
-
-	// ══════════════════════════════════════════════════
-	// BOTON HUIR - el jugador abandona el combate
-	// Siempre puede huir, pero el rival gana
-	// ══════════════════════════════════════════════════
 
 	@FXML
 	private void handleHuir(ActionEvent event) {
