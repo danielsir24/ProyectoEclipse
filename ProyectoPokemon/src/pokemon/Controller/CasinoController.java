@@ -98,7 +98,7 @@ public class CasinoController {
                 return;
             }
 
-            // Restamos la apuesta usando tu método de gastar
+            // Restamos la apuesta
             Main.entrenadorLogueado.gastarPokedollars(apuesta);
 
             // Tiramos la moneda al azar
@@ -131,12 +131,13 @@ public class CasinoController {
         try {
             int apuesta = Integer.parseInt(txtApuestaRuleta.getText());
             String colorElegido = comboColorRuleta.getValue();
-            String numTexto = txtNumeroRuleta.getText();
+            String numTexto = txtNumeroRuleta.getText().trim();
 
-            // Validamos que no intente jugar sin elegir absolutamente nada
+            // ¡AQUÍ ESTÁ EL ARREGLO! 
+            // Si el color es nulo o vacío Y ADEMÁS el texto del número está vacío, cortamos.
             if ((colorElegido == null || colorElegido.isEmpty()) && numTexto.isEmpty()) {
                 lblResultadoRuleta.setText("¡Debes elegir un número, un color o ambos!");
-                return;
+                return; // El return hace que el método acabe aquí y no te quite dinero
             }
 
             // Comprobamos saldo
@@ -145,7 +146,7 @@ public class CasinoController {
                 return;
             }
 
-            // Le cobramos la apuesta al darle al botón
+            // Como ha pasado los filtros, le cobramos la apuesta al darle al botón
             Main.entrenadorLogueado.gastarPokedollars(apuesta);
 
             int premioTotal = 0;
@@ -225,9 +226,7 @@ public class CasinoController {
         }
     }
 
-    // ══════════════════════════════════════════════
-    // NAVEGACIÓN (BOTONES DE SALIDA)
-    // ══════════════════════════════════════════════
+   //Botones de salida
     
     // Botón de salir de la Pestaña 1
     @FXML
