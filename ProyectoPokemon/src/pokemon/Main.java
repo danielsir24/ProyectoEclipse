@@ -17,7 +17,7 @@ public class Main extends Application {
 	public static Entrenador rivalActual;
 	public static boolean venimosDeCombate = false;
 	public static boolean venimosDeLiga = false;
-
+	public static ArrayList<Pokemon> equipoRival = new ArrayList<>();
 	@Override
 	public void start(Stage primaryStage) throws Exception {
  

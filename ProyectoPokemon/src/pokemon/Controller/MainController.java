@@ -40,8 +40,10 @@ public class MainController {
 	@FXML
 	private Label labelPassword;
 
-	// --- MÉTODOS DE NAVEGACIÓN ---
-	// Estos métodos se activan al pulsar los botones del menú para ir a cada sección
+	@FXML
+	private void handleEntrenamiento(ActionEvent event) {
+	    cambiarEscena(event, "/EscenaEntrenamiento.fxml", "Entrenamiento");
+	}
 
 	@FXML
 	private void handleEquipo(ActionEvent event) {

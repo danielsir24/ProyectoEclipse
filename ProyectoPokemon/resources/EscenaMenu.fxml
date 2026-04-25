@@ -113,6 +113,25 @@
                               </StackPane>
                            </graphic>
                         </Button>
+                        
+                        <Button mnemonicParsing="false" onAction="#handleEntrenamiento"  prefHeight="150.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-padding: 0;" 
+    GridPane.rowIndex="3">
+    <graphic>
+        <StackPane prefHeight="150.0" prefWidth="180.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true">
+                    <image><Image url="@images/ImagenEntrenamiento.jpg" /></image>
+                </ImageView>
+                <Label style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);" 
+                    text="ENTRENAR" textFill="WHITE" 
+                    StackPane.alignment="BOTTOM_CENTER">
+                    <font><Font name="Pokemon Solid Normal" size="18.0" /></font>
+                    <StackPane.margin><Insets bottom="10.0" /></StackPane.margin>
+                </Label>
+            </children>
+        </StackPane>
+    </graphic>
+</Button>
                      </children>
                   </GridPane>
                </children>

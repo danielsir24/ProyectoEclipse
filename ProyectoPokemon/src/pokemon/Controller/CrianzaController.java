@@ -74,7 +74,7 @@ public class CrianzaController {
 		if (elegido == null)
 			return;
 		pokemonMacho = elegido;
-		// Ponemos el mote (o el nombre si no tiene mote) en la etiqueta
+		// Ponemos el mote 
 		nombreMacho.setText(pokemonMacho.getMote() != null && !pokemonMacho.getMote().isEmpty() ? pokemonMacho.getMote()
 				: pokemonMacho.getNombre());
 		cargarSprite(imageMacho, pokemonMacho);

@@ -357,7 +357,7 @@ public class CombateController {
 		final int danoFinalJugador = danoJugador;
 		final int danoFinalRival = danoRival;
 
-		// Timeline - cada KeyFrame es un segundo de retardo
+
 		// para que el jugador pueda leer los mensajes uno a uno
 		javafx.animation.Timeline timeline = new javafx.animation.Timeline(
 
