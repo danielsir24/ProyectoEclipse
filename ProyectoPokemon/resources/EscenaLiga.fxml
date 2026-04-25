@@ -29,7 +29,7 @@
     <HBox alignment="CENTER_LEFT" spacing="12" AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="340" AnchorPane.topAnchor="80">
 
         <!-- Rival 1 -->
-        <StackPane fx:id="cardRival1" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
+        <StackPane fx:id="cardRival1" onMouseClicked="#seleccionarRival1" prefHeight="300" prefWidth="200" style="-fx-cursor: hand;">
             <ImageView fx:id="imgRival1" fitHeight="300" fitWidth="200" preserveRatio="false" style="-fx-opacity: 0.85;">
                 <image><Image url="@images/LORELEI.png" /></image>
             </ImageView>
