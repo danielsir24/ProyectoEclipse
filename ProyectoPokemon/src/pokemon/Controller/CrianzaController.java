@@ -225,7 +225,7 @@ public class CrianzaController {
 		}
 
 		PokemonDAO pokemonDAO = new PokemonDAO();
-		boolean guardado = pokemonDAO.insertarPokemonCapturado(bebe, Main.entrenadorLogueado.getId_Entrenador(), ubicacion);
+		boolean guardado = pokemonDAO.guardarPokemon(bebe, Main.entrenadorLogueado.getId_Entrenador(), ubicacion);
 
 		if (guardado) {
 			String destino = ubicacion == 1 ? "se ha unido a tu equipo" : "se ha enviado al PC";
