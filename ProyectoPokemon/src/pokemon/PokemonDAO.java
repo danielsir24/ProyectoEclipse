@@ -75,6 +75,7 @@ public class PokemonDAO {
 				if (rs.next()) {
 					// Si lo encuentra, creamos el objeto y vamos rellenando sus datos
 					p = new Pokemon();
+					System.out.println("OJO: " + p.getNombre() + " tiene de vida MAX: " + p.getVitalidadMaxima());
 					int idFichaPokedex = rs.getInt("num_Pokedex");
 					PokedexDAO pokedexDAO = new PokedexDAO();
 					Pokedex especieCargada = pokedexDAO.buscarPorIdPokedex(idFichaPokedex);
@@ -334,7 +335,10 @@ public class PokemonDAO {
 	// Este método asigna los ataques básicos de la especie a un Pokémon recién capturado
 	public void asignarAtaquesPredetermiandos(int idPokemon, int numPokedex) {
 		String sqlSelect = "SELECT id_Movimiento FROM pokedex_Movimiento WHERE num_Pokedex = ? LIMIT 4";
-		String sqlInsert = "INSERT INTO pokemon_movimento (id_Pokemon, id_Movimiento, activo, puntos_Poder) VALUES (?, ?, 1; 20)";
+
+		// Y con esto se los insertamos al Pokemon concreto
+		String sqlInsert = "INSERT INTO pokemon_movimento (id_Pokemon, id_Movimiento, activo, puntos_Poder) VALUES (?, ?, 1, 20)";
+
 
 		try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
 			psSelect.setInt(1, numPokedex);
@@ -358,6 +362,11 @@ public class PokemonDAO {
 
 	// Busca el ID más alto de la tabla Pokémon para saber cuál ha sido el último en crearse
 	public int obtenerUltimoIdGenerado() {
+		// Esta consulta busca el número más alto en id_Pokemon
+		// para saber ccual es el ultimo que s eha creado y asi meterle los movimientos
+
+		//Al final no ha hecho falta exterminar a los Pokemon
+
 		String sql = "SELECT MAX(id_Pokemon) FROM pokemon";
 
 		try (PreparedStatement st = conexion.prepareStatement(sql); ResultSet rs = st.executeQuery(sql)) {
