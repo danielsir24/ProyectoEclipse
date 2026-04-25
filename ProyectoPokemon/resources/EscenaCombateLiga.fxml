@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CombateLigaController">
+<AnchorPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.Controller.CombateLigaController">
 
 
     <ImageView fx:id="imgFondoCombate" fitHeight="470" fitWidth="1280" preserveRatio="false" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
@@ -64,16 +64,7 @@
     </VBox>
 
 
-    <ImageView fx:id="spritePokemonRival" fitHeight="233.0" fitWidth="289.0" layoutX="856.0" layoutY="65.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.2, 0, 6);" AnchorPane.leftAnchor="856.0" AnchorPane.topAnchor="65.0">
-      <image>
-         <Image url="@images/Lance.png" />
-      </image></ImageView>
-
-
-    <ImageView fx:id="spritePokemon" fitHeight="332.0" fitWidth="300.0" layoutX="132.0" layoutY="170.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 8);" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="170.0">
-      <image>
-         <Image url="@images/Aerodactyl.gif" />
-      </image></ImageView>
+    <ImageView fx:id="spritePokemon" fitHeight="332.0" fitWidth="300.0" layoutX="132.0" layoutY="170.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 8);" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="170.0" />
 
     <HBox alignment="CENTER_LEFT" spacing="14" style="-fx-background-color: rgba(0,0,0,0.55); -fx-padding: 4 16 4 16;" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
         <Label fx:id="lblTurno" style="-fx-font-family: 'Pokemon Solid Normal'; -fx-font-size: 11px; -fx-text-fill: #ffffff;" text="Turno 1" />
@@ -194,10 +185,6 @@
             </VBox>
         </HBox>
     </VBox>
-   <ImageView fx:id="spriteRival" fitHeight="148.0" fitWidth="142.0" layoutX="1110.0" layoutY="51.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 8);">
-      <image>
-         <Image url="@images/Lance.png" />
-      </image>
-   </ImageView>
+   <ImageView fx:id="spriteRival" fitHeight="185.0" fitWidth="244.0" layoutX="856.0" layoutY="95.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 8);" />
 
 </AnchorPane>

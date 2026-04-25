@@ -13,7 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pokemon.*;
-
+import pokemon.Pokedex;
+import pokemon.PokedexDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,8 +73,6 @@ public class LigaController {
             e.setPokedollars(0);
             listaAltoMando.add(e);
         }
-
-        Collections.shuffle(listaAltoMando);
 
         Entrenador campeon = new Entrenador();
         campeon.setNom_Entrenador("Azul");
@@ -162,9 +161,19 @@ public class LigaController {
 
     @FXML
     private void handleCombatir(ActionEvent event) {
+        // Comprobamos que hay un rival seleccionado
+        if (rivalSeleccionado == -1) {
+            System.out.println("[Liga] No hay rival seleccionado.");
+            return;
+        }
+
+        // Guardamos el rival en Main para que CombateLigaController pueda acceder
+        Main.rivalActual = listaAltoMando.get(rivalSeleccionado - 1);
+
+        // Generamos el equipo rival con 6 pokemon aleatorios
+        generarEquipoRival();
+
         try {
-
-
             Parent root = FXMLLoader.load(getClass().getResource("/EscenaCombateLiga.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -172,6 +181,54 @@ public class LigaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void generarEquipoRival() {
+        // Calculamos el rango de niveles del equipo del jugador
+        int nivelMin = Integer.MAX_VALUE;
+        int nivelMax = Integer.MIN_VALUE;
+        for (Pokemon p : Main.miEquipo) {
+            if (p.getNivel() < nivelMin) nivelMin = p.getNivel();
+            if (p.getNivel() > nivelMax) nivelMax = p.getNivel();
+        }
+
+        PokedexDAO pokedexDAO = new PokedexDAO();
+        java.util.Random random = new java.util.Random();
+        Main.equipoRival = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++) {
+            Pokedex especie = pokedexDAO.buscarPorIdPokedex(
+                    pokedexDAO.generarIdPokedexAleatorio());
+
+            Pokemon p = new Pokemon();
+            p.setInfoPokedex(especie);
+            if (especie != null) {
+                p.setNombre(especie.getNombreEspecie());
+                p.setMote(especie.getNombreEspecie());
+            } else {
+                p.setNombre("Pokemon");
+            }
+
+            // Nivel aleatorio dentro del rango del jugador
+            int nivel = nivelMin == nivelMax ? nivelMin
+                      : nivelMin + random.nextInt(nivelMax - nivelMin + 1);
+            p.setNivel(nivel);
+
+            // Stats proporcionales a los del equipo jugador
+            int mediaAtk = Main.miEquipo.stream().mapToInt(Pokemon::getAtaque).sum() / Main.miEquipo.size();
+            int mediaDef = Main.miEquipo.stream().mapToInt(Pokemon::getDefensa).sum() / Main.miEquipo.size();
+
+            p.setAtaque(mediaAtk + random.nextInt(5) - 2);
+            p.setDefensa(mediaDef + random.nextInt(5) - 2);
+            p.setVitalidad(20 + nivel * 3);
+            p.setVitalidadMaxima(p.getVitalidad());
+            p.setEstado(Estado.NORMAL);
+            p.setEstamina(100);
+
+            Main.equipoRival.add(p);
+            System.out.println("[Liga] Pokemon rival: " + p.getNombre() + " Nv." + p.getNivel());
+        }
+        System.out.println("[Liga] Equipo rival generado con " + Main.equipoRival.size() + " pokemon.");
     }
 
     @FXML
