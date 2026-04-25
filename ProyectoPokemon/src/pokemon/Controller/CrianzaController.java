@@ -42,14 +42,11 @@ public class CrianzaController {
 	@FXML
 	private Label nombreHembra;
 
-	// Variables para guardar los dos Pokémon que el usuario elija para criar
+	// Variables para guardar los dos Pokemon que el usuario elija para criar
 	private Pokemon pokemonMacho = null;
 	private Pokemon pokemonHembra = null;
 	private final Random random = new Random();
 
-	// ══════════════════════════════════════════════
-	// INICIALIZACIÓN
-	// ══════════════════════════════════════════════
 
 	@FXML
 	public void initialize() {
@@ -68,9 +65,7 @@ public class CrianzaController {
 		}
 	}
 
-	// ══════════════════════════════════════════════
-	// SELECCIÓN DE POKÉMON
-	// ══════════════════════════════════════════════
+
 
 	// Abre la lista de selección filtrando solo por machos
 	@FXML
@@ -100,7 +95,7 @@ public class CrianzaController {
 		System.out.println("Hembra seleccionada: " + pokemonHembra.getNombre());
 	}
 
-	// Crea una ventana emergente (Stage modal) para elegir un Pokémon del equipo o del PC
+	// Crea una ventana emergente 
 	private Pokemon abrirVentanaSeleccion(Sexo sexo, Pokemon excluir) {
 		List<Pokemon> candidatos = new ArrayList<>();
 		// Filtramos por sexo y evitamos que el mismo Pokémon sea padre y madre a la vez
@@ -126,7 +121,7 @@ public class CrianzaController {
 
 		Pokemon[] resultado = { null };
 
-		// Configuramos la ventana visualmente (estilos, scroll y botones)
+		// Configuramos la ventana visualmente
 		Stage ventana = new Stage();
 		ventana.initModality(Modality.APPLICATION_MODAL);
 		ventana.setTitle("Elige un Pokemon " + (sexo == Sexo.MACHO ? "Macho" : "Hembra"));
@@ -140,7 +135,7 @@ public class CrianzaController {
 		titulo.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 0 0 8 0;");
 		root.getChildren().add(titulo);
 
-		// Creamos una "fila" clicable por cada Pokémon candidato
+		// Creamos una clicable por cada Pokémon candidato
 		for (Pokemon p : candidatos) {
 			HBox fila = new HBox(12);
 			fila.setAlignment(Pos.CENTER_LEFT);
@@ -168,13 +163,13 @@ public class CrianzaController {
 					mote + " " + simbolo + "  Nv." + p.getNivel() + "  |  " + p.getNombre() + "  " + origen);
 			info.setStyle("-fx-font-size: 12px;");
 
-			// Al hacer clic, guardamos el Pokémon elegido y cerramos el modal
+			// Al hacer clic, guardamos el Pokemon elegido y cerramos el modal
 			final Pokemon pFinal = p;
 			fila.setOnMouseClicked(e -> {
 				resultado[0] = pFinal;
 				ventana.close();
 			});
-			// Efectos visuales de Hover (pasar el ratón por encima)
+			// Efectos visuales de Hover
 			fila.setOnMouseEntered(e -> fila.setStyle("-fx-background-color: #d0eaff; -fx-background-radius: 8; "
 					+ "-fx-border-color: #4aabff; -fx-border-radius: 8; "
 					+ "-fx-padding: 8 14 8 10; -fx-cursor: hand;"));
@@ -203,24 +198,21 @@ public class CrianzaController {
 		return resultado[0];
 	}
 
-	// ══════════════════════════════════════════════
-	// CRIAR
-	// ══════════════════════════════════════════════
 
-	// Lógica principal para cruzar a los dos padres y generar el bebé
+	// Logica principal para cruzar a los dos padres y generar el bebé
 	@FXML
 	private void criar(ActionEvent event) {
 		if (pokemonMacho == null || pokemonHembra == null) {
 			mostrarMensaje("Selecciona un Pokemon MACHO y una HEMBRA antes de criar.");
 			return;
 		}
-		// Comprobamos que ambos tengan puntos de fertilidad (intentos de crianza)
+		// Comprobamos que ambos tengan puntos de fertilidad
 		if (pokemonMacho.getFertilidad() <= 0 || pokemonHembra.getFertilidad() <= 0) {
 			mostrarMensaje("Uno de los Pokemon no tiene fertilidad suficiente para criar.");
 			return;
 		}
 
-		// Creamos el objeto del bebé heredando cosas de los padres
+		// Creamos el objeto del bebe heredando cosas de los padres
 		Pokemon bebe = generarBebe(pokemonMacho, pokemonHembra);
 
 		// Gastamos un punto de fertilidad a cada padre
@@ -237,7 +229,7 @@ public class CrianzaController {
 			Main.pcPokemon.add(bebe);
 		}
 
-		// Guardamos el nuevo Pokémon en la base de datos
+		// Guardamos el nuevo Pokemon en la base de datos
 		PokemonDAO pokemonDAO = new PokemonDAO();
 		boolean guardado = pokemonDAO.guardarPokemon(bebe, Main.entrenadorLogueado.getId_Entrenador(), ubicacion);
 
@@ -259,11 +251,7 @@ public class CrianzaController {
 		imageHembra.setImage(null);
 	}
 
-	// ══════════════════════════════════════════════
-	// GENERACIÓN DEL BEBÉ
-	// ══════════════════════════════════════════════
-
-	// Aquí calculamos las estadísticas y el nombre del nuevo Pokémon
+	// Aqui calculamos las estadisticas y el nombre del nuevo Pokémon
 	private Pokemon generarBebe(Pokemon padre, Pokemon madre) {
 		Pokemon bebe = new Pokemon();
 
@@ -342,11 +330,8 @@ public class CrianzaController {
 		return Math.max(1, promedio + variacion);
 	}
 
-	// ══════════════════════════════════════════════
-	// UTILIDADES
-	// ══════════════════════════════════════════════
 
-	// Carga la imagen del Pokémon en un ImageView pasando su número de Pokédex
+	// Carga la imagen del Pokemon en un ImageView pasando su numero de Pokédex
 	private void cargarSprite(ImageView imageView, Pokemon pokemon) {
 		if (pokemon.getInfoPokedex() == null)
 			return;
@@ -363,11 +348,8 @@ public class CrianzaController {
 		System.out.println("[Crianza] " + mensaje);
 	}
 
-	// ══════════════════════════════════════════════
-	// VOLVER AL MENÚ
-	// ══════════════════════════════════════════════
 
-	// Método para cerrar esta pantalla y volver al menú principal de JavaFX
+	// Metodo para cerrar esta pantalla y volver al menú principal
 	@FXML
 	private void volverAlMenu(ActionEvent event) {
 		try {
