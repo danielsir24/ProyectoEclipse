@@ -11,7 +11,7 @@ public class Pokemon {
 	private String mote;
 	private int idPokemon;
 	private int vitalidad;
-	private int vitalidadMaxima; // Añadido para controlar el límite de curación
+	private int vitalidadMaxima; 
 	private int ataque;
 	private int defensa;
 	private int ataqueEspecial;

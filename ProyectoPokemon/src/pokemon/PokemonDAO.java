@@ -70,6 +70,7 @@ public class PokemonDAO {
 			try (ResultSet rs = statement.executeQuery()) {
 				if (rs.next()) {
 					p = new Pokemon();
+					System.out.println("OJO: " + p.getNombre() + " tiene de vida MAX: " + p.getVitalidadMaxima());
 					int idFichaPokedex = rs.getInt("num_Pokedex");
 					PokedexDAO pokedexDAO = new PokedexDAO();
 					Pokedex especieCargada = pokedexDAO.buscarPorIdPokedex(idFichaPokedex);
@@ -325,7 +326,7 @@ public class PokemonDAO {
 		// Select pa pillar los ataques de cada especie buscando su numero en la pokedex
 		String sqlSelect = "SELECT id_Movimiento FROM pokedex_Movimiento WHERE num_Pokedex = ? LIMIT 4";
 		// Y con esto se los insertamos al Pokemon concreto
-		String sqlInsert = "INSERT INTO pokemon_movimento (id_Pokemon, id_Movimiento, activo, puntos_Poder) VALUES (?, ?, 1; 20)";
+		String sqlInsert = "INSERT INTO pokemon_movimento (id_Pokemon, id_Movimiento, activo, puntos_Poder) VALUES (?, ?, 1, 20)";
 
 		try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
 			psSelect.setInt(1, numPokedex);
@@ -356,9 +357,7 @@ public class PokemonDAO {
 		// Esta consulta busca el número más alto en id_Pokemon
 		// para saber ccual es el ultimo que s eha creado y asi meterle los movimientos
 
-		// Lo malo es que cualquier pokemon que hubiera hasta la creacion de este
-		// metodo debe ser extermianadopq nova a tenermovimientos, siempre
-		// os recordaremos como unos grandes
+		//Al final no ha hecho falta exterminar a los Pokemon
 		String sql = "SELECT MAX(id_Pokemon) FROM pokemon";
 
 		// Hace falta que siga cometandocada vez que hago una conexion con la base de

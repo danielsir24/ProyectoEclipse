@@ -125,7 +125,6 @@ public class CapturaController {
 			this.pokemonActual.setNivel(nivelAleatorio);
 			this.pokemonActual.setMote(especie.getNombreEspecie());
 			this.pokemonActual.setSexo(Math.random() < 0.5 ? pokemon.Sexo.MACHO : pokemon.Sexo.HEMBRA);
-
 			lblNombre.setText(pokemonActual.getNombre());
 			lblNivel.setText("Niv." + pokemonActual.getNivel());
 
