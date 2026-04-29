@@ -4,17 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-	//Combate Pokemon.
+/**
+ * Clase combate del Proyecto.
+ * 
+ * Gestiona los turnos del mismo, calcula el daño,
+ * la lógica de vistoria-derrota y recompensas.
+ * 
+ * @author Juan Carlos Benítez, Alejandro Varela, Daniel Sirbu y Adrian
+ * @version 1.0
+ * @since 2026
+ */
 	public class Combate {
-    
+		/** Entrenador que maneja el jugador */
 		private Entrenador jugador;
-		private Entrenador rival; 
+		/** Entrenador controlado por la máquina */
+		private Entrenador rival;
+		/** Pokemon actual del jugador en el combate */ 
 		private Pokemon pokemonJugador;
+		/** Pokemon actual de la máquina (rival) en el combate */
 		private Pokemon pokemonRival;
+		/** Turno del combate */
 		private int turnoActual;
+		/** Actuaciones ocurridas durante el combate */
 		private Log logCombate;
+		/** Objeto para generar valores aleatorios */
 		private Random random = new Random();
 
+		/** Constructor de la clase Combate
+		 * Inicializa el combate cada entrenador con sus pokemon
+		 * 
+		 * @param jugador Entrenador controlado por el jugador
+		 * @param rival Entrenador rival controlado por la máquina
+		 * @param pokemonJugador Pokemon por el jugador para combatir
+		 * @param pokemonRival Pokemon que ha elegido la máquina para combatir
+		 */
     public Combate(Entrenador jugador, Entrenador rival, Pokemon pokemonJugador, Pokemon pokemonRival) {
         this.jugador = jugador;
         this.rival = rival;
@@ -28,6 +51,17 @@ import java.util.Random;
     }
 
 
+    /**
+     * Ejecuta el turno del combate.
+     * 
+     * Primero ataca el jugador eligiendo el movimiento, comprueba si tiene estamina o no,
+     * despues ataca el rival con su movimiento (aleatorio). Por último,
+     * se comprueba si el pokémon atacado tiene vida para seguir luchando o
+     * finalizar el combate
+     * 
+     * @param movJugador Movimiento elegido por el jugador
+     * @return String con el resultado
+     */
     //Ejecuta un turno completo de combate.
     public String ejecutarTurno(Movimiento movJugador) {
         StringBuilder sb = new StringBuilder();
@@ -72,7 +106,15 @@ import java.util.Random;
     }
 
     
-    // Calcula el daño y aplica los efectos a los Pokemon
+    /**
+     * Calcula el daño del ataque y lo aplica al pokemon rival
+     * 
+     * @param atacante Pokemon que ataca
+     * @param defensor Pokemon que recibe el ataque
+     * @param mov Movimiento elegido
+     * @param sb Aqui se escribe el resumen del turno
+     * @return String describe el ataque realizado
+     */
     private String realizarAtaque(Pokemon atacante, Pokemon defensor, Movimiento mov, StringBuilder sb) {
         String descripcion = atacante.getNombre() + " usa " + mov.getNombre();
         
@@ -113,6 +155,14 @@ import java.util.Random;
         return descripcion;
     }
 
+    /**
+     * Elige movimiento aleatorio 
+     * 
+     * Si el rival no tiene cargada ninguna lista, realiza un movimiento "Placaje"
+     * de tipo normal que hace 40 de daño por defecto
+     * 
+     * @return Movimiento elegido por la máquina
+     */
     private Movimiento elegirMovimientoRival() {
         if (pokemonRival.getMovimientos() != null && !pokemonRival.getMovimientos().isEmpty()) {
             return pokemonRival.getMovimientos().get(random.nextInt(pokemonRival.getMovimientos().size()));
@@ -123,7 +173,12 @@ import java.util.Random;
     }
 
     
-    //Finaliza el combate
+    /**
+     * Finaliza el combate si gana el jugador añade los Pokedollars pertinentes
+     * y si pierdes resta los Pokedollars pertinentes
+     * @param victoria true si jugador gana y false si jugador pierde
+     * @param sb escribe el resultado
+     */
     public void finalizarCombate(boolean victoria, StringBuilder sb) {
         if (victoria) {
             sb.append("\n¡HAS GANADO!");
@@ -150,16 +205,30 @@ import java.util.Random;
         new EntrenadorDAO().actualizarPokedollars(jugador);
         logCombate.guardarEnFichero();
     }
-
+    
+    /**
+     * Nos da el pokemon que tiene el jugador en el combate
+     * 
+     * @return el pokemon
+     */
     public Pokemon getPokemonJugador() { 
     	return pokemonJugador; 
     }
     
-    
+    /**
+     * Nos da el pokemon que tiene la maquina(rival) en el combate
+     * 
+     * @return el pokemon
+     */
     public Pokemon getPokemonRival() { 
     	return pokemonRival; 
     }
  
+    /**
+     * Nos devuelve el entrenador con el que estamos luchando
+     * 
+     * @return el Entrenador rival
+     */
     public Entrenador getEntrenadorRival() {
         return this.rival;
     }
