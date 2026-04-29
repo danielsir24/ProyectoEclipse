@@ -7,18 +7,57 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que gestiona el acceso a datos de los objetos Pokemon. Permite realizar
+ * operaciones CRUD sobre la base de datos.
+ * 
+ * @author Alejandro Varela, Daniel Sirbu, Adrían Rodriguez, Juan Carlos Benitez
+ * 
+ * @version 1.0
+ */
 public class PokemonDAO {
 
+	/** Conexión a la base de datos. */
 	private Connection conexion;
 
-	// El constructor se encarga de pillar la conexión a la base de datos nada más
-	// empezar
+	/**
+	 * El constructor se encarga de realizar la conexión a la base de datos nada más
+	 * empezar, usando la clase ConexionBD
+	 * 
+	 */
 	public PokemonDAO() {
 		this.conexion = ConexionBD.getConnection();
 	}
 
-	// Este método sirve para registrar un Pokémon nuevo en la base de datos (por
-	// ejemplo, al capturarlo)
+	/**
+	 * Este método sirve para registrar un Pokémon nuevo en la base de datos (por
+	 * ejemplo, al capturarlo), realizando una consulta SQL de tipo INSERT, que
+	 * recoge todos los datos del pokemon, lo cera en la base de datos con un nuevo
+	 * id, y mete las estadisticas recoidas en los huecos en la base de datos
+	 * utilizando los statements de la conexion tanto para recogerlos como para
+	 * establecerlos
+	 * 
+	 * @param pokemon      Este es el pokemon que ha sido capturado, utilizando
+	 *                     getters y setters se recogerran las estadisticas y se
+	 *                     establecerán en la base de datos
+	 * 
+	 * @param idEntrenador Este parametro sirve para que el metodo sepa en que
+	 *                     sesión del entreador debe almacenar el pokemon, según la
+	 *                     id de entrenador que lo haya capturado
+	 * 
+	 * @param ubicacion    Este parametro sirve para saber si el pokemon se
+	 *                     encuentra en el PC o en el qeuipo. Si en el momento de
+	 *                     guardarlo, el espacion del equipo está lleno, se le
+	 *                     asiganra a la ubicacion un valor de 0, pero si no lo
+	 *                     está, se le asignará un 1
+	 * 
+	 * @return Este return nos devuelve un booleano de filas afectadas por la
+	 *         consulta, a modode DEBUG,para saber si se ha ejecutado correctamente
+	 *         el numero total de consultas
+	 * 
+	 * @throws SQLException Por si la cosulta de SQL falla al insertar los datos, o
+	 *                      la base de datos no responde
+	 */
 	public boolean guardarPokemon(Pokemon pokemon, int idEntrenador, int ubicacion) {
 
 		String sql = "INSERT INTO pokemon (num_Pokedex, id_Entrenador, id_Objeto, mote, vitalidad, "
@@ -68,7 +107,22 @@ public class PokemonDAO {
 		}
 	}
 
-	// Método para buscar un Pokémon concreto usando su ID de la base de datos
+	/**
+	 * Este metodo sirve, como indica su nombre, para buscar a un pokemon que haya
+	 * sido capturado por el entrenador, usando como metodo de busqieda su ID, el
+	 * cual es único. Esto con la finalidad de poder hacer cambios en este pokemon
+	 * desde Java, usando los metodos asociados a esta clase o a la clase Pokemon
+	 * 
+	 * @param idBusqueda Usamos este parametro para saber con que pokemon estamos
+	 *                   "operando" por así decirlo. Este parametro lo intoduciremos
+	 *                   en el parentesis del metodo
+	 * 
+	 * @return Un objeto de la clase Pokemon con toda su información y devuelve null
+	 *         si el ID no existe o no se encuentra
+	 * 
+	 * @throws SQLException: Si la consulta SELECT falla o la base de datos no
+	 *                       responde
+	 */
 	public Pokemon buscarPorIdPokemon(int idBusqueda) {
 		Pokemon p = null;
 		String sql = "SELECT * FROM pokemon WHERE id_Pokemon = ?";
@@ -123,8 +177,24 @@ public class PokemonDAO {
 		return p;
 	}
 
-	// Recupera todos los Pokémon que el entrenador tiene guardados en el PC
-	// (ubicación 0)
+	/**
+	 * Este metodo busca los pokemon en la base de datos según el id de su
+	 * entrenador, y a continuación se fija en el valor de su atributo "ubicación"
+	 * para saber si está en la caja del PC, lo cual sería 0. Este metodo lo usamos
+	 * a la hora de cargar los pokemon que hay en el PC en la vista del PC
+	 * 
+	 * @param idEntrenador El id del entrenador, en el que se fijará el metodo para
+	 *                     saber cuales son los pokemon que tiene que buscar
+	 * 
+	 * @param posicionCaja La posición de la caja le servirá al metodo para
+	 *                     determinar si el Pokemon realmente está en el PC
+	 * 
+	 * @return Un ArrayList con los Pokémon del entrenador que están en el PC. Si no
+	 *         tiene ninguno, la lista se devolverá vacía pero no null
+	 * 
+	 * @throws SQLException por si la consulta falla al buscar los Pokemon o la base
+	 *                      de datos no responde
+	 */
 	public ArrayList<Pokemon> obtenerPokemonPC(int idEntrenador, int posicionCaja) {
 		ArrayList<Pokemon> listaPC = new ArrayList<>();
 		String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 0";
@@ -189,6 +259,19 @@ public class PokemonDAO {
 	}
 
 	// Este método actualiza los datos de un Pokémon tras un combate o entrenamiento
+	/**
+	 * Este metodo nos sirve para actualizar los parametros de un Pokemon en la base
+	 * de datos tras completar un combate,unentrenamiento, cambiar un
+	 * movimeinto...etc
+	 * 
+	 * @param p Es el Pokemon del cual vamos a actualizar los datos
+	 * 
+	 * @return Devuelve true si la consulta y la actualizacion e los datos ha sido
+	 *         exitosa, si falla,devuelve false
+	 * 
+	 * @throws SQLException por si la consulta UPDATE falla o la base de datos no
+	 *                      responde
+	 */
 	public boolean actualizarPokemon(Pokemon p) {
 		String sql = "UPDATE pokemon SET vitalidad = ?, experiencia = ?, nivel = ?, estado = ?, ubicacion = ?, vitalidadMaxima = ?, ataque = ?, defensa = ?, ataq_Especial = ?, def_Especial = ?, velocidad = ? WHERE id_Pokemon = ?";
 
@@ -220,6 +303,18 @@ public class PokemonDAO {
 	}
 
 	// Cambia la ubicación del Pokémon al equipo (ubicación 1)
+	/**
+	 * Con este metodo cambiamosla ubicaión del Pokemon a,donde esta era 0, así, la
+	 * base de datos lo leerá y sabrá que el pokemon ha pasado a estar en el equipo
+	 * siempre y cuando haya espacio
+	 * 
+	 * @param idPokemon El id del pokemon cuya ubicación va a ser cambiada
+	 * 
+	 * @return Devuelve true si la consulta ha sido exitosa, si no, devuelve false
+	 * 
+	 * @throws SQLException por si la consulta falla al cambiar la ubicación del
+	 *                      pokemon o la base de datos no responde
+	 */
 	public boolean moverAlEquipo(int idPokemon) {
 		String sql = "UPDATE pokemon SET ubicacion = 1 WHERE id_Pokemon = ?";
 		try (Connection conexion = ConexionBD.getConnection();
@@ -232,7 +327,18 @@ public class PokemonDAO {
 		}
 	}
 
-	// Cambia la ubicación del Pokémon al PC (ubicación 0)
+	/**
+	 * Este metodo es igual al anterior, pero al revés. Cambia la ubicación del
+	 * Pokemon a 0 donde era 1, para que su nueva ubiación sea el PC
+	 * 
+	 * @param idPokemon El id del pokemon cuya ubicación va a ser cambiada
+	 * 
+	 * @return Devuelve true si la consulta ha sido exitosa, si no, devuelve false
+	 * 
+	 * @throws SQLException por si la consulta falla al cambiar la ubicación del
+	 *                      pokemon o la base de datos no responde
+	 * 
+	 */
 	public boolean moverAlPC(int idPokemon) {
 		String sql = "UPDATE pokemon SET ubicacion = 0 WHERE id_Pokemon = ?";
 		try (Connection conexion = ConexionBD.getConnection();
@@ -245,7 +351,18 @@ public class PokemonDAO {
 		}
 	}
 
-	// Borra definitivamente un Pokémon de la base de datos (lo libera)
+	/**
+	 * Este metodo sirve para borrar un Pokemon de la base de datos ejecutando una
+	 * consulta DELETE de la fila de dicho Pokemon usando su id
+	 * 
+	 * @param idPokemon eL ID del Pokemon que va a ser liberado (borrado de la base
+	 *                  de datos)
+	 * 
+	 * @return Devuelve true si la elimiación ha sido exitosa, si no, devuelve false
+	 * 
+	 * @throws SQLException por si la consulta falla al eliminar al pokemon o la
+	 *                      base de datos no responde
+	 */
 	public boolean liberarPokemon(int idPokemon) {
 		try {
 			// Primero borramos los movimientos del pokemon
@@ -273,6 +390,21 @@ public class PokemonDAO {
 	}
 
 	// Obtiene los 6 (o menos) Pokémon que el entrenador lleva encima para combatir
+
+	/**
+	 * Este metidi sirve para obtener un ArrayList de los Poekmon que estén en el
+	 * equipo, cuya ubicación será 1. Es igual al de obtener los Pokemon del PC pero
+	 * con la ubicación cambiada
+	 * 
+	 * @param idEntrenador El id del entrenador cuyo equipo será buscado en la
+	 *                     consulta de la base de datos
+	 * 
+	 * @return Devuelve un ArrayList con los pokemon de ese entrenador cuya
+	 *         ubicación sea 1.
+	 * 
+	 * @throws SQLException por si la consulta falla al buscar los Pokemon o la base
+	 *                      de datos no responde
+	 */
 	public ArrayList<Pokemon> obtenerEquipo(int idEntrenador) {
 		ArrayList<Pokemon> equipoRecuperado = new ArrayList<>();
 		String sql = "SELECT * FROM pokemon WHERE id_Entrenador = ? AND ubicacion = 1";
@@ -343,6 +475,21 @@ public class PokemonDAO {
 
 	// Este método asigna los ataques básicos de la especie a un Pokémon recién
 	// capturado
+	/**
+	 * Este metodo se encarga de buscar en la base de datos la información de la
+	 * Pokedex de ese pokemon segun su numero de la pokedex, e insertar en el
+	 * Pokemon en concreto los ataques basicos dada su especie.
+	 * 
+	 * @param idPokemon  El id del Pokemon en el que se va a aintroducir la lista de
+	 *                   ataques
+	 * 
+	 * @param numPokedex El numero de la Pokedex en el que se buscará la lista de
+	 *                   ataques que se vaa introducir en el pokemon.
+	 * 
+	 * @throws SQLException por si la consulta falla al buscar el id del Pokemon o
+	 *                      introducir la lista de atques en él, o la base de datos
+	 *                      no responde
+	 */
 	public void asignarAtaquesPredetermiandos(int idPokemon, int numPokedex) {
 		String sqlSelect = "SELECT id_Movimiento FROM pokedex_Movimiento WHERE num_Pokedex = ? LIMIT 4";
 
@@ -370,6 +517,22 @@ public class PokemonDAO {
 	}
 
 	// Metodo para ganar experiencia
+	/**
+	 * Este metodo sirve para actualizar en la base de datos los puntos de
+	 * experiencia totales que tiene un pokemon através de un UPDATE
+	 * 
+	 * @param p                 El pokemon al que van a ser sumados esos puntos de
+	 *                          experiencia
+	 * 
+	 * @param experienciaGanada La experiencia que va a ser sumada a la que ya
+	 *                          existe en la base de datos
+	 * 
+	 * @return Si la actualizacion de experiencia ha sido exitosa, devuelve true, en
+	 *         caso de nos serlo, devuleve false
+	 * 
+	 * @throws SQLException Por si la consulta falla al actualizar la experienciadel
+	 *                      Pokemon
+	 */
 	public boolean actualizarExperiencia(Pokemon p, int experienciaGanada) {
 		p.ganarExperiencia(experienciaGanada);
 
@@ -402,6 +565,15 @@ public class PokemonDAO {
 
 	// Busca el ID más alto de la tabla Pokémon para saber cuál ha sido el último en
 	// crearse
+
+	/**
+	 * Este metodo sirve para buscar en la base de datos el ultimo id que ha sido
+	 * generado, con la finalidad de encontrar al ultimo pokemonañadido a ella
+	 * 
+	 * @return Devuelve el ultimo id que ha generado la base de datos
+	 * 
+	 * @throws SQLException Por si la consulta falla al buscar el ultimo id
+	 */
 	public int obtenerUltimoIdGenerado() {
 		// Esta consulta busca el número más alto en id_Pokemon
 		// para saber ccual es el ultimo que s eha creado y asi meterle los movimientos
@@ -424,6 +596,20 @@ public class PokemonDAO {
 	}
 
 	// Añadimos el objeto del pokemon a la bbdd
+	/**
+	 * Este metodo sirve para actualizar mediante un UPDATE el parametro de Objeto
+	 * de un pokemon, con la finalidadde equiparle un objeto
+	 * 
+	 * @param idPokemon El id del Pokemon al que se le va a añadir el objeto
+	 * 
+	 * @param idObjeto  El id del objeto que va a ser añadido
+	 * 
+	 * @return Devuelve true si el objeto ha sido añadido exitosamente mediante la
+	 *         consulta, si no, devuelve un false
+	 * 
+	 * @throws SQLException Por si la consulta falla al añadirel objeto o la base de
+	 *                      datos no responde
+	 */
 	public boolean equiparObjeto(int idPokemon, int idObjeto) {
 		String sql = "UPDATE pokemon SET id_Objeto = ? WHERE id_Pokemon = ?";
 		try (Connection conexion = ConexionBD.getConnection(); PreparedStatement st = conexion.prepareStatement(sql)) {
@@ -440,6 +626,23 @@ public class PokemonDAO {
 		}
 	}
 
+	/**
+	 * Este metodo recoge una List de los movimientos que tenga un Pokemon según el
+	 * id que recoja, este lo usamos para añadir su ista de movimientos en la
+	 * pantalla del PC o la pantalla del COMBATE. No confunir con el anterior metodo
+	 * relacionado con los movimeintos, pues en este caso, si los movimientos de un
+	 * pokemon han sido cambiados, este recoge los movimientos que tiene el pokemon
+	 * y no los predeterminados de su especie
+	 * 
+	 * @param idPokemon El id del Pokemon cuyos movimientos van a ser obtenidos
+	 * 
+	 * @param conexion  La conexion con la base de datos
+	 * 
+	 * @return Devuelve una lista con los movimentos del Pokemon en concreto según
+	 *         su id
+	 * @throws SQLException Por si la consulta falla al buscar los movimientos del
+	 *                      pokemon según su id
+	 */
 	private List<Movimiento> obtenerMovimientosPokemon(int idPokemon, Connection conexion) {
 		List<Movimiento> movimientos = new ArrayList<>();
 
