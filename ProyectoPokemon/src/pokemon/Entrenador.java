@@ -1,18 +1,41 @@
 package pokemon;
 
-// Esta clase representa a los entrenadores del juego (jugador y rivales)
+/**
+ * Clase que representa a los entrenadores del juego (el jugador y los rivales)
+ * Guarda los datos que van a la base de datos y controla el dinero y la contraseña
+ * * @author [Adrian Rodriguez, Juan Carlos Benitez, Daniel Sirbu, Alejandro Varela]
+ * @version 1.0
+ */
 public class Entrenador {
-	// Atributos básicos que guardamos en la base de datos para cada entrenador
+	
+	/** ID del entrenador en la base de datos */
 	private int id_Entrenador;
+	
+	/** Nombre del entrenador */
 	private String nom_Entrenador;
+	
+	/** Contraseña para hacer login */
 	private String password;
+	
+	/** Ruta de la imagen del entrenador */
 	private String img_Entrenador;
+	
+	/** Cantidad de Pokedollars que tiene */
 	private int pokedollars;
+	
+	/** Tipo de entrenador (Jugador, Rival, etc) */
 	private String tipo_Entrenador;
 
-	// Constructor para crear un entrenador con todos sus datos ya rellenos
-	public Entrenador(int id_Entrenador, String nom_Entrenador, String password, String img_Entrenador, int pokedollars,
-			String tipo_Entrenador) {
+	/**
+	 * Constructor con todos los parametros para crear un entrenador
+	 * * @param id_Entrenador El ID del entrenador
+	 * @param nom_Entrenador El nombre del entrenador
+	 * @param password La contraseña
+	 * @param img_Entrenador La imagen del perfil
+	 * @param pokedollars El dinero inicial
+	 * @param tipo_Entrenador El tipo de entrenador
+	 */
+	public Entrenador(int id_Entrenador, String nom_Entrenador, String password, String img_Entrenador, int pokedollars, String tipo_Entrenador) {
 		super();
 		this.id_Entrenador = id_Entrenador;
 		this.nom_Entrenador = nom_Entrenador;
@@ -22,86 +45,149 @@ public class Entrenador {
 		this.tipo_Entrenador = tipo_Entrenador;
 	}
 
-	// Constructor vacío que usamos para registros nuevos, dándole 1000 monedas por defecto
+	/**
+	 * Constructor vacio para nuevos registros
+	 * Le da 1000 pokedollars por defecto al empezar
+	 */
 	public Entrenador() {
 		super();
 		this.pokedollars = 1000;
 	}
 
-	// Método para sumar dinero al saldo del entrenador (por ejemplo, tras ganar un combate)
+	/**
+	 * Suma dinero al entrenador cuando gana un combate
+	 * * @param cantidad El dinero a sumar (tiene que ser mayor que 0)
+	 */
 	public void ganarPokedollars(int cantidad) {
 		if (cantidad > 0) {
 			this.pokedollars += cantidad;
 		}
 	}
 
-	// Método para restar dinero cuando compramos algo, comprobando primero si nos llega el saldo
+	/**
+	 * Resta dinero si compramos algo y comprueba si tenemos suficiente saldo
+	 * * @param precio Lo que cuesta el objeto
+	 * @return true si se ha podido comprar, false si no hay dinero suficiente
+	 */
 	public boolean gastarPokedollars(int precio) {
 		if (precio > 0 && this.pokedollars >= precio) {
 			this.pokedollars -= precio;
 			return true;
 		}
-		return false; // Si no hay dinero suficiente, devuelve false
+		return false; 
 	}
 
-	// Sirve para verificar si la contraseña escrita en el login coincide con la guardada
+	/**
+	 * Comprueba si la contraseña escrita en el login es igual a la guardada
+	 * * @param intento La contraseña que mete el usuario
+	 * @return true si coinciden, false si no
+	 */
 	public boolean comprobarPassword(String intento) {
 		return this.password != null && this.password.equals(intento);
 	}
 
-	// Método rápido para imprimir los datos principales por la consola
+	/**
+	 * Imprime por consola los datos principales del entrenador
+	 */
 	public void mostrarPerfil() {
 		System.out.println("ID: " + this.id_Entrenador + " | Nombre: " + this.nom_Entrenador + " | Clase: "
 				+ this.tipo_Entrenador + " | Dinero: " + this.pokedollars + " ₽");
 	}
 
-	// ----- GETTERS Y SETTERS -----
-	// Métodos necesarios para poder leer o modificar los atributos privados desde otras clases
+	// GETTERS Y SETTERS
 
+	/**
+	 * Obtiene el ID del entrenador
+	 * @return El ID del entrenador
+	 */
 	public int getId_Entrenador() {
 		return id_Entrenador;
 	}
 
+	/**
+	 * Cambia el ID del entrenador
+	 * @param id_Entrenador El nuevo ID
+	 */
 	public void setId_Entrenador(int id_Entrenador) {
 		this.id_Entrenador = id_Entrenador;
 	}
 
+	/**
+	 * Obtiene el nombre del entrenador
+	 * @return El nombre del entrenador
+	 */
 	public String getNom_Entrenador() {
 		return nom_Entrenador;
 	}
 
+	/**
+	 * Cambia el nombre del entrenador
+	 * @param nom_Entrenador El nuevo nombre
+	 */
 	public void setNom_Entrenador(String nom_Entrenador) {
 		this.nom_Entrenador = nom_Entrenador;
 	}
 
+	/**
+	 * Obtiene la contraseña
+	 * @return La contraseña
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Cambia la contraseña
+	 * @param password La nueva contraseña
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	 * Obtiene la imagen del entrenador
+	 * @return La ruta de la imagen
+	 */
 	public String getImg_Entrenador() {
 		return img_Entrenador;
 	}
 
+	/**
+	 * Cambia la imagen del entrenador
+	 * @param img_Entrenador La nueva ruta de la imagen
+	 */
 	public void setImg_Entrenador(String img_Entrenador) {
 		this.img_Entrenador = img_Entrenador;
 	}
 
+	/**
+	 * Obtiene el dinero del entrenador
+	 * @return Los pokedollars
+	 */
 	public int getPokedollars() {
 		return pokedollars;
 	}
 
+	/**
+	 * Cambia la cantidad de dinero
+	 * @param pokedollars El nuevo dinero
+	 */
 	public void setPokedollars(int pokedollars) {
 		this.pokedollars = pokedollars;
 	}
 
+	/**
+	 * Obtiene el tipo de entrenador
+	 * @return El tipo de entrenador
+	 */
 	public String getTipo_Entrenador() {
 		return tipo_Entrenador;
 	}
 
+	/**
+	 * Cambia el tipo de entrenador
+	 * @param tipo_Entrenador El nuevo tipo
+	 */
 	public void setTipo_Entrenador(String tipo_Entrenador) {
 		this.tipo_Entrenador = tipo_Entrenador;
 	}
